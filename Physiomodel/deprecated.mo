@@ -7,10 +7,9 @@ package deprecated
     parameter String unitsString="";
     parameter Real toAnotherUnitCoef=1;
 
-    Physiolibrary.Molar.PositiveConcentrationFlow q_in
-                              annotation (Placement(
-          transformation(extent={{-120,-20},{-80,20}}), iconTransformation(extent={{-10,-10},
-              {10,10}})));
+    Physiolibrary.Chemical.Interfaces.ChemicalPort_a q_in annotation (Placement(
+          transformation(extent={{-120,-20},{-80,20}}), iconTransformation(
+            extent={{-10,-10},{10,10}})));
     Modelica.Blocks.Interfaces.RealOutput actualConc
                            annotation (Placement(transformation(extent={{-20,30},{20,70}}),
           iconTransformation(extent={{-20,-20},{20,20}},
@@ -40,13 +39,12 @@ package deprecated
   end ConcentrationMeasure;
 
   model MolarConcentrationCompartment
-    extends Physiolibrary.Utilities.State;
-    extends Physiolibrary.Icons.ConcentrationCompartment;
+    extends Physiolibrary.SteadyStates.Interfaces.SteadyState;
+    extends Physiolibrary.Icons.Substance;
 
-    Physiolibrary.Molar.NegativeConcentrationFlow q_out
-                               annotation (Placement(
-          transformation(extent={{62,-32},{102,8}}),  iconTransformation(extent={{-10,-10},
-              {10,10}})));
+    Physiolibrary.Chemical.Interfaces.ChemicalPort_b q_out annotation (
+        Placement(transformation(extent={{62,-32},{102,8}}), iconTransformation(
+            extent={{-10,-10},{10,10}})));
     parameter Real initialSoluteMass;
 
     Modelica.Blocks.Interfaces.RealInput SolventVolume(
@@ -68,7 +66,7 @@ package deprecated
       q_out.conc = if (SolventVolume>0) then soluteMass / SolventVolume else 0;
   //  q_out.conc = if initial() or (SolventVolume>0) then soluteMass / SolventVolume else 0;
   //  der(soluteMass) = q_out.q / Library.SecPerMin;
-    stateValue = soluteMass;
+    state = soluteMass;
 
     change = q_out.q/60;  //TODO: not change per min
     annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
@@ -86,7 +84,7 @@ package deprecated
 
   model PressureControledCompartment
     "Multiple PressureFlow connector with pressures from multiple inputs"
-   extends Physiolibrary.Utilities.State;
+   extends Physiolibrary.SteadyStates.Interfaces.SteadyState;
 
     Modelica.Blocks.Interfaces.RealInput
                           pressure(final quantity="Pressure", final displayUnit=
@@ -95,10 +93,10 @@ package deprecated
           rotation=0), iconTransformation(extent={{-20,-20},{20,20}},
         rotation=270,
         origin={0,100})));
-    Physiolibrary.Hydraulic.PositivePressureFlow   y
-      "PressureFlow output connectors"
-      annotation (Placement(transformation(extent={{100,-20},{140,20}},
-          rotation=0), iconTransformation(extent={{-120,-20},{-80,20}})));
+    Physiolibrary.Hydraulic.Interfaces.HydraulicPort_a y
+      "PressureFlow output connectors" annotation (Placement(transformation(
+            extent={{100,-20},{140,20}}, rotation=0), iconTransformation(extent
+            ={{-120,-20},{-80,20}})));
 
     parameter Real initialVolume;
     Modelica.Blocks.Interfaces.RealOutput
@@ -122,7 +120,7 @@ package deprecated
 
     y.pressure = pressure;
 
-    stateValue = Volume;
+    state = Volume;
     change = y.q/60;
 
     annotation (Documentation(info="<html>
@@ -141,13 +139,13 @@ package deprecated
 
   model VolumeCompartement
     "Generate constant pressure independ on inflow or outflow"
-    extends Physiolibrary.Utilities.State;
+    extends Physiolibrary.SteadyStates.Interfaces.SteadyState;
 
     parameter Real pressure=0;
 
-    Physiolibrary.Hydraulic.PositivePressureFlow   con
-      annotation (Placement(transformation(extent={{100,-20},{140,20}},
-          rotation=0), iconTransformation(extent={{-120,-20},{-80,20}})));
+    Physiolibrary.Hydraulic.Interfaces.HydraulicPort_a con annotation (
+        Placement(transformation(extent={{100,-20},{140,20}}, rotation=0),
+          iconTransformation(extent={{-120,-20},{-80,20}})));
 
     parameter Real initialVolume;
 
@@ -178,7 +176,7 @@ package deprecated
               con.q = 0;
             end if;
 
-    stateValue = Volume;
+    state = Volume;
     change = con.q/60;
     annotation (
       Icon(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},
@@ -192,16 +190,15 @@ package deprecated
   end VolumeCompartement;
 
   model MassStorageCompartment
-    extends Physiolibrary.Utilities.State;
-     extends Physiolibrary.Icons.ConcentrationCompartment;
+    extends Physiolibrary.SteadyStates.Interfaces.SteadyState;
+     extends Physiolibrary.Icons.Substance;
 
     parameter Real MINUTE_FLOW_TO_MASS_CONVERSION = 1
       "this constant will multiply the flow inside integration to mass";
 
-    Physiolibrary.Molar.NegativeConcentrationFlow q_out
-                               annotation (Placement(
-          transformation(extent={{62,-32},{102,8}}),  iconTransformation(extent={{-10,-10},
-              {10,10}})));
+    Physiolibrary.Chemical.Interfaces.ChemicalPort_b q_out annotation (
+        Placement(transformation(extent={{62,-32},{102,8}}), iconTransformation(
+            extent={{-10,-10},{10,10}})));
     parameter Real initialSoluteMass;
 
     Modelica.Blocks.Interfaces.RealOutput soluteMass(
@@ -219,7 +216,7 @@ package deprecated
     q_out.conc = soluteMass;
     //der(soluteMass) = q_out.q / Library.SecPerMin;
 
-    stateValue = soluteMass;
+    state = soluteMass;
     change = q_out.q * MINUTE_FLOW_TO_MASS_CONVERSION/60;
 
     annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
@@ -236,12 +233,11 @@ package deprecated
   end MassStorageCompartment;
 
   model MassConcentrationCompartment
-    extends Physiolibrary.Utilities.State;
-     extends Physiolibrary.Icons.ConcentrationCompartment;
-    Physiolibrary.Molar.NegativeConcentrationFlow q_out
-                               annotation (Placement(
-          transformation(extent={{62,-32},{102,8}}),  iconTransformation(extent={{-10,-10},
-              {10,10}})));
+    extends Physiolibrary.SteadyStates.Interfaces.SteadyState;
+     extends Physiolibrary.Icons.Substance;
+    Physiolibrary.Chemical.Interfaces.ChemicalPort_b q_out annotation (
+        Placement(transformation(extent={{62,-32},{102,8}}), iconTransformation(
+            extent={{-10,-10},{10,10}})));
     parameter Real initialSoluteMass;
 
     Modelica.Blocks.Interfaces.RealInput SolventVolume(
@@ -263,7 +259,7 @@ package deprecated
       q_out.conc = if (SolventVolume>0) then soluteMass / SolventVolume else 0;
   //  q_out.conc = if initial() or (SolventVolume>0) then soluteMass / SolventVolume else 0;
   //  der(soluteMass) = q_out.q / Library.SecPerMin;
-    stateValue = soluteMass;
+    state = soluteMass;
 
     change = q_out.q/60;
     annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
@@ -280,16 +276,15 @@ package deprecated
   end MassConcentrationCompartment;
 
   model MolarStorageCompartment
-    extends Physiolibrary.Utilities.State;
-   extends Physiolibrary.Icons.ConcentrationCompartment;
+    extends Physiolibrary.SteadyStates.Interfaces.SteadyState;
+   extends Physiolibrary.Icons.Substance;
 
     parameter Real MINUTE_FLOW_TO_MASS_CONVERSION = 1
       "this constant will multiply the flow inside integration to mass";
 
-    Physiolibrary.Molar.NegativeConcentrationFlow q_out
-                               annotation (Placement(
-          transformation(extent={{62,-32},{102,8}}),  iconTransformation(extent={{-10,-10},
-              {10,10}})));
+    Physiolibrary.Chemical.Interfaces.ChemicalPort_b q_out annotation (
+        Placement(transformation(extent={{62,-32},{102,8}}), iconTransformation(
+            extent={{-10,-10},{10,10}})));
     parameter Real initialSoluteMass;
 
     Modelica.Blocks.Interfaces.RealOutput soluteMass(
@@ -307,7 +302,7 @@ package deprecated
     q_out.conc = soluteMass;
     //der(soluteMass) = q_out.q / Library.SecPerMin;
 
-    stateValue = soluteMass;
+    state = soluteMass;
     change = q_out.q * MINUTE_FLOW_TO_MASS_CONVERSION/60;
 
     annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
@@ -324,12 +319,11 @@ package deprecated
   end MolarStorageCompartment;
 
   model WaterColloidOsmoticCompartment
-    extends Physiolibrary.Utilities.State;
+    extends Physiolibrary.SteadyStates.Interfaces.SteadyState;
 
-    Physiolibrary.Osmotic.NegativeOsmoticFlow q_out(o(final displayUnit="g/ml"))
-                               annotation (Placement(
-          transformation(extent={{62,-32},{102,8}}),  iconTransformation(extent={{-10,-10},
-              {10,10}})));
+    Physiolibrary.Osmotic.Interfaces.OsmoticPort_b q_out(o(final displayUnit=
+            "g/ml")) annotation (Placement(transformation(extent={{62,-32},{102,
+              8}}), iconTransformation(extent={{-10,-10},{10,10}})));
     parameter Real initialWaterVolume(final quantity="Volume", displayUnit="ml");
 
     Modelica.Blocks.Interfaces.RealInput NotpermeableSolutes(
@@ -350,7 +344,7 @@ package deprecated
     q_out.o = if (WaterVolume>0) then NotpermeableSolutes / WaterVolume else 0;
 
     change = q_out.q/60;
-    stateValue = WaterVolume;
+    state = WaterVolume;
   //  der(WaterVolume) = q_out.q / Library.SecPerMin;
     annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
               -100},{100,100}}), graphics), Icon(coordinateSystem(
@@ -365,13 +359,12 @@ package deprecated
   model PartialPressure
     "partial gas concentration in ml/ml multiplied by ambient pressure"
 
-    Physiolibrary.Hydraulic.NegativePressureFlow
-                                      outflow         annotation (Placement(
-          transformation(extent={{-20,-120},{20,-80}}), iconTransformation(extent=
-             {{-10,-110},{10,-90}})));
-    Physiolibrary.Molar.PositiveConcentrationFlow q_in
-      annotation (Placement(transformation(extent={{-20,80},{20,120}}),
-          iconTransformation(extent={{-10,90},{10,110}})));
+    Physiolibrary.Hydraulic.Interfaces.HydraulicPort_b outflow annotation (
+        Placement(transformation(extent={{-20,-120},{20,-80}}),
+          iconTransformation(extent={{-10,-110},{10,-90}})));
+    Physiolibrary.Chemical.Interfaces.ChemicalPort_a q_in annotation (Placement(
+          transformation(extent={{-20,80},{20,120}}), iconTransformation(extent
+            ={{-10,90},{10,110}})));
     Modelica.Blocks.Interfaces.RealInput
                           ambientPressure annotation (Placement(transformation(extent={{
               -60,-20},{-20,20}}), iconTransformation(extent={{-60,-20},{-20,20}})));
@@ -392,7 +385,7 @@ package deprecated
   end PartialPressure;
 
   model OsmoticPump "Defined osmoles to/from/in system by real signal"
-    extends Physiolibrary.Osmotic.OnePort;
+    extends Physiolibrary.Osmotic.Interfaces.OnePort;
     Modelica.Blocks.Interfaces.RealInput
                           desiredOsmoles(quantity="Osmolarity", displayUnit="mOsm")
       "desired pressure flow value"                                                                  annotation (Placement(transformation(
@@ -439,14 +432,12 @@ package deprecated
           extent={{-20,-20},{20,20}},
           rotation=270,
           origin={48,116})));
-    Physiolibrary.Hydraulic.PositivePressureFlow
-                                      q_in "hydraulic pressure"
-                              annotation (Placement(transformation(extent={{-110,-110},
-              {-90,-90}}),iconTransformation(extent={{-110,-110},{-90,-90}})));
-    Physiolibrary.Osmotic.NegativeOsmoticFlow q_out(o(displayUnit="g/ml"))
-      "colloid osmotic pressure"
-      annotation (Placement(transformation(extent={{90,-10},{110,10}}),
-          iconTransformation(extent={{90,-10},{110,10}})));
+    Physiolibrary.Hydraulic.Interfaces.HydraulicPort_a q_in
+      "hydraulic pressure" annotation (Placement(transformation(extent={{-110,-110},
+              {-90,-90}}), iconTransformation(extent={{-110,-110},{-90,-90}})));
+    Physiolibrary.Osmotic.Interfaces.OsmoticPort_b q_out(o(displayUnit="g/ml"))
+      "colloid osmotic pressure" annotation (Placement(transformation(extent={{
+              90,-10},{110,10}}), iconTransformation(extent={{90,-10},{110,10}})));
 
   parameter Real C1 =   320.0;
   parameter Real C2 =   1160.0;
@@ -495,12 +486,11 @@ package deprecated
           extent={{-20,-20},{20,20}},
           rotation=270,
           origin={40,120})));
-    Physiolibrary.Hydraulic.NegativePressureFlow
-                                      q_out
+    Physiolibrary.Hydraulic.Interfaces.HydraulicPort_b q_out
       "pressure on semipermeable membrane wall = osmotic + hydrostatic"
-                              annotation (Placement(transformation(extent={{90,-10},
-              {110,10}}), iconTransformation(extent={{90,-10},{110,10}})));
-    Physiolibrary.Osmotic.PositiveOsmoticFlow q_in(o(displayUnit="g"))
+      annotation (Placement(transformation(extent={{90,-10},{110,10}}),
+          iconTransformation(extent={{90,-10},{110,10}})));
+    Physiolibrary.Osmotic.Interfaces.OsmoticPort_a q_in(o(displayUnit="g"))
       "osmoles"
       annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
 
@@ -543,18 +533,17 @@ package deprecated
           extent={{-20,-20},{20,20}},
           rotation=270,
           origin={40,120})));
-    Physiolibrary.Osmotic.PositiveOsmoticFlow q_in(o(displayUnit="g"))
+    Physiolibrary.Osmotic.Interfaces.OsmoticPort_a q_in(o(displayUnit="g"))
       "osmoles"
       annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
 
   parameter Real C1 =   320.0;
   parameter Real C2 =   1160.0;
 
-  Physiolibrary.Hydraulic.NegativePressureFlow
-                                    withoutCOP
-      "only hydrostatic pressure without colloid osmotic pressure"
-                              annotation (Placement(transformation(extent={{90,90},
-              {110,110}}),iconTransformation(extent={{90,90},{110,110}})));
+    Physiolibrary.Hydraulic.Interfaces.HydraulicPort_b withoutCOP
+      "only hydrostatic pressure without colloid osmotic pressure" annotation (
+        Placement(transformation(extent={{90,90},{110,110}}),
+          iconTransformation(extent={{90,90},{110,110}})));
 
   equation
     q_in.q + withoutCOP.q = 0;
@@ -585,12 +574,11 @@ package deprecated
 
   model MolarOutflux "Molar pump of solute"
 
-    Physiolibrary.Molar.PositiveConcentrationFlow q_in "Inflow"
-                           annotation (extent=[-10, -110; 10, -90], Placement(
-          transformation(extent={{-110,-8},{-90,12}}), iconTransformation(extent={{-70,-10},
-              {-50,10}})));
-    Physiolibrary.Blocks.Interfaces.MolarFlowRateInput desiredFlow
-      "Solute flow rate"           annotation ( extent = [-10,30;10,50], rotation = -90);
+    Physiolibrary.Chemical.Interfaces.ChemicalPort_a q_in "Inflow" annotation (
+        extent=[-10,-110; 10,-90], Placement(transformation(extent={{-110,-8},{
+              -90,12}}), iconTransformation(extent={{-70,-10},{-50,10}})));
+    Physiolibrary.Types.RealIO.MolarFlowRateInput desiredFlow
+      "Solute flow rate" annotation (extent=[-10,30; 10,50], rotation=-90);
 
   equation
     q_in.q = desiredFlow;
@@ -622,10 +610,9 @@ package deprecated
 
   model MassOutputPump
 
-    Physiolibrary.Molar.PositiveConcentrationFlow q_in
-                           annotation (extent=[-10, -110; 10, -90], Placement(
-          transformation(extent={{-110,-8},{-90,12}}), iconTransformation(extent={{-70,-10},
-              {-50,10}})));
+    Physiolibrary.Chemical.Interfaces.ChemicalPort_a q_in annotation (extent=[-10,
+          -110; 10,-90], Placement(transformation(extent={{-110,-8},{-90,12}}),
+          iconTransformation(extent={{-70,-10},{-50,10}})));
     Modelica.Blocks.Interfaces.RealInput desiredFlow
                                    annotation ( extent = [-10,30;10,50], rotation = -90);
 
@@ -659,14 +646,12 @@ package deprecated
 
   model ContinualReaction "Continual flow reaction of type  a A <-> b B"
 
-    Physiolibrary.Molar.PositiveConcentrationFlow A "solute A"
-                              annotation (Placement(
-          transformation(extent={{-120,-20},{-80,20}}), iconTransformation(extent=
-             {{-110,-10},{-90,10}})));
-    Physiolibrary.Molar.NegativeConcentrationFlow B "solute B"
-                           annotation (extent=[-10, -110; 10, -90], Placement(
-          transformation(extent={{90,20},{110,40}}), iconTransformation(extent={{90,
-              20},{110,40}})));
+    Physiolibrary.Chemical.Interfaces.ChemicalPort_a A "solute A" annotation (
+        Placement(transformation(extent={{-120,-20},{-80,20}}),
+          iconTransformation(extent={{-110,-10},{-90,10}})));
+    Physiolibrary.Chemical.Interfaces.ChemicalPort_b B "solute B" annotation (
+        extent=[-10,-110; 10,-90], Placement(transformation(extent={{90,20},{
+              110,40}}), iconTransformation(extent={{90,20},{110,40}})));
 
     parameter Modelica.SIunits.StoichiometricNumber a=1
       "Stoichiometric number of solute A";
@@ -706,22 +691,19 @@ package deprecated
   model ContinualReaction2
     "Continual flow reaction of type  a A <-> b B + c C, where the concentration of C does not play the role"
 
-    Physiolibrary.Molar.NegativeConcentrationFlow q_out
-                           annotation (extent=[-10, -110; 10, -90], Placement(
-          transformation(extent={{90,20},{110,40}}), iconTransformation(extent={{90,
-              20},{110,40}})));
+    Physiolibrary.Chemical.Interfaces.ChemicalPort_b q_out annotation (extent=[
+          -10,-110; 10,-90], Placement(transformation(extent={{90,20},{110,40}}),
+          iconTransformation(extent={{90,20},{110,40}})));
     Modelica.Blocks.Interfaces.RealInput coef
       "who much units of q_out produce one unit of q_in"
                                   annotation ( extent = [-10,30;10,50], rotation = -90);
 
-    Physiolibrary.Molar.PositiveConcentrationFlow q_in
-                              annotation (Placement(
-          transformation(extent={{-120,-20},{-80,20}}), iconTransformation(extent=
-             {{-110,-10},{-90,10}})));
-    Physiolibrary.Molar.NegativeConcentrationFlow q_out2
-                           annotation (extent=[-10, -110; 10, -90], Placement(
-          transformation(extent={{90,-10},{110,10}}), iconTransformation(extent={{
-              90,-40},{110,-20}})));
+    Physiolibrary.Chemical.Interfaces.ChemicalPort_a q_in annotation (Placement(
+          transformation(extent={{-120,-20},{-80,20}}), iconTransformation(
+            extent={{-110,-10},{-90,10}})));
+    Physiolibrary.Chemical.Interfaces.ChemicalPort_b q_out2 annotation (extent=
+          [-10,-110; 10,-90], Placement(transformation(extent={{90,-10},{110,10}}),
+          iconTransformation(extent={{90,-40},{110,-20}})));
     Modelica.Blocks.Interfaces.RealInput
                           coef2
       "who much units of q_out2 produce one unit of q_in"                           annotation (Placement(transformation(extent={{-54,
@@ -778,8 +760,7 @@ package deprecated
    parameter Real HalfTime(unit="s", displayUnit="d"); //Tau(unit="day");
    parameter Real[:,3] data;
    parameter String stateName;
-    Physiolibrary.Curves.Curve
-                 curve(
+    Physiolibrary.Blocks.Interpolation.Curve curve(
       x=data[:, 1],
       y=data[:, 2],
       slope=data[:, 3])
@@ -788,11 +769,11 @@ package deprecated
           extent={{-10,-10},{10,10}},
           rotation=270,
           origin={0,-32})));
-    Physiolibrary.Blocks.Integrator integrator(
+    Physiolibrary.Blocks.Math.Integrator integrator(
       y_start=1,
       stateName=stateName,
-      k=(1/((HalfTime/Modelica.Math.log(2))*1440))/SecPerMin)
-      annotation (Placement(transformation(
+      k=(1/((HalfTime/Modelica.Math.log(2))*1440))/SecPerMin) annotation (
+        Placement(transformation(
           extent={{-10,-10},{10,10}},
           rotation=270,
           origin={-26,12})));
@@ -850,8 +831,7 @@ package deprecated
    parameter Real initialValue = 1; //40;
    parameter Real[:,3] data;
    parameter String adaptationSignalName;
-    Physiolibrary.Curves.Curve
-                 curve(
+    Physiolibrary.Blocks.Interpolation.Curve curve(
       x=data[:, 1],
       y=data[:, 2],
       slope=data[:, 3])
@@ -860,11 +840,11 @@ package deprecated
           extent={{-10,-10},{10,10}},
           rotation=270,
           origin={0,-32})));
-    Physiolibrary.Blocks.Integrator integrator(
+    Physiolibrary.Blocks.Math.Integrator integrator(
       y_start=initialValue,
       stateName=adaptationSignalName,
-      k=(1/(HalfTime/Modelica.Math.log(2)))/SecPerMin)
-      annotation (Placement(transformation(
+      k=(1/(HalfTime/Modelica.Math.log(2)))/SecPerMin) annotation (Placement(
+          transformation(
           extent={{-10,-10},{10,10}},
           rotation=270,
           origin={-60,16})));
@@ -925,8 +905,7 @@ package deprecated
    parameter Real  HalfTime(unit="s", displayUnit="d");
    parameter Real[:,3] data;
     parameter String stateName;
-    Physiolibrary.Curves.Curve
-                 curve(
+    Physiolibrary.Blocks.Interpolation.Curve curve(
       x=data[:, 1],
       y=data[:, 2],
       slope=data[:, 3])
@@ -935,11 +914,11 @@ package deprecated
           extent={{-10,-10},{10,10}},
           rotation=270,
           origin={0,-50})));
-    Physiolibrary.Blocks.Integrator integrator(
+    Physiolibrary.Blocks.Math.Integrator integrator(
       y_start=1,
       stateName=stateName,
-      k=(1/((HalfTime/Modelica.Math.log(2))*1440))/SecPerMin)
-      annotation (Placement(transformation(
+      k=(1/((HalfTime/Modelica.Math.log(2))*1440))/SecPerMin) annotation (
+        Placement(transformation(
           extent={{-10,-10},{10,10}},
           rotation=270,
           origin={-14,-6})));
@@ -949,8 +928,7 @@ package deprecated
           origin={-14,26})));
     Modelica.Blocks.Logical.Switch switch1
       annotation (Placement(transformation(extent={{-36,40},{-16,60}})));
-    Physiolibrary.Blocks.Sources.Constant
-                                  Constant1(k=0)
+    Physiolibrary.Types.Constants.DeprecatedUntypedConstant Constant1(k=0)
       annotation (Placement(transformation(extent={{-82,62},{-62,82}})));
     Modelica.Blocks.Interfaces.BooleanInput
                                           Failed
@@ -1011,26 +989,24 @@ package deprecated
   model ResistorWith2Cond
     "Because of problem with its middle pressure initialization"
 
-    Physiolibrary.Blocks.Interfaces.HydraulicConductanceInput cond1
-      "First conductance"                                                                    annotation (Placement(transformation(
-            extent={{-66,50},{-26,90}}), iconTransformation(
+    Physiolibrary.Types.RealIO.HydraulicConductanceInput cond1
+      "First conductance" annotation (Placement(transformation(extent={{-66,50},
+              {-26,90}}), iconTransformation(
           extent={{-20,-20},{20,20}},
           rotation=270,
           origin={200,40})));
-    Physiolibrary.Blocks.Interfaces.HydraulicConductanceInput cond2
-      "Second conductance"                                                                    annotation (Placement(transformation(
-            extent={{-66,50},{-26,90}}), iconTransformation(
+    Physiolibrary.Types.RealIO.HydraulicConductanceInput cond2
+      "Second conductance" annotation (Placement(transformation(extent={{-66,50},
+              {-26,90}}), iconTransformation(
           extent={{-20,-20},{20,20}},
           rotation=270,
           origin={0,40})));
-    Physiolibrary.Hydraulic.PositivePressureFlow q_in "Volume inflow"
-                                              annotation (Placement(
-          transformation(extent={{-120,-20},{-80,20}}), iconTransformation(extent={{-110,
-              -10},{-90,10}})));
-    Physiolibrary.Hydraulic.NegativePressureFlow q_out "Volume outflow"
-                           annotation (extent=[-10, -110; 10, -90], Placement(
-          transformation(extent={{92,-10},{112,10}}), iconTransformation(extent={{
-              290,-10},{310,10}})));
+    Physiolibrary.Hydraulic.Interfaces.HydraulicPort_a q_in "Volume inflow"
+      annotation (Placement(transformation(extent={{-120,-20},{-80,20}}),
+          iconTransformation(extent={{-110,-10},{-90,10}})));
+    Physiolibrary.Hydraulic.Interfaces.HydraulicPort_b q_out "Volume outflow"
+      annotation (extent=[-10,-110; 10,-90], Placement(transformation(extent={{
+              92,-10},{112,10}}), iconTransformation(extent={{290,-10},{310,10}})));
   equation
     q_in.q + q_out.q = 0;
     q_in.q = cond1*cond2/(cond1+cond2) * (q_in.pressure - q_out.pressure);
