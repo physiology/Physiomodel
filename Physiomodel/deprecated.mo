@@ -95,8 +95,8 @@ package deprecated
         origin={0,100})));
     Physiolibrary.Hydraulic.Interfaces.HydraulicPort_a y
       "PressureFlow output connectors" annotation (Placement(transformation(
-            extent={{100,-20},{140,20}}, rotation=0), iconTransformation(extent
-            ={{-120,-20},{-80,20}})));
+            extent={{100,-20},{140,20}}, rotation=0), iconTransformation(extent=
+             {{-120,-20},{-80,20}})));
 
     parameter Real initialVolume;
     Modelica.Blocks.Interfaces.RealOutput
@@ -139,7 +139,7 @@ package deprecated
 
   model VolumeCompartement
     "Generate constant pressure independ on inflow or outflow"
-    extends Physiolibrary.SteadyStates.Interfaces.SteadyState;
+    extends Physiolibrary.SteadyStates.Interfaces.SteadyState(state_start=initialVolume);
 
     parameter Real pressure=0;
 
@@ -319,22 +319,18 @@ package deprecated
   end MolarStorageCompartment;
 
   model WaterColloidOsmoticCompartment
-    extends Physiolibrary.SteadyStates.Interfaces.SteadyState;
+    extends Physiolibrary.SteadyStates.Interfaces.SteadyState(state_start=initialWaterVolume);
 
     Physiolibrary.Osmotic.Interfaces.OsmoticPort_b q_out(o(final displayUnit=
             "g/ml")) annotation (Placement(transformation(extent={{62,-32},{102,
               8}}), iconTransformation(extent={{-10,-10},{10,10}})));
-    parameter Real initialWaterVolume(final quantity="Volume", displayUnit="ml");
+    parameter Physiolibrary.Types.Volume initialWaterVolume;
 
-    Modelica.Blocks.Interfaces.RealInput NotpermeableSolutes(
-                                                            quantity="Mass",
-        displayUnit="g")   annotation (Placement(transformation(extent={{-120,60},
+    Physiolibrary.Types.RealIO.AmountOfSubstanceInput NotpermeableSolutes   annotation (Placement(transformation(extent={{-120,60},
               {-80,100}}),
           iconTransformation(extent={{-120,60},{-80,100}})));
-    Modelica.Blocks.Interfaces.RealOutput WaterVolume(
-      start=initialWaterVolume,
-      final quantity="Volume",
-      displayUnit="ml")
+    Physiolibrary.Types.RealIO.VolumeOutput WaterVolume(
+      start=initialWaterVolume)
       annotation (Placement(transformation(extent={{-20,-120},{20,-80}}, rotation=
              -90)));
 
@@ -343,7 +339,7 @@ package deprecated
   equation
     q_out.o = if (WaterVolume>0) then NotpermeableSolutes / WaterVolume else 0;
 
-    change = q_out.q/60;
+    change = q_out.q;
     state = WaterVolume;
   //  der(WaterVolume) = q_out.q / Library.SecPerMin;
     annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
@@ -363,8 +359,8 @@ package deprecated
         Placement(transformation(extent={{-20,-120},{20,-80}}),
           iconTransformation(extent={{-10,-110},{10,-90}})));
     Physiolibrary.Chemical.Interfaces.ChemicalPort_a q_in annotation (Placement(
-          transformation(extent={{-20,80},{20,120}}), iconTransformation(extent
-            ={{-10,90},{10,110}})));
+          transformation(extent={{-20,80},{20,120}}), iconTransformation(extent=
+             {{-10,90},{10,110}})));
     Modelica.Blocks.Interfaces.RealInput
                           ambientPressure annotation (Placement(transformation(extent={{
               -60,-20},{-20,20}}), iconTransformation(extent={{-60,-20},{-20,20}})));
