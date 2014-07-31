@@ -7,19 +7,19 @@ PortalVein-Insulin.[Insulin]
 AldoPool.[Aldo(pMol/L)]
 330 pmol/l
 ADHPool.[ADH]
-1.99078 pg/ml
+1.99078 ng/l
 ADHPool.[ADH(pMol/L)]
 1.8354946462386 pmol/l
 EpiPool.[Epi(pG/mL)]
-39.8155 pg/ml
+39.8155 ng/l
 GlucagonPool.[Glucagon]
-69.6771 pg/ml
+69.6771 ng/l
 NephronADH.[ADH]
-2 pg/ml
+2 ng/l
 NephronADH.[ADH(pMol/L)]
 1.844 pmol/l
 PortalVein-Glucagon.[Glucagon]
-160.397 pg/ml
+160.397 ng/l
 LeptinPool.[Leptin(nG/mL)]
 7.9631 ng/ml
 AldoPool.[Aldo(nG/dL)]
@@ -27,7 +27,7 @@ AldoPool.[Aldo(nG/dL)]
 NephronAldo.[Aldo(nG/dL)]
 11 ng/dl
 OsmBody.[Osm]-Osmoreceptors
-0.260448 mosm/ml
+0.260448 osm/l
 MedullaNa.Osmolarity
 838.71 mosm/l
 MedullaUrea.Osmolarity
@@ -43,7 +43,7 @@ UreaPool.Osmoles
 CD_Ca_Outflow
 0.012 mmol/min
 CD_KA.Outflow
-0 mmol/min
+0 mg/min
 CD_Mg_Outflow
 0.003 mmol/min
 CD_SO4_Outflow
@@ -143,39 +143,39 @@ SystemicArtys.Pressure
 SystemicVeins.Pressure
 6.76645 mmHg
 Kidney-O2.O2Use
-20.3292 ml_gas_gas/min
+20.3292 ml_STP/min
 Bone-Flow.O2Use
-14.2962 ml_gas/min
+14.2962 ml_STP/min
 Brain-Flow.O2Use
-39.3065 ml_gas/min
+39.3065 ml_STP/min
 Fat-Flow.O2Use
-6.16231 ml_gas/min
+6.16231 ml_STP/min
 GITract-Flow.O2Use
-18.8295 ml_gas/min
+18.8295 ml_STP/min
 LeftHeart-Flow.O2Use
-26.4194 ml_gas/min
+26.4194 ml_STP/min
 LeftHeart-Metabolism.O2Need
-26.4194 ml_gas/min
+26.4194 ml_STP/min
 Liver-O2.BloodFlow
 1231.71 ml/min
 Liver-O2.O2Use
-29.8973 ml_gas/min
+29.8973 ml_STP/min
 OtherTissue-Flow.O2Use
-7.93552 ml_gas/min
+7.93552 ml_STP/min
 RespiratoryMuscle-Flow.O2Use
-5.66571 ml_gas/min
+5.66571 ml_STP/min
 RespiratoryMuscle-Metabolism.O2Need
-5.66571 ml_gas/min
+5.66571 ml_STP/min
 RightHeart-Flow.O2Use
-5.081 ml_gas/min
+5.081 ml_STP/min
 RightHeart-Metabolism.O2Need
-5.081 ml_gas/min
+5.081 ml_STP/min
 SkeletalMuscle-Flow.O2Use
-29.228 ml_gas/min
+29.228 ml_STP/min
 SkeletalMuscle-Metabolism.O2Need
-29.228 ml_gas/min
+29.228 ml_STP/min
 Skin-Flow.O2Use
-5.88569 ml_gas/min
+5.88569 ml_STP/min
 BladderVoidFlow
 1.02 ml/min
 Bone-Flow.BloodFlow
@@ -189,7 +189,7 @@ Breathing.TotalVentilation
 CardiacOutput.Flow
 5504.05 ml/min
 CD_Glucose.Outflow
-0 ml/min
+0 mg/min
 CD_H2O.Outflow
 0.77892 ml/min
 CD_H2O.Reab
@@ -355,15 +355,15 @@ KAPool.[KA(mG/dL)]
 CellProtein.Mass
 6.00E+06 mg
 MedullaNa.[Na+]
-0.419355 meq/ml
+0.419355 mol/l
 Bone-CO2.OutflowBase
-0.510088 meq/min
+0.510088 mmol/min
 Bone-Lactate.Outflux
-5.09E-05 meq/min
+5.09E-05 mmol/min
 Brain-CO2.OutflowBase
-1.40246 meq/min
+1.40246 mmol/min
 Brain-Lactate.Outflux
-0 meq/min
+0 mmol/min
 CD_Cl.Outflow
 0.137821 mmol/min
 CD_K.Outflow
@@ -379,51 +379,51 @@ DT_Na.Outflow
 DT_Na.Reab
 1.37105 mmol/min
 Fat-CO2.OutflowBase
-0.219871 meq/min
+0.219871 mmol/min
 Fat-Lactate.Outflux
-0 meq/min
+0 mmol/min
 GITract-CO2.OutflowBase
-0.671835 meq/min
+0.671835 mmol/min
 GITract-Lactate.Outflux
-7.46E-05 meq/min
+7.46E-05 mmol/min
 Kidney-CO2.OutflowBase
-0.725345 meq/min
+0.725345 mmol/min
 Kidney-Lactate.Outflux
-0 meq/min
+0 mmol/min
 LacPool.Change
-0.000446332 meq/min
+0.000446332 mmol/min
 LeftHeart-CO2.OutflowBase
-0.942646 meq/min
+0.942646 mmol/min
 LeftHeart-Lactate.Outflux
-0 meq/min
+0 mmol/min
 LH_Na.Reab
 5.455 mmol/min
 Liver-CO2.OutflowBase
-1.06673 meq/min
+1.06673 mmol/min
 Liver-Lactate.Outflux
-0.00026949 meq/min
+0.00026949 mmol/min
 OtherTissue-CO2.OutflowBase
-0.283139 meq/min
+0.283139 mmol/min
 OtherTissue-Lactate.Outflux
-3.58E-05 meq/min
+3.58E-05 mmol/min
 PT_Na.Reab
 10.2355 mmol/min
 RespiratoryMuscle-CO2.OutflowBase
-0.202152 meq/min
+0.202152 mmol/min
 RespiratoryMuscle-Lactate.Outflux
-1.11E-05 meq/min
+1.11E-05 mmol/min
 RightHeart-CO2.OutflowBase
-0.18129 meq/min
+0.18129 mmol/min
 RightHeart-Lactate.Outflux
-1.73E-06 meq/min
+1.73E-06 mmol/min
 SkeletalMuscle-CO2.OutflowBase
-1.04285 meq/min
+1.04285 mmol/min
 SkeletalMuscle-Lactate.Outflux
-0 meq/min
+0 mmol/min
 Skin-CO2.OutflowBase
-0.210001 meq/min
+0.210001 mmol/min
 Skin-Lactate.Outflux
-2.63E-06 meq/min
+2.63E-06 mmol/min
 BloodIons.[SID(mEq/L)]
 40.6835 meq/l
 BloodIons.Cations
@@ -431,103 +431,103 @@ BloodIons.Cations
 BloodIons.Protein
 15.0835 meq/l
 Bone-CO2.[BloodHCO3(mEq/L)]
-30.8209 meq/l
+30.8209 mmol/l
 Bone-CO2.[HCO3(mEq/L)]
-20.5217 meq/l
+20.5217 mmol/l
 Bone-Lactate.[Lac-(mEq/L)]
-1.2817 meq/l
+1.2817 mmol/l
 Brain-CO2.[BloodHCO3(mEq/L)]
-26.2279 meq/l
+26.2279 mmol/l
 Brain-CO2.[HCO3(mEq/L)]
-18.4439 meq/l
+18.4439 mmol/l
 Brain-Lactate.[Lac-(mEq/L)]
-1.05762 meq/l
+1.05762 mmol/l
 CO2Artys.[HCO3(mEq/L)]
-24 meq/l
+24 mmol/l
 CO2Veins.[HCO3(mEq/L)]
-25.6 meq/l
+25.6 mmol/l
 Fat-CO2.[BloodHCO3(mEq/L)]
-20.8957 meq/l
+20.8957 mmol/l
 Fat-CO2.[HCO3(mEq/L)]
-15.9839 meq/l
+15.9839 mmol/l
 Fat-Lactate.[Lac-(mEq/L)]
-1 meq/l
+1 mmol/l
 GITract-CO2.[BloodHCO3(mEq/L)]
-31.1194 meq/l
+31.1194 mmol/l
 GITract-CO2.[HCO3(mEq/L)]
-20.658 meq/l
+20.658 mmol/l
 GITract-Lactate.[Lac-(mEq/L)]
-1.29112 meq/l
+1.29112 mmol/l
 KCell.[K+(mEq/L)]
-151.305 meq/l
+151.305 mmol/l
 Kidney-CO2.[BloodHCO3(mEq/L)]
-38.157 meq/l
+38.157 mmol/l
 Kidney-CO2.[HCO3(mEq/L)]
-23.9789 meq/l
+23.9789 mmol/l
 Kidney-Lactate.[Lac-(mEq/L)]
-1.05273 meq/l
+1.05273 mmol/l
 KPool.[K+(mEq/L)]
-4.4 meq/l
+4.4 mmol/l
 LacPool.[Lac-(mEq/L)]
-1.04449 meq/l
+1.04449 mmol/l
 LeftHeart-CO2.[BloodHCO3(mEq/L)]
-35.2385 meq/l
+35.2385 mmol/l
 LeftHeart-CO2.[HCO3(mEq/L)]
-22.6142 meq/l
+22.6142 mmol/l
 LeftHeart-Lactate.[Lac-(mEq/L)]
-1.0984 meq/l
+1.0984 mmol/l
 Liver-CO2.[BloodHCO3(mEq/L)]
-34.2013 meq/l
+34.2013 mmol/l
 Liver-CO2.[HCO3(mEq/L)]
-22.0658 meq/l
+22.0658 mmol/l
 Liver-Lactate.[Lac-(mEq/L)]
-1.38395 meq/l
+1.38395 mmol/l
 MD_Na.[Na+(mEq/L)]
-47.834 meq/l
+47.834 mmol/l
 OsmCell.Electrolytes
 7923.47 mmol
 OsmECFV.Electrolytes
 4030.66 mmol
 OtherTissue-CO2.[BloodHCO3(mEq/L)]
-31.5314 meq/l
+31.5314 mmol/l
 OtherTissue-CO2.[HCO3(mEq/L)]
-20.8462 meq/l
+20.8462 mmol/l
 OtherTissue-Lactate.[Lac-(mEq/L)]
-1.3034 meq/l
+1.3034 mmol/l
 PO4Pool.[PO4--(mEq/L)]
-0.169216 meq/l
+0.169216 mmol/l
 RespiratoryMuscle-CO2.[BloodHCO3(mEq/L)]
-29.1739 meq/l
+29.1739 mmol/l
 RespiratoryMuscle-CO2.[HCO3(mEq/L)]
-19.7682 meq/l
+19.7682 mmol/l
 RespiratoryMuscle-Lactate.[Lac-(mEq/L)]
-1.23705 meq/l
+1.23705 mmol/l
 RightHeart-CO2.[BloodHCO3(mEq/L)]
-36.6641 meq/l
+36.6641 mmol/l
 RightHeart-CO2.[HCO3(mEq/L)]
-23.2603 meq/l
+23.2603 mmol/l
 RightHeart-Lactate.[Lac-(mEq/L)]
-1.16302 meq/l
+1.16302 mmol/l
 SkeletalMuscle-CO2.[BloodHCO3(mEq/L)]
-18.6633 meq/l
+18.6633 mmol/l
 SkeletalMuscle-CO2.[HCO3(mEq/L)]
-14.9635 meq/l
+14.9635 mmol/l
 SkeletalMuscle-Lactate.[Lac-(mEq/L)]
-0.935508 meq/l
+0.935508 mmol/l
 Skin-CO2.[BloodHCO3(mEq/L)]
-26.9592 meq/l
+26.9592 mmol/l
 Skin-CO2.[HCO3(mEq/L)]
-18.7565 meq/l
+18.7565 mmol/l
 Skin-Lactate.[Lac-(mEq/L)]
-1.17062 meq/l
+1.17062 mmol/l
 GILumenPotassium.Mass
 25 mmol
 GILumenSodium.Mass
 80 mmol
 LacPool.Mass
-15 meq
-EPOPool.Log10Conc
-1.29902 log10(U_EPO/l)
+15 mmol
+EPOPool.[EPO]
+19.9077510438026 U_EPO/l
 ANPPool.[ANP]
 19.9077510438027 pmol/l
 NephronANP.[ANP]
@@ -671,11 +671,11 @@ SkeletalMuscle-Metabolism.ShiveringCals
 skeletalMuscle_HeatWithoutTermoregulation
 299.441 cal/min
 HeatCore.Temp(C)
-37 C
+37 degC
 HeatSkeletalMuscle.Temp(C)
-37.0556 C
+37.0556 degC
 HeatSkin.Temp(C)
-28.8889 C
+28.8889 degC
 RespiratoryCenter-Output.Rate
 11.7242 1/min
 AdrenalNerve.NA
@@ -812,4 +812,27 @@ SympsCNS.PituitaryNA
 1.00901
 Thyroid.Effect
 0.985357
-
+Bone-Fuel.FractUseDelay
+1
+Brain-Fuel.FractUseDelay
+1
+Fat-Fuel.FractUseDelay
+1
+GITract-Fuel.FractUseDelay
+1
+Kidney-Fuel.FractUseDelay
+1
+LeftHeart-Fuel.FractUseDelay
+1
+Liver-Fuel.FractUseDelay
+1
+OtherTissue-Fuel.FractUseDelay
+1
+RespiratoryMuscle-Fuel.FractUseDelay
+1
+RightHeart-Fuel.FractUseDelay
+1
+SkeletalMuscle-Fuel.FractUseDelay
+1
+Skin-Fuel.FractUseDelay
+1
