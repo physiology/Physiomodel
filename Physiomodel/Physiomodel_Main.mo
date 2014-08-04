@@ -15,7 +15,7 @@ Physiomodel.CardioVascular.CVS_Dynamic
     annotation (Placement(transformation(extent={{40,12},{60,32}})));
   Physiomodel.Nerves.Nerves       nerves
     annotation (Placement(transformation(extent={{74,44},{94,64}})));
-  Physiomodel.Setup.Setup_variables setup
+  Physiomodel.Setup.Setup_const     setup
     annotation (Placement(transformation(extent={{-16,-100},{4,-80}})));
   Physiomodel.Water.Water2 water
     annotation (Placement(transformation(extent={{-86,0},{-66,20}})));
