@@ -57,7 +57,7 @@ cDPG
 ctAlb
 0.66 mmol/l
 ctGlb
-28 mg/l
+28 g/l
 ctHb
 8.4 mmol/l
 ctHb_ery
@@ -228,9 +228,7 @@ MT_LymphWater.Rate
 0.768959 ml/min
 OtherTissue-Flow.BloodFlow
 375.121 ml/min
-PeritoneumSpace.Gain
-0 ml/min
-PeritoneumSpace.Loss
+PeritoneumSpace.Change
 0 ml/min
 PortalVein.BloodFlow
 985.261 ml/min
@@ -311,7 +309,7 @@ OtherTissue-Size.IFV
 OtherTissue-Size.LiquidVol
 2432.1 ml
 PeritoneumSpace.Volume
-0 ml
+0.00000000001 ml
 PlasmaVol.Vol
 3020 ml
 RBCH2O.Vol
@@ -836,3 +834,133 @@ SkeletalMuscle-Fuel.FractUseDelay
 1
 Skin-Fuel.FractUseDelay
 1
+AirSupply-InspiredAir.Pressure
+760 mmHg
+Anesthesia.VascularConductance
+1
+Anesthesia.TidalVolume
+1
+Barometer.Pressure
+760 mmHg
+Hydrostatics.CarotidCM
+0 cm
+DialyzerActivity.Cl-Flux
+0 mmol/min
+DialyzerActivity.K+Flux
+0 mmol/min
+DialyzerActivity.Na+Flux
+0 mmol/min
+DietGoalH2O.DegK
+310.15 K
+DietIntakeElectrolytes.Cl-_mEq/Min
+0.13911 mmol/min
+DietIntakeElectrolytes.K+_mEq/Min
+0.0486884 mmol/min
+DietIntakeElectrolytes.Na+_mEq/Min
+0.125199 mmol/min
+DietIntakeElectrolytes.PO4--mEq/Min
+0.0230576 mmol/min
+DietIntakeElectrolytes.SO4--mEq/Min
+0.0347774 mmol/min
+Exercise-Metabolism.ContractionRate
+0 1/min
+Exercise-Metabolism.MotionWatts
+0 W
+Exercise-MusclePump.Effect
+1
+Exercise-Metabolism.MotionCals
+55 cal/min
+Exercise-Metabolism.TotalWatts
+0 W
+FurosemidePool.[Furosemide]
+0 mg/l
+FurosemidePool.Loss
+0 mg/min
+Gravity.Gz
+1
+GILumenDiarrhea.K+Loss
+0 mmol/min
+GILumenDiarrhea.Na+Loss
+0 mmol/min
+GILumenVomitus.Cl-Loss
+0 mmol/min
+Hemorrhage.ClRate
+0 mmol/min
+Hemorrhage.KRate
+0 mmol/min
+Hemorrhage.NaRate
+0 mmol/min
+Hemorrhage.PlasmaRate
+0 ml/min
+Hemorrhage.ProteinRate
+0 g/min
+Hemorrhage.RBCRate
+0 ml/min
+IVDrip.ClRate
+0 mmol/min
+IVDrip.H2ORate
+0 ml/min
+IVDrip.KRate
+0 mmol/min
+IVDrip.NaRate
+0 mmol/min
+Kidney-NephronCount.Filtering(xNormal)
+1
+Kidney-NephronCount.Total(xNormal)
+1
+LegMusclePump.Effect
+1
+Hydrostatics.LowerTorsoCM
+0 cm
+Hydrostatics.LowerTorsoCM
+0 cm
+pCO
+0 mmHg
+Pericardium-Cavity.Pressure
+-3.34522 mmHg
+SkeletalMuscle-Size.Mass
+27400 g
+Skin-Size.Mass
+2244 g
+Status.Posture
+4
+ThiazidePool.[Thiazide]
+0 mg/l
+Thorax.AvePressure
+-4 mmHg
+Thorax.LungInflation
+1
+Transfusion.ClRate
+0 mmol/min
+Transfusion.KRate
+0 mmol/min
+Transfusion.NaRate
+0 mmol/min
+Transfusion.PlasmaRate
+0 ml/min
+Transfusion.ProteinRate
+0 g/min
+Transfusion.RBCRate
+0 ml/min
+Weight.Core
+41757.3 g
+IVDrip.ProteinRate
+0 g/min
+AmbientTemperature.Temp(C)
+310.15 K
+EnvironmentRelativeHumidity
+0.7
+DietIntakeH2O.Rate(mL/Min)
+1.48941 ml/min
+DialyzerActivity.UltrafiltrationRate
+0 ml/min
+Hemorrhage.H2ORate
+0 ml/min
+Transfusion.H2ORate
+0 ml/min
+GILumenVomitus.H2OTarget
+0 ml/min
+GILumenDiarrhea.H2OTarget
+0 ml/min
+Wind.MPH
+0 MPH
