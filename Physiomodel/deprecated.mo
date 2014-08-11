@@ -382,17 +382,17 @@ package deprecated
 
   model OsmoticPump "Defined osmoles to/from/in system by real signal"
     extends Physiolibrary.Osmotic.Interfaces.OnePort;
-    Modelica.Blocks.Interfaces.RealInput
-                          desiredOsmoles(quantity="Osmolarity", displayUnit="mOsm")
+    Physiolibrary.Types.RealIO.OsmolarityInput
+                          desiredOsmoles(displayUnit="mosm/l")
       "desired pressure flow value"                                                                  annotation (Placement(transformation(
             extent={{-66,50},{-26,90}}), iconTransformation(
           extent={{-20,-20},{20,20}},
           rotation=270,
-          origin={0,60})));
+          origin={-80,60})));
 
   equation
     q_in.o = desiredOsmoles;
-   annotation (Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,
+   annotation (Icon(coordinateSystem(preserveAspectRatio=false,extent={{-100,
               -100},{100,100}}), graphics={
           Rectangle(
             extent={{-80,60},{80,-60}},
@@ -421,8 +421,8 @@ package deprecated
 
   model ColloidOsmolarity "set osmolarity from protein mass flow"
     extends Physiolibrary.Icons.ConversionIcon;
-    Modelica.Blocks.Interfaces.RealInput
-                          proteinMassFlow(displayUnit="g/min")
+    Physiolibrary.Types.RealIO.MolarFlowRateInput
+                          proteinMassFlow(displayUnit="mmol/min")
                             annotation (Placement(transformation(extent={{-20,80},
               {20,120}}), iconTransformation(
           extent={{-20,-20},{20,20}},
@@ -431,14 +431,11 @@ package deprecated
     Physiolibrary.Hydraulic.Interfaces.HydraulicPort_a q_in
       "hydraulic pressure" annotation (Placement(transformation(extent={{-110,-110},
               {-90,-90}}), iconTransformation(extent={{-110,-110},{-90,-90}})));
-    Physiolibrary.Osmotic.Interfaces.OsmoticPort_b q_out(o(displayUnit="g/ml"))
+    Physiolibrary.Osmotic.Interfaces.OsmoticPort_b q_out(o(displayUnit="mmol/l"))
       "colloid osmotic pressure" annotation (Placement(transformation(extent={{
               90,-10},{110,10}}), iconTransformation(extent={{90,-10},{110,10}})));
 
-  parameter Real C1 =   320.0;
-  parameter Real C2 =   1160.0;
-
-    Modelica.Blocks.Interfaces.RealOutput
+    Physiolibrary.Types.RealIO.PressureOutput
                            P annotation (Placement(transformation(extent={{42,86},
               {82,126}}), iconTransformation(
           extent={{-20,-20},{20,20}},
@@ -475,7 +472,7 @@ package deprecated
   model ColloidHydraulicPressure
     "set pressure as sum of osmotic pressure(from osmoles) and hydrostatic/hydrodynamic pressure(from signal)"
     extends Physiolibrary.Icons.ConversionIcon;
-    Modelica.Blocks.Interfaces.RealInput
+     Physiolibrary.Types.RealIO.PressureInput
                           hydraulicPressure(displayUnit="mmHg")
                             annotation (Placement(transformation(extent={{-20,80},
               {20,120}}), iconTransformation(
@@ -486,16 +483,17 @@ package deprecated
       "pressure on semipermeable membrane wall = osmotic + hydrostatic"
       annotation (Placement(transformation(extent={{90,-10},{110,10}}),
           iconTransformation(extent={{90,-10},{110,10}})));
-    Physiolibrary.Osmotic.Interfaces.OsmoticPort_a q_in(o(displayUnit="g"))
-      "osmoles"
+    Physiolibrary.Osmotic.Interfaces.OsmoticPort_a q_in(o(displayUnit="mmol/l"))
+      "osmolarity"
       annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
 
-  parameter Real C1 =   320.0;
-  parameter Real C2 =   1160.0;
+  //parameter Real C1 =   320.0;
+  //parameter Real C2 =   1160.0;
+  parameter Physiolibrary.Types.Temperature T=310.15;
 
   equation
     q_in.q + q_out.q = 0;
-    q_out.pressure = hydraulicPressure - ( (C1 * q_in.o)  + ( C2 * (q_in.o^2)));
+    q_out.pressure = hydraulicPressure - q_in.o*Modelica.Constants.R*T;// ( (C1 * q_in.o)  + ( C2 * (q_in.o^2)));
 
     annotation (Icon(coordinateSystem(preserveAspectRatio=true,  extent={{-100,
               -100},{100,100}},
@@ -520,21 +518,21 @@ package deprecated
             fillPattern=FillPattern.Solid)}));
   end ColloidHydraulicPressure;
 
-  model ColloidHydraulicPressure0
+  model HydraulicPressure
    extends Physiolibrary.Icons.ConversionIcon;
-    Modelica.Blocks.Interfaces.RealInput
+    Physiolibrary.Types.RealIO.PressureInput
                           hydraulicPressure(displayUnit="mmHg")
                             annotation (Placement(transformation(extent={{-20,80},
               {20,120}}), iconTransformation(
           extent={{-20,-20},{20,20}},
           rotation=270,
           origin={40,120})));
-    Physiolibrary.Osmotic.Interfaces.OsmoticPort_a q_in(o(displayUnit="g"))
+    Physiolibrary.Osmotic.Interfaces.OsmoticPort_a q_in(o(displayUnit="mmol/l"))
       "osmoles"
       annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
 
-  parameter Real C1 =   320.0;
-  parameter Real C2 =   1160.0;
+  //parameter Real C1 =   320.0;
+  //parameter Real C2 =   1160.0;
 
     Physiolibrary.Hydraulic.Interfaces.HydraulicPort_b withoutCOP
       "only hydrostatic pressure without colloid osmotic pressure" annotation (
@@ -566,7 +564,7 @@ package deprecated
             lineColor={0,0,0},
             fillColor={255,255,255},
             fillPattern=FillPattern.Solid)}));
-  end ColloidHydraulicPressure0;
+  end HydraulicPressure;
 
   model MolarOutflux "Molar pump of solute"
 

@@ -200,6 +200,8 @@ GILumenVolume.Absorption
 1.4894 ml/min
 GILumenVolume.Intake
 1.4894 ml/min
+GILumenVolume.Mass
+1000 ml
 GITract-Flow.BloodFlow
 1153.68 ml/min
 GlomerulusFiltrate.GFR
@@ -522,6 +524,8 @@ GILumenPotassium.Mass
 25 mmol
 GILumenSodium.Mass
 80 mmol
+GILumenVolume.[Fiber]
+4.3e-002 osm/l
 LacPool.Mass
 15 mmol
 EPOPool.[EPO]
@@ -950,6 +954,8 @@ AmbientTemperature.Temp(C)
 310.15 K
 EnvironmentRelativeHumidity
 0.7
+RelativeHumidity.VaporPressure
+6.0286863796454 mmHg
 DietIntakeH2O.Rate(mL/Min)
 1.48941 ml/min
 DialyzerActivity.UltrafiltrationRate

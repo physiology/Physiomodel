@@ -1,0 +1,155 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 9.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       157,          7]
+NotebookDataLength[      5357,        145]
+NotebookOptionsPosition[      4983,        127]
+NotebookOutlinePosition[      5345,        143]
+CellTagsIndexPosition[      5302,        140]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"n", "=", 
+   RowBox[{
+    RowBox[{
+     RowBox[{
+      RowBox[{"(", 
+       RowBox[{"320", "*", 
+        RowBox[{"101325", "/", "760"}]}], ")"}], "/", 
+      RowBox[{"(", 
+       RowBox[{"310.15", "*", "8.314"}], ")"}]}], "0.001", "*", "m"}], "+", 
+    RowBox[{
+     RowBox[{
+      RowBox[{"(", 
+       RowBox[{"1160", "*", 
+        RowBox[{"101325", "/", "760"}]}], ")"}], "/", 
+      RowBox[{"(", 
+       RowBox[{"310.15", "*", "8.314"}], ")"}]}], 
+     RowBox[{
+      RowBox[{"(", 
+       RowBox[{"0.001", "*", "m"}], ")"}], "^", "2"}]}]}]}], 
+  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{"Plot", "[", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"10", "^", "3"}], "/", 
+    RowBox[{"(", 
+     RowBox[{"0.016545", "+", 
+      RowBox[{"0.000059976", "m"}]}], ")"}]}], ",", 
+   RowBox[{"{", 
+    RowBox[{"m", ",", "22", ",", "100"}], "}"}], ",", 
+   RowBox[{"PlotRange", "\[Rule]", "Full"}], ",", 
+   RowBox[{"AxesLabel", "\[Rule]", 
+    RowBox[{"{", 
+     RowBox[{
+     "\"\<Serum proteins [g/L]\>\"", ",", 
+      "\"\<Proteins average molar mass [Da]\>\""}], "}"}]}]}], 
+  "]"}]}], "Input",
+ CellChangeTimes->{{3.61592204966969*^9, 3.615922094637674*^9}, {
+  3.615922159666026*^9, 3.6159222185063343`*^9}, {3.6159223105787163`*^9, 
+  3.615922329207135*^9}, {3.615922420289712*^9, 3.6159224694564962`*^9}, {
+  3.615922694536501*^9, 3.6159228097444353`*^9}, {3.6159228834155483`*^9, 
+  3.615922953934366*^9}, {3.6159229924080153`*^9, 3.6159230314520454`*^9}, {
+  3.6159232107055407`*^9, 3.6159232243016043`*^9}, {3.615923336734967*^9, 
+  3.6159234678165417`*^9}, {3.615923885371557*^9, 3.6159239604776225`*^9}, {
+  3.6159242232921534`*^9, 3.615924249989952*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"0.016545168435356264`", " ", "m"}], "+", 
+  RowBox[{"0.00005997623557816645`", " ", 
+   SuperscriptBox["m", "2"]}]}]], "Output",
+ CellChangeTimes->{{3.615923455878578*^9, 3.61592346830787*^9}, {
+  3.615923914216782*^9, 3.6159239610109825`*^9}, {3.615924234950925*^9, 
+  3.615924250583348*^9}}],
+
+Cell[BoxData[
+ GraphicsBox[{{}, {}, 
+   {Hue[0.67, 0.6, 0.6], LineBox[CompressedData["
+1:eJwVzH081AcAx/Fzophq41wPr66SUK9aO8npRL65ZnnMPbj71WZ6MkqGrFoZ
+2bXX8VrzOA/zStTUtuuBFKWEUql05khXKCV+90i9XI7onN3++L4+r/c/X6dd
+CbxoKoVCCTXv/1IGahZSKCyMSYNlSyN0oKygvVlizQI3xVGfK9DBIj5Z6mfH
+QtXORwwLs6nj7uuPzWeB+mFY0s/TweqTqggTk4Uy+tLTf4brYOshzTXuZOFQ
+nmLYJUQHh+OnrCfusiBusBhlcnRwdZboRzK8sGHAoZhw1+FUwZ3zvUw24hlZ
+TuO2Orxom/eqtMEbtgGxC8QqLepLP1wu9PeB38Let/Pva6Et5eyWqH2hjdmy
+eMVpLfr3SPPCDvjB/rijziZNC1qVT3hGNjDJsTp/YJsWmWN7XS13bALHuWe2
+2lOL12fO3tzn7I/ank0GuqPZ0TS/sHF/rGzWZ7wc0eBeVt7PjAYOIsfH6sI7
+NPiR0pU/69hmpDYea7hWrUHXieCCBO6XqLSMXHwvRwNaipzf7BiAptWDJ2IS
+NTCKf7XM0wbgc1atoClMg5qnNuKU+q/QaZP+0naNBuG/FTVy07aAG7otWTFX
+g8KvCV0FNxA1RxtF0e/UaMx2U/TTg3CE+fFjbIcaOT2rqk8OBaGvjk/3qVaD
+mWTYntQYjOrv9gwZ8tSojZM1rxWH4OqOLNtPD6rxJu35wkRhKKq7d5TPFKrx
+3jDCLFkUhhkPpOMCthpd1+WOfX1heEZhTyUz1IjMH9SWVW9FZmtfReq0CtFq
+apPLhnCMO0izWwdUeOdQSbl5LhxHOcMmuxYV+gfrV34zh4tCDxljmVSF+zFy
+99EELurfc+Nis1WYOjTt3trNBY248vRykgpu6z0/K/LhYe1qhbOTSIUbZW3P
+Ek7xsD7pBwnXV4XyvPSiDGs+2PsEr3OcVDjM8l5XGMuHm+KXG+RMFc7GzGl9
+3cnHUMgBIX9IibtBmo3LWAIYl/s0tXcqEfTE9WRSsQDFqcXzLW8q4aJOe2ei
+RKAj8VHUtnIl9JUvl4l3RyDDSk6rkijhQBWFcf6NgA3pqmfuV6J0cu1Oey8h
+Rtpxfx9PiXnnHPnP/hCCSRs1FHgroey19+2hinBYW2Y1tlSJv+/RrZ9Ei0B7
+MbfWz0YJOS/1WneLCFvTN/a660mExpu+XcwkkFnVNrmnm8QttkRJ5BNojFo1
+I7mZhD6uQzy3gIBU6DllZ/aKskVLWgoJHLY0Tvx1h0QB9arIo4RAysVGU89t
+Evsfv3o4+zSB71MdPDlNJBiR7AvNlwgku7cJaLdIpKUPJax+RMAlyj7qRi2J
+mitedgOtBLZLQtv5ZmsHxf+UyAgMPd/IeVtDQhi4oN9aTqD9Cw7L2ew19gG8
+fgWBDe9lW7KukHhVUb6uaJDAAt71JbuqSNAVWnmIkkBcm89jYyWJkFmseEs1
+gdx1B48Wm123X3YuUUdANzY1ILtEItdzgh6sJ8A+s3fA6yKJlpjNVy1Gzf/y
+9IudF0gYS3K21hkIXAsJPBJvdqzJJdNlgsCqqGFGxXkSZcyk5S8mCTRkPTT4
+mt2169btfCMBg7eg47mUhG3hzMhAEwE3j9zLyWbjAW9ieprAJf+ffp9j9n8a
+bFun
+     "]]}},
+  AspectRatio->NCache[GoldenRatio^(-1), 0.6180339887498948],
+  Axes->True,
+  AxesLabel->{
+    FormBox["\"Serum proteins [g/L]\"", TraditionalForm], 
+    FormBox["\"Proteins average molar mass [Da]\"", TraditionalForm]},
+  AxesOrigin->{30., 44500.},
+  Method->{},
+  PlotRange->{{22, 100}, {44360.45550358794, 55977.024938423114`}},
+  PlotRangeClipping->True,
+  PlotRangePadding->{
+    Scaled[0.02], 
+    Scaled[0.02]}]], "Output",
+ CellChangeTimes->{{3.615923455878578*^9, 3.61592346830787*^9}, {
+  3.615923914216782*^9, 3.6159239610109825`*^9}, {3.615924234950925*^9, 
+  3.6159242505873456`*^9}}]
+}, Open  ]]
+},
+WindowSize->{1520, 729},
+WindowMargins->{{0, Automatic}, {Automatic, 0}},
+Magnification->3.,
+FrontEndVersion->"9.0 for Microsoft Windows (64-bit) (January 25, 2013)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[579, 22, 1705, 45, 478, "Input"],
+Cell[2287, 69, 328, 7, 128, "Output"],
+Cell[2618, 78, 2349, 46, 589, "Output"]
+}, Open  ]]
+}
+]
+*)
+
+(* End of internal cache information *)
+
