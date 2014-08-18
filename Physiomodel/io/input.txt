@@ -43,7 +43,7 @@ UreaPool.Osmoles
 CD_Ca_Outflow
 0.012 mmol/min
 CD_KA.Outflow
-0 mg/min
+0 mmol/min
 CD_Mg_Outflow
 0.003 mmol/min
 CD_SO4_Outflow
@@ -430,6 +430,8 @@ BloodIons.Cations
 147.736 meq/l
 BloodIons.Protein
 15.0835 meq/l
+LungCO2.[Capy]
+2.39886389481771e-002 mol/l
 Bone-CO2.[BloodHCO3(mEq/L)]
 30.8209 mmol/l
 Bone-CO2.[HCO3(mEq/L)]
@@ -950,8 +952,10 @@ Weight.Core
 41757.3 g
 IVDrip.ProteinRate
 0 g/min
+Barometer.Pressure
+760.
 AmbientTemperature.Temp(C)
-310.15 K
+22.2222222222222 degC
 EnvironmentRelativeHumidity
 0.7
 RelativeHumidity.VaporPressure
