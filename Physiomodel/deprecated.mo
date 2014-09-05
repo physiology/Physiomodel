@@ -84,10 +84,10 @@ package deprecated
 
   model PressureControledCompartment
     "Multiple PressureFlow connector with pressures from multiple inputs"
-   extends Physiolibrary.SteadyStates.Interfaces.SteadyState;
+   extends Physiolibrary.SteadyStates.Interfaces.SteadyState(state_start=initialVolume);
 
-    Modelica.Blocks.Interfaces.RealInput
-                          pressure(final quantity="Pressure", final displayUnit=
+    Physiolibrary.Types.RealIO.PressureInput
+                          pressure( displayUnit=
         "mmHg") "Pressure value input signal"
       annotation (Placement(transformation(extent={{-140,-20},{-100,20}},
           rotation=0), iconTransformation(extent={{-20,-20},{20,20}},
@@ -98,9 +98,9 @@ package deprecated
             extent={{100,-20},{140,20}}, rotation=0), iconTransformation(extent=
              {{-120,-20},{-80,20}})));
 
-    parameter Real initialVolume;
-    Modelica.Blocks.Interfaces.RealOutput
-                           Volume(start=initialVolume, final quantity="Volume", final unit =                    "ml")
+    parameter Physiolibrary.Types.Volume initialVolume;
+    Physiolibrary.Types.RealIO.VolumeOutput
+                           Volume(start=initialVolume)
       annotation (Placement(transformation(extent={{-20,-120},{20,-80}}),
         iconTransformation(
         extent={{-20,-20},{20,20}},
@@ -121,7 +121,7 @@ package deprecated
     y.pressure = pressure;
 
     state = Volume;
-    change = y.q/60;
+    change = y.q;
 
     annotation (Documentation(info="<html>
 <p>Model has a vector of continuous Real input signals as pressures for vector of pressure-flow connectors. </p>
@@ -745,20 +745,27 @@ package deprecated
   end ContinualReaction2;
 
   model Input2EffectDelayed
-    "adapt the value of multiplication coeficient calculated from curve"
+    "Adapt the value of multiplication coeficient calculated from curve"
    extends Physiolibrary.Icons.BaseFactorIcon3;
-   Modelica.Blocks.Interfaces.RealInput u
+   Modelica.Blocks.Interfaces.RealInput u "Input to interpolation curve"
                 annotation (Placement(transformation(extent={{-118,44},{-78,
               84}}),
           iconTransformation(extent={{-108,-10},{-88,10}})));
-   parameter Real HalfTime(unit="s", displayUnit="d"); //Tau(unit="day");
-   parameter Real[:,3] data;
-   parameter String stateName;
+   parameter Real HalfTime(unit="s", displayUnit="d")
+      "Half time of reaching y value";                                                 //Tau(unit="day");
+
+   parameter Real[:,3] data "Array of interpolating points as {x,y,slope}";
+   parameter Real Xscale = 1 "Conversion scale to SI unit of x values";
+   parameter Real Yscale = 1 "Conversion scale to SI unit of y values";
+
+   parameter String stateName "Integrator state name";
     Physiolibrary.Blocks.Interpolation.Curve curve(
       x=data[:, 1],
       y=data[:, 2],
-      slope=data[:, 3])
-      annotation (Placement(transformation(extent={{-68,58},{-48,78}})));
+      slope=data[:, 3],
+      Xscale=Xscale,
+      Yscale=Yscale)
+      annotation (Placement(transformation(extent={{-68,60},{-48,80}})));
     Modelica.Blocks.Math.Product product annotation (Placement(transformation(
           extent={{-10,-10},{10,10}},
           rotation=270,
@@ -780,23 +787,23 @@ package deprecated
   equation
     effect = integrator.y;
     connect(curve.u, u) annotation (Line(
-        points={{-68,68},{-83,68},{-83,64},{-98,64}},
+        points={{-68,70},{-83,70},{-83,64},{-98,64}},
         color={0,0,127},
         smooth=Smooth.None));
     connect(yBase, product.u1) annotation (Line(
-        points={{6,80},{6,30},{6,-20},{6,-20}},
+        points={{0,20},{0,30},{0,-20},{6,-20}},
         color={0,0,127},
         smooth=Smooth.None));
     connect(product.y, y) annotation (Line(
-        points={{-2.02067e-015,-43},{-2.02067e-015,-55.5},{0,-55.5},{0,-60}},
+        points={{-2.02067e-015,-43},{-2.02067e-015,-55.5},{0,-55.5},{0,-40}},
         color={0,0,127},
         smooth=Smooth.None));
     connect(curve.val, feedback.u1) annotation (Line(
-        points={{-47.8,68},{-26,68},{-26,52}},
+        points={{-48,70},{-26,70},{-26,52}},
         color={0,0,127},
         smooth=Smooth.None));
     connect(feedback.y, integrator.u) annotation (Line(
-        points={{-26,35},{-26,29.5},{-26,24},{-26,24}},
+        points={{-26,35},{-26,24}},
         color={0,0,127},
         smooth=Smooth.None));
     connect(integrator.y, feedback.u2) annotation (Line(
