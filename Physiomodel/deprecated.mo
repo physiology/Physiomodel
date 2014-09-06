@@ -858,11 +858,11 @@ package deprecated
   equation
     effect = curve.val;
     connect(yBase, product.u1) annotation (Line(
-        points={{6,80},{6,30},{6,-20},{6,-20}},
+        points={{0,20},{0,30},{0,-20},{6,-20}},
         color={0,0,127},
         smooth=Smooth.None));
     connect(product.y, y) annotation (Line(
-        points={{-2.02067e-015,-43},{-2.02067e-015,-55.5},{0,-55.5},{0,-60}},
+        points={{-2.02067e-015,-43},{-2.02067e-015,-55.5},{0,-55.5},{0,-40}},
         color={0,0,127},
         smooth=Smooth.None));
     connect(feedback.y, integrator.u) annotation (Line(
@@ -882,7 +882,7 @@ package deprecated
         color={0,0,127},
         smooth=Smooth.None));
     connect(curve.val, product.u2) annotation (Line(
-        points={{-17.8,-6},{-6,-6},{-6,-20}},
+        points={{-18,-6},{-6,-6},{-6,-20}},
         color={0,0,127},
         smooth=Smooth.None));
     annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
