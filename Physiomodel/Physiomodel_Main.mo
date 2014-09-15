@@ -32,9 +32,6 @@ Physiomodel.CardioVascular.CVS_Dynamic
     annotation (Placement(transformation(extent={{-76,-60},{-56,-40}})));
   Physiomodel.Heat.Heat2 heat
     annotation (Placement(transformation(extent={{-28,36},{-48,56}})));
-Physiomodel.Interfaces.BusConnector        busConnector
-    annotation (Placement(transformation(extent={{-6,78},{8,92}}),
-         iconTransformation(extent={{-40,-20},{0,20}})));
 equation
 
   connect(setup.busConnector, hormones.busConnector) annotation (Line(
@@ -89,12 +86,7 @@ equation
       color={0,0,255},
       thickness=0.5,
       smooth=Smooth.None));
-  connect(cardioVascularSystem.busConnector, busConnector) annotation (Line(
-      points={{60,93.8},{2,93.8},{2,85},{1,85}},
-      color={0,0,255},
-      thickness=0.5,
-      smooth=Smooth.None));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
+  annotation (Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,
             -100},{100,100}}),      graphics), Documentation(info="<html>
 <p><h4><font color=\"#008000\">QHP Golem Edition</font></h4></p>
 <p>Signal bus connect all submodels with their signal inputs/outputs variables.</p>

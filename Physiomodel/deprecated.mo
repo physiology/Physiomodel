@@ -706,12 +706,9 @@ package deprecated
           rotation=270,
           origin={60,40})));
 
-    parameter Modelica.SIunits.StoichiometricNumber a_in=1
-      "Stoichiometric number of solute A";
-    parameter Modelica.SIunits.StoichiometricNumber a_out=1
-      "Stoichiometric number of solute B";
-    parameter Modelica.SIunits.StoichiometricNumber a_out2=1
-      "Stoichiometric number of solute C";
+   // parameter Modelica.SIunits.StoichiometricNumber a_in=1 "Stoichiometric number of solute A";
+   // parameter Modelica.SIunits.StoichiometricNumber a_out=1 "Stoichiometric number of solute B";
+   // parameter Modelica.SIunits.StoichiometricNumber a_out2=1 "Stoichiometric number of solute C";
 
   equation
     q_out.q + coef*q_in.q = 0;
@@ -943,15 +940,15 @@ package deprecated
         color={0,0,127},
         smooth=Smooth.None));
     connect(yBase, product.u1) annotation (Line(
-        points={{6,100},{6,31},{6,-38},{6,-38}},
+        points={{0,60},{0,31},{0,-38},{6,-38}},
         color={0,0,127},
         smooth=Smooth.None));
     connect(product.y, y) annotation (Line(
-        points={{-2.02067e-015,-61},{-2.02067e-015,-55.5},{0,-55.5},{0,-80}},
+        points={{-2.02067e-015,-61},{-2.02067e-015,-55.5},{0,-55.5},{0,-60}},
         color={0,0,127},
         smooth=Smooth.None));
     connect(feedback.y, integrator.u) annotation (Line(
-        points={{-14,17},{-14,14.25},{-14,14.25},{-14,11.5},{-14,11.5},{-14,6}},
+        points={{-14,17},{-14,6}},
         color={0,0,127},
         smooth=Smooth.None));
     connect(integrator.y, feedback.u2) annotation (Line(
@@ -967,11 +964,11 @@ package deprecated
         color={0,0,127},
         smooth=Smooth.None));
     connect(curve.val, switch1.u3) annotation (Line(
-        points={{-55.8,30},{-54,30},{-54,42},{-38,42}},
+        points={{-56,30},{-54,30},{-54,42},{-38,42}},
         color={0,0,127},
         smooth=Smooth.None));
     connect(Constant1.y, switch1.u1) annotation (Line(
-        points={{-61,72},{-58,72},{-58,58},{-38,58}},
+        points={{-59.5,72},{-58,72},{-58,58},{-38,58}},
         color={0,0,127},
         smooth=Smooth.None));
     connect(switch1.u2, Failed) annotation (Line(
