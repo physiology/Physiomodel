@@ -1,3 +1,13 @@
+GILumenVolume.[Fiber]
+4.3e-002 osm
+LT_InterstitialProtein.Mass
+1.34 mmol
+MT_InterstitialProtein.Mass
+2.72 mmol
+PlasmaProtein.Mass
+4.35 mmol
+UT_InterstitialProtein.Mass
+1.39 mmol
 InsulinPool.[Insulin]
 19.9078 uU_Insulin/ml
 LM_Insulin.[InsulinDelayed]
@@ -526,8 +536,6 @@ GILumenPotassium.Mass
 25 mmol
 GILumenSodium.Mass
 80 mmol
-GILumenVolume.[Fiber]
-4.3e-002 osm/l
 LacPool.Mass
 15 mmol
 EPOPool.[EPO]
@@ -656,14 +664,6 @@ VagusNerve.NA(Hz)
 1.98382 Hz
 LipidDeposits.Mass
 12557.9 g
-LT_InterstitialProtein.Mass
-75 g
-MT_InterstitialProtein.Mass
-150 g
-PlasmaProtein.Mass
-210 g
-UT_InterstitialProtein.Mass
-75 g
 Metabolism-CaloriesUsed.CoreHeat
 796.973 cal/min
 Metabolism-CaloriesUsed.SkeletalMuscleHeat
@@ -899,7 +899,7 @@ Hemorrhage.NaRate
 Hemorrhage.PlasmaRate
 0 ml/min
 Hemorrhage.ProteinRate
-0 g/min
+0 mmol/min
 Hemorrhage.RBCRate
 0 ml/min
 IVDrip.ClRate
@@ -945,13 +945,13 @@ Transfusion.NaRate
 Transfusion.PlasmaRate
 0 ml/min
 Transfusion.ProteinRate
-0 g/min
+0 mmol/min
 Transfusion.RBCRate
 0 ml/min
 Weight.Core
 41757.3 g
 IVDrip.ProteinRate
-0 g/min
+0 mmol/min
 Barometer.Pressure
 760.
 AmbientTemperature.Temp(C)

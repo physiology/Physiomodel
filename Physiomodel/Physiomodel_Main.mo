@@ -17,7 +17,7 @@ Physiomodel.CardioVascular.CVS_Dynamic
     annotation (Placement(transformation(extent={{74,44},{94,64}})));
   Physiomodel.Setup.Setup_const     setup
     annotation (Placement(transformation(extent={{-16,-100},{4,-80}})));
-  Physiomodel.Water.Water2 water
+  Physiomodel.Water.Water3 water
     annotation (Placement(transformation(extent={{-86,0},{-66,20}})));
   Physiomodel.Proteins.Proteins
                     proteins
