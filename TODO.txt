@@ -1,4 +1,3 @@
 Convert phosphates from equivalents to mols! 
 	PO4Pool.[PO4--(mEq/L)]
 
-Check alveolar ventilation (correction of base tidal volume curve Lungs/Breathing.DES)

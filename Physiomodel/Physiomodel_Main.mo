@@ -98,7 +98,7 @@ equation
 </tr>
 <tr>
 <td><p>Copyright:</p></td>
-<td><p>In public domains</p></td>
+<td><p>GPL 3.0</p></td>
 </tr>
 <tr>
 <td><p>By:</p></td>
@@ -106,7 +106,7 @@ equation
 </tr>
 <tr>
 <td><p>Date of:</p></td>
-<td><p>2013</p></td>
+<td><p>2008-2014</p></td>
 </tr>
 <tr>
 <td><p>References:</p></td>
@@ -114,11 +114,11 @@ equation
 </tr>
 <tr>
 <td></td>
-<td><p><br/><br/><br/><br/>Siggaard Andersen: OSA (2005), University of Copenhagen</p></td>
+<td><p><br><br><br><br><br>Siggaard Andersen: OSA (2005), University of Copenhagen</p></td>
 </tr>
 <tr>
 <td></td>
-<td><p><br/><br/><br/><br/>Noriaki Ikeda: A model of overall regulation of body fluids (1979), Kitasato University</p></td>
+<td><p><br><br><br><br><br>Noriaki Ikeda: A model of overall regulation of body fluids (1979), Kitasato University</p></td>
 </tr>
 </table>
 </html>"),

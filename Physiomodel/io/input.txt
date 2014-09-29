@@ -9,11 +9,11 @@ PlasmaProtein.Mass
 UT_InterstitialProtein.Mass
 1.39 mmol
 InsulinPool.[Insulin]
-19.9078 uU_Insulin/ml
+19.9078 uiu/ml
 LM_Insulin.[InsulinDelayed]
-50 uU_Insulin/ml
+50 uiu/ml
 PortalVein-Insulin.[Insulin]
-52.4445 uU_Insulin/ml
+52.4445 uiu/ml
 AldoPool.[Aldo(pMol/L)]
 330 pmol/l
 ADHPool.[ADH]
@@ -539,7 +539,7 @@ GILumenSodium.Mass
 LacPool.Mass
 15 mmol
 EPOPool.[EPO]
-19.9077510438026 U_EPO/l
+19.9077510438026 iu/l
 ANPPool.[ANP]
 19.9077510438027 pmol/l
 NephronANP.[ANP]

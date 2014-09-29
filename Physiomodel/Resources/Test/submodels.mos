@@ -1,0 +1,54 @@
+cd();
+
+openModel("package.mo");
+
+submodels = {"CardioVascular","Water","Proteins","Electrolytes","Gases","Heat","Metabolism","Hormones","Nerves","Status","Setup","Main"};
+
+savelog("Resources/Test/log0.txt");
+
+ok = true;
+
+for source in submodels loop
+  
+   clearlog();
+
+   if ( checkModel("Physiomodel."+source+".test."+source+"_test") ) then
+	if ( translateModel("Physiomodel."+source+".test."+source+"_test") ) then
+	    if( simulateModel("Physiomodel."+source+".test."+source+"_test", stopTime=864000) ) then
+			Utilities.ModelicaMessage(source+" success");
+			cd("Resources/Test");
+			system("sortComparison.bat "+source);
+			cd("../..");
+			savelog("Resources/Test/log11.txt");
+	    else
+			ok = false;
+			Utilities.ModelicaMessage(source+" simulation failed\n");
+            end if;
+        else
+		ok = false;
+		Utilities.ModelicaMessage(source+" translation failed\n");
+	end if;
+   else
+	ok = false;
+	Utilities.ModelicaMessage(source+" check failed\n");
+   end if;
+ 
+  Utilities.ModelicaMessage("<");
+
+  savelog("Resources/Test/"+source+".txt");
+ 
+end for;
+
+  clearlog();
+
+  if ( ok ) then
+	  Utilities.ModelicaMessage("ALL OK!");
+  else
+	  Utilities.ModelicaMessage("ERROR: SOMETHING FAIL!");
+  end if;
+
+  savelog("Resources/Test/log1.txt");
+ 
+
+exitDelayed();
+
