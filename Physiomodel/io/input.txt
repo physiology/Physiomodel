@@ -1,3 +1,7 @@
+Breathing.AlveolarVentilation(STPD)
+3485.98 ml/min
+AlveolarVentilation_Env
+3769.33 ml/min
 GILumenVolume.[Fiber]
 4.3e-002 osm
 LT_InterstitialProtein.Mass
@@ -192,8 +196,6 @@ Bone-Flow.BloodFlow
 324.086 ml/min
 Brain-Flow.BloodFlow
 817.031 ml/min
-Breathing.AlveolarVentilation(STPD)
-3485.98 ml/min
 Breathing.TotalVentilation
 6152.77 ml/min
 CardiacOutput.Flow
@@ -809,7 +811,7 @@ Skin-Function.Failed
 Skin-Structure.Effect
 1
 skin_conductanceWithoutTermoregulationEffect
-1.58145
+1.58145 ml/(mmHg.min)
 skin_sO2
 0.736763
 SympsCNS.PituitaryNA

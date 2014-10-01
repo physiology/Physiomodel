@@ -1,4 +1,4 @@
-sort-7.6 -n ../../io/comparison.txt > d.csv
+sort-7.6 -n ../../io/comparison_SI.txt > d.csv
 gawk -f removeDuplicates.awk d.csv > %1.csv
-rem rm ../../io/comparison.txt d.csv
+rm ../../io/comparison_SI.txt d.csv
 
