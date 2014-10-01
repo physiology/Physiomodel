@@ -1,3 +1,9 @@
+Brain-Ph.Ph
+7.09 log10(mol/l)
+Brain-CO2.PCO2
+58.2 mmHg
+Brain-CO2.OutflowBase
+1.7 mmol/min
 Breathing.AlveolarVentilation(STPD)
 3485.98 ml/min
 AlveolarVentilation_Env
@@ -82,8 +88,6 @@ Bone-CO2.PCO2
 59.3389 mmHg
 Bone-Flow.PO2
 42.2937 mmHg
-Brain-CO2.PCO2
-46.5806 mmHg
 Brain-Flow.PO2
 40.37 mmHg
 CarotidSinus.Pressure
@@ -372,8 +376,6 @@ Bone-CO2.OutflowBase
 0.510088 mmol/min
 Bone-Lactate.Outflux
 5.09E-05 mmol/min
-Brain-CO2.OutflowBase
-1.40246 mmol/min
 Brain-Lactate.Outflux
 0 mmol/min
 CD_Cl.Outflow
@@ -564,8 +566,6 @@ bone_pH_interstitial
 7.15224 log10(mol/l)
 bone_pH_plasma
 7.28003 log10(mol/l)
-Brain-Ph.Ph
-7.13738 log10(mol/l)
 brain_pH_ery
 7.17293 log10(mol/l)
 brain_pH_interstitial
