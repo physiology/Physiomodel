@@ -2,6 +2,11 @@ within Physiomodel;
 package Substances "Definitions of substances"
     extends Modelica.Icons.Package;
 
+  constant Physiolibrary.Chemical.Interfaces.SubstanceDefinition Water=
+      Physiolibrary.Chemical.Interfaces.SubstanceDefinition(
+      shortName="H2O",
+      mw=0.018015,
+      storeUnit="g") "H2O";
   constant Physiolibrary.Chemical.Interfaces.SubstanceDefinition Oxygen=
       Physiolibrary.Chemical.Interfaces.SubstanceDefinition(
       shortName="O2",
@@ -102,7 +107,7 @@ package Substances "Definitions of substances"
   constant Physiolibrary.Chemical.Interfaces.SubstanceDefinition Hemoglobins=
       Physiolibrary.Chemical.Interfaces.SubstanceDefinition(
       shortName="Hb",
-      mw=64.5,
+      mw=64.500,
       storeUnit="g/dl") "Hb";
   constant Physiolibrary.Chemical.Interfaces.SubstanceDefinition Albumins=
       Physiolibrary.Chemical.Interfaces.SubstanceDefinition(
@@ -112,7 +117,7 @@ package Substances "Definitions of substances"
   constant Physiolibrary.Chemical.Interfaces.SubstanceDefinition Globulins=
       Physiolibrary.Chemical.Interfaces.SubstanceDefinition(
       shortName="Glb",
-      mw=34.5,
+      mw=34.500,
       storeUnit="g/dl") "Glb";
 
   constant Physiolibrary.Chemical.Interfaces.SubstanceDefinition Insulin=
@@ -124,8 +129,8 @@ package Substances "Definitions of substances"
   constant Physiolibrary.Chemical.Interfaces.SubstanceDefinition Leptin=
       Physiolibrary.Chemical.Interfaces.SubstanceDefinition(
       shortName="Leptin",
-      mw=16,
-      storeUnit="ug/l") "Leptin";
+      mw=16.026,
+      storeUnit="ng/ml") "Leptin";
   constant Physiolibrary.Chemical.Interfaces.SubstanceDefinition Glucagon=
       Physiolibrary.Chemical.Interfaces.SubstanceDefinition(
       shortName="Glucagon",

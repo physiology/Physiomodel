@@ -97,7 +97,7 @@ equation
 <td><p>Marek Matejak</p></td>
 </tr>
 <tr>
-<td><p>Copyright:</p></td>
+<td><p>License:</p></td>
 <td><p>GPL 3.0</p></td>
 </tr>
 <tr>
@@ -114,13 +114,31 @@ equation
 </tr>
 <tr>
 <td></td>
-<td><p><br><br><br><br><br>Siggaard Andersen: OSA (2005), University of Copenhagen</p></td>
+<td><p><br>Siggaard Andersen: OSA (2005), University of Copenhagen</p></td>
 </tr>
 <tr>
 <td></td>
-<td><p><br><br><br><br><br>Noriaki Ikeda: A model of overall regulation of body fluids (1979), Kitasato University</p></td>
+<td><p><br>Noriaki Ikeda: A model of overall regulation of body fluids (1979), Kitasato University</p></td>
 </tr>
 </table>
+<br>
+<p>Copyright &copy; 2014 Marek Matejak </p>
+<br>
+<pre>
+
+    This file is part of Physiomodel.
+
+    Physiomodel is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License 3.0 as published by
+    the Free Software Foundation.
+
+    Physiomodel is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Physiomodel.  If not, see <a href=\"http://www.gnu.org/licenses/\">http://www.gnu.org/licenses/</a>.</pre>
 </html>"),
     Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
             100}}),
