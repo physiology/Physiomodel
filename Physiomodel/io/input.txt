@@ -1,3 +1,29 @@
+GILumenCarbohydrates.Absorption
+152.436932371846 mg/min
+GILumenFat.Absorption
+59.7 mg/min
+GILumenProtein.Absorption
+80. mg/min
+Metabolism-FattyAcid.TotalBurn
+74.3810395248269 mg/min
+Metabolism-Glucose.TotalBurn
+73.8854246354187 mg/min
+GlucoseDecomposition.Rate
+11.0069731409606 mg/min
+LM_Gluconeogenesis.Rate
+16.2962377950136 mg/min
+LM_FA_Glucose.GlucoseUptake
+90.4695704598354 mg/min
+FAPool.[FA(mMol/L)]
+0.624307072733651 mmol/l
+Metabolism-FattyAcid.TotalBurn
+74.3810395248269 mg/min
+LM_Ketoacids.FattyAcidUptake
+2.09732661291229 mg/min
+TriglyceridePool.[Triglyceride(mMol/L)]
+1.23428056471576 mmol/l
+TriglyceridePool.GutAbsorption
+66.864 mg/min
 Brain-Ph.Ph
 7.09 log10(mol/l)
 Brain-CO2.PCO2
@@ -818,6 +844,8 @@ SympsCNS.PituitaryNA
 1.00901
 Thyroid.Effect
 0.985357
+ThyroidPool.[Total_T4-T3]
+7.96310041752106 ug/dl
 Bone-Fuel.FractUseDelay
 1
 Brain-Fuel.FractUseDelay
