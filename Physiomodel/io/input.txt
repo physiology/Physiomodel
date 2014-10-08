@@ -1,3 +1,9 @@
+LM_FA_AminoAcids.AminoAcidUptake
+19.9073275128871 mg/min
+LM_Gluconeogenesis.AminoAcidUptake
+27.1603963250227 mg/min
+LM_Ketoacids.FattyAcidUptake
+2.09732661291229 mg/min
 GILumenCarbohydrates.Absorption
 152.436932371846 mg/min
 GILumenFat.Absorption
