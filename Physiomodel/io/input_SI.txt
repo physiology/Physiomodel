@@ -641,7 +641,7 @@ Exercise-Metabolism.MotionWatts
 Exercise-MusclePump.Effect
 1
 Exercise-Metabolism.MotionCals
-3.8379
+0
 Exercise-Metabolism.TotalWatts
 0
 FurosemidePool.[Furosemide]

@@ -1056,4 +1056,72 @@ This icon is designed for a <b>signal bus</b> connector.
 </html>"));
 
   end TissueSubBusConnector;
+
+  package IO
+
+    package PhysiolibTypesRealTypes = Physiolibrary.Types.RealTypes;
+
+    model IVariables
+      package T = PhysiolibTypesRealTypes;
+
+      replaceable block BooleanVariable =
+        Physiolibrary.Types.BooleanExtension.Parameter constrainedby
+        Physiolibrary.Types.AbstractBoolean;
+
+      BusConnector busConnector annotation (Placement(transformation(extent={{
+                80,-12},{100,8}}), iconTransformation(extent={{-10,-10},{10,10}})));
+      annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{
+                -100,-100},{100,100}}), graphics={Rectangle(
+              extent={{-100,100},{100,-100}},
+              lineColor={0,0,255},
+              fillColor={215,215,215},
+              fillPattern=FillPattern.Solid), Text(
+              extent={{-200,-100},{200,-140}},
+              lineColor={0,0,255},
+              fillColor={215,215,215},
+              fillPattern=FillPattern.Solid,
+              textString="%name")}), Diagram(coordinateSystem(
+              preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
+            graphics));
+    end IVariables;
+
+    replaceable model Variables = IVariables constrainedby IVariables;
+
+    model InputFromFile = Variables(T(
+      redeclare block Variable =
+            Physiolibrary.Types.RealExtension.InputParameter,
+      redeclare block BooleanVariable =
+            Physiolibrary.Types.BooleanExtension.InputParameter));
+
+    model OutputToFile = Variables(T(
+      redeclare block Variable =
+            PhysiolibTypes.RealExtension.OutputFinal,
+      redeclare block BooleanVariable =
+            Physiolibrary.Types.BooleanExtension.OutputFinal));
+
+    model OutputComparison = Variables(T(
+      redeclare block Variable =
+            Physiolibrary.Types.RealExtension.OutputComparison,
+      redeclare block BooleanVariable =
+            Physiolibrary.Types.BooleanExtension.OutputComparison));
+
+    model InputFromFile_SI = Variables(T(
+      redeclare block Variable =
+            Physiolibrary.Types.RealExtension.InputParameter_SI,
+      redeclare block BooleanVariable =
+            Physiolibrary.Types.BooleanExtension.InputParameter));
+
+    model OutputToFile_SI = Variables(T(
+      redeclare block Variable =
+            Physiolibrary.Types.RealExtension.OutputFinal_SI,
+      redeclare block BooleanVariable =
+            Physiolibrary.Types.BooleanExtension.OutputFinal));
+
+    model OutputComparison_SI = Variables(T(
+      redeclare block Variable =
+            Physiolibrary.Types.RealExtension.OutputComparison_SI,
+      redeclare block BooleanVariable =
+            Physiolibrary.Types.BooleanExtension.OutputComparison));
+
+  end IO;
 end Interfaces;
