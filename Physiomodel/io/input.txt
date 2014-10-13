@@ -1,3 +1,5 @@
+LowPressureReceptors.NA
+1.0361776
 LM_FA_AminoAcids.AminoAcidUptake
 19.9073275128871 mg/min
 LM_Gluconeogenesis.AminoAcidUptake

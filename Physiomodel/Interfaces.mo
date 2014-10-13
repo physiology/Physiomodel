@@ -871,8 +871,8 @@ constructed by the signals connected to this bus.
       "Partial pressure of carbonmonoxyde. Original name: pCO";
   end BusConnectorInternal;
 
-  expandable connector TorsoSubBusConnector
-    "Empty control bus that is adapted to the signals connected to it"
+  expandable connector TorsoBusConnector
+    "Upper, Middle or Lower Torso properties"
     annotation (
       Icon(coordinateSystem(
           preserveAspectRatio=true,
@@ -962,10 +962,9 @@ This icon is designed for a <b>signal bus</b> connector.
 </p>
 </html>"));
 
-  end TorsoSubBusConnector;
+  end TorsoBusConnector;
 
-  expandable connector TissueSubBusConnector
-    "Empty control bus that is adapted to the signals connected to it"
+  expandable connector TissueBusConnector "Tissue properties"
     annotation (
       Icon(coordinateSystem(
           preserveAspectRatio=true,
@@ -1055,13 +1054,14 @@ This icon is designed for a <b>signal bus</b> connector.
 </p>
 </html>"));
 
-  end TissueSubBusConnector;
+  end TissueBusConnector;
 
-  package IO
+  package IO_Bus
+    extends Modelica.Icons.VariantsPackage;
 
-    package PhysiolibTypesRealTypes = Physiolibrary.Types.RealTypes;
+    replaceable package PhysiolibTypesRealTypes = Physiolibrary.Types.RealTypes;
 
-    model IVariables
+    replaceable model Variables
       package T = PhysiolibTypesRealTypes;
 
       replaceable block BooleanVariable =
@@ -1082,46 +1082,204 @@ This icon is designed for a <b>signal bus</b> connector.
               fillPattern=FillPattern.Solid,
               textString="%name")}), Diagram(coordinateSystem(
               preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
-            graphics));
-    end IVariables;
-
-    replaceable model Variables = IVariables constrainedby IVariables;
+            graphics),
+        Documentation(revisions="<html>
+<table cellspacing=\"2\" cellpadding=\"0\" border=\"0\"><tr>
+<td><p>Author:</p></td>
+<td><p>Marek Matejak</p></td>
+</tr>
+<tr>
+<td><p>License:</p></td>
+<td><p>GPL 3.0</p></td>
+</tr>
+<tr>
+<td><p>By:</p></td>
+<td><p>Charles University, Prague</p></td>
+</tr>
+<tr>
+<td><p>Date of:</p></td>
+<td><p>2014</p></td>
+</tr>
+</table>
+<p>Copyright &copy; 2014 Marek Matejak</p>
+</html>"));
+    end Variables;
 
     model InputFromFile = Variables(T(
       redeclare block Variable =
-            Physiolibrary.Types.RealExtension.InputParameter,
+            Physiolibrary.Types.RealExtension.InputParameter),
       redeclare block BooleanVariable =
-            Physiolibrary.Types.BooleanExtension.InputParameter));
+            Physiolibrary.Types.BooleanExtension.InputParameter) annotation (
+        Documentation(revisions="<html>
+<table cellspacing=\"2\" cellpadding=\"0\" border=\"0\"><tr>
+<td><p>Author:</p></td>
+<td><p>Marek Matejak</p></td>
+</tr>
+<tr>
+<td><p>License:</p></td>
+<td><p>GPL 3.0</p></td>
+</tr>
+<tr>
+<td><p>By:</p></td>
+<td><p>Charles University, Prague</p></td>
+</tr>
+<tr>
+<td><p>Date of:</p></td>
+<td><p>2014</p></td>
+</tr>
+</table>
+<p>Copyright &copy; 2014 Marek Matejak</p>
+</html>"));
 
     model OutputToFile = Variables(T(
       redeclare block Variable =
-            PhysiolibTypes.RealExtension.OutputFinal,
+            Physiolibrary.Types.RealExtension.OutputFinal),
       redeclare block BooleanVariable =
-            Physiolibrary.Types.BooleanExtension.OutputFinal));
+            Physiolibrary.Types.BooleanExtension.OutputFinal) annotation (
+        Documentation(revisions="<html>
+<table cellspacing=\"2\" cellpadding=\"0\" border=\"0\"><tr>
+<td><p>Author:</p></td>
+<td><p>Marek Matejak</p></td>
+</tr>
+<tr>
+<td><p>License:</p></td>
+<td><p>GPL 3.0</p></td>
+</tr>
+<tr>
+<td><p>By:</p></td>
+<td><p>Charles University, Prague</p></td>
+</tr>
+<tr>
+<td><p>Date of:</p></td>
+<td><p>2014</p></td>
+</tr>
+</table>
+<p>Copyright &copy; 2014 Marek Matejak</p>
+</html>"));
 
     model OutputComparison = Variables(T(
       redeclare block Variable =
-            Physiolibrary.Types.RealExtension.OutputComparison,
+            Physiolibrary.Types.RealExtension.OutputComparison),
       redeclare block BooleanVariable =
-            Physiolibrary.Types.BooleanExtension.OutputComparison));
+            Physiolibrary.Types.BooleanExtension.OutputComparison) annotation (
+        Documentation(revisions="<html>
+<table cellspacing=\"2\" cellpadding=\"0\" border=\"0\"><tr>
+<td><p>Author:</p></td>
+<td><p>Marek Matejak</p></td>
+</tr>
+<tr>
+<td><p>License:</p></td>
+<td><p>GPL 3.0</p></td>
+</tr>
+<tr>
+<td><p>By:</p></td>
+<td><p>Charles University, Prague</p></td>
+</tr>
+<tr>
+<td><p>Date of:</p></td>
+<td><p>2014</p></td>
+</tr>
+</table>
+<p>Copyright &copy; 2014 Marek Matejak</p>
+</html>"));
 
     model InputFromFile_SI = Variables(T(
       redeclare block Variable =
-            Physiolibrary.Types.RealExtension.InputParameter_SI,
+            Physiolibrary.Types.RealExtension.InputParameter_SI),
       redeclare block BooleanVariable =
-            Physiolibrary.Types.BooleanExtension.InputParameter));
+            Physiolibrary.Types.BooleanExtension.InputParameter) annotation (
+        Documentation(revisions="<html>
+<table cellspacing=\"2\" cellpadding=\"0\" border=\"0\"><tr>
+<td><p>Author:</p></td>
+<td><p>Marek Matejak</p></td>
+</tr>
+<tr>
+<td><p>License:</p></td>
+<td><p>GPL 3.0</p></td>
+</tr>
+<tr>
+<td><p>By:</p></td>
+<td><p>Charles University, Prague</p></td>
+</tr>
+<tr>
+<td><p>Date of:</p></td>
+<td><p>2014</p></td>
+</tr>
+</table>
+<p>Copyright &copy; 2014 Marek Matejak</p>
+</html>"));
 
     model OutputToFile_SI = Variables(T(
       redeclare block Variable =
-            Physiolibrary.Types.RealExtension.OutputFinal_SI,
+            Physiolibrary.Types.RealExtension.OutputFinal_SI),
       redeclare block BooleanVariable =
-            Physiolibrary.Types.BooleanExtension.OutputFinal));
+            Physiolibrary.Types.BooleanExtension.OutputFinal) annotation (
+        Documentation(revisions="<html>
+<table cellspacing=\"2\" cellpadding=\"0\" border=\"0\"><tr>
+<td><p>Author:</p></td>
+<td><p>Marek Matejak</p></td>
+</tr>
+<tr>
+<td><p>License:</p></td>
+<td><p>GPL 3.0</p></td>
+</tr>
+<tr>
+<td><p>By:</p></td>
+<td><p>Charles University, Prague</p></td>
+</tr>
+<tr>
+<td><p>Date of:</p></td>
+<td><p>2014</p></td>
+</tr>
+</table>
+<p>Copyright &copy; 2014 Marek Matejak</p>
+</html>"));
 
     model OutputComparison_SI = Variables(T(
       redeclare block Variable =
-            Physiolibrary.Types.RealExtension.OutputComparison_SI,
+            Physiolibrary.Types.RealExtension.OutputComparison_SI),
       redeclare block BooleanVariable =
-            Physiolibrary.Types.BooleanExtension.OutputComparison));
+            Physiolibrary.Types.BooleanExtension.OutputComparison) annotation (
+        Documentation(revisions="<html>
+<table cellspacing=\"2\" cellpadding=\"0\" border=\"0\"><tr>
+<td><p>Author:</p></td>
+<td><p>Marek Matejak</p></td>
+</tr>
+<tr>
+<td><p>License:</p></td>
+<td><p>GPL 3.0</p></td>
+</tr>
+<tr>
+<td><p>By:</p></td>
+<td><p>Charles University, Prague</p></td>
+</tr>
+<tr>
+<td><p>Date of:</p></td>
+<td><p>2014</p></td>
+</tr>
+</table>
+<p>Copyright &copy; 2014 Marek Matejak</p>
+</html>"));
 
-  end IO;
+    annotation (Documentation(revisions="<html>
+<table cellspacing=\"2\" cellpadding=\"0\" border=\"0\"><tr>
+<td><p>Author:</p></td>
+<td><p>Marek Matejak</p></td>
+</tr>
+<tr>
+<td><p>License:</p></td>
+<td><p>GPL 3.0</p></td>
+</tr>
+<tr>
+<td><p>By:</p></td>
+<td><p>Charles University, Prague</p></td>
+</tr>
+<tr>
+<td><p>Date of:</p></td>
+<td><p>2014</p></td>
+</tr>
+</table>
+<p>Copyright &copy; 2014 Marek Matejak</p>
+</html>"));
+  end IO_Bus;
 end Interfaces;
