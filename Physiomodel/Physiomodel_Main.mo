@@ -63,7 +63,7 @@ equation
       thickness=0.5,
       smooth=Smooth.None));
   connect(setup.busConnector, nerves.busConnector) annotation (Line(
-      points={{0,-82},{0,62},{76,62}},
+      points={{0,-82},{0,61.6},{76.2,61.6}},
       color={0,0,255},
       thickness=0.5,
       smooth=Smooth.None));
