@@ -42,6 +42,11 @@ package Substances "Definitions of substances"
       shortName="PO4",
       mw=0.095,
       storeUnit="mmol/l") "H2PO4^-, HPO4^2-";
+  constant Physiolibrary.Chemical.Interfaces.SubstanceDefinition Diphosphoglycerate=
+      Physiolibrary.Chemical.Interfaces.SubstanceDefinition(
+      shortName="2,3-DPG",
+      mw=0.26604,
+      storeUnit="mmol/l") "2,3-BPG";
   constant Physiolibrary.Chemical.Interfaces.SubstanceDefinition Sulphates=
       Physiolibrary.Chemical.Interfaces.SubstanceDefinition(
       shortName="SO4",

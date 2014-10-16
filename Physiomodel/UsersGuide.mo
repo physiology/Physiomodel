@@ -6,7 +6,7 @@ package UsersGuide "User's Guide"
     extends Modelica.Icons.Information;
 
     annotation (Documentation(info="<html>
-<p>The first version of Physiomodel integrates the model HumMod 1.6.1 (http://hummod.org), OSA(http://www.siggaard-andersen.dk/) and Ikeda [Ikeda1979].</p>
+<p>The first version of Physiomodel integrates the model HumMod 1.6.1 (http://hummod.org), OSA(http://www.siggaard-andersen.dk/) and others - see References.</p>
 <p>Default setting of the model is to the 86 kg 33 years old healthy man (human physiology is the part of mammalian physiology).</p>
 </html>"));
   end Implementation;
