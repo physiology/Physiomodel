@@ -2,7 +2,7 @@ cd();
 
 openModel("package.mo");
 
-submodels = {"CardioVascular","Water","Proteins","Electrolytes","Gases","Heat","Metabolism","Hormones","Nerves","Status","Setup","Main"};
+submodels = {"CardioVascular","Water","Proteins","Electrolytes","Gases","Heat","Metabolism","Hormones","Nerves","Status","Setup"};
 
 savelog("Resources/Test/log0.txt");
 
@@ -12,12 +12,12 @@ for source in submodels loop
   
    clearlog();
 
-   if ( checkModel("Physiomodel."+source+".test."+source+"_test") ) then
-	if ( translateModel("Physiomodel."+source+".test."+source+"_test") ) then
-	    if( simulateModel("Physiomodel."+source+".test."+source+"_test", stopTime=864000) ) then
+   if ( checkModel("Physiomodel."+source+".IO_Bus."+source+"_test_SI") ) then
+	if ( translateModel("Physiomodel."+source+".IO_Bus."+source+"_test_SI") ) then
+	    if( simulateModel("Physiomodel."+source+".IO_Bus."+source+"_test_SI", stopTime=864000) ) then
 			Utilities.ModelicaMessage(source+" success");
 			cd("Resources/Test");
-			system("sortComparison.bat "+source);
+			system("sortComparison_SI.bat "+source);
 			cd("../..");
 			savelog("Resources/Test/log11.txt");
 	    else
