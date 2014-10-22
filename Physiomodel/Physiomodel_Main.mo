@@ -26,10 +26,11 @@ Physiomodel.CardioVascular.CVS_Dynamic
   Physiomodel.Status.TissuesFitness status
     annotation (Placement(transformation(extent={{42,-74},{62,-54}})));
   Physiomodel.Gases.Gases          gases(oxygen(tissuesO2(skeletalMuscleO2(
-          O2Tissue(
-          pO2(start=5.43),
-          sO2CO(start=0.367),
-          a(start=0.518))))))
+            O2Tissue(
+            a(start=0.518),
+            pCO2(displayUnit="mmHg"),
+            sO2CO(start=0.367),
+            pO2(start=5332.8954966, displayUnit="mmHg"))))))
     annotation (Placement(transformation(extent={{-76,-60},{-56,-40}})));
   Physiomodel.Heat.Heat2 heat
     annotation (Placement(transformation(extent={{-28,36},{-48,56}})));

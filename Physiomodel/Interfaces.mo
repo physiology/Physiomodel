@@ -91,7 +91,6 @@ This icon is designed for a <b>signal bus</b> connector.
 
   end SignalBusBlue;
 
-
   expandable connector BusConnectorInternal
     "Main bus connector that connect all submodels with this huge set of variables"
     extends Physiomodel.Interfaces.SignalBusBlue;
@@ -846,7 +845,5 @@ This icon is designed for a <b>signal bus</b> connector.
    Real pCO(unit="mmHg", nominal=0)
       "Partial pressure of carbonmonoxyde. Original name: pCO";
   end BusConnectorInternal;
-
-
 
 end Interfaces;
