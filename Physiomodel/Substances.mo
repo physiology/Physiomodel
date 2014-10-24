@@ -227,6 +227,9 @@ package Substances "Definitions of substances"
   constant Physiolibrary.Chemical.Interfaces.SubstanceDefinition Digoxin=
       Physiolibrary.Chemical.Interfaces.SubstanceDefinition(mw=0.78092,
       storeUnit="mg/l") "Digoxin";
+  constant Physiolibrary.Chemical.Interfaces.SubstanceDefinition Desglymidodrine=
+      Physiolibrary.Chemical.Interfaces.SubstanceDefinition(mw=0.197231,
+      storeUnit="ug/l") "Digoxin";
 
   annotation (Documentation(info="<html>
 <p>Invariant&nbsp;properties&nbsp;of&nbsp;substance&nbsp;(molar&nbsp;weight,&nbsp;enthalpy,&nbsp;entropy,&nbsp;...) to recalculate units, or other substances stafs.</p>
