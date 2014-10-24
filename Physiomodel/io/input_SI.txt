@@ -279,7 +279,7 @@ GITract-Ph.Ph
 Bone-Ph.Ph
 7.03009
 Brain-Ph.Ph
-7.09
+7.08
 Fat-Ph.Ph
 7.30414
 Kidney-Ph.Ph
@@ -319,7 +319,7 @@ Fat-Flow.PO2
 GITract-Flow.PO2
 7846.7
 Kidney-O2.TubulePO2
-6666.12
+4666
 Kidney-O2.VeinPO2
 8238.14
 LeftHeart-Flow.PO2

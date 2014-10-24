@@ -13,7 +13,7 @@ other_CellK_Mass
 PotassiumToCell_AldoEffect
 1
 Kidney-O2.TubulePO2
-50
+35
 skin_conductanceWithoutTermoregulationEffect
 1.58144559622155
 skeletalMuscle_HeatWithoutTermoregulation
@@ -8711,7 +8711,7 @@ Brain-Ph.[SID(mEq/L)]
 Brain-Ph.[SID]
 4.5246936734401e-002
 Brain-Ph.Ph
-7.13738448029574
+7.08
 Brain-Function.LastState
 0.
 Brain-Function.NotResponding

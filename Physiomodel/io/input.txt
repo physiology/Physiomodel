@@ -33,7 +33,7 @@ TriglyceridePool.[Triglyceride(mMol/L)]
 TriglyceridePool.GutAbsorption
 66.864 mg/min
 Brain-Ph.Ph
-7.09 log10(mol/l)
+7.08 log10(mol/l)
 Brain-CO2.PCO2
 58.2 mmHg
 Brain-CO2.OutflowBase
@@ -143,7 +143,7 @@ GlomerulusFiltrate.Pressure
 Kidney-CO2.PCO2
 79.7169 mmHg
 Kidney-O2.TubulePO2
-50 mmHg
+35 mmHg
 Kidney-O2.VeinPO2
 61.7911 mmHg
 LeftAtrium.TMP
