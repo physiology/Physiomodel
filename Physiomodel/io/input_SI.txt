@@ -903,13 +903,13 @@ ctAlb
 ctGlb
 28
 UT_InterstitialProtein.Mass
-0.00139
+0.00129
 PlasmaProtein.Mass
 0.00435
 MT_InterstitialProtein.Mass
-0.00272
+0.003
 LT_InterstitialProtein.Mass
-0.00134
+0.0018
 BloodIons.Cations
 1.42544e+007
 BloodIons.Cations
