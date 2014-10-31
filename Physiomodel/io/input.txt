@@ -1,3 +1,7 @@
+EpiPool.[Epi(nMol/L)]
+0.217392641398325 nmol/l
+NEPool.[NE(nMol/L)]
+1.41424663415174 nmol/l
 LowPressureReceptors.NA
 1.0361776
 LM_FA_AminoAcids.AminoAcidUptake

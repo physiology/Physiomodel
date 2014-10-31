@@ -1,3 +1,0 @@
-Convert phosphates from equivalents to mols! 
-	PO4Pool.[PO4--(mEq/L)]
-

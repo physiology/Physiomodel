@@ -1,3 +1,7 @@
+EpiPool.[Epi(nMol/L)]
+0.217392641398325e-6
+NEPool.[NE(nMol/L)]
+1.41424663415174e-6
 LowPressureReceptors.NA
 1.0361776
 ArtysVol.Vol

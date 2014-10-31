@@ -11,8 +11,7 @@ This program is distributed WITHOUT ANY WARRANTY; without even the implied warra
 --- End of OSPC Public License Header ---
 
 
-The OSPC-PL is a public license for Physiomodel with three modes/alternatives (GPL, OSPC-Internal, OSPC-External) for use and redistribution, in source and/or binary/object-code
-form:
+The OSPC-PL is a public license for Physiomodel with three modes/alternatives (GPL, OSPC-Internal, OSPC-External) for use and redistribution, in source and/or binary/object-code form:
 * GPL. Any party (member or non-member of OSPC) may use and redistribute Physiomodel under GPL version 3.
 * Level 1 members of OSPC may also use and redistribute Physiomodel under OSPC-Internal conditions.
 * Level 2 members of OSPC may also use and redistribute Physiomodel under OSPC-Internal or OSPC-External conditions.
