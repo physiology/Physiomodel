@@ -145,10 +145,7 @@ equation
     Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
             100}}),
         graphics),
-    experiment(
-      StopTime=3.1536e+007,
-      NumberOfIntervals=200,
-      Tolerance=0.01),
+    experiment(StopTime=3.1536e+007, Tolerance=0.001),
     experimentSetupOutput,
     Commands(file="view.mos" "view"));
 end Physiomodel_Main;
