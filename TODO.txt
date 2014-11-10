@@ -1,0 +1,5 @@
+Respiratory muscle motion energy (RespiratoryMuscle-Work.MotionCals) [W] sould be dependent on respiration rate and tidal volume.
+
+Heart muscle work energy (LeftHeart-Work.MotionCals, RightHeart-Work.MotionCals) [W] sould be dependent on heart rate and stroke volume.
+
+Metabolism of erythrocytes.
