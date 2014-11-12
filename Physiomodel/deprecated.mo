@@ -1,7 +1,6 @@
 within Physiomodel;
 package deprecated
-
-  model ColloidOsmolarity "set osmolarity from protein mass flow"
+model ColloidOsmolarity "set osmolarity from protein mass flow"
     extends Physiolibrary.Icons.ConversionIcon;
     Physiolibrary.Types.RealIO.MolarFlowRateInput
                           proteinMassFlow(displayUnit="mmol/min")
@@ -23,7 +22,7 @@ package deprecated
           extent={{-20,-20},{20,20}},
           rotation=270,
           origin={-60,-120})));
-  equation
+equation
     q_in.q + q_out.q = 0;
     q_out.o = abs(proteinMassFlow/q_in.q);
     P = q_in.pressure;
@@ -49,7 +48,7 @@ package deprecated
             lineColor={0,0,0},
             fillColor={255,255,255},
             fillPattern=FillPattern.Solid)}));
-  end ColloidOsmolarity;
+end ColloidOsmolarity;
 
   model ColloidHydraulicPressure
     "set pressure as sum of osmotic pressure(from osmoles) and hydrostatic/hydrodynamic pressure(from signal)"
