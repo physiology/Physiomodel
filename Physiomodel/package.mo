@@ -1702,7 +1702,6 @@ vector of pressure-flow connectors.
                             -100},{100,100}})));
         end VentricleVolumeAndPumping2;
 
-
       package develop
       extends Modelica.Icons.UnderConstruction;
         model Ventricle4
@@ -8987,8 +8986,6 @@ Schema : 2008.0
                     Diagram(graphics));
       end Heart__;
 
-
-
       model VasaRecta
 
       Physiolibrary.Hydraulic.Components.Conductor resistorWithCond(
@@ -11380,7 +11377,6 @@ Schema : 2008.0
       end CardioVascular_test_SI;
     end IO_Bus;
 
-
   annotation (Documentation(revisions="<html>
 
 <table cellspacing=\"2\" cellpadding=\"0\" border=\"0\"><tr>
@@ -13426,7 +13422,6 @@ Schema : 2008.0
           extends Physiolibrary.Icons.Liver;
         end LiverO2;
       end Tissues;
-
 
       package IO_Bus
       extends Physiolibrary.Types.IO_Bus;
@@ -18708,7 +18703,6 @@ annotation (Placement(transformation(extent={{16,-70},{22,-64}})));
                 extent={{-100,-100},{100,100}}), graphics));
       end Ventilation;
 
-
       package IO_Bus
       extends Physiolibrary.Types.IO_Bus;
         redeclare model extends Variables
@@ -19557,7 +19551,6 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
           __Dymola_experimentSetupOutput);
       end GasesAndElectrolytes_test_SI;
     end IO_Bus;
-
 
     annotation (Documentation(revisions="<html>
 
@@ -41010,11 +41003,11 @@ QHP 2008 / Peritoneum
           useTemperatureInputs=false,
           cond=CapillaryConductance)
           annotation (Placement(transformation(extent={{-60,-24},{-40,-4}})));
-      Physiolibrary.Osmotic.Components.SolventFlux lymph(useSolutionFlowInput=true)
-          annotation (Placement(transformation(
-              extent={{-10,10},{10,-10}},
-              rotation=180,
-              origin={-58,-70})));
+      Physiolibrary.Osmotic.Components.SolventFlux lymph(useSolutionFlowInput=
+            true) annotation (Placement(transformation(
+            extent={{-10,10},{10,-10}},
+            rotation=180,
+            origin={-58,-70})));
       Physiolibrary.Blocks.Factors.Spline InterstitialPressureEffect(
           data={{-14.0,0.0,0.0},{-4.0,1.0,0.1},{2.0,8.0,4.0},{6.0,25.0,0.0}},
           Xscale=101325/760,
@@ -42028,7 +42021,7 @@ QHP 2008 / Peritoneum
           "H2O excretion" annotation (Placement(transformation(extent={{82,-24},
                   {104,-4}}), iconTransformation(extent={{36,-80},{56,-60}})));
         Physiolibrary.Hydraulic.Components.Conductor ProximalTubule_Conductance(
-            q_in(pressure(start=18.9565)), Conductance=8.750718384865799e-010)
+            q_in(pressure(start=18.9565)), Conductance=8.750718384866e-10)
           annotation (Placement(transformation(
               extent={{-8,-8},{12,12}},
               rotation=90,
@@ -42504,51 +42497,51 @@ QHP 2008 / Peritoneum
            extends Physiolibrary.Icons.Kidney;
           import QHP = Physiomodel;
         Physiolibrary.Osmotic.Interfaces.OsmoticPort_b     urine
-          "H2O excretion" annotation (Placement(transformation(extent={{94,-22},{116,-2}}),
-                              iconTransformation(extent={{-10,-110},{10,-90}})));
+          "H2O excretion" annotation (Placement(transformation(extent={{78,-82},
+                  {100,-62}}),iconTransformation(extent={{-10,-110},{10,-90}})));
         Physiolibrary.Osmotic.Components.Reabsorption   LoopOfHenle
-          annotation (Placement(transformation(extent={{-6,-68},{12,-50}})));
+          annotation (Placement(transformation(extent={{-12,-68},{6,-50}})));
           Modelica.Blocks.Math.Gain gain(k=0.37)
-            annotation (Placement(transformation(extent={{-3,-3},{3,3}},      rotation=180,
-                origin={23,-63})));
+            annotation (Placement(transformation(extent={{4,-4},{-4,4}},      rotation=180,
+                origin={-24,-64})));
         Physiolibrary.Blocks.Factors.Normalization ADHEffect(yBase(nominal=1e-5),
             y(nominal=1e-7))
-          annotation (Placement(transformation(extent={{64,34},{44,54}})));
+          annotation (Placement(transformation(extent={{58,34},{38,54}})));
         Physiolibrary.Osmotic.Components.Reabsorption   CollectingDuct(
             useExternalOutflowMin=true)
-          annotation (Placement(transformation(extent={{40,-24},{60,-4}})));
+          annotation (Placement(transformation(extent={{34,-26},{54,-6}})));
           Modelica.Blocks.Math.Gain gain1(k=0.5)
-            annotation (Placement(transformation(extent={{72,20},{68,24}})));
+            annotation (Placement(transformation(extent={{54,24},{50,28}})));
           Modelica.Blocks.Math.Sum sum1(nin=4)
             annotation (Placement(transformation(extent={{3,-3},{-5,5}},
                 rotation=90,
-                origin={67,13})));
+                origin={49,17})));
         Physiolibrary.Blocks.Factors.Normalization MedullaNaEffect
-          annotation (Placement(transformation(extent={{76,-8},{56,12}})));
+          annotation (Placement(transformation(extent={{58,-4},{38,16}})));
         Physiolibrary.Osmotic.Interfaces.OsmoticPort_a plasma "blood plasma"
-            annotation (Placement(transformation(extent={{-84,50},{-64,70}}),
+            annotation (Placement(transformation(extent={{-86,40},{-66,60}}),
                 iconTransformation(extent={{30,-10},{50,10}})));
           QHP.Water.WaterCompartments.Kidney.CD_H2OChannels2
                          H2OChannels(initialActive=0.969492,
           InactivateKinv=0.008,
           ReactivateK=6.6666666666667e-06)
-            annotation (Placement(transformation(extent={{40,-68},{60,-48}})));
+            annotation (Placement(transformation(extent={{34,-68},{54,-48}})));
           QHP.Water.WaterCompartments.Kidney.DistalTubule2 distalTubule
             annotation (Placement(transformation(extent={{-10,-10},{10,10}},
                 rotation=270,
-                origin={36,46})));
+                origin={30,44})));
         Physiolibrary.Blocks.Math.Reciprocal inv1 annotation (Placement(
               transformation(
               extent={{2,-2},{-2,2}},
               rotation=0,
-              origin={68,50})));
+              origin={62,50})));
         Physiolibrary.Blocks.Math.Reciprocal inv2 annotation (Placement(
               transformation(
               extent={{-5,-5},{3,3}},
               rotation=180,
-              origin={83,1})));
+              origin={65,5})));
         Physiolibrary.Osmotic.Sensors.FlowMeasure   flowMeasure1
-          annotation (Placement(transformation(extent={{68,-2},{88,-22}})));
+          annotation (Placement(transformation(extent={{62,-2},{82,-22}})));
         Physiolibrary.Blocks.Factors.LagSpline
                                             NephronADHOnPerm(data={{0.0,0.3,0},
               {2.0,1.0,0.5},{10.0,3.0,0}}, Xscale=1e-9/QHP.Substances.Vasopressin.mw,
@@ -42557,16 +42550,16 @@ QHP 2008 / Peritoneum
           annotation (Placement(transformation(
               extent={{10,-10},{-10,10}},
               rotation=270,
-              origin={72,-40})));
+              origin={72,-44})));
         Physiolibrary.Blocks.Factors.Spline PermOnOutflow(data={{0.3,0.00,0},{
               1.0,0.93,0.1},{3.0,1.00,0}}) annotation (Placement(transformation(
               extent={{10,-10},{-10,10}},
               rotation=270,
-              origin={66,-26})));
+              origin={66,-30})));
         Physiolibrary.Types.Constants.FractionConst             Constant(k=1)
-          annotation (Placement(transformation(extent={{76,-28},{72,-24}})));
+          annotation (Placement(transformation(extent={{76,-32},{72,-28}})));
         Physiolibrary.Types.Constants.FractionConst             Constant1(k=1)
-          annotation (Placement(transformation(extent={{62,68},{68,74}})));
+          annotation (Placement(transformation(extent={{56,68},{62,74}})));
         Physiolibrary.Blocks.Factors.LagSpline
                                             NephronADHEffect(data={{0.0,0.060,0},
               {2.0,0.110,0.02},{10,0.160,0}}, Xscale=1e-9/QHP.Substances.Vasopressin.mw,
@@ -42576,155 +42569,156 @@ QHP 2008 / Peritoneum
           annotation (Placement(transformation(
               extent={{10,-10},{-10,10}},
               rotation=0,
-              origin={70,58})));
+              origin={64,58})));
         Physiolibrary.Osmotic.Sensors.FlowMeasure   flowMeasure2 annotation (
             Placement(transformation(
               extent={{-10,10},{10,-10}},
               rotation=180,
-              origin={32,-80})));
+              origin={26,-80})));
         Physiolibrary.Osmotic.Sensors.FlowMeasure   flowMeasure3 annotation (
             Placement(transformation(
               extent={{-10,10},{10,-10}},
               rotation=90,
-              origin={18,-30})));
+              origin={12,-30})));
         Physiolibrary.Types.BusConnector busConnector annotation (Placement(
-              transformation(extent={{-100,74},{-80,94}}), iconTransformation(
+              transformation(extent={{-102,76},{-82,96}}), iconTransformation(
                 extent={{-70,66},{-50,86}})));
           Physiolibrary.Osmotic.Components.Membrane glomerulus(
-              useHydraulicPressureInputs=true, cond=3.3752770913055e-09)
-            annotation (Placement(transformation(extent={{-66,56},{-46,76}})));
+              useHydraulicPressureInputs=true,
+          cond=3.3752770913055e-09,
+          useConductanceInput=true)
+            annotation (Placement(transformation(extent={{-66,48},{-46,68}})));
           Physiolibrary.Osmotic.Sensors.FlowMeasure flowMeasure4 annotation (Placement(
                 transformation(
                 extent={{-10,-10},{10,10}},
                 rotation=270,
-                origin={-44,44})));
-          Physiolibrary.Types.Constants.PressureConst medullaPressure(k=0)
-            annotation (Placement(transformation(extent={{-62,90},{-54,98}})));
+                origin={-44,40})));
+          Physiolibrary.Types.Constants.PressureConst PelvisPressure(k=0)
+          annotation (Placement(transformation(extent={{-34,70},{-42,78}})));
           Physiolibrary.Osmotic.Components.Reabsorption ProximalTubule
-            annotation (Placement(transformation(extent={{-26,56},{-6,76}})));
+            annotation (Placement(transformation(extent={{10,-10},{-10,10}},
+              rotation=90,
+              origin={-18,44})));
         Physiolibrary.Types.Constants.VolumeConst MedullaVolume(k=3.1e-05)
           annotation (Placement(transformation(extent={{-86,-94},{-78,-86}})));
+        Physiolibrary.Types.Constants.OsmoticPermeabilityConst Perm(k=
+              6.500533657329e-10)
+          "glomerular Kf and PT conductance (permeability"
+          annotation (Placement(transformation(extent={{-68,90},{-60,98}})));
+        Physiolibrary.Blocks.Factors.Normalization NephronCountEffect
+          annotation (Placement(transformation(extent={{-66,68},{-46,88}})));
         equation
 
           connect(gain1.y, sum1.u[1]) annotation (Line(
-              points={{67.8,22},{66.6,22},{66.6,16.8}},
+              points={{49.8,26},{48.6,26},{48.6,20.8}},
               color={0,0,127},
               smooth=Smooth.None));
           connect(MedullaNaEffect.yBase, sum1.y)   annotation (Line(
-              points={{66,4},{66,7.6}},
+              points={{48,8},{48,11.6}},
               color={0,0,127},
               smooth=Smooth.None));
           connect(distalTubule.DesiredFlow, ADHEffect.y)       annotation (Line(
-              points={{40,40},{54,40}},
+              points={{34,38},{48,38},{48,40}},
               color={0,0,127},
               smooth=Smooth.None));
           connect(inv1.y, ADHEffect.u)  annotation (Line(
-              points={{65.8,50},{66,50},{66,44},{62,44}},
+              points={{59.8,50},{60,50},{60,44},{56,44}},
               color={0,0,127},
               smooth=Smooth.None));
           connect(inv2.y, MedullaNaEffect.u) annotation (Line(
-              points={{79.6,2},{74,2}},
+              points={{61.6,6},{56,6}},
               color={0,0,127},
               smooth=Smooth.None));
-          connect(CollectingDuct.Outflow, flowMeasure1.q_in) annotation (Line(
-              points={{60,-10},{64,-10},{64,-12},{68,-12}},
-              color={0,0,0},
-              thickness=1,
-              smooth=Smooth.None));
-          connect(flowMeasure1.q_out, urine) annotation (Line(
-              points={{88,-12},{105,-12}},
-              color={0,0,0},
-              thickness=1,
-              smooth=Smooth.None));
           connect(H2OChannels.Active, NephronADHOnPerm.yBase) annotation (Line(
-              points={{61.6,-51.4},{78,-51.4},{78,-40},{74,-40}},
+              points={{55.6,-51.4},{66,-51.4},{66,-58},{78,-58},{78,-44},{74,
+                -44}},
               color={0,0,127},
               smooth=Smooth.None));
           connect(NephronADHOnPerm.y, PermOnOutflow.u) annotation (Line(
-              points={{68,-40},{66,-40},{66,-34}},
+              points={{68,-44},{66,-44},{66,-38}},
               color={0,0,127},
               smooth=Smooth.None));
           connect(PermOnOutflow.y, CollectingDuct.FractReab) annotation (Line(
-              points={{62,-26},{38,-26},{38,-18},{42,-18}},
+              points={{62,-30},{30,-30},{30,-20},{36,-20}},
               color={0,0,127},
               smooth=Smooth.None));
 
           connect(Constant.y, PermOnOutflow.yBase) annotation (Line(
-              points={{71.5,-26},{68,-26}},
+              points={{71.5,-30},{68,-30}},
               color={0,0,127},
               smooth=Smooth.None));
           connect(Constant1.y, NephronADHEffect.yBase) annotation (Line(
-              points={{68.75,71},{70,71},{70,60}},
+              points={{62.75,71},{64,71},{64,60}},
               color={0,0,127},
               smooth=Smooth.None));
           connect(NephronADHEffect.y, inv1.u) annotation (Line(
-              points={{70,54},{70,50},{70.4,50}},
+              points={{64,54},{64,50},{64.4,50}},
               color={0,0,127},
               smooth=Smooth.None));
           connect(LoopOfHenle.FractReab, gain.y) annotation (Line(
-              points={{-4.2,-62.6},{14.18,-62.6},{14.18,-63},{19.7,-63}},
+              points={{-10.2,-62.6},{-15.82,-62.6},{-15.82,-64},{-19.6,-64}},
               color={0,0,127},
               smooth=Smooth.None));
 
           connect(CollectingDuct.outflowMin, MedullaNaEffect.y) annotation (
               Line(
-              points={{54,-6},{66,-6},{66,-2}},
+              points={{48,-8},{48,2}},
               color={0,0,127},
               smooth=Smooth.None));
 
           //!!!
 
           connect(busConnector.DT_Na_Outflow, ADHEffect.yBase)       annotation (Line(
-              points={{-90,84},{54,84},{54,46}},
+              points={{-92,86},{48,86},{48,46}},
               color={0,0,127},
               smooth=Smooth.None));
           connect(gain.u, busConnector.LH_Na_FractReab) annotation (Line(
-              points={{26.6,-63},{32.7,-63},{32.7,-62},{32,-62},{32,84},{-90,84}},
+              points={{-28.8,-64},{-36,-64},{-36,86},{-92,86}},
               color={0,0,127},
               smooth=Smooth.None));
           connect(inv2.u, busConnector.MedullaNa_conc) annotation (Line(
-              points={{88.8,2},{98,2},{98,84},{-90,84}},
+              points={{70.8,6},{96,6},{96,86},{-92,86}},
               color={0,0,127},
               smooth=Smooth.None));
           connect(busConnector.CD_Glucose_Outflow, gain1.u) annotation (Line(
-              points={{-90,84},{98.1,84},{98.1,22},{72.4,22}},
+              points={{-92,86},{96.1,86},{96.1,26},{54.4,26}},
               color={0,0,127},
               smooth=Smooth.None));
           connect(busConnector.CD_NH4_Outflow, sum1.u[2]) annotation (Line(
-              points={{-90,84},{98,84},{98,16.8},{66.2,16.8}},
+              points={{-92,86},{98,86},{98,20.8},{48.2,20.8}},
               color={0,0,127},
               smooth=Smooth.None));
           connect(busConnector.CD_K_Outflow, sum1.u[3]) annotation (Line(
-              points={{-90,84},{97.3,84},{97.3,16.8},{65.8,16.8}},
+              points={{-92,86},{98,86},{98,20.8},{47.8,20.8}},
               color={0,0,127},
               smooth=Smooth.None));
           connect(busConnector.CD_Na_Outflow, sum1.u[4]) annotation (Line(
-              points={{-90,84},{98,84},{98,16.8},{65.4,16.8}},
+              points={{-92,86},{98,86},{98,20.8},{47.4,20.8}},
               color={0,0,127},
               smooth=Smooth.None));
 
         connect(NephronADHEffect.u, busConnector.Vasopressin) annotation (Line(
-            points={{78,58},{98,58},{98,84},{-90,84}},
+            points={{72,58},{96,58},{96,86},{-92,86}},
             color={0,0,127},
             smooth=Smooth.None), Text(
             string="%second",
             index=1,
             extent={{6,3},{6,3}}));
         connect(NephronADHOnPerm.u, busConnector.Vasopressin) annotation (Line(
-            points={{72,-48},{72,-60},{98,-60},{98,84},{-90,84}},
+            points={{72,-52},{96,-52},{96,86},{-92,86}},
             color={0,0,127},
             smooth=Smooth.None), Text(
             string="%second",
             index=1,
             extent={{6,3},{6,3}}));
           connect(plasma, glomerulus.q_in) annotation (Line(
-              points={{-74,60},{-72,60},{-72,66},{-66,66}},
+              points={{-76,50},{-72,50},{-72,58},{-66,58}},
               color={127,127,0},
               thickness=1,
               smooth=Smooth.None));
           connect(busConnector.GlomerulusBloodPressure, glomerulus.hydraulicPressureIn)
             annotation (Line(
-              points={{-90,84},{-90,74},{-64,74}},
+              points={{-92,86},{-92,66},{-64,66}},
               color={0,0,255},
               thickness=0.5,
               smooth=Smooth.None), Text(
@@ -42732,17 +42726,18 @@ QHP 2008 / Peritoneum
               index=-1,
               extent={{-6,3},{-6,3}}));
           connect(glomerulus.q_out, flowMeasure4.q_in) annotation (Line(
-              points={{-46,66},{-44,66},{-44,54}},
+              points={{-46,58},{-44,58},{-44,50}},
               color={127,127,0},
               thickness=1,
               smooth=Smooth.None));
-          connect(medullaPressure.y, glomerulus.hydraulicPressureOut) annotation (Line(
-              points={{-53,94},{-48,94},{-48,74}},
-              color={0,0,127},
-              smooth=Smooth.None));
+        connect(PelvisPressure.y, glomerulus.hydraulicPressureOut) annotation (
+            Line(
+            points={{-43,74},{-48,74},{-48,66}},
+            color={0,0,127},
+            smooth=Smooth.None));
           connect(busConnector.GlomerulusFiltrate_GFR, flowMeasure4.volumeFlowRate)
             annotation (Line(
-              points={{-90,84},{-90,44},{-50,44}},
+              points={{-92,86},{-92,40},{-50,40}},
               color={0,0,255},
               thickness=0.5,
               smooth=Smooth.None), Text(
@@ -42750,23 +42745,23 @@ QHP 2008 / Peritoneum
               index=-1,
               extent={{-6,3},{-6,3}}));
           connect(flowMeasure4.q_out, ProximalTubule.Inflow) annotation (Line(
-              points={{-44,34},{-30,34},{-30,70},{-26,70}},
+              points={{-44,30},{-44,24},{-34,24},{-34,70},{-22,70},{-22,54}},
               color={127,127,0},
               thickness=1,
               smooth=Smooth.None));
           connect(ProximalTubule.Outflow, LoopOfHenle.Inflow) annotation (Line(
-              points={{-6,70},{-2,70},{-2,52},{-12,52},{-12,-55.4},{-6,-55.4}},
+              points={{-22,34},{-22,-55.4},{-12,-55.4}},
               color={127,127,0},
               thickness=1,
               smooth=Smooth.None));
           connect(LoopOfHenle.Outflow, flowMeasure3.q_in) annotation (Line(
-              points={{12,-55.4},{18,-55.4},{18,-40}},
+              points={{6,-55.4},{6,-56},{12,-56},{12,-40}},
               color={127,127,0},
               thickness=1,
               smooth=Smooth.None));
           connect(busConnector.LH_H2O_Outflow, flowMeasure3.volumeFlowRate) annotation (
              Line(
-              points={{-90,84},{-92,84},{-92,-30},{12,-30}},
+              points={{-92,86},{-92,-30},{6,-30}},
               color={0,0,255},
               thickness=0.5,
               smooth=Smooth.None), Text(
@@ -42774,18 +42769,18 @@ QHP 2008 / Peritoneum
               index=-1,
               extent={{-6,3},{-6,3}}));
           connect(flowMeasure3.q_out, distalTubule.Inflow) annotation (Line(
-              points={{18,-20},{18,74},{36,74},{36,56}},
+              points={{12,-20},{12,74},{30,74},{30,54}},
               color={127,127,0},
               thickness=1,
               smooth=Smooth.None));
           connect(distalTubule.Outflow, CollectingDuct.Inflow) annotation (Line(
-              points={{36,36},{36,-10},{40,-10}},
+              points={{30,34},{30,-12},{34,-12}},
               color={127,127,0},
               thickness=1,
               smooth=Smooth.None));
           connect(flowMeasure1.volumeFlowRate, busConnector.CD_H2O_Outflow) annotation (
              Line(
-              points={{78,-6},{98,-6},{98,84},{-90,84}},
+              points={{72,-6},{98,-6},{98,86},{-92,86}},
               color={0,0,127},
               smooth=Smooth.None), Text(
               string="%second",
@@ -42793,50 +42788,50 @@ QHP 2008 / Peritoneum
               extent={{6,3},{6,3}}));
           connect(CollectingDuct.Reabsorption, H2OChannels.CD_H2O_Reab) annotation (
               Line(
-              points={{50,-24},{50,-48}},
+              points={{44,-26},{44,-48}},
               color={127,127,0},
               thickness=1,
               smooth=Smooth.None));
           connect(flowMeasure2.volumeFlowRate, busConnector.CD_H2O_Reab) annotation (
               Line(
-              points={{32,-86},{66,-86},{66,-84},{98,-84},{98,84},{-90,84}},
+              points={{26,-86},{98,-86},{98,86},{-92,86}},
               color={0,0,127},
               smooth=Smooth.None), Text(
               string="%second",
               index=1,
               extent={{6,3},{6,3}}));
           connect(flowMeasure2.q_in, H2OChannels.q_out) annotation (Line(
-              points={{42,-80},{50,-80},{50,-68}},
+              points={{36,-80},{44,-80},{44,-68}},
               color={127,127,0},
               thickness=1,
               smooth=Smooth.None));
           connect(flowMeasure2.q_out, plasma) annotation (Line(
-              points={{22,-80},{-74,-80},{-74,60}},
+              points={{16,-80},{-76,-80},{-76,50}},
               color={127,127,0},
               thickness=1,
               smooth=Smooth.None));
           connect(LoopOfHenle.Reabsorption, plasma) annotation (Line(
-              points={{3,-68},{2,-68},{2,-80},{-74,-80},{-74,60}},
+              points={{-3,-68},{-2,-68},{-2,-80},{-76,-80},{-76,50}},
               color={127,127,0},
               thickness=1,
               smooth=Smooth.None));
           connect(ProximalTubule.Reabsorption, plasma) annotation (Line(
-              points={{-16,56},{-16,-80},{-74,-80},{-74,60}},
+              points={{-8,44},{-4,44},{-4,100},{-100,100},{-100,50},{-76,50}},
               color={127,127,0},
               thickness=1,
               smooth=Smooth.None));
           connect(distalTubule.Reabsorbtion, plasma) annotation (Line(
-              points={{32.2,46},{24,46},{24,-70},{10,-70},{10,-80},{-74,-80},{-74,60}},
+              points={{26,44},{-4,44},{-4,100},{-100,100},{-100,50},{-76,50}},
               color={127,127,0},
               thickness=1,
               smooth=Smooth.None));
 
           connect(ProximalTubule.FractReab, busConnector.PT_Na_FractReab) annotation (Line(
-              points={{-24,62},{-24,84},{-90,84}},
+              points={{-14,52},{-14,86},{-92,86}},
               color={0,0,127},
               smooth=Smooth.None));
         connect(MedullaVolume.y, busConnector.Medulla_Volume) annotation (Line(
-            points={{-77,-90},{98,-90},{98,84},{-90,84}},
+            points={{-77,-90},{98,-90},{98,86},{-92,86}},
             color={0,0,127},
             smooth=Smooth.None), Text(
             string="%second",
@@ -42844,10 +42839,37 @@ QHP 2008 / Peritoneum
             extent={{6,3},{6,3}}));
         connect(busConnector.Glomerulus_GFR, flowMeasure4.volumeFlowRate)
           annotation (Line(
-            points={{-90,84},{-90,42},{-50,42},{-50,44}},
+            points={{-92,86},{-92,40},{-50,40}},
             color={0,0,255},
             thickness=0.5,
             smooth=Smooth.None));
+        connect(CollectingDuct.Outflow, flowMeasure1.q_in) annotation (Line(
+            points={{54,-12},{62,-12}},
+            color={127,127,0},
+            thickness=1,
+            smooth=Smooth.None));
+        connect(flowMeasure1.q_out, urine) annotation (Line(
+            points={{82,-12},{94,-12},{94,-72},{89,-72}},
+            color={127,127,0},
+            thickness=1,
+            smooth=Smooth.None));
+        connect(Perm.y, NephronCountEffect.yBase) annotation (Line(
+            points={{-59,94},{-56,94},{-56,80}},
+            color={0,0,127},
+            smooth=Smooth.None));
+        connect(NephronCountEffect.y, glomerulus.conduction) annotation (Line(
+            points={{-56,74},{-56,66}},
+            color={0,0,127},
+            smooth=Smooth.None));
+        connect(busConnector.Kidney_NephronCount_Total_xNormal,
+          NephronCountEffect.u) annotation (Line(
+            points={{-92,86},{-92,78},{-64,78}},
+            color={0,0,255},
+            thickness=0.5,
+            smooth=Smooth.None), Text(
+            string="%first",
+            index=-1,
+            extent={{-6,3},{-6,3}}));
           annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
                   -100},{100,100}}),   graphics), Icon(coordinateSystem(
                 preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
@@ -42857,13 +42879,13 @@ QHP 2008 / Peritoneum
         model DistalTubule2
 
         Physiolibrary.Osmotic.Interfaces.OsmoticPort_a Inflow annotation (
-            Placement(transformation(extent={{-120,-18},{-80,22}}),
+            Placement(transformation(extent={{-120,-20},{-80,20}}),
               iconTransformation(extent={{-120,-20},{-80,20}})));
         Physiolibrary.Osmotic.Interfaces.OsmoticPort_b Outflow
           annotation (Placement(transformation(extent={{80,-20},{120,20}})));
         Physiolibrary.Osmotic.Interfaces.OsmoticPort_b Reabsorbtion
-          annotation (Placement(transformation(extent={{-20,-58},{20,-18}}),
-              iconTransformation(extent={{-20,-58},{20,-18}})));
+          annotation (Placement(transformation(extent={{-20,-60},{20,-20}}),
+              iconTransformation(extent={{-20,-60},{20,-20}})));
           Physiolibrary.Types.RealIO.VolumeFlowRateInput DesiredFlow(displayUnit="ml/min")
                                        annotation (Placement(transformation(extent={{-20,20},{20,
                     60}}), iconTransformation(extent={{-20,-20},{20,20}},
@@ -42873,8 +42895,8 @@ QHP 2008 / Peritoneum
           Outflow.q + Inflow.q + Reabsorbtion.q = 0;
           Inflow.o = Outflow.o;
           Outflow.q = - DesiredFlow;
-          annotation (Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-                    -100},{100,100}}), graphics={
+          annotation (Icon(coordinateSystem(preserveAspectRatio=false,extent={{-100,
+                  -100},{100,100}}),   graphics={
                 Rectangle(
                   extent={{-100,40},{100,-40}},
                   lineColor={127,127,0},
@@ -47887,7 +47909,6 @@ annotation (Placement(transformation(extent={{-42,64},{-24,82}})));*/
         __Dymola_experimentSetupOutput);
       end Proteins_test_SI;
     end IO_Bus;
-
 
     annotation (Documentation(revisions="<html>
 
@@ -83356,9 +83377,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
 </html>"), Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
               {100,100}}), graphics));
   end Heat;
-
-
-
 
 
   annotation (uses(Modelica(version="3.2.1"), Physiolibrary(version=
