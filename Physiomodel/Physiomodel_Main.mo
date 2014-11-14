@@ -18,7 +18,7 @@ Physiomodel.CardioVascular.CVS_Dynamic
   Physiomodel.Setup.IO_Bus.InputFromFile
                                     setup
     annotation (Placement(transformation(extent={{-10,-92},{10,-72}})));
-  Physiomodel.Water.Water3 water
+  Physiomodel.Water.Water water
     annotation (Placement(transformation(extent={{-86,0},{-66,20}})));
   Physiomodel.Proteins.Proteins
                     proteins
@@ -145,7 +145,5 @@ equation
     Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
             100}}),
         graphics),
-    experiment(StopTime=3.1536e+007, Tolerance=0.001),
-    experimentSetupOutput,
-    Commands(file="view.mos" "view"));
+    experiment(StopTime=1e+008, Tolerance=1e-005));
 end Physiomodel_Main;
