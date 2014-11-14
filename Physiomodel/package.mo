@@ -11615,13 +11615,13 @@ Schema : 2008.0
     sO2CO = sO2;
     FCOHb = 0;/*
   else*/
-     /*   pCO = sCO*pO2CO/ 218*sO2CO;
-    pO2CO = pO2 + 218*pCO;
-    sO2CO = (cO2Hb + ctHb*FCOHb)/(ctHb*(1-FMetHb));
-    sCO = ctHb*FCOHb/(ctHb*(1-FMetHb));*/
+        pCO = sCO*pO2CO/ 218*sO2CO;
+        pO2CO = pO2 + 218*pCO;
+        sO2CO = (cO2Hb + ctHb*FCOHb)/(ctHb*(1-FMetHb));
+        sCO = ctHb*FCOHb/(ctHb*(1-FMetHb));
 
-        {pCO,FCOHb,pO2CO,sO2CO}=homotopy({sCO*pO2CO/ 218*sO2CO,sCO*(1-FMetHb),pO2 + 218*pCO,(cO2Hb + ctHb*FCOHb)/(ctHb*(1-FMetHb))},
-        {0,0,pO2,sO2});
+    //    {pCO,FCOHb,pO2CO,sO2CO}=homotopy({sCO*pO2CO/ 218*sO2CO,sCO*(1-FMetHb),pO2 + 218*pCO,(cO2Hb + ctHb*FCOHb)/(ctHb*(1-FMetHb))},
+    //    {0,0,pO2,sO2});
     //  end if;
 
     /*  ceHb = ctHb * (1-FCOHb-FMetHb); //effective haemoglobin
@@ -13976,7 +13976,7 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
             smooth=Smooth.None));
       connect(pulmShortCircuit.solutionFlow, pulmShortCircuitFlow.y)
         annotation (Line(
-          points={{-6,-42},{-6,-54},{7,-54}},
+          points={{-6,-45},{-6,-54},{7,-54}},
           color={0,0,127},
           smooth=Smooth.None));
         connect(busConnector.AlveolarVentilated_BloodFlow, pulmShortCircuitFlow.u2)
@@ -17373,9 +17373,6 @@ annotation (Placement(transformation(extent={{16,-70},{22,-64}})));
   Modelica.Blocks.Sources.Clock clock(offset=0.75)
     annotation (Placement(transformation(extent={{-28,-80},{-8,-60}})));
 */
-      Physiolibrary.Blocks.Math.HomotopyStrongComponentBreaker homotopy(
-          defaultValue=1, defaultSlope=0.1)
-        annotation (Placement(transformation(extent={{82,32},{90,40}})));
       equation
        // efferentPath.TotalDrive=homotopy(actual=afferentPath.TotalDrive, simplified=1.045922);
 
@@ -17475,12 +17472,9 @@ annotation (Placement(transformation(extent={{16,-70},{22,-64}})));
             points={{27.4,62},{38,62},{38,29},{58,29}},
             color={0,0,127},
             smooth=Smooth.None));
-      connect(afferentPath.TotalDrive, homotopy.u) annotation (Line(
-          points={{75.4,36},{81.2,36}},
-          color={0,0,127},
-          smooth=Smooth.None));
-      connect(homotopy.y, efferentPath.TotalDrive) annotation (Line(
-          points={{90.4,36},{94,36},{94,10},{34,10},{34,-10},{50.2,-10}},
+      connect(afferentPath.TotalDrive, efferentPath.TotalDrive) annotation (
+          Line(
+          points={{75.4,36},{90,36},{90,10},{40,10},{40,-10},{50.2,-10}},
           color={0,0,127},
           smooth=Smooth.None));
         annotation (Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,
@@ -47830,14 +47824,14 @@ annotation (Placement(transformation(extent={{-42,64},{-24,82}})));*/
       //  _betaX = 0.11 * plasmaProteinConc(displayUnit="g/l"); //mmol/l
 
       //Haldane effect:
-        _cTH = homotopy(_cTHox - 0.3 * (1-sO2),_cTHox);
+        _cTH = _cTHox - 0.3 * (1-sO2); //homotopy(_cTHox - 0.3 * (1-sO2),_cTHox);
 
       //base excess
         _BEox = - _cTHox;
         _BE = - _cTH;
 
         //erythrocytes:
-        pH_ery = homotopy(7.19 + 0.77*(pH-7.4) + 0.035*(1-sO2),7.19 + 0.77*(pH-7.4));
+        pH_ery = 7.19 + 0.77*(pH-7.4) + 0.035*(1-sO2); //homotopy(7.19 + 0.77*(pH-7.4) + 0.035*(1-sO2),7.19 + 0.77*(pH-7.4));
 
         annotation (
           preferredView = text,
