@@ -1998,8 +1998,10 @@ SYSTOLE
                 origin={100,-60})));
 
         parameter Real stiffnes "parametrization of end diastolic volume curve";
-        parameter Real n_Diastole "parametrization of end systolic volume curve";
-        parameter Real Abasic_Diastole "parametrization of end diastolic volume curve";
+        parameter Real n_Diastole
+          "parametrization of end systolic volume curve";
+        parameter Real Abasic_Diastole
+          "parametrization of end diastolic volume curve";
 
           Modelica.Blocks.Interfaces.RealOutput
                                               EDV( final quantity="Volume",
@@ -2208,7 +2210,8 @@ SYSTOLE
           "parametrization of end diastolic volume curve";
         parameter Physiolibrary.Types.Fraction n_Diastole
           "parametrization of end systolic volume curve";
-        parameter Real Abasic_Diastole "parametrization of end diastolic volume curve";
+        parameter Real Abasic_Diastole
+          "parametrization of end diastolic volume curve";
 
           Physiolibrary.Types.RealIO.VolumeOutput
                                               EDV   annotation (Placement(transformation(extent={{-74,-74},
@@ -2874,7 +2877,8 @@ SYSTOLE
           Physiolibrary.Types.RealIO.PressureOutput Pressure
           "blod pressure in compartment"
             annotation (Placement(transformation(extent={{30,-110},{50,-90}}, rotation=-90)));
-          Physiolibrary.Types.RealIO.VolumeOutput Vol "blood volume in compartment"
+          Physiolibrary.Types.RealIO.VolumeOutput Vol
+          "blood volume in compartment"
             annotation (Placement(transformation(extent={{-50,-110},{-30,-90}}, rotation=-90)));
 
          annotation (
@@ -3817,7 +3821,8 @@ SYSTOLE
         Physiolibrary.Types.RealIO.PressureOutput Pressure( displayUnit="mmHg")
         "blod pressure in compartment"
           annotation (Placement(transformation(extent={{30,-110},{50,-90}}, rotation=-90)));
-        Physiolibrary.Types.RealIO.VolumeOutput Vol "blood volume in compartment"
+        Physiolibrary.Types.RealIO.VolumeOutput Vol
+        "blood volume in compartment"
           annotation (Placement(transformation(extent={{-50,-110},{-30,-90}}, rotation=-90),
               iconTransformation(
               extent={{-10,-10},{10,10}},
@@ -4207,7 +4212,8 @@ SYSTOLE
           annotation (extent=[-10,-110; 10,-90], Placement(transformation(extent=
                   {{90,-10},{110,10}}), iconTransformation(extent={{90,-10},{110,
                   10}})));
-        Physiolibrary.Hydraulic.Interfaces.HydraulicPort_b q_out "Blood outflow"
+        Physiolibrary.Hydraulic.Interfaces.HydraulicPort_b q_out
+          "Blood outflow"
           annotation (extent=[-10,-110; 10,-90], Placement(transformation(extent=
                   {{-110,-10},{-90,10}}), iconTransformation(extent={{-110,-10},{
                   -90,10}})));
@@ -4589,7 +4595,8 @@ SYSTOLE
           annotation (extent=[-10,-110; 10,-90], Placement(transformation(extent=
                   {{90,-10},{110,10}}), iconTransformation(extent={{90,-10},{110,
                   10}})));
-        Physiolibrary.Hydraulic.Interfaces.HydraulicPort_b q_out "Blood outflow"
+        Physiolibrary.Hydraulic.Interfaces.HydraulicPort_b q_out
+          "Blood outflow"
           annotation (extent=[-10,-110; 10,-90], Placement(transformation(extent=
                   {{-110,-10},{-90,10}}), iconTransformation(extent={{-110,-10},{
                   -90,10}})));
@@ -5125,7 +5132,8 @@ SYSTOLE
           annotation (extent=[-10,-110; 10,-90], Placement(transformation(extent=
                   {{90,-10},{110,10}}), iconTransformation(extent={{90,-10},{110,
                   10}})));
-        Physiolibrary.Hydraulic.Interfaces.HydraulicPort_b q_out "Blood outflow"
+        Physiolibrary.Hydraulic.Interfaces.HydraulicPort_b q_out
+          "Blood outflow"
           annotation (extent=[-10,-110; 10,-90], Placement(transformation(extent=
                   {{-110,-10},{-90,10}}), iconTransformation(extent={{-110,-10},{
                   -90,10}})));
@@ -9914,7 +9922,8 @@ Schema : 2008.0
       Physiolibrary.Population.Components.Population erythrocytes(
         population_start=12e12,
         NominalPopulation=1e12,
-        NominalPopulationChange=1e6) "red cell count (with density of 5e6 per one uL)"
+        NominalPopulationChange=1e6)
+        "red cell count (with density of 5e6 per one uL)"
         annotation (Placement(transformation(extent={{4,-42},{24,-22}})));
         Modelica.Blocks.Math.Gain RBCVol(k=2.4e-3/12e12) "12e12 cells == 2.4 L"
         annotation (Placement(transformation(
@@ -9924,13 +9933,13 @@ Schema : 2008.0
       Physiolibrary.Types.Constants.PopulationChangeConst RBCBaseSecretionRate(
           k=1.16e6) "13.7 ml/day (12e12 cells == 2.4 L)"
         annotation (Placement(transformation(extent={{-50,8},{-42,16}})));
-        Modelica.Blocks.Math.Gain RBCVolToCells(k=12e12/2.4e-3) "12e12 cells == 2.4 L"
-                               annotation (Placement(transformation(
+        Modelica.Blocks.Math.Gain RBCVolToCells(k=12e12/2.4e-3)
+        "12e12 cells == 2.4 L" annotation (Placement(transformation(
             extent={{-4,-4},{4,4}},
             rotation=0,
             origin={-58,-36})));
-        Modelica.Blocks.Math.Gain RBCVol2(k=12e12/2.4e-3) "12e12 cells == 2.4 L"
-                               annotation (Placement(transformation(
+        Modelica.Blocks.Math.Gain RBCVol2(k=12e12/2.4e-3)
+        "12e12 cells == 2.4 L" annotation (Placement(transformation(
             extent={{-4,-4},{4,4}},
             rotation=270,
             origin={68,0})));
@@ -10614,7 +10623,8 @@ Schema : 2008.0
 
       redeclare model extends Variables
 
-      T.Volume ArtysVol(varName="ArtysVol.Vol") "Volume of oxygenated blood in body."
+      T.Volume ArtysVol(varName="ArtysVol.Vol")
+        "Volume of oxygenated blood in body."
       annotation (Placement(transformation(extent={{-36,10},{-30,16}})));
       T.Fraction BloodVol_Hct(varName="BloodVol.Hct")
         "Heamatocrit = red cells / blood."
@@ -10634,14 +10644,17 @@ Schema : 2008.0
       T.VolumeFlowRate brain_BloodFlow(varName="Brain-Flow.BloodFlow")
         "Brain blood flow."
       annotation (Placement(transformation(extent={{-36,70},{-30,76}})));
-      T.VolumeFlowRate CardiacOutput(varName="CardiacOutput.Flow") "Cardiac output."
+      T.VolumeFlowRate CardiacOutput(varName="CardiacOutput.Flow")
+        "Cardiac output."
       annotation (Placement(transformation(extent={{-36,80},{-30,86}})));
       T.Pressure CarotidSinusArteryPressure(varName="CarotidSinus.Pressure")
         "Mean blood pressure in carotid sinus artery."
       annotation (Placement(transformation(extent={{-36,90},{-30,96}})));
-      T.VolumeFlowRate Fat_BloodFlow(varName="Fat-Flow.BloodFlow") "Fat blood flow."
+      T.VolumeFlowRate Fat_BloodFlow(varName="Fat-Flow.BloodFlow")
+        "Fat blood flow."
       annotation (Placement(transformation(extent={{-36,100},{-30,106}})));
-      T.VolumeFlowRate fat_BloodFlow(varName="Fat-Flow.BloodFlow") "Fat blood flow."
+      T.VolumeFlowRate fat_BloodFlow(varName="Fat-Flow.BloodFlow")
+        "Fat blood flow."
       annotation (Placement(transformation(extent={{-36,110},{-30,116}})));
       T.VolumeFlowRate GITract_BloodFlow(varName="GITract-Flow.BloodFlow")
         "GITract blood flow."
@@ -10688,7 +10701,8 @@ Schema : 2008.0
       T.Pressure PulmCapys_Pressure(varName="PulmCapys.Pressure")
         "Blood pressure in pulmonary capylaries."
       annotation (Placement(transformation(extent={{-36,270},{-30,276}})));
-      T.Volume RBCH2O_Vol(varName="RBCH2O.Vol") "Intracellular water in erythrocytes."
+      T.Volume RBCH2O_Vol(varName="RBCH2O.Vol")
+        "Intracellular water in erythrocytes."
       annotation (Placement(transformation(extent={{-36,280},{-30,286}})));
       T.VolumeFlowRate RespiratoryMuscle_BloodFlow(varName="RespiratoryMuscle-Flow.BloodFlow")
         "RespiratoryMuscle blood flow."
@@ -11533,11 +11547,13 @@ Schema : 2008.0
   Real ssO2CO(start=0.96);
 */
 
-     parameter Physiolibrary.Types.Temperature T0 = 273.15+37 "normal temperature";
+     parameter Physiolibrary.Types.Temperature T0 = 273.15+37
+        "normal temperature";
      parameter Physiolibrary.Types.pH pH0 = 7.4 "normal arterial pH";
      parameter Physiolibrary.Types.Pressure pCO20 = 5330
         "normal arterial CO2 partial pressure";
-     parameter Physiolibrary.Types.Concentration cDPG0 = 5 "normal DPG,used by a";
+     parameter Physiolibrary.Types.Concentration cDPG0 = 5
+        "normal DPG,used by a";
      parameter Real dadcDPG0 = 0.3 "used by a";
      parameter Real dadcDPGxHbF = -0.1 "or perhabs -0.125";
      parameter Real dadpH = -0.88 "used by a";
@@ -13110,14 +13126,14 @@ Schema : 2008.0
                 extent={{-10,-10},{10,10}},
                 rotation=0,
                 origin={-90,60})));
-          Physiolibrary.Types.RealIO.FractionInput FHbF "Foetal haemoglobin fraction"
-                                           annotation (Placement(transformation(extent={{46,-8},
+          Physiolibrary.Types.RealIO.FractionInput FHbF
+          "Foetal haemoglobin fraction"    annotation (Placement(transformation(extent={{46,-8},
                     {38,0}}),             iconTransformation(
                 extent={{-10,-10},{10,10}},
                 rotation=0,
                 origin={-90,-60})));
-          Physiolibrary.Types.RealIO.FractionInput FMetHb "methaemoglobin fraction"
-                                                                annotation (Placement(transformation(extent={{56,-12},
+          Physiolibrary.Types.RealIO.FractionInput FMetHb
+          "methaemoglobin fraction"                             annotation (Placement(transformation(extent={{56,-12},
                     {48,-4}}),            iconTransformation(extent={{-10,-10},{10,10}},
                 rotation=180,
                 origin={90,60})));
@@ -13129,8 +13145,8 @@ Schema : 2008.0
                 extent={{-10,-10},{10,10}},
                 rotation=180,
                 origin={90,-20})));
-          Physiolibrary.Types.RealIO.pHInput pH_plasma "outgoing veins pH of plasma"
-                                                                 annotation (Placement(transformation(extent={{-60,-20},
+          Physiolibrary.Types.RealIO.pHInput pH_plasma
+          "outgoing veins pH of plasma"                          annotation (Placement(transformation(extent={{-60,-20},
                     {-52,-12}}),          iconTransformation(extent={{-10,-10},{10,10}},
                 rotation=180,
                 origin={90,100})));
@@ -13247,8 +13263,6 @@ Schema : 2008.0
         model TissueO2_kidney
           extends Physiolibrary.Icons.Kidney;
           extends TissueO2Base;
-
-          parameter Real initialMass;
 
                                    /*(cO2Hb(start=7.39))*/
         Physiolibrary.Types.Constants.DiffusionPermeabilityConst O2PermBasic(k(
@@ -14466,8 +14480,8 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
               extent={{-10,-10},{10,10}},
               rotation=180,
               origin={90,40})));
-         Physiolibrary.Types.RealIO.FractionInput sO2 "outgoing oxygen saturation"
-                                         annotation (Placement(transformation(extent={{60,20},
+         Physiolibrary.Types.RealIO.FractionInput sO2
+        "outgoing oxygen saturation"     annotation (Placement(transformation(extent={{60,20},
                   {100,60}}),           iconTransformation(
               extent={{-10,-10},{10,10}},
               rotation=180,
@@ -19600,7 +19614,8 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
     Physiolibrary.Blocks.Factors.LagSpline InsulinEffect_Glycogenesis(
       data={{0,0.0,0.0},{35,1.0,0.03},{120,3.0,0.0}},
       HalfTime=Modelica.Math.log(2)*40*60,
-      initialValue=50) "initial: 40 uiu/ml = 40 iu/m3 , LM_Insulin.Tau = 40 min"
+      initialValue=50)
+      "initial: 40 uiu/ml = 40 iu/m3 , LM_Insulin.Tau = 40 min"
       annotation (Placement(transformation(extent={{4,80},{24,100}})));
     Physiolibrary.Blocks.Factors.LagSpline InsulinEffect_Glucose2FA(
       data={{0,0.0,0.0},{50,1.0,0.06},{200,3.0,0.0}},
@@ -19678,16 +19693,16 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
     Physiolibrary.Blocks.Factors.Normalization LiverFunctionEffect_AminoAcids2Glucose
       annotation (Placement(transformation(extent={{44,-26},{64,-6}})));
     Physiolibrary.Chemical.Interfaces.ChemicalPort_b Glucose(conc(final
-          displayUnit="mg/ml"), q(final displayUnit="mg/min")) "extracellular storage"
-                              annotation (Placement(transformation(extent={{-62,
+          displayUnit="mg/ml"), q(final displayUnit="mg/min"))
+      "extracellular storage" annotation (Placement(transformation(extent={{-62,
               58},{-42,78}}), iconTransformation(extent={{90,-70},{110,-50}})));
     Physiolibrary.Chemical.Interfaces.ChemicalPort_b triglicerides(conc(final
           displayUnit="mg/ml"), q(final displayUnit="mg/min")) annotation (
         Placement(transformation(extent={{-92,-16},{-72,4}}),
           iconTransformation(extent={{90,50},{110,70}})));
     Physiolibrary.Chemical.Interfaces.ChemicalPort_b Ketoacids(conc(final
-          displayUnit="mg/ml"), q(final displayUnit="mg/min")) "extracellular storage"
-                              annotation (Placement(transformation(extent={{-12,
+          displayUnit="mg/ml"), q(final displayUnit="mg/min"))
+      "extracellular storage" annotation (Placement(transformation(extent={{-12,
               -92},{8,-72}}), iconTransformation(extent={{90,-10},{110,10}})));
     Physiolibrary.Types.BusConnector busConnector annotation (Placement(
           transformation(extent={{-108,86},{-88,106}}), iconTransformation(
@@ -19715,8 +19730,8 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
     Physiolibrary.Chemical.Sensors.ConcentrationMeasure concentrationMeasure
       annotation (Placement(transformation(extent={{-80,-90},{-60,-70}})));
     Physiolibrary.Chemical.Interfaces.ChemicalPort_b AminoAcids(conc(final
-          displayUnit="mg/ml"), q(final displayUnit="mg/min")) "extracellular storage"
-                              annotation (Placement(transformation(extent={{76,
+          displayUnit="mg/ml"), q(final displayUnit="mg/min"))
+      "extracellular storage" annotation (Placement(transformation(extent={{76,
               -34},{96,-14}}), iconTransformation(extent={{50,-110},{70,-90}})));
     Physiolibrary.Chemical.Sensors.ConcentrationMeasure concentrationMeasure1
       annotation (Placement(transformation(extent={{86,-22},{106,-2}})));
@@ -19740,8 +19755,8 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
     Physiolibrary.Blocks.Factors.Normalization LiverFunctionEffect_AminoAcids2FA
       annotation (Placement(transformation(extent={{64,-70},{44,-50}})));
     Physiolibrary.Chemical.Interfaces.ChemicalPort_b Urea(conc(final
-          displayUnit="mg/ml"), q(final displayUnit="mg/min")) "extracellular storage"
-                              annotation (Placement(transformation(extent={{-8,-54},
+          displayUnit="mg/ml"), q(final displayUnit="mg/min"))
+      "extracellular storage" annotation (Placement(transformation(extent={{-8,-54},
               {12,-34}}),      iconTransformation(extent={{-70,-110},{-50,-90}})));
     Physiolibrary.Types.Constants.FractionConst             Constant6(k=0.3*(
           Substances.AminoAcids.mw/Substances.Urea.mw))
@@ -20693,7 +20708,8 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
     Physiolibrary.Chemical.Components.Substance KAPool(
       stateName="KAPool.Mass",
       useNormalizedVolume=false,
-      solute_start=0.000725) "initial 0.725 mmol,  (initial of RC2013: 316.7 mg)"
+      solute_start=0.000725)
+      "initial 0.725 mmol,  (initial of RC2013: 316.7 mg)"
       annotation (Placement(transformation(extent={{-32,14},{-12,34}})));
     Physiolibrary.Chemical.Sources.UnlimitedSolutePump KAPump(
         useSoluteFlowInput=true)
@@ -20926,7 +20942,8 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
         useSoluteFlowInput=true)
       annotation (Placement(transformation(extent={{26,-18},{6,2}})));
     Physiolibrary.Types.Constants.MolarFlowRateConst massFlowConstant2(k(
-          displayUnit="mol/s") = 100e-6/Substances.FattyAcids.mw/60) "100 mg/min"
+          displayUnit="mol/s") = 100e-6/Substances.FattyAcids.mw/60)
+      "100 mg/min"
       annotation (Placement(transformation(extent={{32,58},{22,68}})));
     Physiolibrary.Blocks.Factors.Spline InsulinEffect(data={{0,0.5,0.0},{20,1.0,
           0.03},{100,2.0,0.0}})
@@ -20945,8 +20962,8 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
       "40 pg/ml = 40e-9 kg/m3"
       annotation (Placement(transformation(extent={{6,-6},{26,14}})));
     Physiolibrary.Chemical.Interfaces.ChemicalPort_b FattyAcids(conc(final
-          displayUnit="mg/ml"), q(final displayUnit="mg/min")) "extracellular storage"
-                              annotation (Placement(transformation(extent={{-76,
+          displayUnit="mg/ml"), q(final displayUnit="mg/min"))
+      "extracellular storage" annotation (Placement(transformation(extent={{-76,
               -54},{-56,-34}}), iconTransformation(extent={{-10,-10},{10,10}})));
     Physiolibrary.Types.BusConnector busConnector annotation (Placement(
           transformation(extent={{-108,86},{-88,106}}), iconTransformation(
@@ -20984,8 +21001,8 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
           rotation=270,
           origin={24,-48})));
     Physiolibrary.Chemical.Interfaces.ChemicalPort_b toTriglicerides(conc(
-          final displayUnit="mg/ml"), q(final displayUnit="mg/min")) "from GILumen"
-                     annotation (Placement(transformation(extent={{-108,72},{-88,
+          final displayUnit="mg/ml"), q(final displayUnit="mg/min"))
+      "from GILumen" annotation (Placement(transformation(extent={{-108,72},{-88,
               92}}), iconTransformation(extent={{-10,-90},{10,-70}})));
     Physiolibrary.Chemical.Components.SolutePump TriglycerideHydrolysis(
         useSoluteFlowInput=true)
@@ -21011,7 +21028,8 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
           rotation=90,
           origin={-66,-22})));
     Physiolibrary.Types.Constants.MolarFlowRateConst massFlowConstant1(k(
-          displayUnit="mmol/min") = 100e-6/Substances.FattyAcids.mw/60) "100 mg/min"
+          displayUnit="mmol/min") = 100e-6/Substances.FattyAcids.mw/60)
+      "100 mg/min"
       annotation (Placement(transformation(extent={{-32,4},{-42,14}})));
     Physiomodel.Metabolism.deprecated.ContinualReaction FFA_TO_TRIG(a=0.89*(Substances.Triglycerides.mw
           /Substances.FattyAcids.mw)) annotation (Placement(transformation(
@@ -21359,8 +21377,8 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
       extends Physiolibrary.Icons.AminoAcids;
       //outer parameter Real EFC_Vol(final displayUnit="ml");
     Physiolibrary.Chemical.Interfaces.ChemicalPort_b AminoAcids(conc(final
-          displayUnit="mg/ml"), q(final displayUnit="mg/min")) "extracellular storage"
-                              annotation (Placement(transformation(extent={{80,34},
+          displayUnit="mg/ml"), q(final displayUnit="mg/min"))
+      "extracellular storage" annotation (Placement(transformation(extent={{80,34},
               {100,54}}),     iconTransformation(extent={{-18,-90},{2,-70}})));
     Physiolibrary.Chemical.Components.Substance AminoAcidsPool(
         useNormalizedVolume=false, solute_start=7500e-6/Substances.AminoAcids.mw)
@@ -21828,7 +21846,8 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
           4.35)*1e-3/(60*60*24)/Substances.AminoAcids.mw)
       annotation (Placement(transformation(extent={{-42,26},{-34,34}})));
     Physiolibrary.Blocks.Factors.Spline LeptinEffect2(data={{0,3.0,0},{8,1.0,
-          -0.04},{50,0.0,0}}, Xscale=1e-6/Substances.Leptin.mw) "8 ug/l = 8 mg/m3"
+          -0.04},{50,0.0,0}}, Xscale=1e-6/Substances.Leptin.mw)
+      "8 ug/l = 8 mg/m3"
       annotation (Placement(transformation(extent={{-26,70},{-6,90}})));
     Physiolibrary.Types.Constants.MolarFlowRateConst DietGoalNutrition_Carbo(k=(900/
           4.1)*1e-3/(60*60*24)/Substances.Glucose.mw)
@@ -22044,7 +22063,8 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
 
         parameter Physiolibrary.Types.AmountOfSubstance initialLactateMass(displayUnit="mEq") = 0;
 
-        parameter Real NormalCalsUsed "basal energy per kilogram of tissue [cal/min]";
+        parameter Real NormalCalsUsed
+        "basal energy per kilogram of tissue [cal/min]";
 
         parameter Physiolibrary.Types.PowerPerMass BasalCalsUsed
         "basal energy per kilogram of tissue";            //= NormalCalsUsed*(4.1864/60)
@@ -22735,7 +22755,8 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
         annotation (Placement(transformation(extent={{-38,52},{-26,64}})));
         Physiolibrary.Chemical.Components.Substance             glycogen(
           stateName="RespiratoryMuscle-Glycogen.Mass",
-          solute_start=46/180.16) "glucose mols stored in gycogen (initial 46 g)"
+          solute_start=46/180.16)
+        "glucose mols stored in gycogen (initial 46 g)"
           annotation (Placement(transformation(extent={{30,-40},{50,-20}})));
       Physiolibrary.Chemical.Components.SolutePump synthesis(useSoluteFlowInput=
            true)
@@ -23396,7 +23417,8 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
               rotation=180,
               origin={-31,-60}),
               iconTransformation(extent={{-100,-74},{-80,-54}})));
-        Physiolibrary.Types.RealIO.MolarFlowRateInput FatAbsorbtion "from GILumen"
+        Physiolibrary.Types.RealIO.MolarFlowRateInput FatAbsorbtion
+        "from GILumen"
           annotation (Placement(transformation(extent={{-5,-5},{5,5}},
               rotation=180,
               origin={-31,-54}),
@@ -25507,7 +25529,8 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
               extent={{-20,-20},{20,20}},
               rotation=270,
               origin={-60,-70})));
-        Physiolibrary.Types.RealIO.MolarFlowRateInput GITUsed "GITract concumption"                            annotation (Placement(
+        Physiolibrary.Types.RealIO.MolarFlowRateInput GITUsed
+        "GITract concumption"                                                                                  annotation (Placement(
               transformation(extent={{-94,-50},{-74,-30}}),iconTransformation(extent={{-20,-20},
                   {20,20}},
               rotation=270,
@@ -27884,7 +27907,8 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
         "SkeletalMuscle carbondioxyde outflow from cells metabolism."
       annotation (Placement(transformation(extent={{-36,-58},{-28,-50}})));
       T.MolarFlowRate KA_Change_mmol_per_min(varName=
-              "KAPool.Change[mMol/min]") "Change of keto-acids extracellular mass."
+              "KAPool.Change[mMol/min]")
+        "Change of keto-acids extracellular mass."
       annotation (Placement(transformation(extent={{-32,-74},{-26,-68}})));
       T.HeatFlowRate MetabolismCaloriesUsed_CoreHeat(                         varName="Metabolism-CaloriesUsed.CoreHeat", storeUnit="cal/min")
       annotation (Placement(transformation(extent={{-42,-86},{-22,-106}})));
@@ -28948,7 +28972,8 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
     Physiolibrary.Blocks.Factors.LagSpline InsulinEffect_Glycogenesis(
       data={{0,0.0,0.0},{35,1.0,0.03},{120,3.0,0.0}},
       HalfTime=Modelica.Math.log(2)*40*60,
-      initialValue=50) "initial: 40 uiu/ml = 40 iu/m3 , LM_Insulin.Tau = 40 min"
+      initialValue=50)
+      "initial: 40 uiu/ml = 40 iu/m3 , LM_Insulin.Tau = 40 min"
       annotation (Placement(transformation(extent={{4,80},{24,100}})));
     Physiolibrary.Blocks.Factors.LagSpline InsulinEffect_Glucose2FA(
       data={{0,0.0,0.0},{50,1.0,0.06},{200,3.0,0.0}},
@@ -29026,16 +29051,16 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
     Physiolibrary.Blocks.Factors.Normalization LiverFunctionEffect_AminoAcids2Glucose
       annotation (Placement(transformation(extent={{44,-26},{64,-6}})));
     Physiolibrary.Chemical.Interfaces.ChemicalPort_b Glucose(conc(final
-          displayUnit="mg/ml"), q(final displayUnit="mg/min")) "extracellular storage"
-                              annotation (Placement(transformation(extent={{-62,
+          displayUnit="mg/ml"), q(final displayUnit="mg/min"))
+      "extracellular storage" annotation (Placement(transformation(extent={{-62,
               58},{-42,78}}), iconTransformation(extent={{90,-70},{110,-50}})));
     Physiolibrary.Chemical.Interfaces.ChemicalPort_b triglicerides(conc(final
           displayUnit="mg/ml"), q(final displayUnit="mg/min")) annotation (
         Placement(transformation(extent={{-92,-16},{-72,4}}),
           iconTransformation(extent={{90,50},{110,70}})));
     Physiolibrary.Chemical.Interfaces.ChemicalPort_b Ketoacids(conc(final
-          displayUnit="mg/ml"), q(final displayUnit="mg/min")) "extracellular storage"
-                              annotation (Placement(transformation(extent={{-12,
+          displayUnit="mg/ml"), q(final displayUnit="mg/min"))
+      "extracellular storage" annotation (Placement(transformation(extent={{-12,
               -92},{8,-72}}), iconTransformation(extent={{90,-10},{110,10}})));
     Physiolibrary.Types.BusConnector busConnector annotation (Placement(
           transformation(extent={{-108,86},{-88,106}}), iconTransformation(
@@ -29063,8 +29088,8 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
     Physiolibrary.Chemical.Sensors.ConcentrationMeasure concentrationMeasure
       annotation (Placement(transformation(extent={{-80,-90},{-60,-70}})));
     Physiolibrary.Chemical.Interfaces.ChemicalPort_b AminoAcids(conc(final
-          displayUnit="mg/ml"), q(final displayUnit="mg/min")) "extracellular storage"
-                              annotation (Placement(transformation(extent={{76,
+          displayUnit="mg/ml"), q(final displayUnit="mg/min"))
+      "extracellular storage" annotation (Placement(transformation(extent={{76,
               -34},{96,-14}}), iconTransformation(extent={{50,-110},{70,-90}})));
     Physiolibrary.Chemical.Sensors.ConcentrationMeasure concentrationMeasure1
       annotation (Placement(transformation(extent={{86,-22},{106,-2}})));
@@ -29088,8 +29113,8 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
     Physiolibrary.Blocks.Factors.Normalization LiverFunctionEffect_AminoAcids2FA
       annotation (Placement(transformation(extent={{64,-70},{44,-50}})));
     Physiolibrary.Chemical.Interfaces.ChemicalPort_b Urea(conc(final
-          displayUnit="mg/ml"), q(final displayUnit="mg/min")) "extracellular storage"
-                              annotation (Placement(transformation(extent={{-8,-54},
+          displayUnit="mg/ml"), q(final displayUnit="mg/min"))
+      "extracellular storage" annotation (Placement(transformation(extent={{-8,-54},
               {12,-34}}),      iconTransformation(extent={{-70,-110},{-50,-90}})));
     Physiolibrary.Types.Constants.FractionConst             Constant6(k=0.3*(
           Substances.AminoAcids.mw/Substances.Urea.mw))
@@ -29683,8 +29708,6 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
 
     package deprecated
 
-
-
       model ContinualReaction "Continual flow reaction of type  a A <-> b B"
 
         Physiolibrary.Chemical.Interfaces.ChemicalPort_a A "solute A" annotation (
@@ -30123,7 +30146,8 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
         useSoluteFlowInput=true)
       annotation (Placement(transformation(extent={{78,-16},{58,4}})));
     Physiolibrary.Types.Constants.MolarFlowRateConst hormoneFlowConstant_pG(k(
-          displayUnit="ng/min") = (50e-12)/Substances.Glucagon.mw/60) "50 ng/min"
+          displayUnit="ng/min") = (50e-12)/Substances.Glucagon.mw/60)
+      "50 ng/min"
       annotation (Placement(transformation(extent={{80,18},{72,26}})));
     Physiolibrary.Blocks.Factors.Spline InsulinEffect(data={{0,6.0,0},{7,1.3,-0.020},
           {20,1.0,-0.006},{100,0.6,0}}, Xscale=Substances.Insulin.molpIU)
@@ -30906,7 +30930,8 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
     EPO_Physiolibrary.Chemical.Components.Substance EPOPool(
       stateName="EPOPool.Mass",
       useNormalizedVolume=false,
-      solute_start=(20e3*14361.0097207699*0.4)*1e-6) "default = 20 iu/l = 20e3 iu/m3 "
+      solute_start=(20e3*14361.0097207699*0.4)*1e-6)
+      "default = 20 iu/l = 20e3 iu/m3 "
       annotation (Placement(transformation(extent={{-50,-54},{-30,-34}})));
       //NominalSolute=Substances.Erythropoietin.molpIU
 
@@ -31073,7 +31098,8 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
       stateName="ThyroidPool.Mass",
       useNormalizedVolume=false,
       solute_start=1168.05e-9/Substances.Thyroxine.mw,
-      NominalSolute=1e-09) "default = 8.6 ug/dl = 8.6e-2 kg/m3, initial 1168.05 ug"
+      NominalSolute=1e-09)
+      "default = 8.6 ug/dl = 8.6e-2 kg/m3, initial 1168.05 ug"
       annotation (Placement(transformation(extent={{-82,-54},{-62,-34}})));
     Physiolibrary.Chemical.Sources.UnlimitedSolutePump secretion(
         useSoluteFlowInput=true)
@@ -31374,7 +31400,8 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
       UsePositiveLog10=true) "normal ... 20 pg/ml = 20 ug/m3"
       annotation (Placement(transformation(extent={{82,46},{62,66}})));
     Physiolibrary.Blocks.Factors.Spline FurosemideEffect(data={{0.0,1.0,0.0},{
-          1.3,0.2,0.0}}, Xscale=1e-3/Substances.Furosemide.mw) "mg/l = 1e-3 kg/m3"
+          1.3,0.2,0.0}}, Xscale=1e-3/Substances.Furosemide.mw)
+      "mg/l = 1e-3 kg/m3"
       annotation (Placement(transformation(extent={{82,42},{62,62}})));
     Physiolibrary.Types.Constants.FractionConst             Constant2(k=1)
       annotation (Placement(transformation(extent={{60,68},{66,74}})));
@@ -31926,7 +31953,8 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
         Real T64m;
         Real T64p;
 
-        parameter Real initialPT(displayUnit="1") = 0.5 "initial pool of PT gland";
+        parameter Real initialPT(displayUnit="1") = 0.5
+        "initial pool of PT gland";
 
       initial equation
       //  PT_pool = initialPT;
@@ -32512,7 +32540,8 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
            0)
         annotation (Placement(transformation(extent={{-62,-68},{-54,-60}})));
         Modelica.Blocks.Math.Add BetaTotal(k1=0.021*Substances.Norepinephrine.mw
-            /(1e-9), k2=0.125*Substances.Epinephrine.mw/(1e-9)) "1 pg/ml = 1e-9 kg/m3"
+            /(1e-9), k2=0.125*Substances.Epinephrine.mw/(1e-9))
+        "1 pg/ml = 1e-9 kg/m3"
           annotation (Placement(transformation(extent={{-24,-32},{-8,-16}})));
       Physiolibrary.Types.Constants.FractionConst             Constant(k=1)
         annotation (Placement(transformation(extent={{32,-66},{40,-58}})));
@@ -33860,8 +33889,8 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
                                                        quantity="Concentration",
             final displayUnit="IU/l") annotation (Placement(transformation(extent={{-62,-6},{
                   -54,2}}), iconTransformation(extent={{80,-40},{120,0}})));
-      Physiomodel.Metabolism.deprecated.Input2EffectDelayed EstradiolEffectDelayed(Tau
-          =10, data={{0.0,1.0,0.0},{0.4,0.6,0.0},{1.5,0.6,0.0},{2.0,5.0,0.0}})
+      Physiomodel.Metabolism.deprecated.Input2EffectDelayed EstradiolEffectDelayed(Tau=
+           10, data={{0.0,1.0,0.0},{0.4,0.6,0.0},{1.5,0.6,0.0},{2.0,5.0,0.0}})
         annotation (Placement(transformation(extent={{56,-26},{76,-6}})));
         Modelica.Blocks.Math.Gain gain(k=0.001) "ml to l"
           annotation (Placement(transformation(extent={{-90,-38},{-84,-32}})));
@@ -34308,7 +34337,8 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
 
       model DayCounter
 
-        Modelica.Blocks.Interfaces.BooleanInput Reset "restart counter on rising edge"
+        Modelica.Blocks.Interfaces.BooleanInput Reset
+        "restart counter on rising edge"
           annotation (Placement(transformation(extent={{-68,-2},{-60,6}}),
               iconTransformation(extent={{-120,-20},{-80,20}})));
 
@@ -34991,8 +35021,9 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
     end IO_Bus;
 
     package IO_EPO
-        extends Physiolibrary.Types.IO_Bus( redeclare package PhysiolibTypesRealTypes
-        = EPO_Physiolibrary.Types.RealTypes);
+        extends Physiolibrary.Types.IO_Bus( redeclare package
+        PhysiolibTypesRealTypes =
+          EPO_Physiolibrary.Types.RealTypes);
       redeclare model extends Variables
         extends Physiolibrary.Icons.Hormones;
 
@@ -35001,7 +35032,8 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
       //annotation (Placement(transformation(extent={{-36,170},{-30,176}})));
 
       T.Concentration EPOPool(
-        varName="EPOPool.[EPO]", storeUnit="iu/l") "Erythropoetin concentration."
+        varName="EPOPool.[EPO]", storeUnit="iu/l")
+        "Erythropoetin concentration."
         annotation (Placement(transformation(extent={{-40,48},{-34,54}})));
       equation
 
@@ -36213,7 +36245,8 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
              {{-98,56},{-58,96}})));
       GangliaKidney gangliaKidney
         annotation (Placement(transformation(extent={{38,-16},{58,4}})));
-      Modelica.Blocks.Math.Gain AdrenalNerve(k=0.667) "from Hz to normal activity"
+      Modelica.Blocks.Math.Gain AdrenalNerve(k=0.667)
+      "from Hz to normal activity"
         annotation (Placement(transformation(extent={{52,-36},{60,-28}})));
     Physiolibrary.Types.Constants.DeprecatedUntypedConstant Constant(k=1)
       annotation (Placement(transformation(extent={{62,-16},{70,-8}})));
@@ -39569,8 +39602,8 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
               rotation=180,
               origin={90,80})));
         Physiolibrary.Types.RealIO.TemperatureInput T(
-                                        final displayUnit="degC") "tissue temperature"
-                                         annotation (Placement(transformation(extent={{-104,66},
+                                        final displayUnit="degC")
+        "tissue temperature"             annotation (Placement(transformation(extent={{-104,66},
                   {-92,78}}),           iconTransformation(
               extent={{-10,-10},{10,10}},
               rotation=180,
@@ -40422,7 +40455,8 @@ The Real output y is a constant signal:
         "torso: capilary pressure coeficient between artery and vein pressure";
          parameter Physiolibrary.Types.Acceleration GravityAcceleration = 9.81
         "gravity constant";
-         parameter Physiolibrary.Types.Density BloodDensity = 1060 "blood density";
+         parameter Physiolibrary.Types.Density BloodDensity = 1060
+        "blood density";
 
          parameter Physiolibrary.Types.Position TorsoHeight
         "torso: center of gravity - height";
@@ -40449,8 +40483,8 @@ The Real output y is a constant signal:
         "torso: systemic arteries pressure"                               annotation (Placement(transformation(extent={{
                   -120,0},{-80,40}}), iconTransformation(extent={{-120,0},{-80,40}})));
         Physiolibrary.Types.RealIO.PressureInput
-                                           toPressure "torso: systemic veins pressure"
-                                                                             annotation (Placement(transformation(extent={{-120,
+                                           toPressure
+        "torso: systemic veins pressure"                                     annotation (Placement(transformation(extent={{-120,
                   -40},{-80,0}}),       iconTransformation(extent={{-120,-40},{-80,0}})));
         PostureInput Status_Posture "Lying, Sitting, Standing or Tilting"           annotation (Placement(transformation(
                 extent={{-120,60},{-80,100}}), iconTransformation(extent={{-120,60},{
@@ -40731,15 +40765,13 @@ Connector with one input signal of type Posture.
       Modelica.Blocks.Interfaces.RealInput u
                                       annotation (Placement(transformation(extent={{-130,
                 -20},{-90,20}}),      iconTransformation(extent={{-140,-20},{-100,20}})));
+      Integer tmp;
     equation
-      /*# if MODELICA_STANDARD
-      //správne má by 
-      Integer(y) = integer(u);
-      # endif MODELICA_STANDARD*/
-      //# if not MODELICA_STANDARD
-      y = integer(u);
-      //# endif not MODELICA_STANDARD
 
+      tmp = integer(u);
+      y = if tmp <= 0 then Posture.Lying elseif tmp == 1 then Posture.Sitting
+       elseif tmp == 2 then Posture.Standing
+       elseif tmp == 3 then Posture.Tilting else Posture.SteadyState;
       annotation (
         Icon(coordinateSystem(
         preserveAspectRatio=true,
@@ -42126,7 +42158,8 @@ QHP 2008 / Peritoneum
         annotation (Placement(transformation(extent={{-78,-16},{-58,4}})));
         Physiolibrary.Osmotic.Components.Membrane
                             choroid_plexus(useHydraulicPressureInputs=true, cond(
-              displayUnit="ml/(mmHg.day)") = 1.9966916949595e-12) "choroid plexus"
+              displayUnit="ml/(mmHg.day)") = 1.9966916949595e-12)
+        "choroid plexus"
           annotation (Placement(transformation(extent={{-18,-16},{-38,4}})));
         Physiolibrary.Hydraulic.Components.ElasticVessel
                                            CSF_hydraulic(
@@ -42156,7 +42189,8 @@ QHP 2008 / Peritoneum
               origin={80,76})));
         Physiolibrary.Osmotic.Components.Membrane
                             arachnoid_villi(useHydraulicPressureInputs=true, cond(
-              displayUnit="ml/(mmHg.day)") = 1.1285648710641e-11) "choroid plexus"
+              displayUnit="ml/(mmHg.day)") = 1.1285648710641e-11)
+        "choroid plexus"
           annotation (Placement(transformation(extent={{-38,36},{-18,56}})));
         Physiolibrary.Hydraulic.Components.Pump
                                   arachnoid_villi_hydraulic(useSolutionFlowInput=
@@ -42697,8 +42731,8 @@ QHP 2008 / Peritoneum
         model Kidney
            extends Physiolibrary.Icons.Kidney;
           import QHP = Physiomodel;
-        Physiolibrary.Osmotic.Interfaces.OsmoticPort_b     urine "H2O excretion"
-                          annotation (Placement(transformation(extent={{78,-82},
+        Physiolibrary.Osmotic.Interfaces.OsmoticPort_b     urine
+          "H2O excretion" annotation (Placement(transformation(extent={{78,-82},
                   {100,-62}}),iconTransformation(extent={{-10,-110},{10,-90}})));
         Physiolibrary.Osmotic.Components.Reabsorption   LoopOfHenle
           annotation (Placement(transformation(extent={{-12,-68},{6,-50}})));
@@ -42803,7 +42837,8 @@ QHP 2008 / Peritoneum
         Physiolibrary.Types.Constants.VolumeConst MedullaVolume(k=3.1e-05)
           annotation (Placement(transformation(extent={{-86,-94},{-78,-86}})));
         Physiolibrary.Types.Constants.OsmoticPermeabilityConst Perm(k(displayUnit="ml/(mmHg.min)")=
-                 6.500533657329e-10) "glomerular Kf and PT conductance (permeability"
+                 6.500533657329e-10)
+          "glomerular Kf and PT conductance (permeability"
           annotation (Placement(transformation(extent={{-68,90},{-60,98}})));
         Physiolibrary.Blocks.Factors.Normalization NephronCountEffect
           annotation (Placement(transformation(extent={{-66,68},{-46,88}})));
@@ -43526,7 +43561,8 @@ QHP 2008 / Peritoneum
     "Division of intracellular and interstitial water into tissues"
       extends Physiolibrary.Icons.Tissues;
 
-      model Tissue "compute tissue size from global interstitial and cell H20 volume"
+      model Tissue
+      "compute tissue size from global interstitial and cell H20 volume"
 
         parameter Physiolibrary.Types.Fraction FractIFV;
         parameter Physiolibrary.Types.Fraction FractOrganH2O;
@@ -43535,10 +43571,12 @@ QHP 2008 / Peritoneum
           annotation (Placement(transformation(extent={{-120,60},{-80,100}})));
         Physiolibrary.Types.RealIO.VolumeInput CellH2O_Vol
           annotation (Placement(transformation(extent={{-120,20},{-80,60}})));
-        Physiolibrary.Types.RealIO.VolumeOutput LiquidVol "all tissue water volume"
+        Physiolibrary.Types.RealIO.VolumeOutput LiquidVol
+        "all tissue water volume"
           annotation (Placement(transformation(extent={{80,60},{120,100}}),
               iconTransformation(extent={{80,60},{120,100}})));
-        Physiolibrary.Types.RealIO.VolumeOutput OrganH2O "tissue cells water volume"
+        Physiolibrary.Types.RealIO.VolumeOutput OrganH2O
+        "tissue cells water volume"
           annotation (Placement(transformation(extent={{80,20},{120,60}}),
               iconTransformation(extent={{80,20},{120,60}})));
 
@@ -45636,7 +45674,6 @@ skeletalMuscle.FractOrganH2O <> 1, "Water.TissuesVolume.Tissues: Sum of FractOrg
 </html>"));
     end WaterProperties;
 
-
     model Water
       import QHP = Physiomodel;
       extends Physiolibrary.Icons.Water;
@@ -46065,7 +46102,8 @@ Total         = 43000
       T.VolumeFlowRate GILumenVolume_Intake(varName="GILumenVolume.Intake")
         "Water intake to intestines."
       annotation (Placement(transformation(extent={{-90,2},{-84,8}})));
-      T.Volume GILumenVolume_Mass(varName="GILumenVolume.Mass") "Water in intestines."
+      T.Volume GILumenVolume_Mass(varName="GILumenVolume.Mass")
+        "Water in intestines."
       annotation (Placement(transformation(extent={{-90,12},{-84,18}})));
       T.Volume GITract_InterstitialWater(varName="GITract-Size.IFV")
         "GITract interstitial water volume."
@@ -47378,7 +47416,8 @@ Total         = 43000
       extends Physiolibrary.Types.IO_Bus;
       redeclare model extends Variables
 
-      T.Concentration ctAlb(varName="ctAlb") "Blood molar albumin concentration."
+      T.Concentration ctAlb(varName="ctAlb")
+        "Blood molar albumin concentration."
       annotation (Placement(transformation(extent={{-36,50},{-30,56}})));
       T.MassConcentration ctGlb(varName="ctGlb", storeUnit="g/l")
         "Blood globolins mass concentration."
@@ -47728,7 +47767,8 @@ annotation (Placement(transformation(extent={{-42,64},{-24,82}})));*/
               extent={{-20,-20},{20,20}},
               rotation=270,
               origin={-20,-120})));
-        Physiolibrary.Types.RealIO.pHOutput pH_ery "intracellular erytrocytes pH"   annotation (Placement(
+        Physiolibrary.Types.RealIO.pHOutput pH_ery
+        "intracellular erytrocytes pH"                                              annotation (Placement(
               transformation(extent={{-14,-98},{26,-58}}),iconTransformation(
               extent={{-20,-20},{20,20}},
               rotation=270,
@@ -48200,7 +48240,8 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
         parameter Real pKaH3PO4=1.91 "H3PO4 acid dissociation constant";
         parameter Real pKaH2PO4=6.66 "H2PO4 acid dissociation constant";
         parameter Real pKaHPO4=11.78 "HPO4 acid dissociation constant";
-        parameter Real pKaKA=4.3 "average Keto-acids acid dissociation constant";
+        parameter Real pKaKA=4.3
+        "average Keto-acids acid dissociation constant";
         //constant Real ml2l = 0.001;
 
         Real zPO4 "average charge of one phosphate in urine";
@@ -48326,7 +48367,8 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
 </html>"));
       end Urine;
 
-      package Tissues "Acidity of tissue veins, interstitium or intracellular space"
+      package Tissues
+      "Acidity of tissue veins, interstitium or intracellular space"
 
         model Interstitia
         Interstitium.SkeletalMuscleInterstitialPh skeletalMuscle
@@ -48769,8 +48811,8 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
                     {-90,12}}),           iconTransformation(extent={{-10,-10},{10,10}},
                 rotation=0,
                 origin={-90,-40})));                         //(final displayUnit="mEq/ml")
-          Physiolibrary.Types.RealIO.pHOutput pH_interstitial "tissue interstitial pH"
-                                                                                        annotation (Placement(
+          Physiolibrary.Types.RealIO.pHOutput pH_interstitial
+          "tissue interstitial pH"                                                      annotation (Placement(
                 transformation(extent={{24,-16},{44,4}}),   iconTransformation(
                 extent={{-20,-20},{20,20}},
                 rotation=270,
@@ -53001,17 +53043,22 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
           "total concentration of haemoglobin in erythrocytes"
             annotation (Placement(transformation(extent={{-120,0},{-80,40}})));
           Physiolibrary.Types.RealIO.FractionInput
-                                             sO2 "saturation of haemoglobin by O2"
+                                             sO2
+          "saturation of haemoglobin by O2"
             annotation (Placement(transformation(extent={{-120,-40},{-80,0}})));
           Physiolibrary.Types.RealIO.PressureInput
                                              pCO2 "partial pressure of CO2"
             annotation (Placement(transformation(extent={{-120,-80},{-80,-40}})));
-          parameter Real betaOxyHb = 3.1 "buffer value for oxygenated Hb without CO2";
-          parameter Real betaDeoxyHb = 3.3 "buffer value for Hb without O2 and CO2";
-          parameter Real pIo=7.13 "isoelectric pH for oxygenated Hb without CO2";
+          parameter Real betaOxyHb = 3.1
+          "buffer value for oxygenated Hb without CO2";
+          parameter Real betaDeoxyHb = 3.3
+          "buffer value for Hb without O2 and CO2";
+          parameter Real pIo=7.13
+          "isoelectric pH for oxygenated Hb without CO2";
           parameter Real pIr=7.32 "isoelectric pH for Hb without O2 and CO2";
 
-          parameter Real pKzO=8.08 "pKa for NH3+ end of oxygenated haemoglobin chain";
+          parameter Real pKzO=8.08
+          "pKa for NH3+ end of oxygenated haemoglobin chain";
           parameter Real pKzR=7.14
           "pKa for NH3+ end of deoxygenated haemoglobin chain";
           parameter Real pKcO=4.62
@@ -53060,7 +53107,8 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
         model OtherRBCBuffers
           extends BufferInterface;
 
-          parameter Physiolibrary.Types.Concentration NCharge=9 "charge at pH=7.4";
+          parameter Physiolibrary.Types.Concentration NCharge=9
+          "charge at pH=7.4";
 
         equation
            y = - NCharge * Modelica.Constants.F;
@@ -61612,15 +61660,18 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
             "total concentration of haemoglobin in erythrocytes"
               annotation (Placement(transformation(extent={{-120,0},{-80,40}})));
             Modelica.Blocks.Interfaces.RealInput
-                                               sO2 "saturation of haemoglobin by O2"
+                                               sO2
+            "saturation of haemoglobin by O2"
               annotation (Placement(transformation(extent={{-120,-40},{-80,0}})));
             Modelica.Blocks.Interfaces.RealInput
                                                pCO2 "partial pressure of CO2"
               annotation (Placement(transformation(extent={{-120,-80},{-80,-40}})));
             parameter Real betaOxyHb = 3.1
             "buffer value for oxygenated Hb without CO2";
-            parameter Real betaDeoxyHb = 3.3 "buffer value for Hb without O2 and CO2";
-            parameter Real pIo=7.13 "isoelectric pH for oxygenated Hb without CO2";
+            parameter Real betaDeoxyHb = 3.3
+            "buffer value for Hb without O2 and CO2";
+            parameter Real pIo=7.13
+            "isoelectric pH for oxygenated Hb without CO2";
             parameter Real pIr=7.32 "isoelectric pH for Hb without O2 and CO2";
 
             parameter Real pKzO=8.08
@@ -63512,7 +63563,8 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
             "total concentration of tiratable hydrogen ions";
             Real _BE( displayUnit="mEq/l") "base excess";
 
-            Real _BEox( displayUnit="mEq/l") "base excess in fully oxygenated blood";
+            Real _BEox( displayUnit="mEq/l")
+            "base excess in fully oxygenated blood";
             Real _cTHox( displayUnit="mEq/l")
             "total concentration of tiratable hydrogen ions in fully oxygenated blood";
 
@@ -64174,7 +64226,8 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
           parameter Real pKaH3PO4=1.91 "H3PO4 acid dissociation constant";
           parameter Real pKaH2PO4=6.66 "H2PO4 acid dissociation constant";
           parameter Real pKaHPO4=11.78 "HPO4 acid dissociation constant";
-          parameter Real pKaKA=4.3 "average Keto-acids acid dissociation constant";
+          parameter Real pKaKA=4.3
+          "average Keto-acids acid dissociation constant";
           //constant Real ml2l = 0.001;
 
           Real zPO4 "average charge of one phosphate in urine";
@@ -65851,8 +65904,8 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
                   extent={{-20,-20},{20,20}},
                   rotation=270,
                   origin={60,-120})));
-            Physiolibrary.Types.RealIO.PressureInput pCO "tissue partial CO2 pressure"
-                                             annotation (Placement(transformation(extent={{-28,-38},
+            Physiolibrary.Types.RealIO.PressureInput pCO
+            "tissue partial CO2 pressure"    annotation (Placement(transformation(extent={{-28,-38},
                       {-10,-20}}),         iconTransformation(
                   extent={{-10,-10},{10,10}},
                   rotation=0,
@@ -66173,7 +66226,8 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
           end RightHeartIntracellularPh;
 
          model SkeletalMuscleAcidity
-            extends Physiomodel.Electrolytes.AcidBase.develop.Tissues_NSID.Tissue_cTH(
+            extends
+            Physiomodel.Electrolytes.AcidBase.develop.Tissues_NSID.Tissue_cTH(
               interstitium(stateName="SkeletalMuscleLactateMass",
                 useNormalizedVolume=false), inputPump1(q_out(conc(start=5e-5)),
                 useSoluteFlowInput=true));
@@ -66182,77 +66236,88 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
          end SkeletalMuscleAcidity;
 
           model BoneAcidity
-            extends Physiomodel.Electrolytes.AcidBase.develop.Tissues_NSID.Tissue_cTH(
+            extends
+            Physiomodel.Electrolytes.AcidBase.develop.Tissues_NSID.Tissue_cTH(
               interstitium(stateName="BoneLactateMass", useNormalizedVolume=
                   false));
             extends Physiolibrary.Icons.Bone;
           end BoneAcidity;
 
           model OtherTissueAcidity
-            extends Physiomodel.Electrolytes.AcidBase.develop.Tissues_NSID.Tissue_cTH(
+            extends
+            Physiomodel.Electrolytes.AcidBase.develop.Tissues_NSID.Tissue_cTH(
               interstitium(stateName="OtherTissueLactateMass",
                 useNormalizedVolume=false));
             extends Physiolibrary.Icons.OtherTissue;
           end OtherTissueAcidity;
 
           model RespiratoryMuscleAcidity
-            extends Physiomodel.Electrolytes.AcidBase.develop.Tissues_NSID.Tissue_cTH(
+            extends
+            Physiomodel.Electrolytes.AcidBase.develop.Tissues_NSID.Tissue_cTH(
               interstitium(stateName="RespiratoryMuscleLactateMass",
                 useNormalizedVolume=false));
             extends Physiolibrary.Icons.RespiratoryMuscle;
           end RespiratoryMuscleAcidity;
 
           model FatAcidity
-            extends Physiomodel.Electrolytes.AcidBase.develop.Tissues_NSID.Tissue_cTH(
+            extends
+            Physiomodel.Electrolytes.AcidBase.develop.Tissues_NSID.Tissue_cTH(
               interstitium(stateName="FatLactateMass", useNormalizedVolume=
                   false));
             extends Physiolibrary.Icons.Fat;
           end FatAcidity;
 
           model SkinAcidity
-            extends Physiomodel.Electrolytes.AcidBase.develop.Tissues_NSID.Tissue_cTH(
+            extends
+            Physiomodel.Electrolytes.AcidBase.develop.Tissues_NSID.Tissue_cTH(
               interstitium(stateName="SkinLactateMass", useNormalizedVolume=
                   false));
             extends Physiolibrary.Icons.Skin;
           end SkinAcidity;
 
           model LiverAcidity
-            extends Physiomodel.Electrolytes.AcidBase.develop.Tissues_NSID.Tissue_cTH(
+            extends
+            Physiomodel.Electrolytes.AcidBase.develop.Tissues_NSID.Tissue_cTH(
               interstitium(stateName="LiverLactateMass", useNormalizedVolume=
                   false));
             extends Physiolibrary.Icons.Liver;
           end LiverAcidity;
 
           model BrainAcidity
-            extends Physiomodel.Electrolytes.AcidBase.develop.Tissues_NSID.Tissue_cTH(
+            extends
+            Physiomodel.Electrolytes.AcidBase.develop.Tissues_NSID.Tissue_cTH(
               interstitium(stateName="BrainLactateMass", useNormalizedVolume=
                   false));
             extends Physiolibrary.Icons.Brain;
           end BrainAcidity;
 
           model GITractAcidity
-            extends Physiomodel.Electrolytes.AcidBase.develop.Tissues_NSID.Tissue_cTH(
+            extends
+            Physiomodel.Electrolytes.AcidBase.develop.Tissues_NSID.Tissue_cTH(
               interstitium(stateName="GITractLactateMass", useNormalizedVolume=
                   false));
             extends Physiolibrary.Icons.GITract;
           end GITractAcidity;
 
           model KidneyAcidity
-            extends Physiomodel.Electrolytes.AcidBase.develop.Tissues_NSID.Tissue_cTH(
+            extends
+            Physiomodel.Electrolytes.AcidBase.develop.Tissues_NSID.Tissue_cTH(
               interstitium(stateName="KidneyLactateMass", useNormalizedVolume=
                   false));
             extends Physiolibrary.Icons.Kidney;
           end KidneyAcidity;
 
           model LeftHeartAcidity
-            extends Physiomodel.Electrolytes.AcidBase.develop.Tissues_NSID.Tissue_cTH(
+            extends
+            Physiomodel.Electrolytes.AcidBase.develop.Tissues_NSID.Tissue_cTH(
               interstitium(stateName="LeftHeartLactateMass",
                 useNormalizedVolume=false));
             extends Physiolibrary.Icons.LeftHeart;
           end LeftHeartAcidity;
 
           model RightHeartAcidity
-            extends Physiomodel.Electrolytes.AcidBase.develop.Tissues_NSID.Tissue_cTH(
+            extends
+            Physiomodel.Electrolytes.AcidBase.develop.Tissues_NSID.Tissue_cTH(
               interstitium(stateName="RightHeartLactateMass",
                 useNormalizedVolume=false));
             extends Physiolibrary.Icons.RightHeart;
@@ -74983,7 +75048,8 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
       import Physiomodel;
        extends Physiolibrary.Icons.Kidney;
       Physiolibrary.Blocks.Factors.Spline PhEffect(data={{7.00,1.00,0},{7.42,
-            0.93,-0.5},{7.80,0.00,0}}) "marek: normal pH corrected from 7.45 to 7.42"
+            0.93,-0.5},{7.80,0.00,0}})
+        "marek: normal pH corrected from 7.45 to 7.42"
         annotation (Placement(transformation(extent={{16,42},{36,62}})));
       Physiolibrary.Types.BusConnector busConnector annotation (Placement(
             transformation(extent={{-92,-4},{-80,8}}), iconTransformation(
@@ -79968,7 +80034,8 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
 
       redeclare model extends Variables
 
-      AcidBase.AcidBase_variables acidBase_variables(T(redeclare block Variable = T.Variable))
+      AcidBase.AcidBase_variables acidBase_variables(T(redeclare block Variable
+            =                                                                     T.Variable))
           annotation (Placement(transformation(extent={{4,-88},{24,-68}})));
 
       T.VolumeDensityOfCharge BloodCations(varName="BloodIons.Cations")
@@ -79998,7 +80065,8 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
       T.AmountOfSubstance GILumenSodium_Mass(varName="GILumenSodium.Mass")
         "Sodium mass in intestines."
       annotation (Placement(transformation(extent={{-36,120},{-30,126}})));
-      T.MolarFlowRate PotassiumToCells(varName="KCell.Change") "PotasiumToCells"
+      T.MolarFlowRate PotassiumToCells(varName="KCell.Change")
+        "PotasiumToCells"
       annotation (Placement(transformation(extent={{-36,140},{-30,146}})));
       T.Concentration KCell_conc(varName="KCell.[K+(mEq/L)]")
         "Intracellular potassium concentration."
@@ -82665,35 +82733,43 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
         extends Physiolibrary.Types.IO_Bus;
       redeclare model extends Variables
 
-      T.Temperature GITract_T(varName="HeatCore.Temp(C)") "Body core temperature."
+      T.Temperature GITract_T(varName="HeatCore.Temp(C)")
+        "Body core temperature."
       annotation (Placement(transformation(extent={{-36,10},{-30,16}})));
-      T.Temperature HeatCore_Temp(varName="HeatCore.Temp(C)") "Body core temperature."
+      T.Temperature HeatCore_Temp(varName="HeatCore.Temp(C)")
+        "Body core temperature."
       annotation (Placement(transformation(extent={{-36,20},{-30,26}})));
       T.Temperature bone_T(varName="HeatCore.Temp(C)") "Body core temperature."
       annotation (Placement(transformation(extent={{-36,30},{-30,36}})));
-      T.Temperature brain_T(varName="HeatCore.Temp(C)") "Body core temperature."
+      T.Temperature brain_T(varName="HeatCore.Temp(C)")
+        "Body core temperature."
       annotation (Placement(transformation(extent={{-36,40},{-30,46}})));
       T.Temperature core_T(varName="HeatCore.Temp(C)") "Body core temperature."
       annotation (Placement(transformation(extent={{-36,50},{-30,56}})));
       T.Temperature fat_T(varName="HeatCore.Temp(C)") "Body core temperature."
       annotation (Placement(transformation(extent={{-36,60},{-30,66}})));
-      T.Temperature kidney_T(varName="HeatCore.Temp(C)") "Body core temperature."
+      T.Temperature kidney_T(varName="HeatCore.Temp(C)")
+        "Body core temperature."
       annotation (Placement(transformation(extent={{-36,70},{-30,76}})));
-      T.Temperature liver_T(varName="HeatCore.Temp(C)") "Body core temperature."
+      T.Temperature liver_T(varName="HeatCore.Temp(C)")
+        "Body core temperature."
       annotation (Placement(transformation(extent={{-36,80},{-30,86}})));
-      T.Temperature otherTissue_T(varName="HeatCore.Temp(C)") "Body core temperature."
+      T.Temperature otherTissue_T(varName="HeatCore.Temp(C)")
+        "Body core temperature."
       annotation (Placement(transformation(extent={{-36,90},{-30,96}})));
       T.Temperature respiratoryMuscle_T(varName="HeatCore.Temp(C)")
         "Body core temperature."
       annotation (Placement(transformation(extent={{-36,100},{-30,106}})));
-      T.Temperature rightHeart_T(varName="HeatCore.Temp(C)") "Body core temperature."
+      T.Temperature rightHeart_T(varName="HeatCore.Temp(C)")
+        "Body core temperature."
       annotation (Placement(transformation(extent={{-36,110},{-30,116}})));
       T.Temperature skeletalMuscle_T(varName="HeatSkeletalMuscle.Temp(C)")
         "Skeletal muscle temperature."
       annotation (Placement(transformation(extent={{-36,120},{-30,126}})));
       T.Temperature skin_T(varName="HeatSkin.Temp(C)") "Skin temperature."
       annotation (Placement(transformation(extent={{-36,130},{-30,136}})));
-      T.Temperature leftHeart_T(varName="HeatCore.Temp(C)") "Body core temperature."
+      T.Temperature leftHeart_T(varName="HeatCore.Temp(C)")
+        "Body core temperature."
       annotation (Placement(transformation(extent={{-36,-2},{-30,4}})));
       T.Fraction skinFlow_termoregulationEffect(varName=
               "Skin-Flow.SympsDilateEffect")
