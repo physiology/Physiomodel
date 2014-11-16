@@ -13266,9 +13266,9 @@ Schema : 2008.0
 
                                    /*(cO2Hb(start=7.39))*/
         Physiolibrary.Types.Constants.DiffusionPermeabilityConst O2PermBasic(k(
-              displayUnit="l/min") = 0.00028333333333333)
-          "0.9 ml_STP/(min.mmHg) = ? mol/(s.Pa), alphaO2=1.005e-5 mol/(m3.Pa)   Before: (3.929e-5)/60/0.00133989"
-          annotation (Placement(transformation(extent={{46,-40},{60,-26}})));
+              displayUnit="l/min") = 0.00045)
+          "see Resources/Data/erythropiesis ;  older notes:  0.9 ml_STP/(min.mmHg) = ? mol/(s.Pa), alphaO2=1.005e-5 mol/(m3.Pa)   Before: (3.929e-5)/60/0.00133989"
+          annotation (Placement(transformation(extent={{46,-42},{60,-28}})));
         Physiolibrary.Blocks.Factors.Spline HgbOnPerm(data={{0.00,0.4,0},{0.15,
               1.0,8.0},{0.25,2.0,0}}, Xscale=8.4/0.15)
           "\"recalculated [Hb] in mmol = 56*[Hb] in ml\""
@@ -13295,7 +13295,7 @@ Schema : 2008.0
          // O2Use_ml_per_min = -fromMLtoMMOL.q_ML.q;
 
           connect(O2PermBasic.y, HgbOnPerm.yBase) annotation (Line(
-              points={{61.75,-33},{64,-33},{64,-46}},
+              points={{61.75,-35},{64,-35},{64,-46}},
               color={0,0,127},
               smooth=Smooth.None));
           connect(diffusion.conductance, HgbOnPerm.y) annotation (Line(
@@ -13976,7 +13976,7 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
             smooth=Smooth.None));
       connect(pulmShortCircuit.solutionFlow, pulmShortCircuitFlow.y)
         annotation (Line(
-          points={{-6,-42},{-6,-54},{7,-54}},
+          points={{-6,-45},{-6,-54},{7,-54}},
           color={0,0,127},
           smooth=Smooth.None));
         connect(busConnector.AlveolarVentilated_BloodFlow, pulmShortCircuitFlow.u2)
@@ -31003,7 +31003,7 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
           thickness=1,
           smooth=Smooth.None));
     connect(EPOPool.solute, K.u) annotation (Line(
-        points={{-40,-54},{-40,-77},{-34.6,-77}},
+        points={{-34,-54},{-34,-77},{-34.6,-77}},
         color={0,0,127},
         smooth=Smooth.None));
     connect(Clearance.soluteFlow, K.y) annotation (Line(
@@ -36755,8 +36755,7 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
               {{60,40},{100,80}})));
       Exercise exercise
         annotation (Placement(transformation(extent={{0,10},{20,30}})));
-      CO2.Tissues
-              tissuesSetup
+      Tissues tissuesSetup
         annotation (Placement(transformation(extent={{20,-58},{40,-38}})));
       Blood bloodInOut
         annotation (Placement(transformation(extent={{-24,-60},{-4,-40}})));
@@ -36858,7 +36857,7 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
     equation
       connect(busConnector.BarometerPressure,Constant77. y)
         annotation (Line(
-          points={{-33,-13},{-33,79},{27.7,79}},
+          points={{-33,-13},{-33,79},{27.25,79}},
           color={0,0,255},
           thickness=0.5,
           smooth=Smooth.None), Text(
@@ -36867,7 +36866,7 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
           extent={{-6,3},{-6,3}}));
       connect(busConnector.AirSupplyInspiredAirPressure,Constant78. y)
         annotation (Line(
-          points={{-33,-13},{-33,71},{27.7,71}},
+          points={{-33,-13},{-33,71},{27.25,71}},
           color={0,0,255},
           thickness=0.5,
           smooth=Smooth.None), Text(
@@ -36875,7 +36874,7 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
           index=-1,
           extent={{-6,3},{-6,3}}));
       connect(busConnector.pCO,Constant8. y) annotation (Line(
-          points={{-33,-13},{46,-13},{46,94},{67.6,94}},
+          points={{-33,-13},{46,-13},{46,94},{67,94}},
           color={0,0,255},
           thickness=0.5,
           smooth=Smooth.None), Text(
@@ -36883,7 +36882,7 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
           index=-1,
           extent={{-6,3},{-6,3}}));
       connect(Gravity_Gz.y, busConnector.Gravity_Gz) annotation (Line(
-          points={{7.7,31},{-33,31},{-33,-13}},
+          points={{7.25,31},{-33,31},{-33,-13}},
           color={0,0,127},
           smooth=Smooth.None), Text(
           string="%second",
@@ -36891,7 +36890,7 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
           extent={{6,3},{6,3}}));
       connect(EnvironmentRelativeHumidity.y, busConnector.EnvironmentRelativeHumidity)
         annotation (Line(
-          points={{-77.7,15},{8,-18},{-33,-13}},
+          points={{-77.25,15},{8,-13},{-33,-13}},
           color={0,0,127},
           smooth=Smooth.None), Text(
           string="%second",
@@ -36899,7 +36898,7 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
           extent={{6,3},{6,3}}));
       connect(AmbientTemperature.y, busConnector.AmbientTemperature)
         annotation (Line(
-          points={{-77.7,23},{-33,23},{-33,-13}},
+          points={{-77.25,23},{-33,23},{-33,-13}},
           color={0,0,127},
           smooth=Smooth.None), Text(
           string="%second",
@@ -36935,20 +36934,20 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
     Physiolibrary.Types.Constants.DeprecatedUntypedConstant Constant20(k=0)
       annotation (Placement(transformation(extent={{24,88},{16,96}})));
     Physiolibrary.Types.Constants.DeprecatedUntypedConstant Constant21(k=0)
-      annotation (Placement(transformation(extent={{36,-90},{28,-82}})));
+      annotation (Placement(transformation(extent={{58,-98},{50,-90}})));
     Physiolibrary.Types.Constants.DeprecatedUntypedConstant Constant22(k=0)
-      annotation (Placement(transformation(extent={{36,-82},{28,-74}})));
+      annotation (Placement(transformation(extent={{80,-90},{72,-82}})));
     Physiolibrary.Types.Constants.DeprecatedUntypedConstant Constant23(k=0)
       annotation (Placement(transformation(extent={{36,-74},{28,-66}})));
     Physiolibrary.Types.Constants.DeprecatedUntypedConstant Constant24(k=0)
-      annotation (Placement(transformation(extent={{36,-66},{28,-58}})));
+      annotation (Placement(transformation(extent={{82,-64},{74,-56}})));
     Physiolibrary.Types.Constants.DeprecatedUntypedConstant Constant25(k=0)
-      annotation (Placement(transformation(extent={{36,-58},{28,-50}})));
+      annotation (Placement(transformation(extent={{36,-44},{28,-36}})));
     Physiolibrary.Types.Constants.DeprecatedUntypedConstant Constant26(k=
           5.2e-002)
-      annotation (Placement(transformation(extent={{36,-50},{28,-42}})));
+      annotation (Placement(transformation(extent={{-66,-72},{-74,-64}})));
     Physiolibrary.Types.Constants.DeprecatedUntypedConstant Constant27(k=0)
-      annotation (Placement(transformation(extent={{36,-42},{28,-34}})));
+      annotation (Placement(transformation(extent={{24,32},{16,40}})));
     Physiolibrary.Types.Constants.DeprecatedUntypedConstant Constant28(k=0)
       annotation (Placement(transformation(extent={{82,-28},{74,-20}})));
     Physiolibrary.Types.Constants.DeprecatedUntypedConstant Constant29(k=0)
@@ -36964,119 +36963,117 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
       annotation (Placement(transformation(extent={{82,12},{74,20}})));
     Physiolibrary.Types.Constants.DeprecatedUntypedConstant Constant34(k=0)
       annotation (Placement(transformation(extent={{82,20},{74,28}})));
-    Physiolibrary.Types.Constants.DeprecatedUntypedConstant Constant35(k=
-          2.2e-002)
+    Physiolibrary.Types.Constants.MolarFlowRateConst PO4(k(displayUnit=
+            "mmol/min") = 0.022)
       annotation (Placement(transformation(extent={{-94,-32},{-86,-24}})));
-    Physiolibrary.Types.Constants.DeprecatedUntypedConstant Constant36(k=
-          3.7e-002)
+    Physiolibrary.Types.Constants.MolarFlowRateConst SO4(k=0.037)
       annotation (Placement(transformation(extent={{-94,-50},{-86,-42}})));
-    Physiolibrary.Types.Constants.DeprecatedUntypedConstant DietGoalH2O_DegK(k=
-          294.261)
-      annotation (Placement(transformation(extent={{-92,-14},{-86,-8}})));
+    Physiolibrary.Types.Constants.TemperatureConst          DietGoalH2O_DegK(k=294.261)
+      annotation (Placement(transformation(extent={{-94,-14},{-88,-8}})));
     equation
       connect(Constant14.y,busConnector. IVDrip_NaRate) annotation (Line(
-          points={{15.6,44},{-32,44},{-32,-12}},
+          points={{15,44},{-32,44},{-32,-12}},
           color={0,0,127},
           smooth=Smooth.None));
       connect(Constant15.y,busConnector. Transfusion_NaRate) annotation (Line(
-          points={{15.6,52},{-32,52},{-32,-12}},
+          points={{15,52},{-32,52},{-32,-12}},
           color={0,0,127},
           smooth=Smooth.None));
       connect(Constant16.y,busConnector. SweatDuct_NaRate) annotation (Line(
-          points={{15.6,60},{-32,60},{-32,-12}},
+          points={{15,60},{-32,60},{-32,-12}},
           color={0,0,127},
           smooth=Smooth.None));
       connect(Constant17.y,busConnector. Hemorrhage_NaRate) annotation (Line(
-          points={{15.6,68},{-32,68},{-32,-12}},
+          points={{15,68},{-32,68},{-32,-12}},
           color={0,0,127},
           smooth=Smooth.None));
       connect(Constant18.y,busConnector. DialyzerActivity_Na_Flux) annotation (
           Line(
-          points={{15.6,76},{-32,76},{-32,-12}},
+          points={{15,76},{-32,76},{-32,-12}},
           color={0,0,127},
           smooth=Smooth.None));
       connect(Constant19.y,busConnector. DietIntakeElectrolytes_Na) annotation (
           Line(
-          points={{15.6,84},{-32,84},{-32,-12}},
+          points={{15,84},{-32,84},{-32,-12}},
           color={0,0,127},
           smooth=Smooth.None));
       connect(Constant20.y,busConnector. GILumenDiarrhea_NaLoss) annotation (Line(
-          points={{15.6,92},{-32,92},{-32,-12}},
+          points={{15,92},{-32,92},{-32,-12}},
           color={0,0,127},
           smooth=Smooth.None));
       connect(Constant21.y,busConnector. IVDrip_KRate) annotation (Line(
-          points={{27.6,-86},{-32,-86},{-32,-12}},
+          points={{49,-94},{-32,-94},{-32,-12}},
           color={0,0,127},
           smooth=Smooth.None));
       connect(Constant22.y,busConnector. Transfusion_KRate) annotation (Line(
-          points={{27.6,-78},{-32,-78},{-32,-12}},
+          points={{71,-86},{-32,-86},{-32,-12}},
           color={0,0,127},
           smooth=Smooth.None));
       connect(Constant23.y,busConnector. SweatDuct_KRate) annotation (Line(
-          points={{27.6,-70},{-32,-70},{-32,-12}},
+          points={{27,-70},{-32,-70},{-32,-12}},
           color={0,0,127},
           smooth=Smooth.None));
       connect(Constant24.y,busConnector. Hemorrhage_KRate) annotation (Line(
-          points={{27.6,-62},{-32,-62},{-32,-12}},
+          points={{73,-60},{-32,-60},{-32,-12}},
           color={0,0,127},
           smooth=Smooth.None));
       connect(Constant25.y,busConnector. DialyzerActivity_K_Flux) annotation (
           Line(
-          points={{27.6,-54},{-32,-54},{-32,-12}},
+          points={{27,-40},{-32,-40},{-32,-12}},
           color={0,0,127},
           smooth=Smooth.None));
       connect(Constant26.y,busConnector. DietIntakeElectrolytes_K) annotation (
           Line(
-          points={{27.6,-46},{-32,-46},{-32,-12}},
+          points={{-75,-68},{-32,-68},{-32,-12}},
           color={0,0,127},
           smooth=Smooth.None));
       connect(Constant27.y,busConnector. GILumenDiarrhea_KLoss) annotation (Line(
-          points={{27.6,-38},{-32,-38},{-32,-12}},
+          points={{15,36},{-32,36},{-32,-12}},
           color={0,0,127},
           smooth=Smooth.None));
       connect(Constant28.y,busConnector. IVDrip_ClRate) annotation (Line(
-          points={{73.6,-24},{-32,-24},{-32,-12}},
+          points={{73,-24},{-32,-24},{-32,-12}},
           color={0,0,127},
           smooth=Smooth.None));
       connect(Constant29.y,busConnector. Transfusion_ClRate) annotation (Line(
-          points={{73.6,-16},{-32,-16},{-32,-12}},
+          points={{73,-16},{-32,-16},{-32,-12}},
           color={0,0,127},
           smooth=Smooth.None));
       connect(Constant30.y,busConnector. SweatDuct_ClRate) annotation (Line(
-          points={{73.6,-8},{-32,-8},{-32,-12}},
+          points={{73,-8},{-32,-8},{-32,-12}},
           color={0,0,127},
           smooth=Smooth.None));
       connect(Constant31.y,busConnector. Hemorrhage_ClRate) annotation (Line(
-          points={{73.6,0},{-32,0},{-32,-12}},
+          points={{73,0},{-32,0},{-32,-12}},
           color={0,0,127},
           smooth=Smooth.None));
       connect(Constant32.y,busConnector. DialyzerActivity_Cl_Flux) annotation (
           Line(
-          points={{73.6,8},{-32,8},{-32,-12}},
+          points={{73,8},{-32,8},{-32,-12}},
           color={0,0,127},
           smooth=Smooth.None));
       connect(Constant33.y,busConnector. DietIntakeElectrolytes_Cl) annotation (
           Line(
-          points={{73.6,16},{-32,16},{-32,-12}},
+          points={{73,16},{-32,16},{-32,-12}},
           color={0,0,127},
           smooth=Smooth.None));
       connect(Constant34.y, busConnector.GILumenVomitus_ClLoss) annotation (Line(
-          points={{73.6,24},{-32,24},{-32,-12}},
+          points={{73,24},{-32,24},{-32,-12}},
           color={0,0,127},
           smooth=Smooth.None));
-      connect(Constant35.y, busConnector.DietIntakeElectrolytes_PO4) annotation (Line(
-          points={{-85.6,-28},{-80,-28},{-80,-30},{-32,-30},{-32,-12}},
-          color={0,0,127},
-          thickness=0.5,
-          smooth=Smooth.None));
-      connect(Constant36.y, busConnector.DietIntakeElectrolytes_SO4) annotation (Line(
-          points={{-85.6,-46},{-32,-46},{-32,-12}},
-          color={0,0,127},
-          thickness=0.5,
-          smooth=Smooth.None));
+    connect(PO4.y, busConnector.DietIntakeElectrolytes_PO4) annotation (Line(
+        points={{-85,-28},{-80,-28},{-80,-30},{-32,-30},{-32,-12}},
+        color={0,0,127},
+        thickness=0.5,
+        smooth=Smooth.None));
+    connect(SO4.y, busConnector.DietIntakeElectrolytes_SO4) annotation (Line(
+        points={{-85,-46},{-32,-46},{-32,-12}},
+        color={0,0,127},
+        thickness=0.5,
+        smooth=Smooth.None));
       connect(DietGoalH2O_DegK.y, busConnector.DietGoalH2O_DegK) annotation (
           Line(
-          points={{-85.7,-11},{-84,-12},{-32,-12}},
+          points={{-87.25,-11},{-84,-12},{-32,-12}},
           color={0,0,127},
           smooth=Smooth.None), Text(
           string="%second",
@@ -37216,7 +37213,7 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
     equation
       connect(const36.y,busConnector. LowerTorsoArtyHeight)
         annotation (Line(
-          points={{57.7,53},{52,53},{52,58},{-38,58},{-38,-13},{-33,-13}},
+          points={{57.25,53},{52,53},{52,58},{-38,58},{-38,-13},{-33,-13}},
           color={0,0,127},
           smooth=Smooth.None), Text(
           string="%second",
@@ -37224,7 +37221,7 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
           extent={{6,3},{6,3}}));
       connect(const37.y,busConnector. LowerTorsoVeinHeight)
         annotation (Line(
-          points={{57.7,47},{52,47},{52,58},{-38,58},{-38,-13},{-33,-13}},
+          points={{57.25,47},{52,47},{52,58},{-38,58},{-38,-13},{-33,-13}},
           color={0,0,127},
           smooth=Smooth.None), Text(
           string="%second",
@@ -37232,14 +37229,14 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
           extent={{6,3},{6,3}}));
       connect(const10.y,busConnector. CarotidSinusHeight)
         annotation (Line(
-          points={{57.7,35},{52,35},{52,58},{-38,58},{-38,-13},{-33,-13}},
+          points={{57.25,35},{52,35},{52,58},{-38,58},{-38,-13},{-33,-13}},
           color={0,0,127},
           smooth=Smooth.None), Text(
           string="%second",
           index=1,
           extent={{6,3},{6,3}}));
       connect(integerConstant.y, busConnector.Status_Posture) annotation (Line(
-          points={{24.3,15},{62.15,15},{62.15,-13},{-33,-13}},
+          points={{24.75,15},{62.15,15},{62.15,-13},{-33,-13}},
           color={0,0,255},
           smooth=Smooth.None), Text(
           string="%second",
@@ -37267,7 +37264,7 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
       annotation (Placement(transformation(extent={{-92,6},{-84,14}})));
     equation
       connect(const38.y, busConnector.FurosemidePool_Loss) annotation (Line(
-          points={{19.7,-69},{-33,-69},{-33,-13}},
+          points={{19.25,-69},{-33,-69},{-33,-13}},
           color={0,0,127},
           smooth=Smooth.None), Text(
           string="%second",
@@ -37275,7 +37272,7 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
           extent={{6,3},{6,3}}));
       connect(Constant1.y,busConnector. FurosemidePool_Furosemide_conc)
         annotation (Line(
-          points={{-71.6,-84},{-38,-84},{-38,-13},{-33,-13}},
+          points={{-71,-84},{-38,-84},{-38,-13},{-33,-13}},
           color={0,0,127},
           smooth=Smooth.None), Text(
           string="%second",
@@ -37283,7 +37280,7 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
           extent={{6,3},{6,3}}));
       connect(Constant2.y,busConnector. ThiazidePool_Thiazide_conc) annotation (
           Line(
-          points={{-83.6,10},{-62,10},{-62,-13},{-33,-13}},
+          points={{-83,10},{-62,10},{-62,-13},{-33,-13}},
           color={0,0,127},
           smooth=Smooth.None), Text(
           string="%second",
@@ -37487,14 +37484,14 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
       annotation (Placement(transformation(extent={{-60,24},{-56,28}})));
     equation
       connect(const9.y, busConnector.BladerVoidFlow) annotation (Line(
-          points={{-55.8,26},{-33,26},{-33,-13}},
+          points={{-55.5,26},{-33,26},{-33,-13}},
           color={0,0,127},
           smooth=Smooth.None), Text(
           string="%second",
           index=1,
           extent={{6,3},{6,3}}));
       connect(const9.y, busConnector.BladderVoidFlow) annotation (Line(
-          points={{-55.8,26},{-33,26},{-33,-13}},
+          points={{-55.5,26},{-33,26},{-33,-13}},
           color={0,0,127},
           smooth=Smooth.None));
       annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
@@ -37517,7 +37514,7 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
       annotation (Placement(transformation(extent={{-76,14},{-72,18}})));
     equation
       connect(const9.y, busConnector.AnesthesiaTidalVolume) annotation (Line(
-          points={{-55.8,26},{-33,26},{-33,-13}},
+          points={{-55.5,26},{-33,26},{-33,-13}},
           color={0,0,127},
           smooth=Smooth.None), Text(
           string="%second",
@@ -37525,7 +37522,7 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
           extent={{6,3},{6,3}}));
       connect(const1.y, busConnector.Anesthesia_VascularConductance)
         annotation (Line(
-          points={{-71.8,16},{-33,16},{-33,-13}},
+          points={{-71.5,16},{-33,16},{-33,-13}},
           color={0,0,127},
           smooth=Smooth.None), Text(
           string="%second",
@@ -38410,6 +38407,615 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
       end Setup_test_SI;
     end IO_Bus;
 
+    model Variables
+      extends Physiolibrary.Icons.Setup;
+
+      package T = Physiolibrary.Types.RealTypeInputParameters;
+
+    T.Pressure AirSupplyInspiredAirPressure(varName="AirSupply-InspiredAir.Pressure")
+    annotation (Placement(transformation(extent={{-80,-154},{-74,-148}})));
+    T.Fraction Anesthesia_VascularConductance(varName="Anesthesia.VascularConductance")
+    annotation (Placement(transformation(extent={{-80,-144},{-74,-138}})));
+    T.Fraction AnesthesiaTidalVolume(varName="Anesthesia.TidalVolume")
+    annotation (Placement(transformation(extent={{-80,-134},{-74,-128}})));
+    T.Pressure BarometerPressure(varName="Barometer.Pressure")
+    annotation (Placement(transformation(extent={{-80,-124},{-74,-118}})));
+    T.Position CarotidSinusHeight(varName="Hydrostatics.CarotidCM")
+    annotation (Placement(transformation(extent={{-80,-94},{-74,-88}})));
+    T.MolarFlowRate DialyzerActivity_Cl_Flux(varName="DialyzerActivity.Cl-Flux")
+    annotation (Placement(transformation(extent={{-80,-84},{-74,-78}})));
+    T.MolarFlowRate DialyzerActivity_K_Flux(varName="DialyzerActivity.K+Flux")
+    annotation (Placement(transformation(extent={{-80,-74},{-74,-68}})));
+    T.MolarFlowRate DialyzerActivity_Na_Flux(varName="DialyzerActivity.Na+Flux")
+    annotation (Placement(transformation(extent={{-80,-64},{-74,-58}})));
+    T.Temperature DietGoalH2O_DegK(varName="DietGoalH2O.DegK",storeUnit="K")
+    annotation (Placement(transformation(extent={{-80,-54},{-74,-48}})));
+    T.MolarFlowRate DietIntakeElectrolytes_Cl(varName="DietIntakeElectrolytes.Cl-_mEq/Min")
+    annotation (Placement(transformation(extent={{-80,-44},{-74,-38}})));
+    T.MolarFlowRate DietIntakeElectrolytes_K(varName="DietIntakeElectrolytes.K+_mEq/Min")
+    annotation (Placement(transformation(extent={{-80,-34},{-74,-28}})));
+    T.MolarFlowRate DietIntakeElectrolytes_Na(varName="DietIntakeElectrolytes.Na+_mEq/Min")
+    annotation (Placement(transformation(extent={{-80,-24},{-74,-18}})));
+    T.MolarFlowRate DietIntakeElectrolytes_PO4(varName="DietIntakeElectrolytes.PO4--mEq/Min")
+    annotation (Placement(transformation(extent={{-80,-14},{-74,-8}})));
+    T.MolarFlowRate DietIntakeElectrolytes_SO4(varName="DietIntakeElectrolytes.SO4--mEq/Min")
+    annotation (Placement(transformation(extent={{-80,-4},{-74,2}})));
+    T.Frequency Exercise_Metabolism_ContractionRate(varName="Exercise-Metabolism.ContractionRate")
+    annotation (Placement(transformation(extent={{-80,16},{-74,22}})));
+    T.Power Exercise_Metabolism_MotionWatts(varName="Exercise-Metabolism.MotionWatts", storeUnit="W")
+    annotation (Placement(transformation(extent={{-80,26},{-74,32}})));
+    T.Fraction Exercise_MusclePump_Effect(varName="Exercise-MusclePump.Effect")
+    annotation (Placement(transformation(extent={{-80,36},{-74,42}})));
+    T.Power ExerciseMetabolism_MotionCals(varName="Exercise-Metabolism.MotionCals", storeUnit="cal/min")
+    annotation (Placement(transformation(extent={{-80,46},{-74,52}})));
+    T.Power ExerciseMetabolism_TotalWatts(varName="Exercise-Metabolism.TotalWatts", storeUnit="W")
+    annotation (Placement(transformation(extent={{-80,56},{-74,62}})));
+    T.Concentration FurosemidePool_Furosemide_conc(varName="FurosemidePool.[Furosemide]", storeUnit="mg/l", unitConversions=Substances.Furosemide.unitConversions)
+    annotation (Placement(transformation(extent={{-80,66},{-74,72}})));
+    T.MolarFlowRate FurosemidePool_Loss(varName="FurosemidePool.Loss", storeUnit="mg/min", unitConversions=Substances.Furosemide.unitConversions)
+    annotation (Placement(transformation(extent={{-80,76},{-74,82}})));
+    T.Fraction Gravity_Gz(varName="Gravity.Gz")
+    annotation (Placement(transformation(extent={{-80,86},{-74,92}})));
+    T.MolarFlowRate GILumenDiarrhea_KLoss(varName="GILumenDiarrhea.K+Loss")
+    annotation (Placement(transformation(extent={{-80,96},{-74,102}})));
+    T.MolarFlowRate GILumenDiarrhea_NaLoss(varName="GILumenDiarrhea.Na+Loss")
+    annotation (Placement(transformation(extent={{-80,106},{-74,112}})));
+    T.MolarFlowRate GILumenVomitus_ClLoss(varName="GILumenVomitus.Cl-Loss")
+    annotation (Placement(transformation(extent={{-80,116},{-74,122}})));
+    T.MolarFlowRate Hemorrhage_ClRate(varName="Hemorrhage.ClRate")
+    annotation (Placement(transformation(extent={{68,16},{74,22}})));
+    T.MolarFlowRate Hemorrhage_KRate(varName="Hemorrhage.KRate")
+    annotation (Placement(transformation(extent={{68,28},{74,34}})));
+    T.MolarFlowRate Hemorrhage_NaRate(varName="Hemorrhage.NaRate")
+    annotation (Placement(transformation(extent={{72,-168},{78,-162}})));
+    T.VolumeFlowRate Hemorrhage_PlasmaRate(varName="Hemorrhage.PlasmaRate")
+    annotation (Placement(transformation(extent={{72,-158},{78,-152}})));
+    T.MolarFlowRate Hemorrhage_ProteinRate(varName="Hemorrhage.ProteinRate", storeUnit="mmol/min")
+    annotation (Placement(transformation(extent={{72,-148},{78,-142}})));
+    T.VolumeFlowRate Hemorrhage_RBCRate(varName="Hemorrhage.RBCRate")
+    annotation (Placement(transformation(extent={{72,-138},{78,-132}})));
+    T.MolarFlowRate IVDrip_ClRate(varName="IVDrip.ClRate")
+    annotation (Placement(transformation(extent={{72,-128},{78,-122}})));
+    T.VolumeFlowRate IVDrip_H2ORate(varName="IVDrip.H2ORate")
+    annotation (Placement(transformation(extent={{72,-118},{78,-112}})));
+    T.MolarFlowRate IVDrip_KRate(varName="IVDrip.KRate")
+    annotation (Placement(transformation(extent={{72,-108},{78,-102}})));
+    T.MolarFlowRate IVDrip_NaRate(varName="IVDrip.NaRate")
+    annotation (Placement(transformation(extent={{72,-98},{78,-92}})));
+    T.Fraction Kidney_NephronCount_Filtering_xNormal(varName="Kidney-NephronCount.Filtering(xNormal)")
+    annotation (Placement(transformation(extent={{72,-88},{78,-82}})));
+    T.Fraction Kidney_NephronCount_Total_xNormal(varName="Kidney-NephronCount.Total(xNormal)")
+    annotation (Placement(transformation(extent={{72,-78},{78,-72}})));
+    T.Fraction LegMusclePump_Effect(varName="LegMusclePump.Effect")
+    annotation (Placement(transformation(extent={{72,-68},{78,-62}})));
+    T.Position LowerTorsoArtyHeight(varName="Hydrostatics.LowerTorsoCM")
+    annotation (Placement(transformation(extent={{72,-58},{78,-52}})));
+    T.Position LowerTorsoVeinHeight(varName="Hydrostatics.LowerTorsoCM")
+    annotation (Placement(transformation(extent={{72,-48},{78,-42}})));
+    T.Pressure pCO(varName="pCO")
+    annotation (Placement(transformation(extent={{72,-28},{78,-22}})));
+    T.Pressure Pericardium_Pressure(varName="Pericardium-Cavity.Pressure")
+    annotation (Placement(transformation(extent={{72,-18},{78,-12}})));
+    T.Mass skeletalMuscle_SizeMass(varName="SkeletalMuscle-Size.Mass", storeUnit="g")
+    annotation (Placement(transformation(extent={{72,-8},{78,-2}})));
+    T.Mass skinSizeMass(varName="Skin-Size.Mass")
+    annotation (Placement(transformation(extent={{72,2},{78,8}})));
+    T.Fraction Status_Posture(varName="Status.Posture")
+    annotation (Placement(transformation(extent={{70,42},{76,48}})));
+    T.MassConcentration ThiazidePool_Thiazide_conc(varName="ThiazidePool.[Thiazide]", storeUnit="mg/l")
+    annotation (Placement(transformation(extent={{72,62},{78,68}})));
+    T.Pressure Thorax_AvePressure(varName="Thorax.AvePressure")
+    annotation (Placement(transformation(extent={{72,72},{78,78}})));
+    T.Fraction Thorax_LungInflation(varName="Thorax.LungInflation")
+    annotation (Placement(transformation(extent={{72,82},{78,88}})));
+    T.MolarFlowRate Transfusion_ClRate(varName="Transfusion.ClRate")
+    annotation (Placement(transformation(extent={{72,92},{78,98}})));
+    T.MolarFlowRate Transfusion_KRate(varName="Transfusion.KRate")
+    annotation (Placement(transformation(extent={{72,102},{78,108}})));
+    T.MolarFlowRate Transfusion_NaRate(varName="Transfusion.NaRate")
+    annotation (Placement(transformation(extent={{72,112},{78,118}})));
+    T.VolumeFlowRate Transfusion_PlasmaRate(varName="Transfusion.PlasmaRate")
+    annotation (Placement(transformation(extent={{72,122},{78,128}})));
+    T.MolarFlowRate Transfusion_ProteinRate(varName="Transfusion.ProteinRate", storeUnit="mmol/min")
+    annotation (Placement(transformation(extent={{72,132},{78,138}})));
+    T.VolumeFlowRate Transfusion_RBCRate(varName="Transfusion.RBCRate")
+    annotation (Placement(transformation(extent={{72,142},{78,148}})));
+    T.Mass WeightCore(varName="Weight.Core")
+    annotation (Placement(transformation(extent={{72,152},{78,158}})));
+
+    T.MolarFlowRate IVDrip_ProteinRate(varName="IVDrip.ProteinRate", storeUnit="mmol/min")
+    annotation (Placement(transformation(extent={{-90,-40},{-84,-34}})));
+    T.Temperature AmbientTemperature(varName=
+            "AmbientTemperature.Temp(C)")
+    annotation (Placement(transformation(extent={{-94,10},{-88,16}})));
+    T.Fraction EnvironmentRelativeHumidity(varName=
+            "EnvironmentRelativeHumidity")
+    annotation (Placement(transformation(extent={{-102,-12},{-96,-6}})));
+    T.VolumeFlowRate DietIntakeH2O_Rate(varName="DietIntakeH2O.Rate(mL/Min)")
+    annotation (Placement(transformation(extent={{-102,-20},{-96,-14}})));
+    T.VolumeFlowRate DialyzerActivity_UltrafiltrationRate(
+          varName="DialyzerActivity.UltrafiltrationRate")
+    annotation (Placement(transformation(extent={{-134,0},{-122,12}})));
+    T.VolumeFlowRate Hemorrhage_PlasmaRate1(                         varName="Hemorrhage.H2ORate")
+    annotation (Placement(transformation(extent={{-132,18},{-120,30}})));
+    T.VolumeFlowRate Transfusion_PlasmaRate1(                         varName="Transfusion.H2ORate")
+    annotation (Placement(transformation(extent={{-130,30},{-120,40}})));
+    T.VolumeFlowRate GILumenVomitus_H2OTarget(varName=
+            "GILumenVomitus.H2OTarget")
+    annotation (Placement(transformation(extent={{-84,122},{-72,134}})));
+    T.VolumeFlowRate GILumenDiarrhea_H2OTarget(varName=
+            "GILumenDiarrhea.H2OTarget")
+    annotation (Placement(transformation(extent={{-82,132},{-70,144}})));
+    T.Velocity Wind_MPH(varName="Wind.MPH",storeUnit="MPH")
+    annotation (Placement(transformation(extent={{-46,6},{-40,12}})));
+    T.AmountOfSubstance GILumenFiber(varName="GILumenVolume.[Fiber]", storeUnit="osm")
+        annotation (Placement(transformation(extent={{-82,142},{-70,154}})));
+    T.Pressure EnvironmentRelativeHumidity_VaporPressure(varName="RelativeHumidity.VaporPressure",
+          storeUnit="mmHg")
+        annotation (Placement(transformation(extent={{-92,-2},{-86,4}})));
+    equation
+      connect( Gravity_Gz.y,busConnector.Gravity_Gz)          annotation (Line(
+          points={{-73.7,89},{90,89},{90,-2}},
+          color={0,0,127},
+          smooth=Smooth.None), Text(
+          string="%second",
+          index=1,
+          extent={{6,3},{6,3}}));
+      connect(BarometerPressure.y,busConnector.BarometerPressure)
+        annotation (Line(
+          points={{-73.7,-121},{4,-121},{4,-2},{90,-2}},
+          color={0,0,255},
+          thickness=0.5,
+          smooth=Smooth.None), Text(
+          string="%first",
+          index=-1,
+          extent={{-6,3},{-6,3}}));
+      connect(AirSupplyInspiredAirPressure.y,busConnector.AirSupplyInspiredAirPressure)
+        annotation (Line(
+          points={{-73.7,-151},{4,-151},{4,-2},{90,-2}},
+          color={0,0,255},
+          thickness=0.5,
+          smooth=Smooth.None), Text(
+          string="%first",
+          index=-1,
+          extent={{-6,3},{-6,3}}));
+      connect(pCO.y,busConnector.pCO) annotation (Line(
+          points={{78.3,-25},{90,-25},{90,-2}},
+          color={0,0,255},
+          thickness=0.5,
+          smooth=Smooth.None), Text(
+          string="%first",
+          index=-1,
+          extent={{-6,3},{-6,3}}));
+      connect( IVDrip_NaRate.y,busConnector. IVDrip_NaRate) annotation (Line(
+          points={{78.3,-95},{90,-95},{90,-2}},
+          color={0,0,127},
+          smooth=Smooth.None));
+      connect( Transfusion_NaRate.y,busConnector. Transfusion_NaRate) annotation (Line(
+          points={{78.3,115},{90,115},{90,-2}},
+          color={0,0,127},
+          smooth=Smooth.None));
+      connect( Hemorrhage_NaRate.y,busConnector. Hemorrhage_NaRate) annotation (Line(
+          points={{78.3,-165},{90,-165},{90,-2}},
+          color={0,0,127},
+          smooth=Smooth.None));
+      connect( DialyzerActivity_Na_Flux.y,busConnector. DialyzerActivity_Na_Flux) annotation (
+          Line(
+          points={{-73.7,-61},{90,-61},{90,-2}},
+          color={0,0,127},
+          smooth=Smooth.None));
+      connect( DietIntakeElectrolytes_Na.y,busConnector. DietIntakeElectrolytes_Na) annotation (
+          Line(
+          points={{-73.7,-21},{90,-21},{90,-2}},
+          color={0,0,127},
+          smooth=Smooth.None));
+      connect( GILumenDiarrhea_NaLoss.y,busConnector. GILumenDiarrhea_NaLoss) annotation (Line(
+          points={{-73.7,109},{90,109},{90,-2}},
+          color={0,0,127},
+          smooth=Smooth.None));
+      connect( IVDrip_KRate.y,busConnector. IVDrip_KRate) annotation (Line(
+          points={{78.3,-105},{90,-105},{90,-2}},
+          color={0,0,127},
+          smooth=Smooth.None));
+      connect( Transfusion_KRate.y,busConnector. Transfusion_KRate) annotation (Line(
+          points={{78.3,105},{90,105},{90,-2}},
+          color={0,0,127},
+          smooth=Smooth.None));
+      connect( Hemorrhage_KRate.y,busConnector. Hemorrhage_KRate) annotation (Line(
+          points={{74.3,31},{90,31},{90,-2}},
+          color={0,0,127},
+          smooth=Smooth.None));
+      connect( DialyzerActivity_K_Flux.y,busConnector. DialyzerActivity_K_Flux) annotation (
+          Line(
+          points={{-73.7,-71},{90,-71},{90,-2}},
+          color={0,0,127},
+          smooth=Smooth.None));
+      connect( DietIntakeElectrolytes_K.y,busConnector. DietIntakeElectrolytes_K) annotation (
+          Line(
+          points={{-73.7,-31},{90,-31},{90,-2}},
+          color={0,0,127},
+          smooth=Smooth.None));
+      connect( GILumenDiarrhea_KLoss.y,busConnector. GILumenDiarrhea_KLoss) annotation (Line(
+          points={{-73.7,99},{90,99},{90,-2}},
+          color={0,0,127},
+          smooth=Smooth.None));
+      connect( IVDrip_ClRate.y,busConnector. IVDrip_ClRate) annotation (Line(
+          points={{78.3,-125},{90,-125},{90,-2}},
+          color={0,0,127},
+          smooth=Smooth.None));
+      connect( Transfusion_ClRate.y,busConnector. Transfusion_ClRate) annotation (Line(
+          points={{78.3,95},{90,95},{90,-2}},
+          color={0,0,127},
+          smooth=Smooth.None));
+      connect( Hemorrhage_ClRate.y,busConnector. Hemorrhage_ClRate) annotation (Line(
+          points={{74.3,19},{90,19},{90,-2}},
+          color={0,0,127},
+          smooth=Smooth.None));
+      connect( DialyzerActivity_Cl_Flux.y,busConnector. DialyzerActivity_Cl_Flux) annotation (
+          Line(
+          points={{-73.7,-81},{90,-81},{90,-2}},
+          color={0,0,127},
+          smooth=Smooth.None));
+      connect( DietIntakeElectrolytes_Cl.y,busConnector. DietIntakeElectrolytes_Cl) annotation (
+          Line(
+          points={{-73.7,-41},{90,-41},{90,-2}},
+          color={0,0,127},
+          smooth=Smooth.None));
+      connect(GILumenVomitus_ClLoss.y,busConnector.GILumenVomitus_ClLoss) annotation (Line(
+          points={{-73.7,119},{90,119},{90,-2}},
+          color={0,0,127},
+          smooth=Smooth.None));
+      connect(DietIntakeElectrolytes_PO4.y,busConnector.DietIntakeElectrolytes_PO4) annotation (Line(
+          points={{-73.7,-11},{6,-11},{6,-2},{90,-2}},
+          color={0,0,127},
+          thickness=0.5,
+          smooth=Smooth.None));
+      connect(DietIntakeElectrolytes_SO4.y,busConnector.DietIntakeElectrolytes_SO4) annotation (Line(
+          points={{-73.7,-1},{90,-1},{90,-2}},
+          color={0,0,127},
+          thickness=0.5,
+          smooth=Smooth.None));
+      connect(DietGoalH2O_DegK.y,busConnector.DietGoalH2O_DegK) annotation (
+          Line(
+          points={{-73.7,-51},{-73.7,-50},{-28,-50},{-28,-2},{90,-2}},
+          color={0,0,127},
+          smooth=Smooth.None), Text(
+          string="%second",
+          index=1,
+          extent={{6,3},{6,3}}));
+      connect( Exercise_MusclePump_Effect.y,busConnector. Exercise_MusclePump_Effect) annotation (
+          Line(
+          points={{-73.25,39},{90,39},{90,-2}},
+          color={0,0,127},
+          smooth=Smooth.None), Text(
+          string="%second",
+          index=1,
+          extent={{6,3},{6,3}}));
+      connect( Exercise_Metabolism_ContractionRate.y,busConnector. Exercise_Metabolism_ContractionRate)
+        annotation (Line(
+          points={{-73.7,19},{90,19},{90,-2}},
+          color={0,0,127},
+          smooth=Smooth.None), Text(
+          string="%second",
+          index=1,
+          extent={{6,3},{6,3}}));
+      connect( Exercise_Metabolism_MotionWatts.y,busConnector. Exercise_Metabolism_MotionWatts)
+        annotation (Line(
+          points={{-73.7,29},{90,29},{90,-2}},
+          color={0,0,127},
+          smooth=Smooth.None), Text(
+          string="%second",
+          index=1,
+          extent={{6,3},{6,3}}));
+      connect(LegMusclePump_Effect.y,busConnector.LegMusclePump_Effect) annotation (Line(
+          points={{78.3,-65},{-7.85,-65},{-7.85,-2},{90,-2}},
+          color={0,0,127},
+          smooth=Smooth.None), Text(
+          string="%second",
+          index=1,
+          extent={{6,3},{6,3}}));
+      connect(ExerciseMetabolism_MotionCals.y,busConnector.ExerciseMetabolism_MotionCals) annotation (
+         Line(
+          points={{-73.7,49},{90,49},{90,-2}},
+          color={0,0,127},
+          smooth=Smooth.None), Text(
+          string="%second",
+          index=1,
+          extent={{6,3},{6,3}}));
+      connect(ExerciseMetabolism_TotalWatts.y,busConnector.ExerciseMetabolism_TotalWatts) annotation (
+         Line(
+          points={{-73.7,59},{90,59},{90,-2}},
+          color={0,0,127},
+          smooth=Smooth.None), Text(
+          string="%second",
+          index=1,
+          extent={{6,3},{6,3}}));
+      connect( LowerTorsoArtyHeight.y,busConnector. LowerTorsoArtyHeight)
+        annotation (Line(
+          points={{78.3,-55},{-6,-55},{-6,-2},{90,-2}},
+          color={0,0,127},
+          smooth=Smooth.None), Text(
+          string="%second",
+          index=1,
+          extent={{6,3},{6,3}}));
+      connect( LowerTorsoVeinHeight.y,busConnector. LowerTorsoVeinHeight)
+        annotation (Line(
+          points={{78.3,-45},{-6,-45},{-6,-2},{90,-2}},
+          color={0,0,127},
+          smooth=Smooth.None), Text(
+          string="%second",
+          index=1,
+          extent={{6,3},{6,3}}));
+      connect( CarotidSinusHeight.y,busConnector. CarotidSinusHeight)
+        annotation (Line(
+          points={{-73.7,-91},{0,-91},{0,-2},{90,-2}},
+          color={0,0,127},
+          smooth=Smooth.None), Text(
+          string="%second",
+          index=1,
+          extent={{6,3},{6,3}}));
+      connect(Status_Posture.y,busConnector.Status_Posture) annotation (Line(
+          points={{76.3,45},{4.15,45},{4.15,-2},{90,-2}},
+          color={0,0,255},
+          smooth=Smooth.None), Text(
+          string="%second",
+          index=1,
+          extent={{6,3},{6,3}}));
+      connect( FurosemidePool_Furosemide_conc.y,busConnector. FurosemidePool_Furosemide_conc)
+        annotation (Line(
+          points={{-73.7,69},{8,69},{8,-2},{90,-2}},
+          color={0,0,127},
+          smooth=Smooth.None), Text(
+          string="%second",
+          index=1,
+          extent={{6,3},{6,3}}));
+      connect( ThiazidePool_Thiazide_conc.y,busConnector. ThiazidePool_Thiazide_conc) annotation (
+          Line(
+          points={{78.3,65},{90,65},{90,-2}},
+          color={0,0,127},
+          smooth=Smooth.None), Text(
+          string="%second",
+          index=1,
+          extent={{6,3},{6,3}}));
+      connect(FurosemidePool_Loss.y,busConnector.FurosemidePool_Loss) annotation (Line(
+          points={{-73.7,79},{90,79},{90,-2}},
+          color={0,0,127},
+          smooth=Smooth.None), Text(
+          string="%second",
+          index=1,
+          extent={{6,3},{6,3}}));
+      connect(IVDrip_H2ORate.y,busConnector.IVDrip_H2ORate)  annotation (Line(
+          points={{78.3,-115},{0.15,-115},{0.15,-2},{90,-2}},
+          color={0,0,127},
+          smooth=Smooth.None), Text(
+          string="%second",
+          index=1,
+          extent={{6,3},{6,3}}));
+      connect(Transfusion_PlasmaRate.y,busConnector.Transfusion_PlasmaRate)
+                                                             annotation (Line(
+          points={{78.3,125},{90,125},{90,-2}},
+          color={0,0,127},
+          smooth=Smooth.None), Text(
+          string="%second",
+          index=1,
+          extent={{6,3},{6,3}}));
+      connect(Hemorrhage_PlasmaRate.y,busConnector.Hemorrhage_PlasmaRate)
+                                                            annotation (Line(
+          points={{78.3,-155},{90,-155},{90,-2}},
+          color={0,0,127},
+          smooth=Smooth.None), Text(
+          string="%second",
+          index=1,
+          extent={{6,3},{6,3}}));
+      connect(Hemorrhage_RBCRate.y,busConnector.Hemorrhage_RBCRate) annotation (Line(
+          points={{78.3,-135},{90,-135},{90,-2}},
+          color={0,0,127},
+          smooth=Smooth.None), Text(
+          string="%second",
+          index=1,
+          extent={{6,3},{6,3}}));
+      connect(Transfusion_RBCRate.y,busConnector.Transfusion_RBCRate) annotation (Line(
+          points={{78.3,145},{90,145},{90,-2}},
+          color={0,0,127},
+          smooth=Smooth.None), Text(
+          string="%second",
+          index=1,
+          extent={{6,3},{6,3}}));
+      connect( Pericardium_Pressure.y,busConnector. Pericardium_Pressure)          annotation (
+         Line(
+          points={{78.3,-15},{90,-15},{90,-2}},
+          color={0,0,127},
+          smooth=Smooth.None), Text(
+          string="%second",
+          index=1,
+          extent={{6,3},{6,3}}));
+      connect( Thorax_AvePressure.y,busConnector. Thorax_AvePressure)          annotation (
+          Line(
+          points={{78.3,75},{90,75},{90,-2}},
+          color={0,0,127},
+          smooth=Smooth.None), Text(
+          string="%second",
+          index=1,
+          extent={{6,3},{6,3}}));
+      connect(Thorax_LungInflation.y,busConnector.Thorax_LungInflation)
+        annotation (Line(
+          points={{78.3,85},{90,85},{90,-2}},
+          color={0,0,127},
+          smooth=Smooth.None), Text(
+          string="%second",
+          index=1,
+          extent={{6,3},{6,3}}));
+      connect(Kidney_NephronCount_Total_xNormal.y,busConnector.Kidney_NephronCount_Total_xNormal)
+        annotation (Line(
+          points={{78.3,-75},{6,-75},{6,-2},{90,-2}},
+          color={0,0,127},
+          smooth=Smooth.None), Text(
+          string="%second",
+          index=1,
+          extent={{6,3},{6,3}}));
+      connect(Kidney_NephronCount_Filtering_xNormal.y,busConnector.Kidney_NephronCount_Filtering_xNormal)
+        annotation (Line(
+          points={{78.3,-85},{90,-85},{90,-2}},
+          color={0,0,127},
+          smooth=Smooth.None), Text(
+          string="%second",
+          index=1,
+          extent={{6,3},{6,3}}));
+      connect(AnesthesiaTidalVolume.y,busConnector.AnesthesiaTidalVolume)
+                                                            annotation (Line(
+          points={{-73.7,-131},{90,-131},{90,-2}},
+          color={0,0,127},
+          smooth=Smooth.None), Text(
+          string="%second",
+          index=1,
+          extent={{6,3},{6,3}}));
+      connect(Anesthesia_VascularConductance.y,busConnector.Anesthesia_VascularConductance)
+        annotation (Line(
+          points={{-73.7,-141},{90,-141},{90,-2}},
+          color={0,0,127},
+          smooth=Smooth.None), Text(
+          string="%second",
+          index=1,
+          extent={{6,3},{6,3}}));
+    connect(skeletalMuscle_SizeMass.y,busConnector.skeletalMuscle_SizeMass) annotation (Line(
+     points={{78.3,-5},{90,-5},{90,-2}},
+          color={0,0,127},
+          smooth=Smooth.None), Text(
+          string="%second",
+          index=1,
+          extent={{6,3},{6,3}}));
+    connect(skinSizeMass.y,busConnector.skinSizeMass) annotation (Line(
+     points={{78.3,5},{90,5},{90,-2}},
+          color={0,0,127},
+          smooth=Smooth.None), Text(
+          string="%second",
+          index=1,
+          extent={{6,3},{6,3}}));
+    connect(WeightCore.y,busConnector.WeightCore) annotation (Line(
+     points={{78.3,155},{90,155},{90,-2}},
+          color={0,0,127},
+          smooth=Smooth.None), Text(
+          string="%second",
+          index=1,
+          extent={{6,3},{6,3}}));
+
+      connect(AmbientTemperature.y, busConnector.AmbientTemperature)
+        annotation (Line(
+          points={{-87.7,13},{90,13},{90,-2}},
+          color={0,0,127},
+          smooth=Smooth.None), Text(
+          string="%second",
+          index=1,
+          extent={{6,3},{6,3}}));
+      connect(EnvironmentRelativeHumidity.y, busConnector.EnvironmentRelativeHumidity)
+        annotation (Line(
+          points={{-95.7,-9},{90,-9},{90,-2}},
+          color={0,0,127},
+          smooth=Smooth.None), Text(
+          string="%second",
+          index=1,
+          extent={{6,3},{6,3}}));
+    connect(DietIntakeH2O_Rate.y, busConnector.DietIntakeH2O_Rate) annotation (Line(
+     points={{-95.7,-17},{90,-17},{90,-2}},
+          color={0,0,127},
+          smooth=Smooth.None), Text(
+          string="%second",
+          index=1,
+          extent={{6,3},{6,3}}));
+      connect(DialyzerActivity_UltrafiltrationRate.y, busConnector.DialyzerActivity_UltrafiltrationRate)
+        annotation (Line(
+          points={{-121.4,6},{-110,6},{-110,56},{90,56},{90,-2}},
+          color={0,0,127},
+          smooth=Smooth.None), Text(
+          string="%second",
+          index=1,
+          extent={{6,3},{6,3}}));
+      connect(Hemorrhage_PlasmaRate1.y, busConnector.Hemorrhage_H2ORate)
+                                                                      annotation (Line(
+     points={{-119.4,24},{-116,24},{-116,56},{-178,56},{-178,-2},{90,-2}},
+          color={0,0,127},
+          smooth=Smooth.None), Text(
+          string="%second",
+          index=1,
+          extent={{6,3},{6,3}}));
+      connect(Transfusion_PlasmaRate1.y, busConnector.Transfusion_H2ORate)
+                                                                        annotation (Line(
+     points={{-119.5,35},{-118,35},{-118,56},{-178,56},{-178,-2},{90,-2}},
+          color={0,0,127},
+          smooth=Smooth.None), Text(
+          string="%second",
+          index=1,
+          extent={{6,3},{6,3}}));
+      connect(GILumenDiarrhea_H2OTarget.y, busConnector.GILumenDiarrhea_H2OTarget)
+        annotation (Line(
+          points={{-69.4,138},{0,138},{0,-2},{90,-2}},
+          color={0,0,127},
+          smooth=Smooth.None), Text(
+          string="%second",
+          index=1,
+          extent={{6,3},{6,3}}));
+      connect(GILumenVomitus_H2OTarget.y, busConnector.GILumenVomitus_H2OTarget)
+        annotation (Line(
+          points={{-71.4,128},{90,128},{90,-2}},
+          color={0,0,127},
+          smooth=Smooth.None), Text(
+          string="%second",
+          index=1,
+          extent={{6,3},{6,3}}));
+      connect(EnvironmentRelativeHumidity_VaporPressure.y, busConnector.EnviromentRelativeHumidity_VaporPressure)
+        annotation (Line(
+          points={{-85.7,1},{90,1},{90,-2}},
+          color={0,0,127},
+          smooth=Smooth.None), Text(
+          string="%second",
+          index=1,
+          extent={{6,3},{6,3}}));
+      connect(Wind_MPH.y, busConnector.WindSpeed) annotation (Line(
+          points={{-39.7,9},{90,9},{90,-2}},
+          color={0,0,127},
+          smooth=Smooth.None), Text(
+          string="%second",
+          index=1,
+          extent={{6,3},{6,3}}));
+      connect(GILumenFiber.y, busConnector.GILumenFiber_Mass) annotation (Line(
+          points={{-69.4,148},{90,148},{90,-2}},
+          color={0,0,127},
+          smooth=Smooth.None), Text(
+          string="%second",
+          index=1,
+          extent={{6,3},{6,3}}));
+      connect(IVDrip_ProteinRate.y, busConnector.IVDripProteinRate) annotation (
+          Line(
+          points={{-83.7,-37},{90,-37},{90,-2}},
+          color={0,0,127},
+          smooth=Smooth.None), Text(
+          string="%second",
+          index=1,
+          extent={{6,3},{6,3}}));
+      connect(Hemorrhage_ProteinRate.y, busConnector.Hemorrhage_ProteinRate)
+        annotation (Line(
+          points={{78.3,-145},{78.3,-146.5},{90,-146.5},{90,-2}},
+          color={0,0,127},
+          smooth=Smooth.None), Text(
+          string="%second",
+          index=1,
+          extent={{6,3},{6,3}}));
+      connect(Transfusion_ProteinRate.y, busConnector.Transfusion_ProteinRate)
+        annotation (Line(
+          points={{78.3,135},{90,135},{90,-2}},
+          color={0,0,127},
+          smooth=Smooth.None), Text(
+          string="%second",
+          index=1,
+          extent={{6,3},{6,3}}));
+      annotation (Icon(coordinateSystem(preserveAspectRatio=true,  extent={{-100,
+                -100},{100,100}}), graphics={Text(
+              extent={{-120,-42},{122,-76}},
+              lineColor={0,0,255},
+              textString="%name")}),               Diagram(coordinateSystem(
+              preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
+            graphics));
+    end Variables;
     annotation (Documentation(revisions="<html>
 
 <table cellspacing=\"2\" cellpadding=\"0\" border=\"0\"><tr>
