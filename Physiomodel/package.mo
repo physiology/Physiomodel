@@ -38137,8 +38137,8 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
         string="%second",
         index=1,
         extent={{6,3},{6,3}}));
-    connect(zeroVolumeFlowRate.y, busConnector.Transfusion_H2ORate) annotation
-      (Line(
+    connect(zeroVolumeFlowRate.y, busConnector.Transfusion_H2ORate) annotation (
+       Line(
         points={{-83.5,56},{-34,56},{-34,-12},{-32,-12}},
         color={0,0,127},
         smooth=Smooth.None), Text(
@@ -38196,8 +38196,8 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
         string="%second",
         index=1,
         extent={{6,3},{6,3}}));
-    connect(exercise.y, busConnector.ExerciseMetabolism_MotionCals) annotation
-      (Line(
+    connect(exercise.y, busConnector.ExerciseMetabolism_MotionCals) annotation (
+       Line(
         points={{-87.25,53},{-48,53},{-48,-13},{-33,-13}},
         color={0,0,127},
         smooth=Smooth.None), Text(
@@ -38248,8 +38248,8 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
       annotation (Placement(transformation(extent={{64,44},{58,50}})));
     Physiolibrary.Types.Constants.HeightConst carotidSinusHeight(k=0)
       annotation (Placement(transformation(extent={{64,32},{58,38}})));
-    Physiolibrary.Types.Constants.DeprecatedUntypedConstant integerConstant(k=
-          Physiomodel.Water.Hydrostatics.Posture.Lying)
+    Physiolibrary.Types.Constants.DeprecatedUntypedConstant integerConstant(k=0)
+      "value: Physiomodel.Water.Hydrostatics.Posture.Lying"
       annotation (Placement(transformation(extent={{18,12},{24,18}})));
     equation
     connect(LT_Artys.y, busConnector.LowerTorsoArtyHeight) annotation (Line(
@@ -38353,7 +38353,6 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
             graphics));
     end Drugs;
 
-
     model Tissues
 
     Physiolibrary.Types.BusConnector busConnector annotation (Placement(
@@ -38387,8 +38386,8 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
         string="%second",
         index=1,
         extent={{6,3},{6,3}}));
-    connect(intrathoraxPressure.y, busConnector.Thorax_AvePressure) annotation
-      (Line(
+    connect(intrathoraxPressure.y, busConnector.Thorax_AvePressure) annotation (
+       Line(
         points={{-78.75,-49},{-33,-49},{-33,-13}},
         color={0,0,127},
         smooth=Smooth.None), Text(
@@ -38448,9 +38447,6 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
               preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
             graphics));
     end Tissues;
-
-
-
 
     package IO_Bus
       extends Physiolibrary.Types.IO_Bus;
