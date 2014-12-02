@@ -3,7 +3,7 @@ model Physiomodel_Main "Main model"
   import Physiomodel;
   extends Physiolibrary.Icons.Golem;
 
-Physiomodel.CardioVascular.CVS_Dynamic
+Physiomodel.CardioVascular.CVS_Dynamic_OM
                           cardioVascularSystem
     annotation (Placement(transformation(extent={{58,74},{78,96}})));
   Physiomodel.Metabolism.NutrientsAndMetabolism nutrientsAndMetabolism
@@ -15,10 +15,10 @@ Physiomodel.CardioVascular.CVS_Dynamic
     annotation (Placement(transformation(extent={{40,12},{60,32}})));
   Physiomodel.Nerves.Nerves       nerves
     annotation (Placement(transformation(extent={{74,44},{94,64}})));
-  Physiomodel.Setup.IO_Bus.InputFromFile
-                                    setup
+  Physiomodel.Setup.Setup           setup
     annotation (Placement(transformation(extent={{-10,-92},{10,-72}})));
-  Physiomodel.Water.Water water
+  Physiomodel.Water.Water_OM
+                          water
     annotation (Placement(transformation(extent={{-86,0},{-66,20}})));
   Physiomodel.Proteins.Proteins
                     proteins
@@ -37,54 +37,54 @@ Physiomodel.CardioVascular.CVS_Dynamic
 equation
 
   connect(setup.busConnector, hormones.busConnector) annotation (Line(
-      points={{0,-82},{0,27.9},{43.9,27.9}},
+      points={{8,-76},{8,27.9},{43.9,27.9}},
       color={0,0,255},
       thickness=0.5,
       smooth=Smooth.None));
   connect(setup.busConnector, proteins.busConnector) annotation (Line(
-      points={{0,-82},{0,-3.7},{-31.7,-3.7}},
+      points={{8,-76},{8,-3.7},{-31.7,-3.7}},
       color={0,0,255},
       thickness=0.5,
       smooth=Smooth.None));
   connect(setup.busConnector, cardioVascularSystem.busConnector)
                                                 annotation (Line(
-      points={{0,-82},{0,93.8},{60,93.8}},
+      points={{8,-76},{8,93.8},{60,93.8}},
       color={0,0,255},
       thickness=0.5,
       smooth=Smooth.None));
   connect(setup.busConnector, nutrientsAndMetabolism.busConnector)
     annotation (Line(
-      points={{0,-82},{0,84},{-72,84}},
+      points={{8,-76},{8,84},{-72,84}},
       color={0,0,255},
       thickness=0.5,
       smooth=Smooth.None));
   connect(setup.busConnector, water.busConnector) annotation (Line(
-      points={{0,-82},{0,17},{-69,17}},
+      points={{8,-76},{8,17},{-69,17}},
       color={0,0,255},
       thickness=0.5,
       smooth=Smooth.None));
   connect(setup.busConnector, nerves.busConnector) annotation (Line(
-      points={{0,-82},{0,61.6},{76.2,61.6}},
+      points={{8,-76},{8,61.6},{76.2,61.6}},
       color={0,0,255},
       thickness=0.5,
       smooth=Smooth.None));
   connect(status.busConnector, setup.busConnector)         annotation (Line(
-      points={{43.2,-54.8},{0,-54.8},{0,-82}},
+      points={{43.2,-54.8},{8,-54.8},{8,-76}},
       color={0,0,255},
       thickness=0.5,
       smooth=Smooth.None));
   connect(electrolytes.busConnector, setup.busConnector) annotation (Line(
-      points={{74,-14},{0,-14},{0,-82}},
+      points={{74,-14},{8,-14},{8,-76}},
       color={0,0,255},
       thickness=0.5,
       smooth=Smooth.None));
   connect(gases.busConnector, setup.busConnector) annotation (Line(
-      points={{-58,-42},{0,-42},{0,-82}},
+      points={{-58,-42},{8,-42},{8,-76}},
       color={0,0,255},
       thickness=0.5,
       smooth=Smooth.None));
   connect(heat.busConnector, setup.busConnector) annotation (Line(
-      points={{-28.6,55.6},{0,55.6},{0,-82}},
+      points={{-28.6,55.6},{8,55.6},{8,-76}},
       color={0,0,255},
       thickness=0.5,
       smooth=Smooth.None));

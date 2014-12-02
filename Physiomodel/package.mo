@@ -3056,7 +3056,7 @@ SYSTOLE
             smooth=Smooth.None));
       connect(busConnector.BloodVolume_change, volumeCorrections.solutionFlow)
         annotation (Line(
-          points={{46,50},{-35,50},{-35,33.8}},
+          points={{46,50},{-35,50},{-35,35.9}},
           color={0,0,255},
           thickness=0.5,
           smooth=Smooth.None));
@@ -3317,7 +3317,7 @@ SYSTOLE
             smooth=Smooth.None));
       connect(systemicArtys.volume, busConnector.SystemicArtys_OxygenatedBloodVolume)
         annotation (Line(
-          points={{75.5,-10},{72,-10},{72,-28},{46,-28},{46,50}},
+          points={{81.8,-10},{72,-10},{72,-28},{46,-28},{46,50}},
           color={0,0,127},
           smooth=Smooth.None), Text(
           string="%second",
@@ -5833,6 +5833,517 @@ SYSTOLE
                     {100,100}}), graphics));
         end VascularElasticBloodCompartment;
       end develop;
+
+      model SystemicCirculationFullDynamic_OM
+        extends Physiolibrary.Icons.SystemicCirculation;
+
+      Physiolibrary.Hydraulic.Interfaces.HydraulicPort_a q_in "Blood inflow"
+        annotation (extent=[-10,-110; 10,-90], Placement(transformation(extent=
+                {{90,-10},{110,10}}), iconTransformation(extent={{90,-10},{110,
+                10}})));
+      Physiolibrary.Hydraulic.Interfaces.HydraulicPort_b q_out "Blood outflow"
+        annotation (extent=[-10,-110; 10,-90], Placement(transformation(extent=
+                {{-110,-10},{-90,10}}), iconTransformation(extent={{-110,-10},{
+                -90,10}})));
+
+        /*
+  Library.PressureFlow.NegativePressureFlow fromSystemicVeins annotation (
+      Placement(transformation(extent={{-110,-10},{-90,10}}),iconTransformation(
+          extent={{-112,44},{-92,64}})));
+  Library.PressureFlow.PositivePressureFlow systemicArteries 
+    annotation (Placement(transformation(extent={{88,-10},{108,10}}),
+        iconTransformation(extent={{90,46},{110,66}})));
+*/
+
+      Physiolibrary.Hydraulic.Components.ElasticVessel systemicArtys(
+        stateName="SystemicArtys.Vol",
+        useV0Input=true,
+        useComplianceInput=false,
+        volume_start=0.00100036,
+        Compliance=1.1625954425608e-08,
+        useExternalPressureInput=false,
+        ExternalPressure=0)
+        annotation (Placement(transformation(extent={{65,-10},{86,11}})));
+      Physiolibrary.Types.Constants.VolumeConst               V0_artys(k=0.00085)
+        annotation (Placement(transformation(extent={{98,18},{88,28}})));
+      Physiolibrary.Types.Constants.HydraulicComplianceConst
+        SystemicVeinsCompliance(k=6.645545561992547e-007)
+        annotation (Placement(transformation(extent={{-27,10},{-35,18}})));
+        OrganFlow.PeripheralFlow peripheral
+          annotation (Placement(transformation(extent={{-2,-14},{26,14}})));
+      Physiolibrary.Hydraulic.Sources.UnlimitedPump volumeCorrections(
+          useSolutionFlowInput=true)
+        annotation (Placement(transformation(extent={{-28,24},{-42,38}})));
+        OrganFlow.SystemicVeins veins(BaseConductance(displayUnit=
+              "ml/(mmHg.min)") = 1.0700878482065e-07)
+        "scaled to coronary vessels reorganisation"
+          annotation (Placement(transformation(extent={{-72,-8},{-56,8}})));
+        SystemicVeinsElacticBloodCompartment
+          systemicVeinsElacticBloodCompartment
+          annotation (Placement(transformation(extent={{-54,-10},{-34,10}})));
+      Physiolibrary.Types.Constants.PressureConst SystemicVeinsExternalPressure(
+          k=0)
+        annotation (Placement(transformation(extent={{-36,16},{-43,23}})));
+      Physiolibrary.Types.BusConnector busConnector
+        "signals of organ bood flow resistence" annotation (Placement(
+            transformation(extent={{36,40},{56,60}}), iconTransformation(extent=
+               {{-110,32},{-94,48}})));
+        OrganFlow.CollapsingVeins collapsedVeins
+                                                annotation (Placement(transformation(
+              extent={{10,10.5},{-10,-10.5}},
+              rotation=180,
+              origin={-84.5,0})));
+      Physiolibrary.Hydraulic.Components.HydrostaticColumn
+        gravityHydrostaticDifference(useExternalG=true, useHeightInput=true)
+        annotation (Placement(transformation(
+            extent={{-10,-10},{10,10}},
+            rotation=0,
+            origin={61,35})));
+      Physiolibrary.Hydraulic.Sensors.PressureMeasure pressureMeasure
+        annotation (Placement(transformation(
+            extent={{8.5,-8.5},{-8.5,8.5}},
+            rotation=0,
+            origin={78.5,45.5})));
+        Modelica.Blocks.Math.Gain G(k=9.81) annotation (Placement(transformation(
+              extent={{4,-4},{-4,4}},
+              rotation=90,
+              origin={34,26})));
+        OrganFlow.LeftHeart leftCororaryCirculation(BasicLargeVeselsConductance(
+            displayUnit="ml/(mmHg.min)") = 6.2505131320471e-09,
+          BasicSmallVeselsConductance(displayUnit="ml/(mmHg.min)")=
+          2.7502257781007e-10) "scaled to normal pressure gradient 94 mmHg"
+          annotation (Placement(transformation(extent={{-10,76},{10,96}})));
+        OrganFlow.RightHeart rightCororaryCirculation(
+          BasicLargeVeselsConductance(displayUnit="ml/(mmHg.min)")=
+          1.2501026264094e-09, BasicSmallVeselsConductance(displayUnit=
+              "ml/(mmHg.min)") = 5.0004105056377e-11)
+        "scaled to normal pressure gradient 94 mmHg"
+          annotation (Placement(transformation(extent={{-42,62},{-22,82}})));
+         OrganFlow.SplanchnicCirculation_MO
+                                         splanchnicCirculation
+          annotation (Placement(transformation(extent={{-8,-44},{30,-6}})));
+      Physiolibrary.Hydraulic.Components.Conductor legsArtys(Conductance=
+            5.0004105056377e-09)
+        annotation (Placement(transformation(extent={{80,-86},{64,-70}})));
+      Physiolibrary.Types.Constants.PressureConst const8(k=0)
+        annotation (Placement(transformation(extent={{93,-68},{86,-61}})));
+      Physiolibrary.Hydraulic.Components.HydrostaticColumn
+        hydrostaticDifference(useExternalG=true, useHeightInput=true)
+        annotation (Placement(transformation(
+            extent={{-10,-10},{10,10}},
+            rotation=0,
+            origin={54,-72})));
+        SequesteredBlood sequesteredBlood(data={{0,0,10^(-10)},{50,97,1.0},{200,150,0.5}},
+          pressureControledCompartment(stateName="BVSeqArtys.Vol"),
+        initialVol=5.00044e-05)
+          annotation (Placement(transformation(extent={{80,-88},{100,-68}})));
+        SequesteredBlood sequesteredBlood1(                data={{0,-100,2.00},{150,11,
+              0.11},{600,50,0.15}},
+          pressureControledCompartment(stateName="BVSeqVeins.Vol"),
+        initialVol=0.000120691)
+          annotation (Placement(transformation(extent={{-62,-82},{-44,-64}})));
+      Physiolibrary.Hydraulic.Components.Conductor legsVeins(Conductance=
+            1.2501026264094e-08)
+        annotation (Placement(transformation(extent={{-42,-80},{-28,-66}})));
+      Physiolibrary.Hydraulic.Components.HydrostaticColumn
+        hydrostaticDifference1(
+        useExternalG=true,
+        useHeightInput=true,
+        usePumpEffect=true)
+        annotation (Placement(transformation(extent={{-5,-78},{-25,-58}})));
+      Physiolibrary.Types.Constants.PressureConst             const12(k=0)
+        annotation (Placement(transformation(extent={{-52,-60},{-59,-53}})));
+      Physiolibrary.Hydraulic.Sensors.PressureMeasure pressureMeasure1
+        annotation (Placement(transformation(extent={{76,-38},{96,-18}})));
+      equation
+      connect(systemicArtys.zeroPressureVolume, V0_artys.y) annotation (Line(
+          points={{67.1,8.9},{67.1,23},{86.75,23}},
+          color={0,0,127},
+          smooth=Smooth.None));
+        connect(busConnector, peripheral.busConnector)          annotation (
+            Line(
+            points={{46,50},{46,2.66},{21.66,2.66}},
+            color={0,0,255},
+            thickness=0.5,
+            smooth=Smooth.None));
+        connect(veins.busConnector,busConnector)           annotation (
+           Line(
+            points={{-58.48,1.52},{-60,1.52},{-60,50},{46,50}},
+            color={0,0,255},
+            thickness=0.5,
+            smooth=Smooth.None));
+        connect(SystemicVeinsCompliance.y, systemicVeinsElacticBloodCompartment.Compliance)
+          annotation (Line(
+            points={{-36,14},{-38.2,14},{-38.2,10},{-38,10}},
+            color={0,0,127},
+            smooth=Smooth.None));
+        connect(busConnector,systemicVeinsElacticBloodCompartment. busConnector)
+          annotation (Line(
+            points={{46,50},{-26,50},{-26,6.1},{-34.2,6.1}},
+            color={0,0,255},
+            thickness=0.5,
+            smooth=Smooth.None));
+        connect(systemicVeinsElacticBloodCompartment.referencePoint,volumeCorrections. q_out)
+          annotation (Line(
+            points={{-44,0},{-46,0},{-46,31},{-42,31}},
+            color={0,0,0},
+            smooth=Smooth.None,
+            thickness=1));
+        connect(systemicVeinsElacticBloodCompartment.ExternalPressure,
+          SystemicVeinsExternalPressure.y)
+          annotation (Line(
+            points={{-44,10},{-44,19.5},{-43.875,19.5}},
+            color={0,0,127},
+            smooth=Smooth.None));
+      connect(busConnector.BloodVolume_change, volumeCorrections.solutionFlow)
+        annotation (Line(
+          points={{46,50},{-35,50},{-35,35.9}},
+          color={0,0,255},
+          thickness=0.5,
+          smooth=Smooth.None));
+        connect(collapsedVeins.ExternalPressure, busConnector.Thorax_AvePressure)
+          annotation (Line(
+            points={{-78.5,2.1},{-80,2.1},{-80,50},{46,50}},
+            color={0,0,127},
+            smooth=Smooth.None));
+      connect(pressureMeasure.pressure, busConnector.CarotidSinus_Pressure)
+        annotation (Line(
+          points={{73.4,42.1},{46,42.1},{46,50}},
+          color={0,0,127},
+          smooth=Smooth.None));
+        connect(gravityHydrostaticDifference.height, busConnector.CarotidSinusHeight)
+          annotation (Line(
+            points={{55,35},{46,35},{46,50}},
+            color={0,0,127},
+            smooth=Smooth.None));
+      connect(gravityHydrostaticDifference.q_down, systemicArtys.q_in)
+        annotation (Line(
+          points={{69,29},{69,0.5},{75.5,0.5}},
+          color={0,0,0},
+          thickness=1,
+          smooth=Smooth.None));
+
+        connect(gravityHydrostaticDifference.q_up, pressureMeasure.q_in)
+          annotation (Line(
+            points={{69,39},{80,39},{80,40.4},{81.9,40.4}},
+            color={0,0,0},
+            thickness=1,
+            smooth=Smooth.None));
+      connect(pressureMeasure.pressure, busConnector.CarotidSinusArteryPressure)
+        annotation (Line(
+          points={{73.4,42.1},{46,42.1},{46,50}},
+          color={0,0,127},
+          smooth=Smooth.None));
+        connect(systemicVeinsElacticBloodCompartment.Pressure, busConnector.SystemicVeins_Pressure)
+          annotation (Line(
+            points={{-40,-10},{-40,-28},{46,-28},{46,50}},
+            color={0,0,127},
+            smooth=Smooth.None), Text(
+            string="%second",
+            index=1,
+            extent={{6,3},{6,3}}));
+        connect(systemicVeinsElacticBloodCompartment.V0, busConnector.SystemicVeins_V0)
+          annotation (Line(
+            points={{-50.8,10},{-50.8,50},{46,50}},
+            color={0,0,127},
+            smooth=Smooth.None));
+        connect(V0_artys.y, busConnector.SystemicArtys_V0) annotation (Line(
+            points={{86.75,23},{70,23},{70,22},{46,22},{46,50}},
+            color={0,0,127},
+            smooth=Smooth.None));
+        connect(q_out, q_out) annotation (Line(
+            points={{-100,0},{-100,0}},
+            color={0,0,0},
+            thickness=1,
+            smooth=Smooth.None));
+      connect(q_in, systemicArtys.q_in) annotation (Line(
+          points={{100,0},{99.75,0},{99.75,0.5},{75.5,0.5}},
+          color={0,0,0},
+          thickness=1,
+          smooth=Smooth.None));
+        connect(collapsedVeins.q_out, q_out) annotation (Line(
+            points={{-94.5,-1.22465e-015},{-96.25,-1.22465e-015},{-96.25,0},{
+              -100,0}},
+            color={0,0,0},
+            thickness=1,
+            smooth=Smooth.None));
+        connect(busConnector.Gravity_Gz, G.u) annotation (Line(
+            points={{46,50},{46,38},{34,38},{34,30.8}},
+            color={0,0,255},
+            thickness=0.5,
+            smooth=Smooth.None), Text(
+            string="%first",
+            index=-1,
+            extent={{-6,3},{-6,3}}));
+        connect(G.y, gravityHydrostaticDifference.G) annotation (Line(
+            points={{34,21.6},{34,16},{61,16},{61,25}},
+            color={0,0,127},
+            smooth=Smooth.None));
+        connect(rightCororaryCirculation.busConnector, busConnector)
+                                                                annotation (
+            Line(
+            points={{-25.1,73.9},{46,73.9},{46,50}},
+            color={0,0,255},
+            thickness=0.5,
+            smooth=Smooth.None));
+        connect(leftCororaryCirculation.busConnector, busConnector)
+                                                               annotation (Line(
+            points={{6.9,87.9},{46,87.9},{46,50}},
+            color={0,0,255},
+            thickness=0.5,
+            smooth=Smooth.None));
+        connect(leftCororaryCirculation.BloodFlow, busConnector.leftHeart_BloodFlow)
+          annotation (Line(
+            points={{7,81},{46,81},{46,50}},
+            color={0,0,127},
+            smooth=Smooth.None));
+        connect(rightCororaryCirculation.BloodFlow, busConnector.rightHeart_BloodFlow)
+          annotation (Line(
+            points={{-25,67},{22,67},{22,50},{46,50}},
+            color={0,0,127},
+            smooth=Smooth.None));
+        connect(leftCororaryCirculation.BloodFlow, busConnector.LeftHeart_BloodFlow)
+          annotation (Line(
+            points={{7,81},{46,81},{46,50}},
+            color={0,0,127},
+            smooth=Smooth.None), Text(
+            string="%second",
+            index=1,
+            extent={{6,3},{6,3}}));
+        connect(rightCororaryCirculation.BloodFlow, busConnector.RightHeart_BloodFlow)
+          annotation (Line(
+            points={{-25,67},{22,67},{22,50},{46,50}},
+            color={0,0,127},
+            smooth=Smooth.None));
+        connect(splanchnicCirculation.busConnector, busConnector) annotation (
+            Line(
+            points={{-8,-15.5},{-8,50},{46,50}},
+            color={0,0,255},
+            thickness=0.5,
+            smooth=Smooth.None));
+      connect(splanchnicCirculation.q_in, systemicArtys.q_in) annotation (Line(
+          points={{30,-25},{62,-25},{62,0.5},{75.5,0.5}},
+          color={0,0,0},
+          thickness=1,
+          smooth=Smooth.None));
+        connect(splanchnicCirculation.q_out,
+          systemicVeinsElacticBloodCompartment.referencePoint) annotation (Line(
+            points={{-8,-25},{-22,-25},{-22,0},{-44,0}},
+            color={0,0,0},
+            thickness=1,
+            smooth=Smooth.None));
+      connect(peripheral.q_in, systemicArtys.q_in) annotation (Line(
+          points={{26,1.77636e-015},{52,1.77636e-015},{52,0.5},{75.5,0.5}},
+          color={0,0,0},
+          thickness=1,
+          smooth=Smooth.None));
+        connect(peripheral.q_out, systemicVeinsElacticBloodCompartment.referencePoint)
+          annotation (Line(
+            points={{-2,1.77636e-015},{-24,1.77636e-015},{-24,0},{-44,0}},
+            color={0,0,0},
+            thickness=1,
+            smooth=Smooth.None));
+        connect(rightCororaryCirculation.q_out, q_out) annotation (Line(
+            points={{-42,72},{-60,72},{-60,86},{-100,86},{-100,0}},
+            color={0,0,0},
+            thickness=1,
+            smooth=Smooth.None));
+        connect(leftCororaryCirculation.q_out, q_out) annotation (Line(
+            points={{-10,86},{-100,86},{-100,0}},
+            color={0,0,0},
+            thickness=1,
+            smooth=Smooth.None));
+        connect(leftCororaryCirculation.q_in, q_in) annotation (Line(
+            points={{10,86},{100,86},{100,0}},
+            color={0,0,0},
+            thickness=1,
+            smooth=Smooth.None));
+        connect(systemicVeinsElacticBloodCompartment.referencePoint, veins.q_in)
+          annotation (Line(
+            points={{-44,0},{-56,0}},
+            color={0,0,0},
+            thickness=1,
+            smooth=Smooth.None));
+        connect(veins.q_out, collapsedVeins.q_in) annotation (Line(
+            points={{-72,0},{-73.25,0},{-73.25,1.22465e-015},{-74.5,
+              1.22465e-015}},
+            color={0,0,0},
+            thickness=1,
+            smooth=Smooth.None));
+
+        connect(rightCororaryCirculation.q_in, q_in) annotation (Line(
+            points={{-22,72},{36,72},{36,86},{100,86},{100,0}},
+            color={0,0,0},
+            thickness=1,
+            smooth=Smooth.None));
+        connect(legsArtys.q_in,sequesteredBlood. referencePoint) annotation (Line(
+            points={{80,-78},{90,-78}},
+            color={0,0,0},
+            thickness=1,
+            smooth=Smooth.None));
+        connect(sequesteredBlood.ExternalPressure,const8. y) annotation (Line(
+            points={{81,-68},{81,-64.5},{85.125,-64.5}},
+            color={0,0,127},
+            smooth=Smooth.None));
+        connect(legsArtys.q_out,hydrostaticDifference. q_down) annotation (Line(
+            points={{64,-78},{62,-78}},
+            color={0,0,0},
+            thickness=1,
+            smooth=Smooth.None));
+      connect(hydrostaticDifference.q_up, systemicArtys.q_in) annotation (Line(
+          points={{62,-68},{62,0},{75.5,0},{75.5,0.5}},
+          color={0,0,0},
+          thickness=1,
+          smooth=Smooth.None));
+        connect(sequesteredBlood1.ExternalPressure,const12. y) annotation (Line(
+            points={{-61.1,-64},{-61.1,-56.5},{-59.875,-56.5}},
+            color={0,0,127},
+            smooth=Smooth.None));
+        connect(sequesteredBlood1.referencePoint,legsVeins. q_in) annotation (
+            Line(
+            points={{-53,-73},{-42,-73}},
+            color={0,0,0},
+            thickness=1,
+            smooth=Smooth.None));
+        connect(legsVeins.q_out,hydrostaticDifference1. q_down) annotation (
+            Line(
+            points={{-28,-73},{-28,-74},{-23,-74}},
+            color={0,0,0},
+            thickness=1,
+            smooth=Smooth.None));
+        connect(hydrostaticDifference1.q_up,
+          systemicVeinsElacticBloodCompartment.referencePoint) annotation (Line(
+            points={{-23,-64},{-23,0},{-44,0}},
+            color={0,0,0},
+            thickness=1,
+            smooth=Smooth.None));
+        connect(hydrostaticDifference1.height, busConnector.LowerTorsoVeinHeight)
+          annotation (Line(
+            points={{-9,-68},{46,-68},{46,50}},
+            color={0,0,127},
+            smooth=Smooth.None), Text(
+            string="%second",
+            index=1,
+            extent={{6,3},{6,3}}));
+        connect(hydrostaticDifference1.pumpEffect, busConnector.Exercise_MusclePump_Effect)
+          annotation (Line(
+            points={{-15,-58},{46,-58},{46,50}},
+            color={0,0,127},
+            smooth=Smooth.None), Text(
+            string="%second",
+            index=1,
+            extent={{6,3},{6,3}}));
+        connect(hydrostaticDifference.height, busConnector.LowerTorsoArtyHeight)
+          annotation (Line(
+            points={{48,-72},{46,-72},{46,50}},
+            color={0,0,127},
+            smooth=Smooth.None));
+        connect(sequesteredBlood1.Vol, busConnector.LegVeins_DeoxygenatedBloodVolume)
+          annotation (Line(
+            points={{-56.6,-82},{-58,-82},{-58,-90},{46,-90},{46,50}},
+            color={0,0,127},
+            smooth=Smooth.None));
+        connect(sequesteredBlood.Vol, busConnector.LegArtys_OxygenatedBloodVolume)
+          annotation (Line(
+            points={{86,-88},{86,-90},{46,-90},{46,50}},
+            color={0,0,127},
+            smooth=Smooth.None));
+        connect(G.y,hydrostaticDifference1. G) annotation (Line(
+            points={{34,21.6},{34,-90},{-15,-90},{-15,-78}},
+            color={0,0,127},
+            smooth=Smooth.None));
+        connect(G.y,hydrostaticDifference. G) annotation (Line(
+            points={{34,21.6},{34,-90},{54,-90},{54,-82}},
+            color={0,0,127},
+            smooth=Smooth.None));
+      connect(systemicArtys.volume, busConnector.SystemicArtys_OxygenatedBloodVolume)
+        annotation (Line(
+          points={{81.8,-10},{72,-10},{72,-28},{46,-28},{46,50}},
+          color={0,0,127},
+          smooth=Smooth.None), Text(
+          string="%second",
+          index=1,
+          extent={{6,3},{6,3}}));
+      connect(systemicVeinsElacticBloodCompartment.Vol, busConnector.SystemicVeins_DeoxygenatedBloodVolume)
+        annotation (Line(
+          points={{-48,-10},{-48,-28},{46,-28},{46,50}},
+          color={0,0,127},
+          smooth=Smooth.None), Text(
+          string="%second",
+          index=1,
+          extent={{6,3},{6,3}}));
+      connect(systemicArtys.q_in, pressureMeasure1.q_in) annotation (Line(
+          points={{75.5,0.5},{82,0.5},{82,-34}},
+          color={0,0,0},
+          thickness=1,
+          smooth=Smooth.None));
+      connect(pressureMeasure1.pressure, busConnector.SystemicArtys_Pressure)
+        annotation (Line(
+          points={{92,-32},{98,-32},{98,-42},{46,-42},{46,50}},
+          color={0,0,127},
+          smooth=Smooth.None), Text(
+          string="%second",
+          index=1,
+          extent={{6,3},{6,3}}));
+       annotation (Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,
+                -100},{100,100}}),   graphics={Text(
+                extent={{42,46},{74,46}},
+                lineColor={0,0,255},
+                textString="Carotid Artery Pressure")}),
+                                       Icon(coordinateSystem(
+                preserveAspectRatio=true, extent={{-100,-100},{100,100}}),
+              graphics={
+              Text(
+                extent={{-104,-54},{110,-76}},
+                lineColor={0,0,255},
+                textString="%name")}),
+        Documentation(revisions="<html>
+
+<table>
+<tr>
+<td>Author:</td>
+<td>Marek Matejak</td>
+</tr>
+<tr>
+<td>License:</td>
+<td>GPL 3.0</td>
+</tr>
+<tr>
+<td>By:</td>
+<td>Charles University, Prague</td>
+</tr>
+<tr>
+<td>Date of:</td>
+<td>january 2009</td>
+</tr>
+<tr>
+<td>References:</td>
+<td>Tom Coleman: QHP 2008 beta 3, University of Mississippi Medical Center</td>
+</tr>
+</table>
+<br/><p>Copyright &copy; 2014 Marek Matejak</p><br/>
+
+</html>", info="<html>
+<p>Blood volume (and pressure) distributions between </p>
+<p><ul>
+<li>systemic arteries, </li>
+<li>systemic veins and</li>
+<li>portal (splanchnic) vein.</li>
+</ul></p>
+<p>Blood flow throught: </p>
+<p><ul>
+<li>GIT, hepatic artery, liver</li>
+<li>Kidney</li>
+<li>CNS</li>
+<li>Skeletal muscle</li>
+<li>Respiratory muscle</li>
+<li>Skin</li>
+<li>Bones</li>
+<li>Adipose tissue</li>
+<li>Other tissue</li>
+</ul></p>
+</html>"));
+      end SystemicCirculationFullDynamic_OM;
     annotation (Documentation(revisions="<html>
 </html>"));
     end VascularCompartments;
@@ -6605,7 +7116,7 @@ Blood resistance in peripheral organs except hepatic artery, gastro interstition
             extent={{6,3},{6,3}}));
       connect(portalVein.volume, busConnector.SplanchnicCirculation_DeoxygenatedBloodVolume)
         annotation (Line(
-          points={{-5.5,-10},{-5.5,-46},{66,-46}},
+          points={{0.8,-10},{0.8,-46},{66,-46}},
           color={0,0,127},
           smooth=Smooth.None));
       connect(portalVein.q_in, liver.portalVein) annotation (Line(
@@ -9848,6 +10359,366 @@ Schema : 2008.0
                     Diagram(graphics));
       end Heart;
 
+      model SplanchnicCirculation_MO
+        extends Physiolibrary.Icons.PerfusionDO;
+        extends Physiolibrary.Icons.GITract;
+
+      Physiolibrary.Hydraulic.Interfaces.HydraulicPort_a q_in "Blood inflow"
+        annotation (extent=[-10,-110; 10,-90], Placement(transformation(extent=
+                {{90,-10},{110,10}}), iconTransformation(extent={{90,-10},{110,
+                10}})));
+      Physiolibrary.Hydraulic.Interfaces.HydraulicPort_b q_out "Blood outflow"
+        annotation (extent=[-10,-110; 10,-90], Placement(transformation(extent=
+                {{-110,-10},{-90,10}}), iconTransformation(extent={{-110,-10},{
+                -90,10}})));
+
+      Physiolibrary.Types.BusConnector busConnector
+        "signals of organ bood flow resistence" annotation (Placement(
+            transformation(extent={{56,-56},{76,-36}}), iconTransformation(
+              extent={{-108,42},{-92,58}})));
+
+      Physiolibrary.Hydraulic.Components.ElasticVessel portalVein(
+        stateName="SplanchnicVeins.Vol",
+        useComplianceInput=true,
+        useExternalPressureInput=true,
+        useV0Input=true,
+        volume_start=0.00100999)
+        annotation (Placement(transformation(extent={{-16,-10},{5,11}})));
+      TissueBlooFlow_GIT_OM
+                      GITract
+        annotation (Placement(transformation(extent={{34,-12},{58,12}})));
+      Physiolibrary.Types.Constants.PressureConst ExternalPressure(k=0)
+        annotation (Placement(transformation(extent={{24,20},{16,28}})));
+      Physiolibrary.Types.Constants.HydraulicComplianceConst Compliance(k=4.6878848490354e-07)
+        annotation (Placement(transformation(extent={{10,32},{2,40}})));
+      Physiolibrary.Types.Constants.VolumeConst               V0(k(displayUnit=
+              "ml") = 0.0005)
+        annotation (Placement(transformation(extent={{-27,11},{-19,19}})));
+        Liver liver
+          annotation (Placement(transformation(extent={{-56,34},{-32,58}})));
+      Physiolibrary.Hydraulic.Sensors.PressureMeasure pressureMeasure
+        annotation (Placement(transformation(extent={{6,-42},{26,-22}})));
+      equation
+
+        connect(GITract.busConnector,busConnector)           annotation (Line(
+            points={{54.28,2.28},{66,2.28},{66,-46}},
+            color={0,0,255},
+            thickness=0.5,
+            smooth=Smooth.None));
+        connect(portalVein.externalPressure, ExternalPressure.y)
+                                                           annotation (Line(
+            points={{2.9,8.9},{2.9,24},{15,24}},
+            color={0,0,127},
+            smooth=Smooth.None));
+        connect(portalVein.compliance, Compliance.y)  annotation (Line(
+            points={{-5.5,8.9},{-5.5,36},{1,36}},
+            color={0,0,127},
+            smooth=Smooth.None));
+      connect(portalVein.zeroPressureVolume, V0.y) annotation (Line(
+          points={{-13.9,8.9},{-13.9,15},{-18,15}},
+          color={0,0,127},
+          smooth=Smooth.None));
+        connect(GITract.BloodFlow, busConnector.GITract_BloodFlow) annotation (
+            Line(
+            points={{54.4,-6},{66,-6},{66,-46}},
+            color={0,0,127},
+            smooth=Smooth.None));
+        connect(V0.y, busConnector.PortalVein_V0)      annotation (Line(
+            points={{-18,15},{-14,15},{-14,-46},{66,-46}},
+            color={0,0,127},
+            smooth=Smooth.None), Text(
+            string="%second",
+            index=1,
+            extent={{6,3},{6,3}}));
+      connect(portalVein.volume, busConnector.SplanchnicCirculation_DeoxygenatedBloodVolume)
+        annotation (Line(
+          points={{0.8,-10},{0.8,-46},{66,-46}},
+          color={0,0,127},
+          smooth=Smooth.None));
+      connect(portalVein.q_in, liver.portalVein) annotation (Line(
+          points={{-5.5,0.5},{-41.36,0.5},{-41.36,40.24}},
+          color={0,0,0},
+          thickness=1,
+          smooth=Smooth.None));
+        connect(busConnector, liver.busConnector) annotation (Line(
+            points={{66,-46},{66,48.28},{-35.72,48.28}},
+            color={0,0,255},
+            thickness=0.5,
+            smooth=Smooth.None));
+      connect(GITract.q_out, portalVein.q_in) annotation (Line(
+          points={{34,0},{14.25,0},{14.25,0.5},{-5.5,0.5}},
+          color={0,0,0},
+          thickness=1,
+          smooth=Smooth.None));
+        connect(GITract.q_in, q_in) annotation (Line(
+            points={{58,0},{100,0}},
+            color={0,0,0},
+            thickness=1,
+            smooth=Smooth.None));
+        connect(liver.q_in, q_in) annotation (Line(
+            points={{-32,46},{82,46},{82,0},{100,0}},
+            color={0,0,0},
+            thickness=1,
+            smooth=Smooth.None));
+        connect(liver.q_out, q_out) annotation (Line(
+            points={{-56,46},{-82,46},{-82,0},{-100,0}},
+            color={0,0,0},
+            thickness=1,
+            smooth=Smooth.None));
+      connect(portalVein.q_in, pressureMeasure.q_in) annotation (Line(
+          points={{-5.5,0.5},{4,0.5},{4,-38},{12,-38}},
+          color={0,0,0},
+          thickness=1,
+          smooth=Smooth.None));
+      connect(pressureMeasure.pressure, busConnector.SplanchnicVeins_Pressure)
+        annotation (Line(
+          points={{22,-36},{44,-36},{44,-46},{66,-46}},
+          color={0,0,127},
+          smooth=Smooth.None), Text(
+          string="%second",
+          index=1,
+          extent={{6,3},{6,3}}));
+        annotation (Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,
+                -100},{100,100}}),   graphics),       Icon(coordinateSystem(
+                preserveAspectRatio=true, extent={{-100,-100},{100,100}}),
+              graphics={
+              Text(
+                extent={{-104,-76},{110,-98}},
+                lineColor={0,0,255},
+                textString="%name")}),
+        Documentation(revisions="<html>
+
+<table>
+<tr>
+<td>Author:</td>
+<td>Marek Matejak</td>
+</tr>
+<tr>
+<td>License:</td>
+<td>GPL 3.0</td>
+</tr>
+<tr>
+<td>By:</td>
+<td>Charles University, Prague</td>
+</tr>
+<tr>
+<td>Date of:</td>
+<td>january 2009</td>
+</tr>
+<tr>
+<td>References:</td>
+<td>Tom Coleman: QHP 2008 beta 3, University of Mississippi Medical Center</td>
+</tr>
+</table>
+<br/><p>Copyright &copy; 2014 Marek Matejak</p><br/>
+
+</html>", info="<html>
+<p>Blood volume (and pressures) distribution between </p>
+<p><ul>
+<li>pulmonary arteries, </li>
+<li>pulmonary veins and </li>
+<li>pulmonary capilaries.</li>
+</ul></p>
+<p>Blood flow through ventilated alveoli.</p>
+</html>"));
+      end SplanchnicCirculation_MO;
+
+      model TissueBlooFlow_GIT_OM
+        extends Physiomodel.CardioVascular.OrganFlow.BaseBadDirection;
+
+        parameter Real[:,3] VasculatureConductanceOnPO2 = {{41,1.2,0},{51,1.0,-0.03},{61,0.8,0}};
+        parameter Real[:,3] PO2OnConductance = {{10,2.0,0},{30,1.0,0}};
+        parameter Real[:,3] Angiotensin2Effect = {{0.0,1.05,0},{1.3,1.00,-0.08},{3.5,0.50,0}};
+        parameter Real[:,3] AlphaReceptorsEffect = {{0.0,1.3,0},{1.0,1.0,-0.3},{5.0,0.1,0}};
+        parameter Real[:,3] VasopressinEffect = {{0.8,1.0,0},{3.0,0.1,0}};
+        parameter Physiolibrary.Types.Time VasculatureHalfTime=30*86400*Modelica.Math.log(2);
+
+      Physiolibrary.Blocks.Factors.Spline A2Effect(
+        Xscale=1e-9/Substances.AngiotensinII.mw,
+        UsePositiveLog10=true,
+          data=Angiotensin2Effect)
+        annotation (Placement(transformation(extent={{0,22},{20,42}})));
+      Physiolibrary.Blocks.Factors.Spline ADHEffect(
+        Xscale=1e-9/Substances.Vasopressin.mw,
+        UsePositiveLog10=true,
+          data=VasopressinEffect) "0.8 pg/ml = 0.8e-9 kg/m3"
+        annotation (Placement(transformation(extent={{0,-2},{20,18}})));
+      Physiolibrary.Types.Constants.HydraulicConductanceConst BasicConductance(
+          k=1.400114941578528e-009)
+        annotation (Placement(transformation(extent={{-6,74},{6,86}})));
+      Physiolibrary.Blocks.Factors.Normalization Anesthesia
+        annotation (Placement(transformation(extent={{0,50},{20,70}})));
+      Physiolibrary.Blocks.Factors.Normalization Viscosity
+        annotation (Placement(transformation(extent={{0,58},{20,78}})));
+        Physiolibrary.Blocks.Factors.SplineLagOrZero              Vasculature(
+          stateName="GITract-Vasculature.Effect",
+        Xscale=101325/760,
+          data=VasculatureConductanceOnPO2,
+          HalfTime=VasculatureHalfTime)
+          annotation (Placement(transformation(extent={{0,40},{20,60}})));
+        Physiomodel.Nerves.AplhaReceptorsActivityFactor AplhaReceptors(data=
+              AlphaReceptorsEffect)
+          annotation (Placement(transformation(extent={{0,10},{20,30}})));
+      Physiolibrary.Hydraulic.Components.Conductor GITract(useConductanceInput=
+            true)
+        annotation (Placement(transformation(extent={{20,-10},{0,10}})));
+      Physiolibrary.Blocks.Factors.Spline pO2OnConductance(
+                     Xscale=101325/760, data=PO2OnConductance)
+        annotation (Placement(transformation(extent={{0,30},{20,50}})));
+
+      equation
+        connect(Vasculature.y,pO2OnConductance. yBase) annotation (Line(
+            points={{10,44},{10,42}},
+            color={0,0,127},
+            smooth=Smooth.None));
+        connect(Viscosity.y, Anesthesia.yBase) annotation (Line(
+            points={{10,64},{10,62}},
+            color={0,0,127},
+            smooth=Smooth.None));
+        connect(Vasculature.yBase, Anesthesia.y) annotation (Line(
+            points={{10,56},{10,56}},
+            color={0,0,127},
+            smooth=Smooth.None));
+        connect(ADHEffect.y, GITract.cond) annotation (Line(
+            points={{10,4},{10,6}},
+            color={0,0,127},
+            smooth=Smooth.None));
+        connect(pO2OnConductance.y, A2Effect.yBase) annotation (Line(
+            points={{10,36},{10,34}},
+            color={0,0,127},
+            smooth=Smooth.None));
+        connect(BasicConductance.y, Viscosity.yBase)         annotation (Line(
+            points={{7.5,80},{10,80},{10,70}},
+            color={0,0,127},
+            smooth=Smooth.None));
+        connect(busConnector.AlphaBlocade_Effect, AplhaReceptors.AlphaBlockade_Effect)
+          annotation (Line(
+            points={{-90,90},{-52,90},{-52,20},{0.2,20}},
+            color={0,0,255},
+            thickness=0.5,
+            smooth=Smooth.None), Text(
+            string="%first",
+            index=-1,
+            extent={{-6,3},{-6,3}}));
+        connect(busConnector.AlphaPool_Effect, AplhaReceptors.AlphaPool_Effect)
+          annotation (Line(
+            points={{-90,90},{-52,90},{-52,26},{0.2,26}},
+            color={0,0,255},
+            thickness=0.5,
+            smooth=Smooth.None), Text(
+            string="%first",
+            index=-1,
+            extent={{-6,3},{-6,3}}));
+        connect(busConnector.GangliaGeneral_NA, AplhaReceptors.GangliaGeneral_NA)
+          annotation (Line(
+            points={{-90,90},{-52,90},{-52,14},{0.2,14}},
+            color={0,0,255},
+            thickness=0.5,
+            smooth=Smooth.None), Text(
+            string="%first",
+            index=-1,
+            extent={{-6,3},{-6,3}}));
+        connect(busConnector.GITract_Function_Failed, Vasculature.Failed) annotation (
+           Line(
+            points={{-90,90},{-52,90},{-52,54},{0,54}},
+            color={0,0,255},
+            thickness=0.5,
+            smooth=Smooth.None), Text(
+            string="%first",
+            index=-1,
+            extent={{-6,3},{-6,3}}));
+        connect(busConnector.Anesthesia_VascularConductance, Anesthesia.u)
+          annotation (Line(
+            points={{-90,90},{-52,90},{-52,60},{2,60}},
+            color={0,0,255},
+            thickness=0.5,
+            smooth=Smooth.None), Text(
+            string="%first",
+            index=-1,
+            extent={{-6,3},{-6,3}}));
+        connect(busConnector.Viscosity_ConductanceEffect, Viscosity.u) annotation (
+            Line(
+            points={{-90,90},{-52,90},{-52,68},{2,68}},
+            color={0,0,255},
+            thickness=0.5,
+            smooth=Smooth.None), Text(
+            string="%first",
+            index=-1,
+            extent={{-6,3},{-6,3}}));
+        connect(AplhaReceptors.yBase, A2Effect.y) annotation (Line(
+            points={{10,27},{10,28}},
+            color={0,0,127},
+            smooth=Smooth.None));
+        connect(AplhaReceptors.y, ADHEffect.yBase) annotation (Line(
+            points={{10,13},{10,10}},
+            color={0,0,127},
+            smooth=Smooth.None));
+        connect(GITract.q_in, flowMeasure.q_out) annotation (Line(
+            points={{20,0},{78,0}},
+            color={0,0,0},
+            thickness=1,
+            smooth=Smooth.None));
+        connect(GITract.q_out, q_out) annotation (Line(
+            points={{0,0},{-100,0}},
+            color={0,0,0},
+            thickness=1,
+            smooth=Smooth.None));
+        connect(busConnector.Vasopressin, ADHEffect.u) annotation (Line(
+            points={{-90,90},{-52,90},{-52,8},{2,8}},
+            color={0,0,255},
+            thickness=0.5,
+            smooth=Smooth.None), Text(
+            string="%first",
+            index=-1,
+            extent={{-6,3},{-6,3}}));
+        connect(busConnector.Angiotensin2, A2Effect.u) annotation (Line(
+            points={{-90,90},{-52,90},{-52,32},{2,32}},
+            color={0,0,255},
+            thickness=0.5,
+            smooth=Smooth.None), Text(
+            string="%first",
+            index=-1,
+            extent={{-6,3},{-6,3}}));
+      connect(busConnector.GITract_pO2, Vasculature.u) annotation (Line(
+          points={{-90,90},{-52,90},{-52,50},{0,50}},
+          color={0,0,255},
+          thickness=0.5,
+          smooth=Smooth.None), Text(
+          string="%first",
+          index=-1,
+          extent={{-6,3},{-6,3}}));
+      connect(busConnector.GITract_pO2, pO2OnConductance.u) annotation (Line(
+          points={{-90,90},{-52,90},{-52,40},{2,40},{2,40}},
+          color={0,0,255},
+          thickness=0.5,
+          smooth=Smooth.None), Text(
+          string="%first",
+          index=-1,
+          extent={{-6,3},{-6,3}}));
+        annotation (
+          Documentation(info="<HTML>
+<PRE>
+Blood resistance in gastro interstitial tract.
+ 
+</PRE>
+</HTML>
+",     revisions="<html>
+<ul>
+<li><i>  </i>
+       </li>
+<li><i> january 2009 </i><br> 
+       by Marek Matejak in Modelica initially implemented (consulted with Jiri Kofranek), Charles University, Prague<br>
+       orginaly described by Tom Coleman in QHP 2008 beta 3, University of Mississippi Medical Center
+       </li>
+</ul>
+</html>"),Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,-100},
+                {100,100}}),               graphics), Icon(coordinateSystem(
+                preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
+              graphics={Text(
+                extent={{-120,-106},{80,-86}},
+                lineColor={0,0,255},
+                textString="%name")}));
+      end TissueBlooFlow_GIT_OM;
     end OrganFlow;
 
     package Blood "Red Cells and Blood Properties"
@@ -11377,6 +12248,126 @@ Schema : 2008.0
       end CardioVascular_test_SI;
     end IO_Bus;
 
+    model CVS_Dynamic_OM
+      extends Physiolibrary.Icons.CardioVascular;
+    //  extends Physiomodel.Library.Utilities.DynamicState(stateName="BloodVol.Vol", initType=Library.Utilities.Init.NoInit);
+
+    Heart.Heart heart
+      annotation (Placement(transformation(extent={{0,-6},{26,20}})));
+      VascularCompartments.PulmonaryCirculation pulmonaryCirculation
+        annotation (Placement(transformation(extent={{2,50},{30,78}})));
+      VascularCompartments.SystemicCirculationFullDynamic_OM
+                                               systemicCirculation
+        annotation (Placement(transformation(extent={{-2,-68},{32,-34}})));
+    Physiolibrary.Types.BusConnector busConnector
+      "signals of organ bood flow resistence" annotation (Placement(
+          transformation(extent={{-38,-8},{-16,14}}), iconTransformation(extent=
+             {{-100,60},{-60,100}})));
+    Blood.RedCells2 redCells(RBCBaseSecretionRate(k(displayUnit="m3/s")))
+      annotation (Placement(transformation(extent={{-34,26},{-54,46}})));
+    Blood.BloodPropertiesBase bloodProperties
+      annotation (Placement(transformation(extent={{-36,-34},{-56,-14}})));
+
+    /*initial equation 
+  if STEADY then
+     bloodProperties.feedback.y = 0;
+  end if;
+*/
+
+    equation
+      connect(busConnector, pulmonaryCirculation.busConnector) annotation (
+          Line(
+          points={{-27,3},{-26,3},{-26,71},{2,71}},
+          color={0,0,255},
+          thickness=0.5,
+          smooth=Smooth.None));
+      connect(busConnector, systemicCirculation.busConnector) annotation (
+          Line(
+          points={{-27,3},{-26,3},{-26,-44.2},{-2.34,-44.2}},
+          color={0,0,255},
+          thickness=0.5,
+          smooth=Smooth.None));
+      connect(busConnector, redCells.busConnector)    annotation (Line(
+          points={{-27,3},{-26,3},{-26,42.8},{-36.2,42.8}},
+          color={0,0,255},
+          thickness=0.5,
+          smooth=Smooth.None));
+      connect(busConnector, bloodProperties.busConnector) annotation (Line(
+          points={{-27,3},{-26,3},{-26,-17.2},{-36.6,-17.2}},
+          color={0,0,255},
+          thickness=0.5,
+          smooth=Smooth.None));
+      connect(busConnector, heart.busConnector) annotation (Line(
+          points={{-27,3},{-25.5,3},{-25.5,3.1},{0,3.1}},
+          color={0,0,255},
+          thickness=0.5,
+          smooth=Smooth.None));
+      connect(heart.fromLeftVentricle, systemicCirculation.q_in) annotation (
+          Line(
+          points={{16.12,3.36},{16.12,18},{32,18},{32,-51}},
+          color={0,0,0},
+          thickness=1,
+          smooth=Smooth.None));
+      connect(systemicCirculation.q_out, heart.rightAtrium) annotation (Line(
+          points={{-2,-51},{-4,-51},{-4,12.2},{5.72,12.2}},
+          color={0,0,0},
+          thickness=1,
+          smooth=Smooth.None));
+      connect(pulmonaryCirculation.q_in, heart.fromRightVentricle) annotation (
+          Line(
+          points={{1.72,64},{-4,64},{-4,18},{8.06,18},{8.06,3.36}},
+          color={0,0,0},
+          thickness=1,
+          smooth=Smooth.None));
+      connect(pulmonaryCirculation.q_out, heart.leftAtrium) annotation (Line(
+          points={{30,64},{36,64},{36,12.46},{18.72,12.46}},
+          color={0,0,0},
+          thickness=1,
+          smooth=Smooth.None));
+
+    //  stateValue = bloodProperties.BloodVolume1.y;
+
+      annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
+                -100},{100,100}}),       graphics), Documentation(info="<html>
+<p><h4><font color=\"#008000\">Cardiovascular system</font></h4></p>
+<p><font style=\"color: #008000; \">Connect heart with pulmonary and systemic part. This connection contains pressures and blood flows before and after heart.</font></p>
+<p><font style=\"color: #008000; \">Output signal variables about blood volume between lungs capilaries and systemic tissue capilaries are used in gass transport submodels like O2 or CO2.</font></p>
+<p><font style=\"color: #008000; \">Output signal Vesseles_V0 is used for systemic veins collapsing in massive blood lost.</font></p>
+<p><font style=\"color: #008000; \">The blood properties convert known variables values to another meanings (haematocrit, viscosity, ..).</font></p>
+<p><font style=\"color: #008000; \">Red cells contains volume, loss and gains all red blood cells.</font></p>
+</html>", revisions="<html>
+
+<table>
+<tr>
+<td>Author:</td>
+<td>Marek Matejak</td>
+</tr>
+<tr>
+<td>License:</td>
+<td>GPL 3.0</td>
+</tr>
+<tr>
+<td>By:</td>
+<td>Charles University, Prague</td>
+</tr>
+<tr>
+<td>Date of:</td>
+<td>2009</td>
+</tr>
+<tr>
+<td>References:</td>
+<td>Tom Coleman: QHP 2008 beta 3, University of Mississippi Medical Center</td>
+</tr>
+</table>
+<br/><p>Copyright &copy; 2014 Marek Matejak</p><br/>
+
+</html>"),
+        Icon(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},{
+                100,100}}), graphics={Text(
+              extent={{-116,-96},{126,-130}},
+              lineColor={0,0,255},
+              textString="%name")}));
+    end CVS_Dynamic_OM;
   annotation (Documentation(revisions="<html>
 
 <table cellspacing=\"2\" cellpadding=\"0\" border=\"0\"><tr>
@@ -13014,7 +14005,7 @@ Schema : 2008.0
             points={{-46,-55},{6,-55},{6,92},{-88,92}},
             color={0,127,0},
             smooth=Smooth.None));
-        connect(GITractO2.pO2, busConnector.GITract.pO2)
+        connect(GITractO2.pO2, busConnector.GITract_pO2)
           annotation (Line(
             points={{60,-11},{98,-11},{98,92},{-88,92}},
             color={0,127,0},
@@ -26497,7 +27488,7 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
             string="%second",
             index=1,
             extent={{5,0},{5,0}}));
-        connect(gITract.pO2, busConnector.GITract.pO2)
+        connect(gITract.pO2, busConnector.GITract_pO2)
           annotation (Line(
             points={{64.7,-1.2},{68,-1.2},{68,116},{-82,116}},
             color={0,0,127},
@@ -36749,11 +37740,8 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
               {{60,40},{100,80}})));
       Exercise exercise
         annotation (Placement(transformation(extent={{0,10},{20,30}})));
-      CO2.Tissues
-              tissuesSetup
+      Tissues tissuesSetup
         annotation (Placement(transformation(extent={{20,-58},{40,-38}})));
-      Blood bloodInOut
-        annotation (Placement(transformation(extent={{-24,-60},{-4,-40}})));
       Enviroment enviroment
         annotation (Placement(transformation(extent={{-36,14},{-16,34}})));
       Posture posture
@@ -36762,12 +37750,8 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
         annotation (Placement(transformation(extent={{-76,14},{-56,34}})));
       Drugs drugs
         annotation (Placement(transformation(extent={{-68,-58},{-48,-38}})));
-      Secretion secretion
-        annotation (Placement(transformation(extent={{-50,42},{-30,62}})));
-      Anesthesia anesthesia
-        annotation (Placement(transformation(extent={{-16,42},{4,62}})));
-      Unpaired unpaired
-        annotation (Placement(transformation(extent={{58,-62},{78,-42}})));
+    Healthy healthy
+      annotation (Placement(transformation(extent={{-30,-58},{-10,-38}})));
     equation
       connect(enviroment.busConnector, busConnector) annotation (Line(
           points={{-28,24},{-38,24},{-38,-14},{64,-14}},
@@ -36781,11 +37765,6 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
           smooth=Smooth.None));
       connect(tissuesSetup.busConnector, busConnector) annotation (Line(
           points={{28,-48},{16,-48},{16,-14},{64,-14}},
-          color={0,0,255},
-          thickness=0.5,
-          smooth=Smooth.None));
-      connect(bloodInOut.busConnector, busConnector) annotation (Line(
-          points={{-16,-50},{-22,-50},{-22,-14},{64,-14}},
           color={0,0,255},
           thickness=0.5,
           smooth=Smooth.None));
@@ -36804,27 +37783,17 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
           color={0,0,255},
           thickness=0.5,
           smooth=Smooth.None));
-      connect(secretion.busConnector, busConnector) annotation (Line(
-          points={{-42,52},{-50,52},{-50,-14},{64,-14}},
-          color={0,0,255},
-          thickness=0.5,
-          smooth=Smooth.None));
-      connect(anesthesia.busConnector, busConnector) annotation (Line(
-          points={{-8,52},{-16,52},{-16,-14},{64,-14}},
-          color={0,0,255},
-          thickness=0.5,
-          smooth=Smooth.None));
-      connect(unpaired.busConnector, busConnector) annotation (Line(
-          points={{66,-52},{66,-33},{66,-14},{64,-14}},
-          color={0,0,255},
-          thickness=0.5,
-          smooth=Smooth.None));
+    connect(busConnector, healthy.busConnector) annotation (Line(
+        points={{64,-14},{-22,-14},{-22,-48}},
+        color={0,0,255},
+        thickness=0.5,
+        smooth=Smooth.None));
       annotation (Icon(coordinateSystem(preserveAspectRatio=true,  extent={{-100,
                 -100},{100,100}}), graphics={Text(
               extent={{-120,-42},{122,-76}},
               lineColor={0,0,255},
               textString="%name")}),               Diagram(coordinateSystem(
-              preserveAspectRatio=true,  extent={{-100,-100},{100,100}}),
+              preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
             graphics));
     end Setup;
 
@@ -36833,51 +37802,56 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
     Physiolibrary.Types.BusConnector busConnector annotation (Placement(
           transformation(extent={{-40,-20},{-26,-6}}), iconTransformation(
             extent={{-40,-20},{0,20}})));
-    Physiolibrary.Types.Constants.DeprecatedUntypedConstant const2(k=9.81)
-      annotation (Placement(transformation(extent={{14,36},{8,42}})));
-    Physiolibrary.Types.Constants.DeprecatedUntypedConstant Constant77(k=760)
+    Physiolibrary.Types.Constants.AccelerationConst gravityAcceleration(k=9.81)
+      annotation (Placement(transformation(extent={{12,46},{6,52}})));
+    Physiolibrary.Types.Constants.PressureConst atmosphericPressure(k=
+          101325.0144354)
       annotation (Placement(transformation(extent={{34,76},{28,82}})));
-    Physiolibrary.Types.Constants.DeprecatedUntypedConstant Constant78(k=760)
+    Physiolibrary.Types.Constants.PressureConst inspiredAirPressure(k=
+          101325.0144354)
       annotation (Placement(transformation(extent={{34,68},{28,74}})));
-    Physiolibrary.Types.Constants.DeprecatedUntypedConstant Constant8(k=0)
+    Physiolibrary.Types.Constants.PressureConst carboneMonoxide(k=0)
       annotation (Placement(transformation(extent={{76,90},{68,98}})));
-    Physiolibrary.Types.Constants.DeprecatedUntypedConstant Gravity_Gz(k=1)
+    Physiolibrary.Types.Constants.FractionConst             Gravity_Gz(k=1)
       annotation (Placement(transformation(extent={{14,28},{8,34}})));
-    Physiolibrary.Types.Constants.FractionConst EnvironmentRelativeHumidity(k=
-          0.7000000000000001)
-      annotation (Placement(transformation(extent={{-84,12},{-78,18}})));
-    Physiolibrary.Types.Constants.DeprecatedUntypedConstant AmbientTemperature(
-        k=22.2)
+    Physiolibrary.Types.Constants.FractionConst EnvironmentRelativeHumidity(k=0.7)
+      annotation (Placement(transformation(extent={{-88,-92},{-82,-86}})));
+    Physiolibrary.Types.Constants.TemperatureConst          AmbientTemperature(k(
+          displayUnit="degC") = 295.35)
       annotation (Placement(transformation(extent={{-84,20},{-78,26}})));
+    Physiolibrary.Types.Constants.VelocityConst wind(k=0)
+      annotation (Placement(transformation(extent={{-86,-28},{-78,-20}})));
+    Physiolibrary.Types.Constants.PressureConst vaporPress(k=803.75886111062)
+      annotation (Placement(transformation(extent={{-90,-70},{-82,-62}})));
     equation
-      connect(busConnector.BarometerPressure,Constant77. y)
-        annotation (Line(
-          points={{-33,-13},{-33,79},{27.7,79}},
-          color={0,0,255},
-          thickness=0.5,
-          smooth=Smooth.None), Text(
-          string="%first",
-          index=-1,
-          extent={{-6,3},{-6,3}}));
-      connect(busConnector.AirSupplyInspiredAirPressure,Constant78. y)
-        annotation (Line(
-          points={{-33,-13},{-33,71},{27.7,71}},
-          color={0,0,255},
-          thickness=0.5,
-          smooth=Smooth.None), Text(
-          string="%first",
-          index=-1,
-          extent={{-6,3},{-6,3}}));
-      connect(busConnector.pCO,Constant8. y) annotation (Line(
-          points={{-33,-13},{46,-13},{46,94},{67.6,94}},
-          color={0,0,255},
-          thickness=0.5,
-          smooth=Smooth.None), Text(
-          string="%first",
-          index=-1,
-          extent={{-6,3},{-6,3}}));
+    connect(busConnector.BarometerPressure, atmosphericPressure.y) annotation (
+        Line(
+        points={{-33,-13},{-33,79},{27.25,79}},
+        color={0,0,255},
+        thickness=0.5,
+        smooth=Smooth.None), Text(
+        string="%first",
+        index=-1,
+        extent={{-6,3},{-6,3}}));
+    connect(busConnector.AirSupplyInspiredAirPressure, inspiredAirPressure.y)
+      annotation (Line(
+        points={{-33,-13},{-33,71},{27.25,71}},
+        color={0,0,255},
+        thickness=0.5,
+        smooth=Smooth.None), Text(
+        string="%first",
+        index=-1,
+        extent={{-6,3},{-6,3}}));
+    connect(busConnector.pCO, carboneMonoxide.y) annotation (Line(
+        points={{-33,-13},{46,-13},{46,94},{67,94}},
+        color={0,0,255},
+        thickness=0.5,
+        smooth=Smooth.None), Text(
+        string="%first",
+        index=-1,
+        extent={{-6,3},{-6,3}}));
       connect(Gravity_Gz.y, busConnector.Gravity_Gz) annotation (Line(
-          points={{7.7,31},{-33,31},{-33,-13}},
+          points={{7.25,31},{-33,31},{-33,-13}},
           color={0,0,127},
           smooth=Smooth.None), Text(
           string="%second",
@@ -36885,7 +37859,8 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
           extent={{6,3},{6,3}}));
       connect(EnvironmentRelativeHumidity.y, busConnector.EnvironmentRelativeHumidity)
         annotation (Line(
-          points={{-77.7,15},{8,-18},{-33,-13}},
+          points={{-81.25,-89},{-74,-89},{-74,-90},{-68,-90},{-68,-38},{-34,-38},
+            {-34,-26},{-33,-26},{-33,-13}},
           color={0,0,127},
           smooth=Smooth.None), Text(
           string="%second",
@@ -36893,18 +37868,33 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
           extent={{6,3},{6,3}}));
       connect(AmbientTemperature.y, busConnector.AmbientTemperature)
         annotation (Line(
-          points={{-77.7,23},{-33,23},{-33,-13}},
+          points={{-77.25,23},{-33,23},{-33,-13}},
           color={0,0,127},
           smooth=Smooth.None), Text(
           string="%second",
           index=1,
           extent={{6,3},{6,3}}));
+    connect(wind.y, busConnector.WindSpeed) annotation (Line(
+        points={{-77,-24},{-56,-24},{-56,-13},{-33,-13}},
+        color={0,0,127},
+        smooth=Smooth.None), Text(
+        string="%second",
+        index=1,
+        extent={{6,3},{6,3}}));
+    connect(vaporPress.y, busConnector.EnviromentRelativeHumidity_VaporPressure)
+      annotation (Line(
+        points={{-81,-66},{-60,-66},{-60,-64},{-33,-64},{-33,-13}},
+        color={0,0,127},
+        smooth=Smooth.None), Text(
+        string="%second",
+        index=1,
+        extent={{6,3},{6,3}}));
       annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
                 -100},{100,100}}), graphics={Text(
               extent={{-100,-20},{100,-60}},
               lineColor={0,0,0},
               textString="enviroment")}),          Diagram(coordinateSystem(
-              preserveAspectRatio=true,  extent={{-100,-100},{100,100}}),
+              preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
             graphics));
     end Enviroment;
 
@@ -36913,283 +37903,337 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
     Physiolibrary.Types.BusConnector busConnector annotation (Placement(
           transformation(extent={{-40,-20},{-24,-4}}), iconTransformation(
             extent={{-40,-20},{0,20}})));
-    Physiolibrary.Types.Constants.DeprecatedUntypedConstant Constant14(k=0)
-      annotation (Placement(transformation(extent={{24,40},{16,48}})));
-    Physiolibrary.Types.Constants.DeprecatedUntypedConstant Constant15(k=0)
-      annotation (Placement(transformation(extent={{24,48},{16,56}})));
-    Physiolibrary.Types.Constants.DeprecatedUntypedConstant Constant16(k=0)
-      annotation (Placement(transformation(extent={{24,56},{16,64}})));
-    Physiolibrary.Types.Constants.DeprecatedUntypedConstant Constant17(k=0)
-      annotation (Placement(transformation(extent={{24,64},{16,72}})));
-    Physiolibrary.Types.Constants.DeprecatedUntypedConstant Constant18(k=0)
-      annotation (Placement(transformation(extent={{24,72},{16,80}})));
-    Physiolibrary.Types.Constants.DeprecatedUntypedConstant Constant19(k=
-          0.128213)
-      annotation (Placement(transformation(extent={{24,80},{16,88}})));
-    Physiolibrary.Types.Constants.DeprecatedUntypedConstant Constant20(k=0)
-      annotation (Placement(transformation(extent={{24,88},{16,96}})));
-    Physiolibrary.Types.Constants.DeprecatedUntypedConstant Constant21(k=0)
-      annotation (Placement(transformation(extent={{36,-90},{28,-82}})));
-    Physiolibrary.Types.Constants.DeprecatedUntypedConstant Constant22(k=0)
-      annotation (Placement(transformation(extent={{36,-82},{28,-74}})));
-    Physiolibrary.Types.Constants.DeprecatedUntypedConstant Constant23(k=0)
-      annotation (Placement(transformation(extent={{36,-74},{28,-66}})));
-    Physiolibrary.Types.Constants.DeprecatedUntypedConstant Constant24(k=0)
-      annotation (Placement(transformation(extent={{36,-66},{28,-58}})));
-    Physiolibrary.Types.Constants.DeprecatedUntypedConstant Constant25(k=0)
-      annotation (Placement(transformation(extent={{36,-58},{28,-50}})));
-    Physiolibrary.Types.Constants.DeprecatedUntypedConstant Constant26(k=
-          5.2e-002)
-      annotation (Placement(transformation(extent={{36,-50},{28,-42}})));
-    Physiolibrary.Types.Constants.DeprecatedUntypedConstant Constant27(k=0)
-      annotation (Placement(transformation(extent={{36,-42},{28,-34}})));
-    Physiolibrary.Types.Constants.DeprecatedUntypedConstant Constant28(k=0)
-      annotation (Placement(transformation(extent={{82,-28},{74,-20}})));
-    Physiolibrary.Types.Constants.DeprecatedUntypedConstant Constant29(k=0)
-      annotation (Placement(transformation(extent={{82,-20},{74,-12}})));
-    Physiolibrary.Types.Constants.DeprecatedUntypedConstant Constant30(k=0)
-      annotation (Placement(transformation(extent={{82,-12},{74,-4}})));
-    Physiolibrary.Types.Constants.DeprecatedUntypedConstant Constant31(k=0)
-      annotation (Placement(transformation(extent={{82,-4},{74,4}})));
-    Physiolibrary.Types.Constants.DeprecatedUntypedConstant Constant32(k=0)
-      annotation (Placement(transformation(extent={{82,4},{74,12}})));
-    Physiolibrary.Types.Constants.DeprecatedUntypedConstant Constant33(k=
-          0.142459)
-      annotation (Placement(transformation(extent={{82,12},{74,20}})));
-    Physiolibrary.Types.Constants.DeprecatedUntypedConstant Constant34(k=0)
-      annotation (Placement(transformation(extent={{82,20},{74,28}})));
-    Physiolibrary.Types.Constants.DeprecatedUntypedConstant Constant35(k=
-          2.2e-002)
-      annotation (Placement(transformation(extent={{-94,-32},{-86,-24}})));
-    Physiolibrary.Types.Constants.DeprecatedUntypedConstant Constant36(k=
-          3.7e-002)
-      annotation (Placement(transformation(extent={{-94,-50},{-86,-42}})));
-    Physiolibrary.Types.Constants.DeprecatedUntypedConstant DietGoalH2O_DegK(k=
-          294.261)
-      annotation (Placement(transformation(extent={{-92,-14},{-86,-8}})));
+    Physiolibrary.Types.Constants.MolarFlowRateConst diet_Na(k(displayUnit=
+            "mmol/min") = 2.1368833333333e-06)
+      annotation (Placement(transformation(extent={{-92,48},{-84,56}})));
+    Physiolibrary.Types.Constants.MolarFlowRateConst diet_K(k(displayUnit=
+            "mmol/min") = 8.6666666666667e-07)
+      annotation (Placement(transformation(extent={{-92,36},{-84,44}})));
+    Physiolibrary.Types.Constants.MolarFlowRateConst diet_Cl(k(displayUnit=
+            "mmol/min") = 2.3743166666667e-06)
+      annotation (Placement(transformation(extent={{-92,24},{-84,32}})));
+    Physiolibrary.Types.Constants.MolarFlowRateConst diet_PO4(k(displayUnit=
+            "mmol/min") = 3.6666666666667e-07)
+      annotation (Placement(transformation(extent={{-92,72},{-84,80}})));
+    Physiolibrary.Types.Constants.MolarFlowRateConst diet_SO4(k=
+          6.1666666666667e-07)
+      annotation (Placement(transformation(extent={{-92,60},{-84,68}})));
+    Physiolibrary.Types.Constants.TemperatureConst          diet_temperature(k=294.261)
+      annotation (Placement(transformation(extent={{-90,84},{-84,90}})));
+    Physiolibrary.Types.Constants.AmountOfSubstanceConst fiber_GILumen(k(
+          displayUnit="mosm") = 0.043)
+      annotation (Placement(transformation(extent={{-88,-36},{-80,-28}})));
     equation
-      connect(Constant14.y,busConnector. IVDrip_NaRate) annotation (Line(
-          points={{15.6,44},{-32,44},{-32,-12}},
-          color={0,0,127},
-          smooth=Smooth.None));
-      connect(Constant15.y,busConnector. Transfusion_NaRate) annotation (Line(
-          points={{15.6,52},{-32,52},{-32,-12}},
-          color={0,0,127},
-          smooth=Smooth.None));
-      connect(Constant16.y,busConnector. SweatDuct_NaRate) annotation (Line(
-          points={{15.6,60},{-32,60},{-32,-12}},
-          color={0,0,127},
-          smooth=Smooth.None));
-      connect(Constant17.y,busConnector. Hemorrhage_NaRate) annotation (Line(
-          points={{15.6,68},{-32,68},{-32,-12}},
-          color={0,0,127},
-          smooth=Smooth.None));
-      connect(Constant18.y,busConnector. DialyzerActivity_Na_Flux) annotation (
+    connect(diet_Na.y, busConnector.DietIntakeElectrolytes_Na) annotation (Line(
+        points={{-83,52},{-32,52},{-32,-12}},
+        color={0,0,127},
+        smooth=Smooth.None));
+    connect(diet_K.y, busConnector.DietIntakeElectrolytes_K) annotation (Line(
+        points={{-83,40},{-32,40},{-32,-12}},
+        color={0,0,127},
+        smooth=Smooth.None));
+    connect(diet_Cl.y, busConnector.DietIntakeElectrolytes_Cl) annotation (Line(
+        points={{-83,28},{-32,28},{-32,-12}},
+        color={0,0,127},
+        smooth=Smooth.None));
+    connect(diet_PO4.y, busConnector.DietIntakeElectrolytes_PO4) annotation (
+        Line(
+        points={{-83,76},{-32,76},{-32,-12}},
+        color={0,0,127},
+        thickness=0.5,
+        smooth=Smooth.None));
+    connect(diet_SO4.y, busConnector.DietIntakeElectrolytes_SO4) annotation (
+        Line(
+        points={{-83,64},{-32,64},{-32,-12}},
+        color={0,0,127},
+        thickness=0.5,
+        smooth=Smooth.None));
+      connect(diet_temperature.y, busConnector.DietGoalH2O_DegK) annotation (
           Line(
-          points={{15.6,76},{-32,76},{-32,-12}},
-          color={0,0,127},
-          smooth=Smooth.None));
-      connect(Constant19.y,busConnector. DietIntakeElectrolytes_Na) annotation (
-          Line(
-          points={{15.6,84},{-32,84},{-32,-12}},
-          color={0,0,127},
-          smooth=Smooth.None));
-      connect(Constant20.y,busConnector. GILumenDiarrhea_NaLoss) annotation (Line(
-          points={{15.6,92},{-32,92},{-32,-12}},
-          color={0,0,127},
-          smooth=Smooth.None));
-      connect(Constant21.y,busConnector. IVDrip_KRate) annotation (Line(
-          points={{27.6,-86},{-32,-86},{-32,-12}},
-          color={0,0,127},
-          smooth=Smooth.None));
-      connect(Constant22.y,busConnector. Transfusion_KRate) annotation (Line(
-          points={{27.6,-78},{-32,-78},{-32,-12}},
-          color={0,0,127},
-          smooth=Smooth.None));
-      connect(Constant23.y,busConnector. SweatDuct_KRate) annotation (Line(
-          points={{27.6,-70},{-32,-70},{-32,-12}},
-          color={0,0,127},
-          smooth=Smooth.None));
-      connect(Constant24.y,busConnector. Hemorrhage_KRate) annotation (Line(
-          points={{27.6,-62},{-32,-62},{-32,-12}},
-          color={0,0,127},
-          smooth=Smooth.None));
-      connect(Constant25.y,busConnector. DialyzerActivity_K_Flux) annotation (
-          Line(
-          points={{27.6,-54},{-32,-54},{-32,-12}},
-          color={0,0,127},
-          smooth=Smooth.None));
-      connect(Constant26.y,busConnector. DietIntakeElectrolytes_K) annotation (
-          Line(
-          points={{27.6,-46},{-32,-46},{-32,-12}},
-          color={0,0,127},
-          smooth=Smooth.None));
-      connect(Constant27.y,busConnector. GILumenDiarrhea_KLoss) annotation (Line(
-          points={{27.6,-38},{-32,-38},{-32,-12}},
-          color={0,0,127},
-          smooth=Smooth.None));
-      connect(Constant28.y,busConnector. IVDrip_ClRate) annotation (Line(
-          points={{73.6,-24},{-32,-24},{-32,-12}},
-          color={0,0,127},
-          smooth=Smooth.None));
-      connect(Constant29.y,busConnector. Transfusion_ClRate) annotation (Line(
-          points={{73.6,-16},{-32,-16},{-32,-12}},
-          color={0,0,127},
-          smooth=Smooth.None));
-      connect(Constant30.y,busConnector. SweatDuct_ClRate) annotation (Line(
-          points={{73.6,-8},{-32,-8},{-32,-12}},
-          color={0,0,127},
-          smooth=Smooth.None));
-      connect(Constant31.y,busConnector. Hemorrhage_ClRate) annotation (Line(
-          points={{73.6,0},{-32,0},{-32,-12}},
-          color={0,0,127},
-          smooth=Smooth.None));
-      connect(Constant32.y,busConnector. DialyzerActivity_Cl_Flux) annotation (
-          Line(
-          points={{73.6,8},{-32,8},{-32,-12}},
-          color={0,0,127},
-          smooth=Smooth.None));
-      connect(Constant33.y,busConnector. DietIntakeElectrolytes_Cl) annotation (
-          Line(
-          points={{73.6,16},{-32,16},{-32,-12}},
-          color={0,0,127},
-          smooth=Smooth.None));
-      connect(Constant34.y, busConnector.GILumenVomitus_ClLoss) annotation (Line(
-          points={{73.6,24},{-32,24},{-32,-12}},
-          color={0,0,127},
-          smooth=Smooth.None));
-      connect(Constant35.y, busConnector.DietIntakeElectrolytes_PO4) annotation (Line(
-          points={{-85.6,-28},{-80,-28},{-80,-30},{-32,-30},{-32,-12}},
-          color={0,0,127},
-          thickness=0.5,
-          smooth=Smooth.None));
-      connect(Constant36.y, busConnector.DietIntakeElectrolytes_SO4) annotation (Line(
-          points={{-85.6,-46},{-32,-46},{-32,-12}},
-          color={0,0,127},
-          thickness=0.5,
-          smooth=Smooth.None));
-      connect(DietGoalH2O_DegK.y, busConnector.DietGoalH2O_DegK) annotation (
-          Line(
-          points={{-85.7,-11},{-84,-12},{-32,-12}},
+          points={{-83.25,87},{-83.25,86},{-32,86},{-32,-12}},
           color={0,0,127},
           smooth=Smooth.None), Text(
           string="%second",
           index=1,
           extent={{6,3},{6,3}}));
+    connect(fiber_GILumen.y, busConnector.GILumenFiber_Mass) annotation (Line(
+        points={{-79,-32},{-56,-32},{-56,-12},{-32,-12}},
+        color={0,0,127},
+        smooth=Smooth.None), Text(
+        string="%second",
+        index=1,
+        extent={{6,3},{6,3}}));
       annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
                 -100},{100,100}}), graphics={Text(
               extent={{-100,-20},{100,-60}},
               lineColor={0,0,0},
               textString="diet")}),                Diagram(coordinateSystem(
-              preserveAspectRatio=true,  extent={{-100,-100},{100,100}}),
+              preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
             graphics));
     end Diet;
+
+    model Healthy
+
+    Physiolibrary.Types.BusConnector busConnector annotation (Placement(
+          transformation(extent={{-40,-20},{-24,-4}}), iconTransformation(
+            extent={{-40,-20},{0,20}})));
+    Physiolibrary.Types.Constants.MolarFlowRateConst zero(k=0)
+        annotation (Placement(transformation(extent={{-90,76},{-82,84}})));
+    Physiolibrary.Types.Constants.MolarFlowRateConst zeroMolarFlowRate(k=0)
+        annotation (Placement(transformation(extent={{-88,42},{-82,48}})));
+    Physiolibrary.Types.Constants.VolumeFlowRateConst zeroVolumeFlowRate(k=0)
+        annotation (Placement(transformation(extent={{-88,54},{-84,58}})));
+    equation
+      connect(zero.y,busConnector. IVDrip_NaRate) annotation (Line(
+          points={{-81,80},{-32,80},{-32,-12}},
+          color={0,0,127},
+          smooth=Smooth.None));
+      connect(zero.y,busConnector. Transfusion_NaRate) annotation (Line(
+          points={{-81,80},{-32,80},{-32,-12}},
+          color={0,0,127},
+          smooth=Smooth.None));
+      connect(zero.y, busConnector.Hemorrhage_NaRate) annotation (Line(
+          points={{-81,80},{-32,80},{-32,-12}},
+          color={0,0,127},
+          smooth=Smooth.None));
+      connect(zero.y,busConnector. DialyzerActivity_Na_Flux) annotation (
+          Line(
+          points={{-81,80},{-32,80},{-32,-12}},
+          color={0,0,127},
+          smooth=Smooth.None));
+      connect(zero.y,busConnector. GILumenDiarrhea_NaLoss) annotation (Line(
+          points={{-81,80},{-32,80},{-32,-12}},
+          color={0,0,127},
+          smooth=Smooth.None));
+      connect(zero.y,busConnector. IVDrip_KRate) annotation (Line(
+          points={{-81,80},{-32,80},{-32,-12}},
+          color={0,0,127},
+          smooth=Smooth.None));
+      connect(zero.y,busConnector. Transfusion_KRate) annotation (Line(
+          points={{-81,80},{-32,80},{-32,-12}},
+          color={0,0,127},
+          smooth=Smooth.None));
+      connect(zero.y,busConnector. Hemorrhage_KRate) annotation (Line(
+          points={{-81,80},{-32,80},{-32,-12}},
+          color={0,0,127},
+          smooth=Smooth.None));
+      connect(zero.y,busConnector. DialyzerActivity_K_Flux) annotation (
+          Line(
+          points={{-81,80},{-32,80},{-32,-12}},
+          color={0,0,127},
+          smooth=Smooth.None));
+      connect(zero.y,busConnector. GILumenDiarrhea_KLoss) annotation (Line(
+          points={{-81,80},{-32,80},{-32,-12}},
+          color={0,0,127},
+          smooth=Smooth.None));
+      connect(zero.y,busConnector. IVDrip_ClRate) annotation (Line(
+          points={{-81,80},{-32,80},{-32,-12}},
+          color={0,0,127},
+          smooth=Smooth.None));
+      connect(zero.y,busConnector. Transfusion_ClRate) annotation (Line(
+          points={{-81,80},{-32,80},{-32,-12}},
+          color={0,0,127},
+          smooth=Smooth.None));
+      connect(zero.y,busConnector. Hemorrhage_ClRate) annotation (Line(
+          points={{-81,80},{-32,80},{-32,-12}},
+          color={0,0,127},
+          smooth=Smooth.None));
+      connect(zero.y,busConnector. DialyzerActivity_Cl_Flux) annotation (
+          Line(
+          points={{-81,80},{-32,80},{-32,-12}},
+          color={0,0,127},
+          smooth=Smooth.None));
+      connect(zero.y, busConnector.GILumenVomitus_ClLoss) annotation (Line(
+          points={{-81,80},{-32,80},{-32,-12}},
+          color={0,0,127},
+          smooth=Smooth.None));
+      connect(zeroMolarFlowRate.y, busConnector.Hemorrhage_ProteinRate) annotation (Line(
+          points={{-81.25,45},{-81.25,46},{-30,46},{-30,-12},{-32,-12}},
+          color={0,0,127},
+          smooth=Smooth.None), Text(
+          string="%second",
+          index=1,
+          extent={{6,3},{6,3}}));
+      connect(zeroMolarFlowRate.y, busConnector.Transfusion_ProteinRate) annotation (Line(
+          points={{-81.25,45},{-81.25,45.5},{-32,45.5},{-32,-12}},
+          color={0,0,127},
+          smooth=Smooth.None), Text(
+          string="%second",
+          index=1,
+          extent={{6,3},{6,3}}));
+      connect(zeroMolarFlowRate.y, busConnector.IVDripProteinRate) annotation (Line(
+          points={{-81.25,45},{-81.25,44.5},{-32,44.5},{-32,-12}},
+          color={0,0,127},
+          smooth=Smooth.None), Text(
+          string="%second",
+          index=1,
+          extent={{6,3},{6,3}}));
+      connect(zeroVolumeFlowRate.y, busConnector.IVDrip_H2ORate) annotation (Line(
+          points={{-83.5,56},{-37.85,56},{-37.85,-12},{-32,-12}},
+          color={0,0,127},
+          smooth=Smooth.None), Text(
+          string="%second",
+          index=1,
+          extent={{6,3},{6,3}}));
+      connect(zeroVolumeFlowRate.y, busConnector.Transfusion_PlasmaRate)
+                                                             annotation (Line(
+          points={{-83.5,56},{-32,56},{-32,-12}},
+          color={0,0,127},
+          smooth=Smooth.None), Text(
+          string="%second",
+          index=1,
+          extent={{6,3},{6,3}}));
+      connect(zeroVolumeFlowRate.y, busConnector.Hemorrhage_PlasmaRate)
+                                                            annotation (Line(
+          points={{-83.5,56},{-32,56},{-32,-12}},
+          color={0,0,127},
+          smooth=Smooth.None), Text(
+          string="%second",
+          index=1,
+          extent={{6,3},{6,3}}));
+      connect(zeroVolumeFlowRate.y, busConnector.Hemorrhage_RBCRate) annotation (Line(
+          points={{-83.5,56},{-32,56},{-32,-12}},
+          color={0,0,127},
+          smooth=Smooth.None), Text(
+          string="%second",
+          index=1,
+          extent={{6,3},{6,3}}));
+      connect(zeroVolumeFlowRate.y, busConnector.Transfusion_RBCRate) annotation (Line(
+          points={{-83.5,56},{-32,56},{-32,-12}},
+          color={0,0,127},
+          smooth=Smooth.None), Text(
+          string="%second",
+          index=1,
+          extent={{6,3},{6,3}}));
+    connect(zeroVolumeFlowRate.y, busConnector.DialyzerActivity_UltrafiltrationRate)
+      annotation (Line(
+        points={{-83.5,56},{-52,56},{-52,58},{-32,58},{-32,-12}},
+        color={0,0,127},
+        smooth=Smooth.None), Text(
+        string="%second",
+        index=1,
+        extent={{6,3},{6,3}}));
+    connect(zeroVolumeFlowRate.y, busConnector.GILumenDiarrhea_H2OTarget)
+      annotation (Line(
+        points={{-83.5,56},{-32,56},{-32,-12}},
+        color={0,0,127},
+        smooth=Smooth.None), Text(
+        string="%second",
+        index=1,
+        extent={{6,3},{6,3}}));
+    connect(zeroVolumeFlowRate.y, busConnector.GILumenVomitus_H2OTarget)
+      annotation (Line(
+        points={{-83.5,56},{-32,56},{-32,-12}},
+        color={0,0,127},
+        smooth=Smooth.None), Text(
+        string="%second",
+        index=1,
+        extent={{6,3},{6,3}}));
+    connect(zeroVolumeFlowRate.y, busConnector.Hemorrhage_H2ORate) annotation (
+        Line(
+        points={{-83.5,56},{-32,56},{-32,-12}},
+        color={0,0,127},
+        smooth=Smooth.None), Text(
+        string="%second",
+        index=1,
+        extent={{6,3},{6,3}}));
+    connect(zeroVolumeFlowRate.y, busConnector.Transfusion_H2ORate) annotation
+      (Line(
+        points={{-83.5,56},{-34,56},{-34,-12},{-32,-12}},
+        color={0,0,127},
+        smooth=Smooth.None), Text(
+        string="%second",
+        index=1,
+        extent={{6,3},{6,3}}));
+      annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
+                -100},{100,100}}), graphics={Text(
+              extent={{-100,-20},{100,-60}},
+              lineColor={0,0,0},
+            textString="%name")}),                 Diagram(coordinateSystem(
+              preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
+            graphics));
+    end Healthy;
 
     model Exercise
 
     Physiolibrary.Types.BusConnector busConnector annotation (Placement(
           transformation(extent={{-40,-20},{-26,-6}}), iconTransformation(
             extent={{-40,-20},{0,20}})));
-    Physiolibrary.Types.Constants.DeprecatedUntypedConstant const7(k=1)
-      annotation (Placement(transformation(extent={{-90,-88},{-84,-82}})));
-    Physiolibrary.Types.Constants.DeprecatedUntypedConstant const24(k=0)
-      annotation (Placement(transformation(extent={{-90,-80},{-84,-74}})));
-    Physiolibrary.Types.Constants.DeprecatedUntypedConstant const25(k=0)
-      annotation (Placement(transformation(extent={{-90,-48},{-84,-42}})));
-    Physiolibrary.Types.Constants.DeprecatedUntypedConstant const19(k=1)
-      annotation (Placement(transformation(extent={{-90,-36},{-84,-30}})));
-    Physiolibrary.Types.Constants.DeprecatedUntypedConstant const14(k=0.37)
-      annotation (Placement(transformation(extent={{-96,-16},{-90,-10}})));
-    Physiolibrary.Types.Constants.DeprecatedUntypedConstant const15(k=0.27)
-      annotation (Placement(transformation(extent={{-96,-6},{-90,0}})));
-    Physiolibrary.Types.Constants.DeprecatedUntypedConstant const11(k=0)
-      annotation (Placement(transformation(extent={{-78,6},{-74,10}})));
-    Physiolibrary.Types.Constants.DeprecatedUntypedConstant const1(k=0)
-      annotation (Placement(transformation(extent={{-90,-56},{-84,-50}})));
-    Physiolibrary.Types.Constants.DeprecatedUntypedConstant const2(k=0)
-      annotation (Placement(transformation(extent={{-90,-64},{-84,-58}})));
+    Physiolibrary.Types.Constants.FractionConst exerciseMusclePump(k=1)
+      annotation (Placement(transformation(extent={{-94,-52},{-88,-46}})));
+    Physiolibrary.Types.Constants.FrequencyConst contractionRate(k=0)
+      annotation (Placement(transformation(extent={{-94,26},{-88,32}})));
+    Physiolibrary.Types.Constants.FractionConst legMusclePump(k=1)
+      annotation (Placement(transformation(extent={{-94,-72},{-88,-66}})));
+    Physiolibrary.Types.Constants.PowerConst exercise(k=0)
+      annotation (Placement(transformation(extent={{-94,50},{-88,56}})));
+    Physiolibrary.Types.Constants.FractionConst effectivity(k=0.3)
+      annotation (Placement(transformation(extent={{-8,26},{0,34}})));
+    Modelica.Blocks.Math.Division totalWatts
+      annotation (Placement(transformation(extent={{12,42},{32,62}})));
     equation
-      connect(const7.y,busConnector. Exercise_MusclePump_Effect) annotation (
-          Line(
-          points={{-83.25,-85},{-48,-85},{-48,-13},{-33,-13}},
-          color={0,0,127},
-          smooth=Smooth.None), Text(
-          string="%second",
-          index=1,
-          extent={{6,3},{6,3}}));
-      connect(const24.y,busConnector. Exercise_Metabolism_ContractionRate)
-        annotation (Line(
-          points={{-83.25,-77},{-48,-77},{-48,-13},{-33,-13}},
-          color={0,0,127},
-          smooth=Smooth.None), Text(
-          string="%second",
-          index=1,
-          extent={{6,3},{6,3}}));
-      connect(const25.y,busConnector. Exercise_Metabolism_MotionWatts)
-        annotation (Line(
-          points={{-83.25,-45},{-48,-45},{-48,-13},{-33,-13}},
-          color={0,0,127},
-          smooth=Smooth.None), Text(
-          string="%second",
-          index=1,
-          extent={{6,3},{6,3}}));
-      connect(const19.y, busConnector.LegMusclePump_Effect) annotation (Line(
-          points={{-83.25,-33},{-47.85,-33},{-47.85,-13},{-33,-13}},
-          color={0,0,127},
-          smooth=Smooth.None), Text(
-          string="%second",
-          index=1,
-          extent={{6,3},{6,3}}));
-      connect(const14.y, busConnector.HeatInsensibleSkin_H2O)  annotation (Line(
-          points={{-89.25,-13},{-33,-13}},
-          color={0,0,127},
-          smooth=Smooth.None), Text(
-          string="%second",
-          index=1,
-          extent={{6,3},{6,3}}));
-      connect(const15.y, busConnector.HeatInsensibleLung_H2O)  annotation (Line(
-          points={{-89.25,-3},{-48.9,-3},{-48.9,-13},{-33,-13}},
-          color={0,0,127},
-          smooth=Smooth.None), Text(
-          string="%second",
-          index=1,
-          extent={{6,3},{6,3}}));
-      connect(const11.y, busConnector.HeatSweating_H2O) annotation (Line(
-          points={{-73.5,8},{-48.9,8},{-48.9,-13},{-33,-13}},
-          color={0,0,127},
-          smooth=Smooth.None), Text(
-          string="%second",
-          index=1,
-          extent={{6,3},{6,3}}));
-      connect(const1.y, busConnector.ExerciseMetabolism_MotionCals) annotation (
-         Line(
-          points={{-83.25,-53},{-48,-53},{-48,-13},{-33,-13}},
-          color={0,0,127},
-          smooth=Smooth.None), Text(
-          string="%second",
-          index=1,
-          extent={{6,3},{6,3}}));
-      connect(const2.y, busConnector.ExerciseMetabolism_TotalWatts) annotation (
-         Line(
-          points={{-83.25,-61},{-48,-61},{-48,-13},{-33,-13}},
-          color={0,0,127},
-          smooth=Smooth.None), Text(
-          string="%second",
-          index=1,
-          extent={{6,3},{6,3}}));
-      connect(const11.y, busConnector.SweatDuct_H2OOutflow) annotation (Line(
-          points={{-73.5,8},{-33,8},{-33,-13}},
-          color={0,0,127},
-          smooth=Smooth.None), Text(
-          string="%second",
-          index=1,
-          extent={{6,3},{6,3}}));
+    connect(exerciseMusclePump.y, busConnector.Exercise_MusclePump_Effect)
+      annotation (Line(
+        points={{-87.25,-49},{-48,-49},{-48,-13},{-33,-13}},
+        color={0,0,127},
+        smooth=Smooth.None), Text(
+        string="%second",
+        index=1,
+        extent={{6,3},{6,3}}));
+    connect(contractionRate.y, busConnector.Exercise_Metabolism_ContractionRate)
+      annotation (Line(
+        points={{-87.25,29},{-48,29},{-48,-13},{-33,-13}},
+        color={0,0,127},
+        smooth=Smooth.None), Text(
+        string="%second",
+        index=1,
+        extent={{6,3},{6,3}}));
+    connect(legMusclePump.y, busConnector.LegMusclePump_Effect) annotation (
+        Line(
+        points={{-87.25,-69},{-47.85,-69},{-47.85,-13},{-33,-13}},
+        color={0,0,127},
+        smooth=Smooth.None), Text(
+        string="%second",
+        index=1,
+        extent={{6,3},{6,3}}));
+    connect(exercise.y, busConnector.ExerciseMetabolism_MotionCals) annotation
+      (Line(
+        points={{-87.25,53},{-48,53},{-48,-13},{-33,-13}},
+        color={0,0,127},
+        smooth=Smooth.None), Text(
+        string="%second",
+        index=1,
+        extent={{6,3},{6,3}}));
+    connect(effectivity.y, totalWatts.u2) annotation (Line(
+        points={{1,30},{6,30},{6,46},{10,46}},
+        color={0,0,127},
+        smooth=Smooth.None));
+    connect(exercise.y, totalWatts.u1) annotation (Line(
+        points={{-87.25,53},{-15.625,53},{-15.625,58},{10,58}},
+        color={0,0,127},
+        smooth=Smooth.None));
+    connect(totalWatts.y, busConnector.ExerciseMetabolism_TotalWatts)
+      annotation (Line(
+        points={{33,52},{44,52},{44,-13},{-33,-13}},
+        color={0,0,127},
+        smooth=Smooth.None), Text(
+        string="%second",
+        index=1,
+        extent={{6,3},{6,3}}));
+    connect(exercise.y, busConnector.Exercise_Metabolism_MotionWatts)
+      annotation (Line(
+        points={{-87.25,53},{-48,53},{-48,-13},{-33,-13}},
+        color={0,0,127},
+        smooth=Smooth.None), Text(
+        string="%second",
+        index=1,
+        extent={{6,3},{6,3}}));
       annotation (Icon(coordinateSystem(preserveAspectRatio=true,  extent={{-100,
                 -100},{100,100}}), graphics={Text(
               extent={{-100,-20},{100,-60}},
               lineColor={0,0,0},
               textString="exercise")}),            Diagram(coordinateSystem(
-              preserveAspectRatio=true,  extent={{-100,-100},{100,100}}),
+              preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
             graphics));
     end Exercise;
 
@@ -37198,42 +38242,40 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
     Physiolibrary.Types.BusConnector busConnector annotation (Placement(
           transformation(extent={{-40,-20},{-26,-6}}), iconTransformation(
             extent={{-40,-20},{0,20}})));
-    Physiolibrary.Types.Constants.DeprecatedUntypedConstant const36(k=0)
-      annotation (Placement(transformation(extent={{64,50},{58,56}})));
-    Physiolibrary.Types.Constants.DeprecatedUntypedConstant const37(k=0)
+    Physiolibrary.Types.Constants.HeightConst LT_Artys(k=0)
+      annotation (Placement(transformation(extent={{64,54},{58,60}})));
+    Physiolibrary.Types.Constants.HeightConst LT_Veins(k=0)
       annotation (Placement(transformation(extent={{64,44},{58,50}})));
-    Physiolibrary.Types.Constants.DeprecatedUntypedConstant const10(k=0)
+    Physiolibrary.Types.Constants.HeightConst carotidSinusHeight(k=0)
       annotation (Placement(transformation(extent={{64,32},{58,38}})));
     Physiolibrary.Types.Constants.DeprecatedUntypedConstant integerConstant(k=
           Physiomodel.Water.Hydrostatics.Posture.Lying)
       annotation (Placement(transformation(extent={{18,12},{24,18}})));
     equation
-      connect(const36.y,busConnector. LowerTorsoArtyHeight)
-        annotation (Line(
-          points={{57.7,53},{52,53},{52,58},{-38,58},{-38,-13},{-33,-13}},
-          color={0,0,127},
-          smooth=Smooth.None), Text(
-          string="%second",
-          index=1,
-          extent={{6,3},{6,3}}));
-      connect(const37.y,busConnector. LowerTorsoVeinHeight)
-        annotation (Line(
-          points={{57.7,47},{52,47},{52,58},{-38,58},{-38,-13},{-33,-13}},
-          color={0,0,127},
-          smooth=Smooth.None), Text(
-          string="%second",
-          index=1,
-          extent={{6,3},{6,3}}));
-      connect(const10.y,busConnector. CarotidSinusHeight)
-        annotation (Line(
-          points={{57.7,35},{52,35},{52,58},{-38,58},{-38,-13},{-33,-13}},
-          color={0,0,127},
-          smooth=Smooth.None), Text(
-          string="%second",
-          index=1,
-          extent={{6,3},{6,3}}));
+    connect(LT_Artys.y, busConnector.LowerTorsoArtyHeight) annotation (Line(
+        points={{57.25,57},{52,57},{52,58},{-38,58},{-38,-13},{-33,-13}},
+        color={0,0,127},
+        smooth=Smooth.None), Text(
+        string="%second",
+        index=1,
+        extent={{6,3},{6,3}}));
+    connect(LT_Veins.y, busConnector.LowerTorsoVeinHeight) annotation (Line(
+        points={{57.25,47},{52,47},{52,44},{-38,44},{-38,-13},{-33,-13}},
+        color={0,0,127},
+        smooth=Smooth.None), Text(
+        string="%second",
+        index=1,
+        extent={{6,3},{6,3}}));
+    connect(carotidSinusHeight.y, busConnector.CarotidSinusHeight) annotation (
+        Line(
+        points={{57.25,35},{52,35},{52,40},{-38,40},{-38,-13},{-33,-13}},
+        color={0,0,127},
+        smooth=Smooth.None), Text(
+        string="%second",
+        index=1,
+        extent={{6,3},{6,3}}));
       connect(integerConstant.y, busConnector.Status_Posture) annotation (Line(
-          points={{24.3,15},{62.15,15},{62.15,-13},{-33,-13}},
+          points={{24.75,15},{62.15,15},{62.15,-13},{-33,-13}},
           color={0,0,255},
           smooth=Smooth.None), Text(
           string="%second",
@@ -37253,15 +38295,19 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
     Physiolibrary.Types.BusConnector busConnector annotation (Placement(
           transformation(extent={{-40,-20},{-26,-6}}), iconTransformation(
             extent={{-40,-20},{0,20}})));
-    Physiolibrary.Types.Constants.DeprecatedUntypedConstant const38(k=0)
+    Physiolibrary.Types.Constants.MolarFlowRateConst        const38(k=0)
       annotation (Placement(transformation(extent={{26,-72},{20,-66}})));
-    Physiolibrary.Types.Constants.DeprecatedUntypedConstant Constant1(k=0)
+    Physiolibrary.Types.Constants.ConcentrationConst        Constant1(k=0)
       annotation (Placement(transformation(extent={{-80,-88},{-72,-80}})));
-    Physiolibrary.Types.Constants.DeprecatedUntypedConstant Constant2(k=0)
+    Physiolibrary.Types.Constants.ConcentrationConst        Constant2(k=0)
       annotation (Placement(transformation(extent={{-92,6},{-84,14}})));
+    Physiolibrary.Types.Constants.FractionConst             const9(k=1)
+      annotation (Placement(transformation(extent={{-92,60},{-88,64}})));
+    Physiolibrary.Types.Constants.FractionConst             const1(k=1)
+      annotation (Placement(transformation(extent={{-92,46},{-88,50}})));
     equation
       connect(const38.y, busConnector.FurosemidePool_Loss) annotation (Line(
-          points={{19.7,-69},{-33,-69},{-33,-13}},
+          points={{19.25,-69},{-33,-69},{-33,-13}},
           color={0,0,127},
           smooth=Smooth.None), Text(
           string="%second",
@@ -37269,7 +38315,7 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
           extent={{6,3},{6,3}}));
       connect(Constant1.y,busConnector. FurosemidePool_Furosemide_conc)
         annotation (Line(
-          points={{-71.6,-84},{-38,-84},{-38,-13},{-33,-13}},
+          points={{-71,-84},{-38,-84},{-38,-13},{-33,-13}},
           color={0,0,127},
           smooth=Smooth.None), Text(
           string="%second",
@@ -37277,7 +38323,22 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
           extent={{6,3},{6,3}}));
       connect(Constant2.y,busConnector. ThiazidePool_Thiazide_conc) annotation (
           Line(
-          points={{-83.6,10},{-62,10},{-62,-13},{-33,-13}},
+          points={{-83,10},{-62,10},{-62,-13},{-33,-13}},
+          color={0,0,127},
+          smooth=Smooth.None), Text(
+          string="%second",
+          index=1,
+          extent={{6,3},{6,3}}));
+      connect(const9.y, busConnector.AnesthesiaTidalVolume) annotation (Line(
+          points={{-87.5,62},{-33,62},{-33,-13}},
+          color={0,0,127},
+          smooth=Smooth.None), Text(
+          string="%second",
+          index=1,
+          extent={{6,3},{6,3}}));
+      connect(const1.y, busConnector.Anesthesia_VascularConductance)
+        annotation (Line(
+          points={{-87.5,48},{-33,48},{-33,-13}},
           color={0,0,127},
           smooth=Smooth.None), Text(
           string="%second",
@@ -37292,172 +38353,88 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
             graphics));
     end Drugs;
 
-    model Blood
-
-    Physiolibrary.Types.BusConnector busConnector annotation (Placement(
-          transformation(extent={{-40,-20},{-26,-6}}), iconTransformation(
-            extent={{-40,-20},{0,20}})));
-    Physiolibrary.Types.Constants.DeprecatedUntypedConstant const41(k=0)
-      annotation (Placement(transformation(extent={{-90,-2},{-84,4}})));
-    Physiolibrary.Types.Constants.DeprecatedUntypedConstant const5(k=0)
-      annotation (Placement(transformation(extent={{-90,-36},{-84,-30}})));
-    Physiolibrary.Types.Constants.DeprecatedUntypedConstant const6(k=0)
-      annotation (Placement(transformation(extent={{-92,-78},{-86,-72}})));
-    Physiolibrary.Types.Constants.DeprecatedUntypedConstant const(k=0)
-      annotation (Placement(transformation(extent={{-90,10},{-86,14}})));
-    Physiolibrary.Types.Constants.DeprecatedUntypedConstant const22(k=0)
-      annotation (Placement(transformation(extent={{-90,-24},{-86,-20}})));
-    Physiolibrary.Types.Constants.DeprecatedUntypedConstant const16(k=0)
-      annotation (Placement(transformation(extent={{-90,-62},{-86,-58}})));
-    Physiolibrary.Types.Constants.DeprecatedUntypedConstant const1(k=0)
-      annotation (Placement(transformation(extent={{-90,-52},{-86,-48}})));
-    Physiolibrary.Types.Constants.DeprecatedUntypedConstant const2(k=0)
-      annotation (Placement(transformation(extent={{-90,-44},{-84,-38}})));
-    equation
-      connect(const6.y, busConnector.Hemorrhage_ProteinRate) annotation (Line(
-          points={{-85.25,-75},{-85.25,-75.5},{-33,-75.5},{-33,-13}},
-          color={0,0,127},
-          smooth=Smooth.None), Text(
-          string="%second",
-          index=1,
-          extent={{6,3},{6,3}}));
-      connect(const5.y, busConnector.Transfusion_ProteinRate) annotation (Line(
-          points={{-83.25,-33},{-83.25,-32.5},{-33,-32.5},{-33,-13}},
-          color={0,0,127},
-          smooth=Smooth.None), Text(
-          string="%second",
-          index=1,
-          extent={{6,3},{6,3}}));
-      connect(const41.y, busConnector.IVDripProteinRate) annotation (Line(
-          points={{-83.25,1},{-83.25,0.5},{-33,0.5},{-33,-13}},
-          color={0,0,127},
-          smooth=Smooth.None), Text(
-          string="%second",
-          index=1,
-          extent={{6,3},{6,3}}));
-      connect(const.y, busConnector.IVDrip_H2ORate)  annotation (Line(
-          points={{-85.5,12},{-39.85,12},{-39.85,-13},{-33,-13}},
-          color={0,0,127},
-          smooth=Smooth.None), Text(
-          string="%second",
-          index=1,
-          extent={{6,3},{6,3}}));
-      connect(const22.y, busConnector.Transfusion_PlasmaRate)
-                                                             annotation (Line(
-          points={{-85.5,-22},{-33,-22},{-33,-13}},
-          color={0,0,127},
-          smooth=Smooth.None), Text(
-          string="%second",
-          index=1,
-          extent={{6,3},{6,3}}));
-      connect(const16.y, busConnector.Hemorrhage_PlasmaRate)
-                                                            annotation (Line(
-          points={{-85.5,-60},{-33,-60},{-33,-13}},
-          color={0,0,127},
-          smooth=Smooth.None), Text(
-          string="%second",
-          index=1,
-          extent={{6,3},{6,3}}));
-      connect(const1.y, busConnector.Hemorrhage_RBCRate) annotation (Line(
-          points={{-85.5,-50},{-33,-50},{-33,-13}},
-          color={0,0,127},
-          smooth=Smooth.None), Text(
-          string="%second",
-          index=1,
-          extent={{6,3},{6,3}}));
-      connect(const2.y, busConnector.Transfusion_RBCRate) annotation (Line(
-          points={{-83.25,-41},{-33,-41},{-33,-13}},
-          color={0,0,127},
-          smooth=Smooth.None), Text(
-          string="%second",
-          index=1,
-          extent={{6,3},{6,3}}));
-      annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-                -100},{100,100}}), graphics={Text(
-              extent={{-100,-20},{100,-60}},
-              lineColor={0,0,0},
-              textString="blood +-")}),            Diagram(coordinateSystem(
-              preserveAspectRatio=true,  extent={{-100,-100},{100,100}}),
-            graphics));
-    end Blood;
 
     model Tissues
 
     Physiolibrary.Types.BusConnector busConnector annotation (Placement(
           transformation(extent={{-40,-20},{-26,-6}}), iconTransformation(
             extent={{-40,-20},{0,20}})));
-      Modelica.Blocks.Sources.Step step(
-        startTime=600,
-        height=0,
-        offset=-3)
-        annotation (Placement(transformation(extent={{-88,-40},{-78,-30}})));
-      Modelica.Blocks.Sources.Step step1(
-        offset=-4,
-        startTime=600,
-        height=0)
-        annotation (Placement(transformation(extent={{-88,-26},{-78,-16}})));
-    Physiolibrary.Types.Constants.DeprecatedUntypedConstant Constant12(k=1)
-      annotation (Placement(transformation(extent={{-90,46},{-84,52}})));
-    Physiolibrary.Types.Constants.DeprecatedUntypedConstant Constant11(k=0)
-      annotation (Placement(transformation(extent={{-90,52},{-84,58}})));
-    Physiolibrary.Types.Constants.DeprecatedUntypedConstant Constant1(k=1)
-      annotation (Placement(transformation(extent={{-88,22},{-80,30}})));
-    Physiolibrary.Types.Constants.DeprecatedUntypedConstant Constant21(units=
-          "ml", k=31)
-      annotation (Placement(transformation(extent={{-86,70},{-78,78}})));
-    Physiolibrary.Types.Constants.DeprecatedUntypedConstant Constant2(k=1)
-      annotation (Placement(transformation(extent={{-88,10},{-80,18}})));
+      Physiolibrary.Types.Constants.PressureConst pericardiumPressure(k=-399.967162245)
+      annotation (Placement(transformation(extent={{-90,-30},{-80,-20}})));
+      Physiolibrary.Types.Constants.PressureConst intrathoraxPressure(k=-533.28954966)
+      annotation (Placement(transformation(extent={{-90,-54},{-80,-44}})));
+    Physiolibrary.Types.Constants.FractionConst lungsInflation(k=1)
+      annotation (Placement(transformation(extent={{-88,-84},{-82,-78}})));
+    Physiolibrary.Types.Constants.FractionConst nephronCount(k=1)
+      annotation (Placement(transformation(extent={{-90,64},{-82,72}})));
+    Physiolibrary.Types.Constants.FractionConst nephronFiltering(k=1)
+      annotation (Placement(transformation(extent={{-90,46},{-82,54}})));
+    Physiolibrary.Types.Constants.MassConst
+      skeletalMuscle_SizeMass(k(displayUnit="kg") = 26.743562037659)
+      annotation (Placement(transformation(extent={{54,12},{48,18}})));
+    Physiolibrary.Types.Constants.MassConst                 skinSizeMass(k(
+          displayUnit="kg") = 2.7928726258528)
+      annotation (Placement(transformation(extent={{54,24},{48,30}})));
+    Physiolibrary.Types.Constants.MassConst                 WeightCore(k(
+          displayUnit="kg") = 48.332738903116)
+      annotation (Placement(transformation(extent={{54,38},{48,44}})));
     equation
-      connect(step.y,busConnector. Pericardium_Pressure)          annotation (
-         Line(
-          points={{-77.5,-35},{-32,-35},{-32,-13},{-33,-13}},
+    connect(pericardiumPressure.y, busConnector.Pericardium_Pressure)
+      annotation (Line(
+        points={{-78.75,-25},{-32,-25},{-32,-13},{-33,-13}},
+        color={0,0,127},
+        smooth=Smooth.None), Text(
+        string="%second",
+        index=1,
+        extent={{6,3},{6,3}}));
+    connect(intrathoraxPressure.y, busConnector.Thorax_AvePressure) annotation
+      (Line(
+        points={{-78.75,-49},{-33,-49},{-33,-13}},
+        color={0,0,127},
+        smooth=Smooth.None), Text(
+        string="%second",
+        index=1,
+        extent={{6,3},{6,3}}));
+    connect(lungsInflation.y, busConnector.Thorax_LungInflation) annotation (
+        Line(
+        points={{-81.25,-81},{-33,-81},{-33,-13}},
+        color={0,0,127},
+        smooth=Smooth.None), Text(
+        string="%second",
+        index=1,
+        extent={{6,3},{6,3}}));
+    connect(nephronCount.y, busConnector.Kidney_NephronCount_Total_xNormal)
+      annotation (Line(
+        points={{-81,68},{-34,68},{-34,-13},{-33,-13}},
+        color={0,0,127},
+        smooth=Smooth.None), Text(
+        string="%second",
+        index=1,
+        extent={{6,3},{6,3}}));
+    connect(nephronFiltering.y, busConnector.Kidney_NephronCount_Filtering_xNormal)
+      annotation (Line(
+        points={{-81,50},{-34,50},{-34,-13},{-33,-13}},
+        color={0,0,127},
+        smooth=Smooth.None), Text(
+        string="%second",
+        index=1,
+        extent={{6,3},{6,3}}));
+    connect(skeletalMuscle_SizeMass.y, busConnector.skeletalMuscle_SizeMass) annotation (Line(
+     points={{47.25,15},{-33,15},{-33,-13}},
           color={0,0,127},
           smooth=Smooth.None), Text(
           string="%second",
           index=1,
           extent={{6,3},{6,3}}));
-      connect(step1.y,busConnector. Thorax_AvePressure)          annotation (
-          Line(
-          points={{-77.5,-21},{-33,-21},{-33,-13}},
+    connect(skinSizeMass.y, busConnector.skinSizeMass) annotation (Line(
+     points={{47.25,27},{-33,27},{-33,-13}},
           color={0,0,127},
           smooth=Smooth.None), Text(
           string="%second",
           index=1,
           extent={{6,3},{6,3}}));
-      connect(Constant12.y, busConnector.Thorax_LungInflation)
-        annotation (Line(
-          points={{-83.25,49},{-33,49},{-33,-13}},
-          color={0,0,127},
-          smooth=Smooth.None), Text(
-          string="%second",
-          index=1,
-          extent={{6,3},{6,3}}));
-      connect(Constant11.y, busConnector.ExcessLungWater_Volume)
-        annotation (Line(
-          points={{-83.25,55},{-33,55},{-33,-13}},
-          color={0,0,127},
-          smooth=Smooth.None), Text(
-          string="%second",
-          index=1,
-          extent={{6,3},{6,3}}));
-      connect(Constant1.y, busConnector.Kidney_NephronCount_Total_xNormal)
-        annotation (Line(
-          points={{-79,26},{-34,26},{-34,-13},{-33,-13}},
-          color={0,0,127},
-          smooth=Smooth.None), Text(
-          string="%second",
-          index=1,
-          extent={{6,3},{6,3}}));
-      connect(Constant21.y, busConnector.Medulla_Volume)        annotation (Line(
-          points={{-77,74},{-34,74},{-34,-13},{-33,-13}},
-          color={0,0,127},
-          smooth=Smooth.None), Text(
-          string="%second",
-          index=1,
-          extent={{6,3},{6,3}}));
-      connect(Constant2.y, busConnector.Kidney_NephronCount_Filtering_xNormal)
-        annotation (Line(
-          points={{-79,14},{-34,14},{-34,-13},{-33,-13}},
+    connect(WeightCore.y, busConnector.WeightCore) annotation (Line(
+     points={{47.25,41},{-33,41},{-33,-13}},
           color={0,0,127},
           smooth=Smooth.None), Text(
           string="%second",
@@ -37468,123 +38445,12 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
               extent={{-100,-20},{100,-60}},
               lineColor={0,0,0},
               textString="tissues")}),             Diagram(coordinateSystem(
-              preserveAspectRatio=true,  extent={{-100,-100},{100,100}}),
+              preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
             graphics));
     end Tissues;
 
-    model Secretion "of urine and faeces"
 
-    Physiolibrary.Types.BusConnector busConnector annotation (Placement(
-          transformation(extent={{-40,-20},{-26,-6}}), iconTransformation(
-            extent={{-40,-20},{0,20}})));
-    Physiolibrary.Types.Constants.DeprecatedUntypedConstant const9(k=0)
-      annotation (Placement(transformation(extent={{-60,24},{-56,28}})));
-    equation
-      connect(const9.y, busConnector.BladerVoidFlow) annotation (Line(
-          points={{-55.8,26},{-33,26},{-33,-13}},
-          color={0,0,127},
-          smooth=Smooth.None), Text(
-          string="%second",
-          index=1,
-          extent={{6,3},{6,3}}));
-      connect(const9.y, busConnector.BladderVoidFlow) annotation (Line(
-          points={{-55.8,26},{-33,26},{-33,-13}},
-          color={0,0,127},
-          smooth=Smooth.None));
-      annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-                -100},{100,100}}), graphics={Text(
-              extent={{-100,-20},{100,-60}},
-              lineColor={0,0,0},
-              textString="secretion")}),                Diagram(coordinateSystem(
-              preserveAspectRatio=true,  extent={{-100,-100},{100,100}}),
-            graphics));
-    end Secretion;
 
-    model Anesthesia
-
-    Physiolibrary.Types.BusConnector busConnector annotation (Placement(
-          transformation(extent={{-40,-20},{-26,-6}}), iconTransformation(
-            extent={{-40,-20},{0,20}})));
-    Physiolibrary.Types.Constants.DeprecatedUntypedConstant const9(k=1)
-      annotation (Placement(transformation(extent={{-60,24},{-56,28}})));
-    Physiolibrary.Types.Constants.DeprecatedUntypedConstant const1(k=1)
-      annotation (Placement(transformation(extent={{-76,14},{-72,18}})));
-    equation
-      connect(const9.y, busConnector.AnesthesiaTidalVolume) annotation (Line(
-          points={{-55.8,26},{-33,26},{-33,-13}},
-          color={0,0,127},
-          smooth=Smooth.None), Text(
-          string="%second",
-          index=1,
-          extent={{6,3},{6,3}}));
-      connect(const1.y, busConnector.Anesthesia_VascularConductance)
-        annotation (Line(
-          points={{-71.8,16},{-33,16},{-33,-13}},
-          color={0,0,127},
-          smooth=Smooth.None), Text(
-          string="%second",
-          index=1,
-          extent={{6,3},{6,3}}));
-      annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-                -100},{100,100}}), graphics={Text(
-              extent={{-100,-20},{100,-60}},
-              lineColor={0,0,0},
-              textString="anesthesia")}),               Diagram(coordinateSystem(
-              preserveAspectRatio=true,  extent={{-100,-100},{100,100}}),
-            graphics),
-        Documentation(info="<html>
-<p>effect 1 means no anesthesia</p>
-</html>"));
-    end Anesthesia;
-
-    model Unpaired
-
-    Physiolibrary.Types.BusConnector busConnector annotation (Placement(
-          transformation(extent={{72,-2},{86,12}}), iconTransformation(extent={
-              {-40,-20},{0,20}})));
-    Physiolibrary.Types.Constants.DeprecatedUntypedConstant HeatShivering_Cals(
-        k=0.)
-      annotation (Placement(transformation(extent={{-96,-70},{-90,-64}})));
-    Physiolibrary.Types.Constants.DeprecatedUntypedConstant
-      HypothalamusSkinFlow_NervesActivity(k=0.935029749050722)
-      annotation (Placement(transformation(extent={{-96,-78},{-90,-72}})));
-    Physiolibrary.Types.Constants.DeprecatedUntypedConstant
-      HypothalamusTSH_TemperatureEffect(k=1.03855784498264)
-      annotation (Placement(transformation(extent={{-96,-62},{-90,-56}})));
-    Physiolibrary.Types.Constants.DeprecatedUntypedConstant
-      skeletalMuscle_SizeMass(k=26743.5620376591)
-      annotation (Placement(transformation(extent={{-96,22},{-90,28}})));
-    Physiolibrary.Types.Constants.DeprecatedUntypedConstant skinSizeMass(k=
-          2792.87262585285)
-      annotation (Placement(transformation(extent={{-96,28},{-90,34}})));
-    Physiolibrary.Types.Constants.DeprecatedUntypedConstant WeightCore(k=
-          48332.7389031163)
-      annotation (Placement(transformation(extent={{-96,34},{-90,40}})));
-    equation
-    connect(skeletalMuscle_SizeMass.y, busConnector.skeletalMuscle_SizeMass) annotation (Line(
-     points={{-89.25,25},{79,25},{79,5}},
-          color={0,0,127},
-          smooth=Smooth.None), Text(
-          string="%second",
-          index=1,
-          extent={{6,3},{6,3}}));
-    connect(skinSizeMass.y, busConnector.skinSizeMass) annotation (Line(
-     points={{-89.25,31},{79,31},{79,5}},
-          color={0,0,127},
-          smooth=Smooth.None), Text(
-          string="%second",
-          index=1,
-          extent={{6,3},{6,3}}));
-    connect(WeightCore.y, busConnector.WeightCore) annotation (Line(
-     points={{-89.25,37},{79,37},{79,5}},
-          color={0,0,127},
-          smooth=Smooth.None), Text(
-          string="%second",
-          index=1,
-          extent={{6,3},{6,3}}));
-      annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-                -100},{100,100}}),      graphics));
-    end Unpaired;
 
     package IO_Bus
       extends Physiolibrary.Types.IO_Bus;
@@ -40930,7 +41796,7 @@ The Real output y is a constant signal:
             string="%first",
             index=-1,
             extent={{-6,3},{-6,3}}));
-        connect(upperTorsoInterstitialOsmoles.y, busConnector.UT.InterstitialOsmoles)
+        connect(upperTorsoInterstitialOsmoles.y, busConnector.UT_InterstitialOsmoles)
           annotation (Line(
             points={{52.6,-9.5},{92,-9.5},{92,1},{-14,1},{-14,38}},
             color={0,0,127},
@@ -40947,13 +41813,13 @@ The Real output y is a constant signal:
             string="%first",
             index=-1,
             extent={{-6,3},{-6,3}}));
-        connect(busConnector.MT.InterstitialWater_Vol, middleTorsoInterstitialOsmoles.u2)
+        connect(busConnector.MT_InterstitialWater_Vol, middleTorsoInterstitialOsmoles.u2)
           annotation (Line(
             points={{-14,38},{-14,-32.8},{38.8,-32.8}},
             color={255,204,51},
             thickness=0.5,
             smooth=Smooth.None));
-        connect(middleTorsoInterstitialOsmoles.y, busConnector.MT.InterstitialOsmoles)
+        connect(middleTorsoInterstitialOsmoles.y, busConnector.MT_InterstitialOsmoles)
           annotation (Line(
             points={{52.6,-29.5},{92,-29.5},{92,-19},{-14,-19},{-14,38}},
             color={0,0,127},
@@ -40970,13 +41836,13 @@ The Real output y is a constant signal:
             string="%first",
             index=-1,
             extent={{-6,3},{-6,3}}));
-        connect(busConnector.LT.InterstitialWater_Vol, lowerTorsoInterstitialOsmoles.u2) annotation (
+        connect(busConnector.LT_InterstitialWater_Vol, lowerTorsoInterstitialOsmoles.u2) annotation (
            Line(
             points={{-14,38},{-14,-54.8},{38.8,-54.8}},
             color={255,204,51},
             thickness=0.5,
             smooth=Smooth.None));
-        connect(lowerTorsoInterstitialOsmoles.y, busConnector.LT.InterstitialOsmoles)
+        connect(lowerTorsoInterstitialOsmoles.y, busConnector.LT_InterstitialOsmoles)
           annotation (Line(
             points={{52.6,-51.5},{92,-51.5},{92,-41},{-14,-41},{-14,38}},
             color={0,0,127},
@@ -40993,7 +41859,7 @@ The Real output y is a constant signal:
             string="%first",
             index=-1,
             extent={{-6,3},{-6,3}}));
-        connect(busConnector.UT.InterstitialWater_Vol, upperTorsoInterstitialOsmoles.u2)
+        connect(busConnector.UT_InterstitialWater_Vol, upperTorsoInterstitialOsmoles.u2)
           annotation (Line(
             points={{-14,38},{-14,-12.8},{38.8,-12.8}},
             color={255,204,51},
@@ -41937,7 +42803,7 @@ QHP 2008 / Peritoneum
         fromMetabolism = metabolicH2O.q_out.q;
 
         connect(calsFract.y, metabolicH2O.solutionFlow) annotation (Line(
-            points={{54.6,-82},{78,-82},{78,-84}},
+            points={{54.6,-82},{78,-82},{78,-81}},
             color={0,0,127},
             smooth=Smooth.None));
       //  volume = extravascularH2O.WaterVolume;
@@ -41949,7 +42815,7 @@ QHP 2008 / Peritoneum
             thickness=1,
             smooth=Smooth.None));
         connect(InterstitialPressureEffect.y, lymph.solutionFlow) annotation (Line(
-            points={{-58,-62},{-58,-66}},
+            points={{-58,-62},{-58,-63}},
             color={0,0,127},
             smooth=Smooth.None));
         connect(flowConstant.y,InterstitialPressureEffect. yBase) annotation (
@@ -41968,7 +42834,7 @@ QHP 2008 / Peritoneum
             thickness=1,
             smooth=Smooth.None));
         connect(pressureOnVolume.u, Interstitium.volume) annotation (Line(
-            points={{4,-40},{8,-40},{8,-10}},
+            points={{4,-40},{2,-40},{2,-10}},
             color={0,0,127},
             smooth=Smooth.None));
         connect(pressureOnVolume.val, capyMembrane.hydraulicPressureOut) annotation (
@@ -42018,7 +42884,7 @@ QHP 2008 / Peritoneum
           extent={{6,3},{6,3}}));
         connect(Interstitium.volume, torsoSpecific.InterstitialWater_Vol) annotation (
            Line(
-            points={{8,-10},{54,-10},{54,35.5},{71,35.5}},
+            points={{2,-10},{54,-10},{54,35.5},{71,35.5}},
             color={215,215,215},
             smooth=Smooth.None), Text(
             string="%second",
@@ -42061,7 +42927,7 @@ QHP 2008 / Peritoneum
             index=-1,
             extent={{-6,3},{-6,3}}));
       connect(lungFract.y, insensibleLungVapor.solutionFlow) annotation (Line(
-          points={{-15.6,26},{-10,26}},
+          points={{-15.6,26},{-13,26}},
           color={0,0,127},
           smooth=Smooth.None));
         connect(insensibleLungVapor.q_in, Interstitium.q_in[1]) annotation (Line(
@@ -42074,11 +42940,11 @@ QHP 2008 / Peritoneum
           color={0,0,127},
           smooth=Smooth.None));
       connect(insensibleSkinVapor.solutionFlow, skinFract.y) annotation (Line(
-          points={{4,44},{-1.6,44}},
+          points={{1,44},{-1.6,44}},
           color={0,0,127},
           smooth=Smooth.None));
       connect(sweat.solutionFlow, sweatFract.y) annotation (Line(
-          points={{20,64},{14.4,64}},
+          points={{17,64},{14.4,64}},
           color={0,0,127},
           smooth=Smooth.None));
       connect(busConnector.SweatDuct_H2OOutflow, sweatFract.u) annotation (Line(
@@ -42097,7 +42963,7 @@ QHP 2008 / Peritoneum
           index=-1,
           extent={{-6,3},{-6,3}}));
       connect(torsoSpecific.Cell_H2O, ICF.volume) annotation (Line(
-          points={{71,35.5},{54,35.5},{54,-66},{84,-66}},
+          points={{71,35.5},{54,35.5},{54,-66},{78,-66}},
           color={215,215,215},
           smooth=Smooth.None), Text(
           string="%first",
@@ -43549,6 +44415,1041 @@ QHP 2008 / Peritoneum
               textString="%name")}), Diagram(coordinateSystem(preserveAspectRatio=false,
               extent={{-100,-100},{100,100}}), graphics));
     end Bladder_steady2;
+
+      model Torso_UT_OM
+        import Physiomodel;
+          extends Physiolibrary.Icons.Torso;
+
+      //    parameter Real interstitiumProteins = 2.6;
+
+          parameter Physiolibrary.Types.Volume InterstitialWater_start
+        "2270,5670,3400 ml";
+          parameter Physiolibrary.Types.Volume IntracellularWater_start
+        "4980,12460,7470 ml";
+
+          parameter Physiolibrary.Types.VolumeFlowRate NormalLymphFlow
+        "0.4,0.8,1.3 ml/min";
+
+          parameter Physiolibrary.Types.OsmoticPermeability CapillaryConductance
+        "Capillary wall permeability for water. 0.6, 3.6, 1.3 ml/(kPa.min)";
+
+          parameter Real[ :,3] InterstitialPressureVolumeData
+        "{{600.0,-30.0,0.01},{2000.0,-4.8,0.0004},{5000.0,0.0,0.0004},{12000.0,50.0,0.01}}, {{1200.0,-30.0,0.01},{4800.0,-4.8,0.0004},{12000.0,0.0,0.0004},{24000.0,50.0,0.01}}, {{600.0,-30.0,0.02},{3000.0,-4.8,0.0004},{4000.0,-4.0,0.0004},{6000.0,50.0,0.03}}";
+          parameter Physiolibrary.Types.Fraction ICFVFract
+        "0.94. Ratio between non-RBC-ICFV and total ICFV, because red cells are not part of any torso ICF!";
+          parameter Physiolibrary.Types.Fraction SizeFract "0.2,0.5,0.3";
+          parameter Physiolibrary.Types.Fraction CalsFract "0.3,0.5,0.2";
+          parameter Physiolibrary.Types.Fraction SweatFract "0.33,0.34,0.33";
+          parameter Physiolibrary.Types.Fraction SkinFract "0.33,0.34,0.33";
+          parameter Physiolibrary.Types.Fraction LungFract "0,1,0";
+
+      Physiolibrary.Types.BusConnector      torsoSpecific annotation (Placement(
+            transformation(extent={{62,27},{80,44}}), iconTransformation(extent=
+               {{30,10},{50,30}})));
+      Physiolibrary.Osmotic.Interfaces.OsmoticPort_a vascularH2O
+        "plasma capillary wall osmotic connector"
+        annotation (Placement(transformation(extent={{-92,-42},{-72,-22}}),
+            iconTransformation(extent={{-70,-10},{-50,10}})));
+        Modelica.Blocks.Math.Gain calsFract(k=CalsFract) annotation (Placement(
+              transformation(
+              extent={{-6,-6},{6,6}},
+              rotation=0,
+              origin={48,-82})));
+
+      //  Physiolibrary.Types.Volume volume;
+      //  Physiolibrary.Types.VolumeFlowRate change;
+      Physiolibrary.Osmotic.Sources.SolventInflux metabolicH2O(useSolutionFlowInput=true)
+          annotation (Placement(transformation(extent={{68,-98},{88,-78}})));
+      Physiolibrary.Osmotic.Sensors.FlowMeasure flowMeasure1 annotation (
+          Placement(transformation(
+            extent={{5,4},{-5,-4}},
+            rotation=270,
+            origin={24,45})));
+      Physiolibrary.Osmotic.Sensors.FlowMeasure flowMeasure2 annotation (
+          Placement(transformation(
+            extent={{5,6},{-5,-6}},
+            rotation=270,
+            origin={8,25})));
+        Physiolibrary.Osmotic.Components.Membrane capyMembrane(
+          useHydraulicPressureInputs=true,
+          useTemperatureInputs=false,
+          cond=CapillaryConductance)
+          annotation (Placement(transformation(extent={{-60,-24},{-40,-4}})));
+      Physiolibrary.Osmotic.Components.SolventFlux lymph(useSolutionFlowInput=
+            true) annotation (Placement(transformation(
+            extent={{-10,10},{10,-10}},
+            rotation=180,
+            origin={-58,-70})));
+      Physiolibrary.Blocks.Factors.Spline InterstitialPressureEffect(
+          data={{-14.0,0.0,0.0},{-4.0,1.0,0.1},{2.0,8.0,4.0},{6.0,25.0,0.0}},
+          Xscale=101325/760,
+          y(unit="m3/s"))
+        annotation (Placement(transformation(extent={{-48,-68},{-68,-48}})));
+      Physiolibrary.Types.Constants.VolumeFlowRateConst flowConstant(k=
+              NormalLymphFlow)
+        annotation (Placement(transformation(extent={{-68,-50},{-60,-42}})));
+        Physiolibrary.Osmotic.Components.OsmoticCell Interstitium(
+            useImpermeableSolutesInput=true, volume_start=InterstitialWater_start,
+          NumberOfMembraneTypes=2)
+        "Iterstitium has two type of membranes: capillary membrane (index 1) and cell membrane (index 2)"
+          annotation (Placement(transformation(extent={{18,-10},{-2,10}})));
+        Physiolibrary.Blocks.Interpolation.Curve pressureOnVolume(
+          Xscale=1e-6,
+          Yscale=101325/760,
+        data=InterstitialPressureVolumeData)
+          annotation (Placement(transformation(extent={{4,-50},{-16,-30}})));
+      Physiolibrary.Osmotic.Sources.SolventOutflux sweat(useSolutionFlowInput=
+            true)
+        annotation (Placement(transformation(extent={{10,10},{-10,-10}},
+            rotation=270,
+            origin={24,64})));
+      Physiolibrary.Types.Constants.VolumeFlowRateConst Vapor(k=
+            6.1666666666667e-09)
+          annotation (Placement(transformation(extent={{-24,40},{-16,48}})));
+      Physiolibrary.Osmotic.Sources.SolventOutflux insensibleSkinVapor(
+            useSolutionFlowInput=true) annotation (Placement(transformation(
+              extent={{10,10},{-10,-10}},
+              rotation=270,
+              origin={8,44})));
+        Physiolibrary.Osmotic.Components.OsmoticCell ICF(useImpermeableSolutesInput=true,
+            volume_start=IntracellularWater_start)
+          annotation (Placement(transformation(extent={{94,-66},{74,-46}})));
+        Physiolibrary.Osmotic.Components.Membrane cellMembrane(
+          useTemperatureInputs=false,
+          useHydraulicPressureInputs=false,
+        cond(displayUnit="l/(kPa.min)") = 1.6666666666667e-08)
+          annotation (Placement(transformation(extent={{62,-46},{82,-26}})));
+      Physiolibrary.Types.BusConnector busConnector annotation (Placement(
+            transformation(extent={{30,70},{50,90}}), iconTransformation(extent=
+               {{30,70},{50,90}})));
+        Modelica.Blocks.Math.Gain sizeFract(k=SizeFract*ICFVFract)
+                                                         annotation (Placement(
+              transformation(
+              extent={{6,-6},{-6,6}},
+              rotation=180,
+              origin={90,72})));
+      Modelica.Blocks.Math.Gain lungFract(k=LungFract)
+        annotation (Placement(transformation(extent={{-24,22},{-16,30}})));
+      Physiolibrary.Osmotic.Sources.SolventOutflux insensibleLungVapor(
+          useSolutionFlowInput=true) annotation (Placement(transformation(
+            extent={{-10,-10},{10,10}},
+            rotation=90,
+            origin={-6,26})));
+      Modelica.Blocks.Math.Gain skinFract(k=SkinFract) annotation (Placement(
+            transformation(
+            extent={{-4,-4},{4,4}},
+            rotation=0,
+            origin={-6,44})));
+      Modelica.Blocks.Math.Gain sweatFract(k=SweatFract) annotation (Placement(
+            transformation(
+            extent={{-4,-4},{4,4}},
+            rotation=0,
+            origin={10,64})));
+
+        Physiolibrary.Types.VolumeFlowRate fromCapillaries, toLymph, evaporation, fromMetabolism;
+      equation
+        fromCapillaries = capyMembrane.q_in.q;
+        toLymph = lymph.q_out.q;
+        evaporation = insensibleLungVapor.q_in.q + insensibleSkinVapor.q_in.q + sweat.q_in.q;
+        fromMetabolism = metabolicH2O.q_out.q;
+
+        connect(calsFract.y, metabolicH2O.solutionFlow) annotation (Line(
+            points={{54.6,-82},{78,-82},{78,-81}},
+            color={0,0,127},
+            smooth=Smooth.None));
+      //  volume = extravascularH2O.WaterVolume;
+      //  change = extravascularH2O.q_out.q;
+
+        connect(vascularH2O, capyMembrane.q_in) annotation (Line(
+            points={{-82,-32},{-82,-14},{-60,-14}},
+            color={127,127,0},
+            thickness=1,
+            smooth=Smooth.None));
+        connect(InterstitialPressureEffect.y, lymph.solutionFlow) annotation (Line(
+            points={{-58,-62},{-58,-63}},
+            color={0,0,127},
+            smooth=Smooth.None));
+        connect(flowConstant.y,InterstitialPressureEffect. yBase) annotation (
+            Line(
+            points={{-59,-46},{-58,-46},{-58,-56}},
+            color={0,0,127},
+            smooth=Smooth.None));
+        connect(vascularH2O, lymph.q_out) annotation (Line(
+            points={{-82,-32},{-82,-70},{-68,-70}},
+            color={127,127,0},
+            thickness=1,
+            smooth=Smooth.None));
+        connect(flowMeasure2.q_in, Interstitium.q_in[1]) annotation (Line(
+            points={{8,20},{8,-0.5}},
+            color={127,127,0},
+            thickness=1,
+            smooth=Smooth.None));
+        connect(pressureOnVolume.u, Interstitium.volume) annotation (Line(
+            points={{4,-40},{2,-40},{2,-10}},
+            color={0,0,127},
+            smooth=Smooth.None));
+        connect(pressureOnVolume.val, capyMembrane.hydraulicPressureOut) annotation (
+            Line(
+            points={{-16,-40},{-20,-40},{-20,-6},{-42,-6}},
+            color={0,0,127},
+            smooth=Smooth.None));
+        connect(pressureOnVolume.val, InterstitialPressureEffect.u) annotation (Line(
+            points={{-16,-40},{-20,-40},{-20,-58},{-50,-58}},
+            color={0,0,127},
+            smooth=Smooth.None));
+        connect(sweat.q_in, flowMeasure1.q_out) annotation (Line(
+            points={{24,58},{24,50}},
+            color={127,127,0},
+            thickness=1,
+            smooth=Smooth.None));
+        connect(insensibleSkinVapor.q_in, flowMeasure2.q_out) annotation (Line(
+            points={{8,38},{8,30}},
+            color={127,127,0},
+            thickness=1,
+            smooth=Smooth.None));
+        connect(ICF.q_in[1], cellMembrane.q_out) annotation (Line(
+            points={{84,-56},{86,-56},{86,-36},{82,-36}},
+            color={127,127,0},
+            thickness=1,
+            smooth=Smooth.None));
+        connect(metabolicH2O.q_out, ICF.q_in[1]) annotation (Line(
+            points={{84,-88},{96,-88},{96,-56},{84,-56}},
+            color={127,127,0},
+            thickness=1,
+            smooth=Smooth.None));
+      connect(flowMeasure1.volumeFlowRate, torsoSpecific.UT_Sweat_H2OOutflow)
+        annotation (Line(
+          points={{26.4,45},{54,45},{54,35.5},{71,35.5}},
+          color={215,215,215},
+          smooth=Smooth.None), Text(
+          string="%second",
+          index=1,
+          extent={{6,3},{6,3}}));
+      connect(flowMeasure2.volumeFlowRate, torsoSpecific.UT_InsensibleSkin_H2O)
+        annotation (Line(
+          points={{11.6,25},{54,25},{54,35.5},{71,35.5}},
+          color={215,215,215},
+          smooth=Smooth.None), Text(
+          string="%second",
+          index=1,
+          extent={{6,3},{6,3}}));
+        connect(Interstitium.volume, torsoSpecific.UT_InterstitialWater_Vol) annotation (
+           Line(
+            points={{2,-10},{54,-10},{54,35.5},{71,35.5}},
+            color={215,215,215},
+            smooth=Smooth.None), Text(
+            string="%second",
+            index=1,
+            extent={{6,3},{6,3}}));
+        connect(Interstitium.impermeableSolutes[1], torsoSpecific.UT_InterstitialProtein_Mass)
+          annotation (Line(
+            points={{16,5},{54,5},{54,35.5},{71,35.5}},
+            color={0,0,127},
+            smooth=Smooth.None), Text(
+            string="%second",
+            index=1,
+            extent={{6,3},{6,3}}));
+        connect(InterstitialPressureEffect.y, torsoSpecific.UT_LymphFlow) annotation (
+           Line(
+            points={{-58,-62},{52,-62},{52,35.5},{71,35.5}},
+            color={215,215,215},
+            smooth=Smooth.None), Text(
+            string="%second",
+            index=1,
+            extent={{6,3},{6,3}}));
+        connect(ICF.impermeableSolutes[1], sizeFract.y) annotation (Line(
+            points={{92,-50},{96,-50},{96,72},{96.6,72}},
+            color={0,0,127},
+            smooth=Smooth.None));
+        connect(busConnector.OsmBody_ICFVActiveOsmoles, sizeFract.u) annotation (Line(
+            points={{40,80},{40,72},{82.8,72}},
+            color={0,0,127},
+            smooth=Smooth.None), Text(
+            string="%first",
+            index=-1,
+            extent={{-6,3},{-6,3}}));
+        connect(torsoSpecific.UT_CapillaryRegionalPressure, capyMembrane.hydraulicPressureIn)
+          annotation (Line(
+            points={{71,35.5},{71,36},{56,36},{56,14},{-98,14},{-98,-6},{-58,-6}},
+            color={170,255,255},
+            smooth=Smooth.None,
+          thickness=0.5),        Text(
+            string="%first",
+            index=-1,
+            extent={{-6,3},{-6,3}}));
+      connect(lungFract.y, insensibleLungVapor.solutionFlow) annotation (Line(
+          points={{-15.6,26},{-13,26}},
+          color={0,0,127},
+          smooth=Smooth.None));
+        connect(insensibleLungVapor.q_in, Interstitium.q_in[1]) annotation (Line(
+            points={{-6,20},{-6,10},{8,10},{8,-0.5}},
+            color={127,127,0},
+            thickness=1,
+            smooth=Smooth.None));
+      connect(Vapor.y, skinFract.u) annotation (Line(
+          points={{-15,44},{-10.8,44}},
+          color={0,0,127},
+          smooth=Smooth.None));
+      connect(insensibleSkinVapor.solutionFlow, skinFract.y) annotation (Line(
+          points={{1,44},{-1.6,44}},
+          color={0,0,127},
+          smooth=Smooth.None));
+      connect(sweat.solutionFlow, sweatFract.y) annotation (Line(
+          points={{17,64},{14.4,64}},
+          color={0,0,127},
+          smooth=Smooth.None));
+      connect(busConnector.SweatDuct_H2OOutflow, sweatFract.u) annotation (Line(
+          points={{40,80},{-66,80},{-66,64},{5.2,64}},
+          color={0,0,255},
+          smooth=Smooth.None), Text(
+          string="%first",
+          index=-1,
+          extent={{-6,3},{-6,3}}));
+      connect(busConnector.HeatInsensibleLung_H2O, lungFract.u) annotation (
+          Line(
+          points={{40,80},{-66,80},{-66,26},{-24.8,26}},
+          color={0,0,255},
+          smooth=Smooth.None), Text(
+          string="%first",
+          index=-1,
+          extent={{-6,3},{-6,3}}));
+      connect(torsoSpecific.UT_Cell_H2O, ICF.volume) annotation (Line(
+          points={{71,35.5},{54,35.5},{54,-66},{78,-66}},
+          color={215,215,215},
+          smooth=Smooth.None), Text(
+          string="%first",
+          index=-1,
+          extent={{-6,3},{-6,3}}));
+      connect(busConnector.MetabolicH2O_Rate, calsFract.u) annotation (Line(
+          points={{40,80},{-100,80},{-100,-82},{40.8,-82}},
+          color={0,0,255},
+          smooth=Smooth.None), Text(
+          string="%first",
+          index=-1,
+          extent={{-6,3},{-6,3}}));
+        connect(Interstitium.impermeableSolutes[2], torsoSpecific.UT_InterstitialOsmoles)
+          annotation (Line(
+            points={{16,7},{68,7},{68,35.5},{71,35.5}},
+            color={0,0,127},
+            smooth=Smooth.None));
+        connect(Interstitium.q_in[2], cellMembrane.q_in) annotation (Line(
+            points={{8,0.5},{36,0.5},{36,-36},{62,-36}},
+            color={127,127,0},
+            thickness=1,
+            smooth=Smooth.None));
+      connect(flowMeasure1.q_in, Interstitium.q_in[1]) annotation (Line(
+          points={{24,40},{24,10},{8,10},{8,-0.5}},
+          color={127,127,0},
+          thickness=1,
+          smooth=Smooth.None));
+      connect(Interstitium.q_in[1], lymph.q_in) annotation (Line(
+          points={{8,-0.5},{-18,-0.5},{-18,-70},{-48,-70}},
+          color={127,127,0},
+          thickness=1,
+          smooth=Smooth.None));
+      connect(capyMembrane.q_out, Interstitium.q_in[1]) annotation (Line(
+          points={{-40,-14},{-18,-14},{-18,-0.5},{8,-0.5}},
+          color={127,127,0},
+          thickness=1,
+          smooth=Smooth.None));
+        annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
+                  -100},{100,100}}), graphics), Icon(coordinateSystem(
+                preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
+              graphics={                 Text(
+                extent={{-139,-101},{142,-126}},
+                lineColor={0,0,255},
+                textString="%name")}));
+      end Torso_UT_OM;
+
+      model Torso_MT_OM
+        import Physiomodel;
+          extends Physiolibrary.Icons.Torso;
+
+      //    parameter Real interstitiumProteins = 2.6;
+
+          parameter Physiolibrary.Types.Volume InterstitialWater_start
+        "2270,5670,3400 ml";
+          parameter Physiolibrary.Types.Volume IntracellularWater_start
+        "4980,12460,7470 ml";
+
+          parameter Physiolibrary.Types.VolumeFlowRate NormalLymphFlow
+        "0.4,0.8,1.3 ml/min";
+
+          parameter Physiolibrary.Types.OsmoticPermeability CapillaryConductance
+        "Capillary wall permeability for water. 0.6, 3.6, 1.3 ml/(kPa.min)";
+
+          parameter Real[ :,3] InterstitialPressureVolumeData
+        "{{600.0,-30.0,0.01},{2000.0,-4.8,0.0004},{5000.0,0.0,0.0004},{12000.0,50.0,0.01}}, {{1200.0,-30.0,0.01},{4800.0,-4.8,0.0004},{12000.0,0.0,0.0004},{24000.0,50.0,0.01}}, {{600.0,-30.0,0.02},{3000.0,-4.8,0.0004},{4000.0,-4.0,0.0004},{6000.0,50.0,0.03}}";
+          parameter Physiolibrary.Types.Fraction ICFVFract
+        "0.94. Ratio between non-RBC-ICFV and total ICFV, because red cells are not part of any torso ICF!";
+          parameter Physiolibrary.Types.Fraction SizeFract "0.2,0.5,0.3";
+          parameter Physiolibrary.Types.Fraction CalsFract "0.3,0.5,0.2";
+          parameter Physiolibrary.Types.Fraction SweatFract "0.33,0.34,0.33";
+          parameter Physiolibrary.Types.Fraction SkinFract "0.33,0.34,0.33";
+          parameter Physiolibrary.Types.Fraction LungFract "0,1,0";
+
+      Physiolibrary.Types.BusConnector      torsoSpecific annotation (Placement(
+            transformation(extent={{62,27},{80,44}}), iconTransformation(extent=
+               {{30,10},{50,30}})));
+      Physiolibrary.Osmotic.Interfaces.OsmoticPort_a vascularH2O
+        "plasma capillary wall osmotic connector"
+        annotation (Placement(transformation(extent={{-92,-42},{-72,-22}}),
+            iconTransformation(extent={{-70,-10},{-50,10}})));
+        Modelica.Blocks.Math.Gain calsFract(k=CalsFract) annotation (Placement(
+              transformation(
+              extent={{-6,-6},{6,6}},
+              rotation=0,
+              origin={48,-82})));
+
+      //  Physiolibrary.Types.Volume volume;
+      //  Physiolibrary.Types.VolumeFlowRate change;
+      Physiolibrary.Osmotic.Sources.SolventInflux metabolicH2O(useSolutionFlowInput=true)
+          annotation (Placement(transformation(extent={{68,-98},{88,-78}})));
+      Physiolibrary.Osmotic.Sensors.FlowMeasure flowMeasure1 annotation (
+          Placement(transformation(
+            extent={{5,4},{-5,-4}},
+            rotation=270,
+            origin={24,45})));
+      Physiolibrary.Osmotic.Sensors.FlowMeasure flowMeasure2 annotation (
+          Placement(transformation(
+            extent={{5,6},{-5,-6}},
+            rotation=270,
+            origin={8,25})));
+        Physiolibrary.Osmotic.Components.Membrane capyMembrane(
+          useHydraulicPressureInputs=true,
+          useTemperatureInputs=false,
+          cond=CapillaryConductance)
+          annotation (Placement(transformation(extent={{-60,-24},{-40,-4}})));
+      Physiolibrary.Osmotic.Components.SolventFlux lymph(useSolutionFlowInput=
+            true) annotation (Placement(transformation(
+            extent={{-10,10},{10,-10}},
+            rotation=180,
+            origin={-58,-70})));
+      Physiolibrary.Blocks.Factors.Spline InterstitialPressureEffect(
+          data={{-14.0,0.0,0.0},{-4.0,1.0,0.1},{2.0,8.0,4.0},{6.0,25.0,0.0}},
+          Xscale=101325/760,
+          y(unit="m3/s"))
+        annotation (Placement(transformation(extent={{-48,-68},{-68,-48}})));
+      Physiolibrary.Types.Constants.VolumeFlowRateConst flowConstant(k=
+              NormalLymphFlow)
+        annotation (Placement(transformation(extent={{-68,-50},{-60,-42}})));
+        Physiolibrary.Osmotic.Components.OsmoticCell Interstitium(
+            useImpermeableSolutesInput=true, volume_start=InterstitialWater_start,
+          NumberOfMembraneTypes=2)
+        "Iterstitium has two type of membranes: capillary membrane (index 1) and cell membrane (index 2)"
+          annotation (Placement(transformation(extent={{18,-10},{-2,10}})));
+        Physiolibrary.Blocks.Interpolation.Curve pressureOnVolume(
+          Xscale=1e-6,
+          Yscale=101325/760,
+        data=InterstitialPressureVolumeData)
+          annotation (Placement(transformation(extent={{4,-50},{-16,-30}})));
+      Physiolibrary.Osmotic.Sources.SolventOutflux sweat(useSolutionFlowInput=
+            true)
+        annotation (Placement(transformation(extent={{10,10},{-10,-10}},
+            rotation=270,
+            origin={24,64})));
+      Physiolibrary.Types.Constants.VolumeFlowRateConst Vapor(k=
+            6.1666666666667e-09)
+          annotation (Placement(transformation(extent={{-24,40},{-16,48}})));
+      Physiolibrary.Osmotic.Sources.SolventOutflux insensibleSkinVapor(
+            useSolutionFlowInput=true) annotation (Placement(transformation(
+              extent={{10,10},{-10,-10}},
+              rotation=270,
+              origin={8,44})));
+        Physiolibrary.Osmotic.Components.OsmoticCell ICF(useImpermeableSolutesInput=true,
+            volume_start=IntracellularWater_start)
+          annotation (Placement(transformation(extent={{94,-66},{74,-46}})));
+        Physiolibrary.Osmotic.Components.Membrane cellMembrane(
+          useTemperatureInputs=false,
+          useHydraulicPressureInputs=false,
+        cond(displayUnit="l/(kPa.min)") = 1.6666666666667e-08)
+          annotation (Placement(transformation(extent={{62,-46},{82,-26}})));
+      Physiolibrary.Types.BusConnector busConnector annotation (Placement(
+            transformation(extent={{30,70},{50,90}}), iconTransformation(extent=
+               {{30,70},{50,90}})));
+        Modelica.Blocks.Math.Gain sizeFract(k=SizeFract*ICFVFract)
+                                                         annotation (Placement(
+              transformation(
+              extent={{6,-6},{-6,6}},
+              rotation=180,
+              origin={90,72})));
+      Modelica.Blocks.Math.Gain lungFract(k=LungFract)
+        annotation (Placement(transformation(extent={{-24,22},{-16,30}})));
+      Physiolibrary.Osmotic.Sources.SolventOutflux insensibleLungVapor(
+          useSolutionFlowInput=true) annotation (Placement(transformation(
+            extent={{-10,-10},{10,10}},
+            rotation=90,
+            origin={-6,26})));
+      Modelica.Blocks.Math.Gain skinFract(k=SkinFract) annotation (Placement(
+            transformation(
+            extent={{-4,-4},{4,4}},
+            rotation=0,
+            origin={-6,44})));
+      Modelica.Blocks.Math.Gain sweatFract(k=SweatFract) annotation (Placement(
+            transformation(
+            extent={{-4,-4},{4,4}},
+            rotation=0,
+            origin={10,64})));
+
+        Physiolibrary.Types.VolumeFlowRate fromCapillaries, toLymph, evaporation, fromMetabolism;
+      equation
+        fromCapillaries = capyMembrane.q_in.q;
+        toLymph = lymph.q_out.q;
+        evaporation = insensibleLungVapor.q_in.q + insensibleSkinVapor.q_in.q + sweat.q_in.q;
+        fromMetabolism = metabolicH2O.q_out.q;
+
+        connect(calsFract.y, metabolicH2O.solutionFlow) annotation (Line(
+            points={{54.6,-82},{78,-82},{78,-81}},
+            color={0,0,127},
+            smooth=Smooth.None));
+      //  volume = extravascularH2O.WaterVolume;
+      //  change = extravascularH2O.q_out.q;
+
+        connect(vascularH2O, capyMembrane.q_in) annotation (Line(
+            points={{-82,-32},{-82,-14},{-60,-14}},
+            color={127,127,0},
+            thickness=1,
+            smooth=Smooth.None));
+        connect(InterstitialPressureEffect.y, lymph.solutionFlow) annotation (Line(
+            points={{-58,-62},{-58,-63}},
+            color={0,0,127},
+            smooth=Smooth.None));
+        connect(flowConstant.y,InterstitialPressureEffect. yBase) annotation (
+            Line(
+            points={{-59,-46},{-58,-46},{-58,-56}},
+            color={0,0,127},
+            smooth=Smooth.None));
+        connect(vascularH2O, lymph.q_out) annotation (Line(
+            points={{-82,-32},{-82,-70},{-68,-70}},
+            color={127,127,0},
+            thickness=1,
+            smooth=Smooth.None));
+        connect(flowMeasure2.q_in, Interstitium.q_in[1]) annotation (Line(
+            points={{8,20},{8,-0.5}},
+            color={127,127,0},
+            thickness=1,
+            smooth=Smooth.None));
+        connect(pressureOnVolume.u, Interstitium.volume) annotation (Line(
+            points={{4,-40},{2,-40},{2,-10}},
+            color={0,0,127},
+            smooth=Smooth.None));
+        connect(pressureOnVolume.val, capyMembrane.hydraulicPressureOut) annotation (
+            Line(
+            points={{-16,-40},{-20,-40},{-20,-6},{-42,-6}},
+            color={0,0,127},
+            smooth=Smooth.None));
+        connect(pressureOnVolume.val, InterstitialPressureEffect.u) annotation (Line(
+            points={{-16,-40},{-20,-40},{-20,-58},{-50,-58}},
+            color={0,0,127},
+            smooth=Smooth.None));
+        connect(sweat.q_in, flowMeasure1.q_out) annotation (Line(
+            points={{24,58},{24,50}},
+            color={127,127,0},
+            thickness=1,
+            smooth=Smooth.None));
+        connect(insensibleSkinVapor.q_in, flowMeasure2.q_out) annotation (Line(
+            points={{8,38},{8,30}},
+            color={127,127,0},
+            thickness=1,
+            smooth=Smooth.None));
+        connect(ICF.q_in[1], cellMembrane.q_out) annotation (Line(
+            points={{84,-56},{86,-56},{86,-36},{82,-36}},
+            color={127,127,0},
+            thickness=1,
+            smooth=Smooth.None));
+        connect(metabolicH2O.q_out, ICF.q_in[1]) annotation (Line(
+            points={{84,-88},{96,-88},{96,-56},{84,-56}},
+            color={127,127,0},
+            thickness=1,
+            smooth=Smooth.None));
+      connect(flowMeasure1.volumeFlowRate, torsoSpecific.MT_Sweat_H2OOutflow)
+        annotation (Line(
+          points={{26.4,45},{54,45},{54,35.5},{71,35.5}},
+          color={215,215,215},
+          smooth=Smooth.None), Text(
+          string="%second",
+          index=1,
+          extent={{6,3},{6,3}}));
+      connect(flowMeasure2.volumeFlowRate, torsoSpecific.MT_InsensibleSkin_H2O)
+        annotation (Line(
+          points={{11.6,25},{54,25},{54,35.5},{71,35.5}},
+          color={215,215,215},
+          smooth=Smooth.None), Text(
+          string="%second",
+          index=1,
+          extent={{6,3},{6,3}}));
+        connect(Interstitium.volume, torsoSpecific.MT_InterstitialWater_Vol) annotation (
+           Line(
+            points={{2,-10},{54,-10},{54,35.5},{71,35.5}},
+            color={215,215,215},
+            smooth=Smooth.None), Text(
+            string="%second",
+            index=1,
+            extent={{6,3},{6,3}}));
+        connect(Interstitium.impermeableSolutes[1], torsoSpecific.MT_InterstitialProtein_Mass)
+          annotation (Line(
+            points={{16,5},{54,5},{54,35.5},{71,35.5}},
+            color={0,0,127},
+            smooth=Smooth.None), Text(
+            string="%second",
+            index=1,
+            extent={{6,3},{6,3}}));
+        connect(InterstitialPressureEffect.y, torsoSpecific.MT_LymphFlow) annotation (
+           Line(
+            points={{-58,-62},{52,-62},{52,35.5},{71,35.5}},
+            color={215,215,215},
+            smooth=Smooth.None), Text(
+            string="%second",
+            index=1,
+            extent={{6,3},{6,3}}));
+        connect(ICF.impermeableSolutes[1], sizeFract.y) annotation (Line(
+            points={{92,-50},{96,-50},{96,72},{96.6,72}},
+            color={0,0,127},
+            smooth=Smooth.None));
+        connect(busConnector.OsmBody_ICFVActiveOsmoles, sizeFract.u) annotation (Line(
+            points={{40,80},{40,72},{82.8,72}},
+            color={0,0,127},
+            smooth=Smooth.None), Text(
+            string="%first",
+            index=-1,
+            extent={{-6,3},{-6,3}}));
+        connect(torsoSpecific.MT_CapillaryRegionalPressure, capyMembrane.hydraulicPressureIn)
+          annotation (Line(
+            points={{71,35.5},{71,36},{56,36},{56,14},{-98,14},{-98,-6},{-58,-6}},
+            color={170,255,255},
+            smooth=Smooth.None,
+          thickness=0.5),        Text(
+            string="%first",
+            index=-1,
+            extent={{-6,3},{-6,3}}));
+      connect(lungFract.y, insensibleLungVapor.solutionFlow) annotation (Line(
+          points={{-15.6,26},{-13,26}},
+          color={0,0,127},
+          smooth=Smooth.None));
+        connect(insensibleLungVapor.q_in, Interstitium.q_in[1]) annotation (Line(
+            points={{-6,20},{-6,10},{8,10},{8,-0.5}},
+            color={127,127,0},
+            thickness=1,
+            smooth=Smooth.None));
+      connect(Vapor.y, skinFract.u) annotation (Line(
+          points={{-15,44},{-10.8,44}},
+          color={0,0,127},
+          smooth=Smooth.None));
+      connect(insensibleSkinVapor.solutionFlow, skinFract.y) annotation (Line(
+          points={{1,44},{-1.6,44}},
+          color={0,0,127},
+          smooth=Smooth.None));
+      connect(sweat.solutionFlow, sweatFract.y) annotation (Line(
+          points={{17,64},{14.4,64}},
+          color={0,0,127},
+          smooth=Smooth.None));
+      connect(busConnector.SweatDuct_H2OOutflow, sweatFract.u) annotation (Line(
+          points={{40,80},{-66,80},{-66,64},{5.2,64}},
+          color={0,0,255},
+          smooth=Smooth.None), Text(
+          string="%first",
+          index=-1,
+          extent={{-6,3},{-6,3}}));
+      connect(busConnector.HeatInsensibleLung_H2O, lungFract.u) annotation (
+          Line(
+          points={{40,80},{-66,80},{-66,26},{-24.8,26}},
+          color={0,0,255},
+          smooth=Smooth.None), Text(
+          string="%first",
+          index=-1,
+          extent={{-6,3},{-6,3}}));
+      connect(torsoSpecific.MT_Cell_H2O, ICF.volume) annotation (Line(
+          points={{71,35.5},{54,35.5},{54,-66},{78,-66}},
+          color={215,215,215},
+          smooth=Smooth.None), Text(
+          string="%first",
+          index=-1,
+          extent={{-6,3},{-6,3}}));
+      connect(busConnector.MetabolicH2O_Rate, calsFract.u) annotation (Line(
+          points={{40,80},{-100,80},{-100,-82},{40.8,-82}},
+          color={0,0,255},
+          smooth=Smooth.None), Text(
+          string="%first",
+          index=-1,
+          extent={{-6,3},{-6,3}}));
+        connect(Interstitium.impermeableSolutes[2], torsoSpecific.MT_InterstitialOsmoles)
+          annotation (Line(
+            points={{16,7},{68,7},{68,35.5},{71,35.5}},
+            color={0,0,127},
+            smooth=Smooth.None));
+        connect(Interstitium.q_in[2], cellMembrane.q_in) annotation (Line(
+            points={{8,0.5},{36,0.5},{36,-36},{62,-36}},
+            color={127,127,0},
+            thickness=1,
+            smooth=Smooth.None));
+      connect(flowMeasure1.q_in, Interstitium.q_in[1]) annotation (Line(
+          points={{24,40},{24,10},{8,10},{8,-0.5}},
+          color={127,127,0},
+          thickness=1,
+          smooth=Smooth.None));
+      connect(Interstitium.q_in[1], lymph.q_in) annotation (Line(
+          points={{8,-0.5},{-18,-0.5},{-18,-70},{-48,-70}},
+          color={127,127,0},
+          thickness=1,
+          smooth=Smooth.None));
+      connect(capyMembrane.q_out, Interstitium.q_in[1]) annotation (Line(
+          points={{-40,-14},{-18,-14},{-18,-0.5},{8,-0.5}},
+          color={127,127,0},
+          thickness=1,
+          smooth=Smooth.None));
+        annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
+                  -100},{100,100}}), graphics), Icon(coordinateSystem(
+                preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
+              graphics={                 Text(
+                extent={{-139,-101},{142,-126}},
+                lineColor={0,0,255},
+                textString="%name")}));
+      end Torso_MT_OM;
+
+      model Torso_LT_OM
+        import Physiomodel;
+          extends Physiolibrary.Icons.Torso;
+
+      //    parameter Real interstitiumProteins = 2.6;
+
+          parameter Physiolibrary.Types.Volume InterstitialWater_start
+        "2270,5670,3400 ml";
+          parameter Physiolibrary.Types.Volume IntracellularWater_start
+        "4980,12460,7470 ml";
+
+          parameter Physiolibrary.Types.VolumeFlowRate NormalLymphFlow
+        "0.4,0.8,1.3 ml/min";
+
+          parameter Physiolibrary.Types.OsmoticPermeability CapillaryConductance
+        "Capillary wall permeability for water. 0.6, 3.6, 1.3 ml/(kPa.min)";
+
+          parameter Real[ :,3] InterstitialPressureVolumeData
+        "{{600.0,-30.0,0.01},{2000.0,-4.8,0.0004},{5000.0,0.0,0.0004},{12000.0,50.0,0.01}}, {{1200.0,-30.0,0.01},{4800.0,-4.8,0.0004},{12000.0,0.0,0.0004},{24000.0,50.0,0.01}}, {{600.0,-30.0,0.02},{3000.0,-4.8,0.0004},{4000.0,-4.0,0.0004},{6000.0,50.0,0.03}}";
+          parameter Physiolibrary.Types.Fraction ICFVFract
+        "0.94. Ratio between non-RBC-ICFV and total ICFV, because red cells are not part of any torso ICF!";
+          parameter Physiolibrary.Types.Fraction SizeFract "0.2,0.5,0.3";
+          parameter Physiolibrary.Types.Fraction CalsFract "0.3,0.5,0.2";
+          parameter Physiolibrary.Types.Fraction SweatFract "0.33,0.34,0.33";
+          parameter Physiolibrary.Types.Fraction SkinFract "0.33,0.34,0.33";
+          parameter Physiolibrary.Types.Fraction LungFract "0,1,0";
+
+      Physiolibrary.Types.BusConnector      torsoSpecific annotation (Placement(
+            transformation(extent={{62,27},{80,44}}), iconTransformation(extent=
+               {{30,10},{50,30}})));
+      Physiolibrary.Osmotic.Interfaces.OsmoticPort_a vascularH2O
+        "plasma capillary wall osmotic connector"
+        annotation (Placement(transformation(extent={{-92,-42},{-72,-22}}),
+            iconTransformation(extent={{-70,-10},{-50,10}})));
+        Modelica.Blocks.Math.Gain calsFract(k=CalsFract) annotation (Placement(
+              transformation(
+              extent={{-6,-6},{6,6}},
+              rotation=0,
+              origin={48,-82})));
+
+      //  Physiolibrary.Types.Volume volume;
+      //  Physiolibrary.Types.VolumeFlowRate change;
+      Physiolibrary.Osmotic.Sources.SolventInflux metabolicH2O(useSolutionFlowInput=true)
+          annotation (Placement(transformation(extent={{68,-98},{88,-78}})));
+      Physiolibrary.Osmotic.Sensors.FlowMeasure flowMeasure1 annotation (
+          Placement(transformation(
+            extent={{5,4},{-5,-4}},
+            rotation=270,
+            origin={24,45})));
+      Physiolibrary.Osmotic.Sensors.FlowMeasure flowMeasure2 annotation (
+          Placement(transformation(
+            extent={{5,6},{-5,-6}},
+            rotation=270,
+            origin={8,25})));
+        Physiolibrary.Osmotic.Components.Membrane capyMembrane(
+          useHydraulicPressureInputs=true,
+          useTemperatureInputs=false,
+          cond=CapillaryConductance)
+          annotation (Placement(transformation(extent={{-60,-24},{-40,-4}})));
+      Physiolibrary.Osmotic.Components.SolventFlux lymph(useSolutionFlowInput=
+            true) annotation (Placement(transformation(
+            extent={{-10,10},{10,-10}},
+            rotation=180,
+            origin={-58,-70})));
+      Physiolibrary.Blocks.Factors.Spline InterstitialPressureEffect(
+          data={{-14.0,0.0,0.0},{-4.0,1.0,0.1},{2.0,8.0,4.0},{6.0,25.0,0.0}},
+          Xscale=101325/760,
+          y(unit="m3/s"))
+        annotation (Placement(transformation(extent={{-48,-68},{-68,-48}})));
+      Physiolibrary.Types.Constants.VolumeFlowRateConst flowConstant(k=
+              NormalLymphFlow)
+        annotation (Placement(transformation(extent={{-68,-50},{-60,-42}})));
+        Physiolibrary.Osmotic.Components.OsmoticCell Interstitium(
+            useImpermeableSolutesInput=true, volume_start=InterstitialWater_start,
+          NumberOfMembraneTypes=2)
+        "Iterstitium has two type of membranes: capillary membrane (index 1) and cell membrane (index 2)"
+          annotation (Placement(transformation(extent={{18,-10},{-2,10}})));
+        Physiolibrary.Blocks.Interpolation.Curve pressureOnVolume(
+          Xscale=1e-6,
+          Yscale=101325/760,
+        data=InterstitialPressureVolumeData)
+          annotation (Placement(transformation(extent={{4,-50},{-16,-30}})));
+      Physiolibrary.Osmotic.Sources.SolventOutflux sweat(useSolutionFlowInput=
+            true)
+        annotation (Placement(transformation(extent={{10,10},{-10,-10}},
+            rotation=270,
+            origin={24,64})));
+      Physiolibrary.Types.Constants.VolumeFlowRateConst Vapor(k=
+            6.1666666666667e-09)
+          annotation (Placement(transformation(extent={{-24,40},{-16,48}})));
+      Physiolibrary.Osmotic.Sources.SolventOutflux insensibleSkinVapor(
+            useSolutionFlowInput=true) annotation (Placement(transformation(
+              extent={{10,10},{-10,-10}},
+              rotation=270,
+              origin={8,44})));
+        Physiolibrary.Osmotic.Components.OsmoticCell ICF(useImpermeableSolutesInput=true,
+            volume_start=IntracellularWater_start)
+          annotation (Placement(transformation(extent={{94,-66},{74,-46}})));
+        Physiolibrary.Osmotic.Components.Membrane cellMembrane(
+          useTemperatureInputs=false,
+          useHydraulicPressureInputs=false,
+        cond(displayUnit="l/(kPa.min)") = 1.6666666666667e-08)
+          annotation (Placement(transformation(extent={{62,-46},{82,-26}})));
+      Physiolibrary.Types.BusConnector busConnector annotation (Placement(
+            transformation(extent={{30,70},{50,90}}), iconTransformation(extent=
+               {{30,70},{50,90}})));
+        Modelica.Blocks.Math.Gain sizeFract(k=SizeFract*ICFVFract)
+                                                         annotation (Placement(
+              transformation(
+              extent={{6,-6},{-6,6}},
+              rotation=180,
+              origin={90,72})));
+      Modelica.Blocks.Math.Gain lungFract(k=LungFract)
+        annotation (Placement(transformation(extent={{-24,22},{-16,30}})));
+      Physiolibrary.Osmotic.Sources.SolventOutflux insensibleLungVapor(
+          useSolutionFlowInput=true) annotation (Placement(transformation(
+            extent={{-10,-10},{10,10}},
+            rotation=90,
+            origin={-6,26})));
+      Modelica.Blocks.Math.Gain skinFract(k=SkinFract) annotation (Placement(
+            transformation(
+            extent={{-4,-4},{4,4}},
+            rotation=0,
+            origin={-6,44})));
+      Modelica.Blocks.Math.Gain sweatFract(k=SweatFract) annotation (Placement(
+            transformation(
+            extent={{-4,-4},{4,4}},
+            rotation=0,
+            origin={10,64})));
+
+        Physiolibrary.Types.VolumeFlowRate fromCapillaries, toLymph, evaporation, fromMetabolism;
+      equation
+        fromCapillaries = capyMembrane.q_in.q;
+        toLymph = lymph.q_out.q;
+        evaporation = insensibleLungVapor.q_in.q + insensibleSkinVapor.q_in.q + sweat.q_in.q;
+        fromMetabolism = metabolicH2O.q_out.q;
+
+        connect(calsFract.y, metabolicH2O.solutionFlow) annotation (Line(
+            points={{54.6,-82},{78,-82},{78,-81}},
+            color={0,0,127},
+            smooth=Smooth.None));
+      //  volume = extravascularH2O.WaterVolume;
+      //  change = extravascularH2O.q_out.q;
+
+        connect(vascularH2O, capyMembrane.q_in) annotation (Line(
+            points={{-82,-32},{-82,-14},{-60,-14}},
+            color={127,127,0},
+            thickness=1,
+            smooth=Smooth.None));
+        connect(InterstitialPressureEffect.y, lymph.solutionFlow) annotation (Line(
+            points={{-58,-62},{-58,-63}},
+            color={0,0,127},
+            smooth=Smooth.None));
+        connect(flowConstant.y,InterstitialPressureEffect. yBase) annotation (
+            Line(
+            points={{-59,-46},{-58,-46},{-58,-56}},
+            color={0,0,127},
+            smooth=Smooth.None));
+        connect(vascularH2O, lymph.q_out) annotation (Line(
+            points={{-82,-32},{-82,-70},{-68,-70}},
+            color={127,127,0},
+            thickness=1,
+            smooth=Smooth.None));
+        connect(flowMeasure2.q_in, Interstitium.q_in[1]) annotation (Line(
+            points={{8,20},{8,-0.5}},
+            color={127,127,0},
+            thickness=1,
+            smooth=Smooth.None));
+        connect(pressureOnVolume.u, Interstitium.volume) annotation (Line(
+            points={{4,-40},{2,-40},{2,-10}},
+            color={0,0,127},
+            smooth=Smooth.None));
+        connect(pressureOnVolume.val, capyMembrane.hydraulicPressureOut) annotation (
+            Line(
+            points={{-16,-40},{-20,-40},{-20,-6},{-42,-6}},
+            color={0,0,127},
+            smooth=Smooth.None));
+        connect(pressureOnVolume.val, InterstitialPressureEffect.u) annotation (Line(
+            points={{-16,-40},{-20,-40},{-20,-58},{-50,-58}},
+            color={0,0,127},
+            smooth=Smooth.None));
+        connect(sweat.q_in, flowMeasure1.q_out) annotation (Line(
+            points={{24,58},{24,50}},
+            color={127,127,0},
+            thickness=1,
+            smooth=Smooth.None));
+        connect(insensibleSkinVapor.q_in, flowMeasure2.q_out) annotation (Line(
+            points={{8,38},{8,30}},
+            color={127,127,0},
+            thickness=1,
+            smooth=Smooth.None));
+        connect(ICF.q_in[1], cellMembrane.q_out) annotation (Line(
+            points={{84,-56},{86,-56},{86,-36},{82,-36}},
+            color={127,127,0},
+            thickness=1,
+            smooth=Smooth.None));
+        connect(metabolicH2O.q_out, ICF.q_in[1]) annotation (Line(
+            points={{84,-88},{96,-88},{96,-56},{84,-56}},
+            color={127,127,0},
+            thickness=1,
+            smooth=Smooth.None));
+      connect(flowMeasure1.volumeFlowRate, torsoSpecific.LT_Sweat_H2OOutflow)
+        annotation (Line(
+          points={{26.4,45},{54,45},{54,35.5},{71,35.5}},
+          color={215,215,215},
+          smooth=Smooth.None), Text(
+          string="%second",
+          index=1,
+          extent={{6,3},{6,3}}));
+      connect(flowMeasure2.volumeFlowRate, torsoSpecific.LT_InsensibleSkin_H2O)
+        annotation (Line(
+          points={{11.6,25},{54,25},{54,35.5},{71,35.5}},
+          color={215,215,215},
+          smooth=Smooth.None), Text(
+          string="%second",
+          index=1,
+          extent={{6,3},{6,3}}));
+        connect(Interstitium.volume, torsoSpecific.LT_InterstitialWater_Vol) annotation (
+           Line(
+            points={{2,-10},{54,-10},{54,35.5},{71,35.5}},
+            color={215,215,215},
+            smooth=Smooth.None), Text(
+            string="%second",
+            index=1,
+            extent={{6,3},{6,3}}));
+        connect(Interstitium.impermeableSolutes[1], torsoSpecific.LT_InterstitialProtein_Mass)
+          annotation (Line(
+            points={{16,5},{54,5},{54,35.5},{71,35.5}},
+            color={0,0,127},
+            smooth=Smooth.None), Text(
+            string="%second",
+            index=1,
+            extent={{6,3},{6,3}}));
+        connect(InterstitialPressureEffect.y, torsoSpecific.LT_LymphFlow) annotation (
+           Line(
+            points={{-58,-62},{52,-62},{52,35.5},{71,35.5}},
+            color={215,215,215},
+            smooth=Smooth.None), Text(
+            string="%second",
+            index=1,
+            extent={{6,3},{6,3}}));
+        connect(ICF.impermeableSolutes[1], sizeFract.y) annotation (Line(
+            points={{92,-50},{96,-50},{96,72},{96.6,72}},
+            color={0,0,127},
+            smooth=Smooth.None));
+        connect(busConnector.OsmBody_ICFVActiveOsmoles, sizeFract.u) annotation (Line(
+            points={{40,80},{40,72},{82.8,72}},
+            color={0,0,127},
+            smooth=Smooth.None), Text(
+            string="%first",
+            index=-1,
+            extent={{-6,3},{-6,3}}));
+        connect(torsoSpecific.LT_CapillaryRegionalPressure, capyMembrane.hydraulicPressureIn)
+          annotation (Line(
+            points={{71,35.5},{71,36},{56,36},{56,14},{-98,14},{-98,-6},{-58,-6}},
+            color={170,255,255},
+            smooth=Smooth.None,
+          thickness=0.5),        Text(
+            string="%first",
+            index=-1,
+            extent={{-6,3},{-6,3}}));
+      connect(lungFract.y, insensibleLungVapor.solutionFlow) annotation (Line(
+          points={{-15.6,26},{-13,26}},
+          color={0,0,127},
+          smooth=Smooth.None));
+        connect(insensibleLungVapor.q_in, Interstitium.q_in[1]) annotation (Line(
+            points={{-6,20},{-6,10},{8,10},{8,-0.5}},
+            color={127,127,0},
+            thickness=1,
+            smooth=Smooth.None));
+      connect(Vapor.y, skinFract.u) annotation (Line(
+          points={{-15,44},{-10.8,44}},
+          color={0,0,127},
+          smooth=Smooth.None));
+      connect(insensibleSkinVapor.solutionFlow, skinFract.y) annotation (Line(
+          points={{1,44},{-1.6,44}},
+          color={0,0,127},
+          smooth=Smooth.None));
+      connect(sweat.solutionFlow, sweatFract.y) annotation (Line(
+          points={{17,64},{14.4,64}},
+          color={0,0,127},
+          smooth=Smooth.None));
+      connect(busConnector.SweatDuct_H2OOutflow, sweatFract.u) annotation (Line(
+          points={{40,80},{-66,80},{-66,64},{5.2,64}},
+          color={0,0,255},
+          smooth=Smooth.None), Text(
+          string="%first",
+          index=-1,
+          extent={{-6,3},{-6,3}}));
+      connect(busConnector.HeatInsensibleLung_H2O, lungFract.u) annotation (
+          Line(
+          points={{40,80},{-66,80},{-66,26},{-24.8,26}},
+          color={0,0,255},
+          smooth=Smooth.None), Text(
+          string="%first",
+          index=-1,
+          extent={{-6,3},{-6,3}}));
+      connect(torsoSpecific.LT_Cell_H2O, ICF.volume) annotation (Line(
+          points={{71,35.5},{54,35.5},{54,-66},{78,-66}},
+          color={215,215,215},
+          smooth=Smooth.None), Text(
+          string="%first",
+          index=-1,
+          extent={{-6,3},{-6,3}}));
+      connect(busConnector.MetabolicH2O_Rate, calsFract.u) annotation (Line(
+          points={{40,80},{-100,80},{-100,-82},{40.8,-82}},
+          color={0,0,255},
+          smooth=Smooth.None), Text(
+          string="%first",
+          index=-1,
+          extent={{-6,3},{-6,3}}));
+        connect(Interstitium.impermeableSolutes[2], torsoSpecific.LT_InterstitialOsmoles)
+          annotation (Line(
+            points={{16,7},{68,7},{68,35.5},{71,35.5}},
+            color={0,0,127},
+            smooth=Smooth.None));
+        connect(Interstitium.q_in[2], cellMembrane.q_in) annotation (Line(
+            points={{8,0.5},{36,0.5},{36,-36},{62,-36}},
+            color={127,127,0},
+            thickness=1,
+            smooth=Smooth.None));
+      connect(flowMeasure1.q_in, Interstitium.q_in[1]) annotation (Line(
+          points={{24,40},{24,10},{8,10},{8,-0.5}},
+          color={127,127,0},
+          thickness=1,
+          smooth=Smooth.None));
+      connect(Interstitium.q_in[1], lymph.q_in) annotation (Line(
+          points={{8,-0.5},{-18,-0.5},{-18,-70},{-48,-70}},
+          color={127,127,0},
+          thickness=1,
+          smooth=Smooth.None));
+      connect(capyMembrane.q_out, Interstitium.q_in[1]) annotation (Line(
+          points={{-40,-14},{-18,-14},{-18,-0.5},{8,-0.5}},
+          color={127,127,0},
+          thickness=1,
+          smooth=Smooth.None));
+        annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
+                  -100},{100,100}}), graphics), Icon(coordinateSystem(
+                preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
+              graphics={                 Text(
+                extent={{-139,-101},{142,-126}},
+                lineColor={0,0,255},
+                textString="%name")}));
+      end Torso_LT_OM;
     end WaterCompartments;
 
     package TissuesVolume
@@ -45021,18 +46922,6 @@ skeletalMuscle.FractOrganH2O <> 1, "Water.TissuesVolume.Tissues: Sum of FractOrg
           points={{-34,7.6},{-34,28},{-29.2,28}},
           color={0,0,127},
           smooth=Smooth.None));
-      connect(CellH2O.y[1], busConnector.UT_Cell_H2O)  annotation (Line(
-          points={{-15.4,27.6},{-12,24},{-6,24},{-6,40}},
-          color={0,0,127},
-          smooth=Smooth.None));
-      connect(CellH2O.y[2], busConnector.MT_Cell_H2O)  annotation (Line(
-          points={{-15.4,28},{-6,28},{-6,40}},
-          color={0,0,127},
-          smooth=Smooth.None));
-      connect(CellH2O.y[3], busConnector.LT_Cell_H2O)  annotation (Line(
-          points={{-15.4,28.4},{-12,32},{-6,32},{-6,40}},
-          color={0,0,127},
-          smooth=Smooth.None));
       connect(osmBody.OsmBody_Osm_conc_CellWalls, busConnector.OsmBody_Osm_conc_CellWalls)
         annotation (Line(
           points={{-63.6,-12},{-6,-12},{-6,40}},
@@ -45407,7 +47296,7 @@ skeletalMuscle.FractOrganH2O <> 1, "Water.TissuesVolume.Tissues: Sum of FractOrg
           points={{-71,-42},{-66,-42},{-66,-41.6},{-55.4,-41.6}},
           color={0,0,127},
           smooth=Smooth.None));
-      connect(busConnector.UT.Sweat_H2OOutflow, sweatDuct.u[1]) annotation (
+      connect(busConnector.UT_Sweat_H2OOutflow, sweatDuct.u[1]) annotation (
           Line(
           points={{-6,40},{-6,82},{12.4,82},{12.4,81.9333}},
           color={0,0,255},
@@ -45416,7 +47305,7 @@ skeletalMuscle.FractOrganH2O <> 1, "Water.TissuesVolume.Tissues: Sum of FractOrg
           string="%first",
           index=-1,
           extent={{-6,3},{-6,3}}));
-      connect(busConnector.MT.Sweat_H2OOutflow, sweatDuct.u[2]) annotation (
+      connect(busConnector.MT_Sweat_H2OOutflow, sweatDuct.u[2]) annotation (
           Line(
           points={{-6,40},{-6,83},{12.4,83}},
           color={0,0,255},
@@ -45425,7 +47314,7 @@ skeletalMuscle.FractOrganH2O <> 1, "Water.TissuesVolume.Tissues: Sum of FractOrg
           string="%first",
           index=-1,
           extent={{-6,3},{-6,3}}));
-      connect(busConnector.LT.Sweat_H2OOutflow, sweatDuct.u[3]) annotation (
+      connect(busConnector.LT_Sweat_H2OOutflow, sweatDuct.u[3]) annotation (
           Line(
           points={{-6,40},{-6,84.0667},{12.4,84.0667}},
           color={0,0,255},
@@ -45434,7 +47323,7 @@ skeletalMuscle.FractOrganH2O <> 1, "Water.TissuesVolume.Tissues: Sum of FractOrg
           string="%first",
           index=-1,
           extent={{-6,3},{-6,3}}));
-      connect(busConnector.UT.InsensibleSkin_H2O, insensibleSkin.u[1])
+      connect(busConnector.UT_InsensibleSkin_H2O, insensibleSkin.u[1])
         annotation (Line(
           points={{-6,40},{-6,70},{70,70},{70,74.9333},{70.4,74.9333}},
           color={0,0,255},
@@ -45443,7 +47332,7 @@ skeletalMuscle.FractOrganH2O <> 1, "Water.TissuesVolume.Tissues: Sum of FractOrg
           string="%first",
           index=-1,
           extent={{-6,3},{-6,3}}));
-      connect(busConnector.MT.InsensibleSkin_H2O, insensibleSkin.u[2])
+      connect(busConnector.MT_InsensibleSkin_H2O, insensibleSkin.u[2])
         annotation (Line(
           points={{-6,40},{-6,71},{70,71},{70,76},{70.4,76}},
           color={0,0,255},
@@ -45452,7 +47341,7 @@ skeletalMuscle.FractOrganH2O <> 1, "Water.TissuesVolume.Tissues: Sum of FractOrg
           string="%first",
           index=-1,
           extent={{-6,3},{-6,3}}));
-      connect(busConnector.LT.InsensibleSkin_H2O, insensibleSkin.u[3])
+      connect(busConnector.LT_InsensibleSkin_H2O, insensibleSkin.u[3])
         annotation (Line(
           points={{-6,40},{-6,72},{70,72},{70,77.0667},{70.4,77.0667}},
           color={0,0,255},
@@ -45461,7 +47350,7 @@ skeletalMuscle.FractOrganH2O <> 1, "Water.TissuesVolume.Tissues: Sum of FractOrg
           string="%first",
           index=-1,
           extent={{-6,3},{-6,3}}));
-      connect(busConnector.UT.InterstitialWater_Vol, InterstitialWater.u[1])
+      connect(busConnector.UT_InterstitialWater_Vol, InterstitialWater.u[1])
         annotation (Line(
           points={{-6,40},{24,40},{24,54.5333},{43.2,54.5333}},
           color={0,0,255},
@@ -45470,19 +47359,19 @@ skeletalMuscle.FractOrganH2O <> 1, "Water.TissuesVolume.Tissues: Sum of FractOrg
           string="%first",
           index=-1,
           extent={{-6,3},{-6,3}}));
-      connect(busConnector.MT.InterstitialWater_Vol, InterstitialWater.u[2])
+      connect(busConnector.MT_InterstitialWater_Vol, InterstitialWater.u[2])
         annotation (Line(
           points={{-6,40},{24,40},{24,54},{43.2,54}},
           color={0,0,255},
           thickness=0.5,
           smooth=Smooth.None));
-      connect(busConnector.LT.InterstitialWater_Vol, InterstitialWater.u[3])
+      connect(busConnector.LT_InterstitialWater_Vol, InterstitialWater.u[3])
         annotation (Line(
           points={{-6,40},{24,40},{24,53.4667},{43.2,53.4667}},
           color={0,0,255},
           thickness=0.5,
           smooth=Smooth.None));
-      connect(hydrostatics.RegionalPressure_UpperCapy, busConnector.UT.CapillaryRegionalPressure)
+      connect(hydrostatics.RegionalPressure_UpperCapy, busConnector.UT_CapillaryRegionalPressure)
         annotation (Line(
           points={{-38,77.6},{-6,77.6},{-6,40}},
           color={0,0,127},
@@ -45496,15 +47385,15 @@ skeletalMuscle.FractOrganH2O <> 1, "Water.TissuesVolume.Tissues: Sum of FractOrg
           color={0,0,255},
           thickness=0.5,
           smooth=Smooth.None));
-      connect(busConnector.LT.InterstitialWater_Vol,BodyH2O1. u[2])  annotation (Line(
+      connect(busConnector.LT_InterstitialWater_Vol,BodyH2O1. u[2])  annotation (Line(
           points={{-6,40},{100,40},{100,-46.5333},{74.8,-46.5333}},
           color={0,0,127},
           smooth=Smooth.None));
-      connect(busConnector.MT.InterstitialWater_Vol,BodyH2O1. u[3])  annotation (Line(
+      connect(busConnector.MT_InterstitialWater_Vol,BodyH2O1. u[3])  annotation (Line(
           points={{-6,40},{100,40},{100,-46.3556},{74.8,-46.3556}},
           color={0,0,127},
           smooth=Smooth.None));
-      connect(busConnector.UT.InterstitialWater_Vol,BodyH2O1. u[4])  annotation (Line(
+      connect(busConnector.UT_InterstitialWater_Vol,BodyH2O1. u[4])  annotation (Line(
           points={{-6,40},{100,40},{100,-46.1778},{74.8,-46.1778}},
           color={0,0,127},
           smooth=Smooth.None));
@@ -45516,7 +47405,7 @@ skeletalMuscle.FractOrganH2O <> 1, "Water.TissuesVolume.Tissues: Sum of FractOrg
           points={{-6,40},{100,40},{100,-45.4667},{74.8,-45.4667}},
           color={0,0,127},
           smooth=Smooth.None));
-      connect(busConnector.UT.Cell_H2O,BodyH2O1. u[9])  annotation (Line(
+      connect(busConnector.UT_Cell_H2O,BodyH2O1. u[9])  annotation (Line(
           points={{-6,40},{100,40},{100,-45.2889},{74.8,-45.2889}},
           color={0,0,127},
           smooth=Smooth.None));
@@ -45571,12 +47460,12 @@ skeletalMuscle.FractOrganH2O <> 1, "Water.TissuesVolume.Tissues: Sum of FractOrg
         string="%first",
         index=-1,
         extent={{-6,3},{-6,3}}));
-      connect(hydrostatics.RegionalPressure_MiddleCapy, busConnector.MT.CapillaryRegionalPressure)
+      connect(hydrostatics.RegionalPressure_MiddleCapy, busConnector.MT_CapillaryRegionalPressure)
         annotation (Line(
           points={{-38,72.8},{-6,72.8},{-6,40}},
           color={0,0,127},
           smooth=Smooth.None));
-      connect(hydrostatics.RegionalPressure_LowerCapy, busConnector.LT.CapillaryRegionalPressure)
+      connect(hydrostatics.RegionalPressure_LowerCapy, busConnector.LT_CapillaryRegionalPressure)
         annotation (Line(
           points={{-38,68},{-6,68},{-6,40}},
           color={0,0,127},
@@ -45688,10 +47577,10 @@ skeletalMuscle.FractOrganH2O <> 1, "Water.TissuesVolume.Tissues: Sum of FractOrg
       LungFract=0,
       InterstitialPressureVolumeData={{600.0,-30.0,0.01},{2000.0,-4.8,0.0004},{
           5000.0,0.0,0.0004},{12000.0,50.0,0.01}},
+      CapillaryConductance(displayUnit="l/(kPa.d)") = 1.4814814814815e-11,
       InterstitialWater_start=0.00227,
       IntracellularWater_start=0.00498,
       NormalLymphFlow=6.6666666666667e-09,
-      CapillaryConductance(displayUnit="l/(kPa.d)") = 1.4814814814815e-11,
       ICFVFract=0.94,
       SizeFract=0.2,
       CalsFract=0.3,
@@ -46852,6 +48741,387 @@ Total         = 43000
       end Water_test_SI;
     end IO_Bus;
 
+    model Water_OM
+      import QHP = Physiomodel;
+      extends Physiolibrary.Icons.Water;
+    //  extends Physiomodel.Library.Utilities.DynamicState(stateName="BodyH2O.Vol", initType=Library.Utilities.Init.NoInit, STEADY=false);
+
+    Physiolibrary.Osmotic.Sources.SolventOutflux Hemorrhage(
+        useSolutionFlowInput=true)
+      annotation (Placement(transformation(extent={{1,51},{17,67}})));
+    Physiolibrary.Osmotic.Sources.SolventInflux Transfusion(
+        useSolutionFlowInput=true)
+      annotation (Placement(transformation(extent={{17,38},{1,54}})));
+    Physiolibrary.Osmotic.Sources.SolventInflux IVDrip(useSolutionFlowInput=
+          true) annotation (Placement(transformation(extent={{17,25},{1,41}})));
+    Physiolibrary.Types.BusConnector busConnector annotation (Placement(
+          transformation(extent={{-99,80},{-79,100}}), iconTransformation(
+            extent={{60,60},{80,80}})));
+    QHP.Water.WaterCompartments.Torso_UT_OM
+                                      UpperTorso(
+      LungFract=0,
+      InterstitialPressureVolumeData={{600.0,-30.0,0.01},{2000.0,-4.8,0.0004},{
+          5000.0,0.0,0.0004},{12000.0,50.0,0.01}},
+      CapillaryConductance(displayUnit="l/(kPa.d)") = 1.4814814814815e-11,
+        InterstitialWater_start=0.00227,
+        IntracellularWater_start=0.00498,
+        NormalLymphFlow=6.6666666666667e-09,
+        ICFVFract=0.94,
+        SizeFract=0.2,
+        CalsFract=0.3,
+        SweatFract=0.33,
+        SkinFract=0.33)
+      annotation (Placement(transformation(extent={{6,-27},{26,-7}})));
+    //  interstitiumProteins=3.3,
+    QHP.Water.WaterCompartments.GI_Absorption GILumen
+      annotation (Placement(transformation(extent={{-67,39},{-47,59}})));
+    QHP.Water.WaterCompartments.Kidney.Kidney Kidney
+      annotation (Placement(transformation(extent={{-67,-40},{-47,-20}})));
+      QHP.Water.WaterCompartments.Bladder_steady2             Bladder
+        annotation (Placement(transformation(extent={{-50,-70},{-30,-50}})));
+      QHP.Water.WaterProperties waterProperties
+        annotation (Placement(transformation(extent={{-83,-94},{-63,-74}})));
+
+    //  Real bodyH2O;
+    /*initial equation 
+  if STEADY then
+     waterProperties.BodyH2O_Change.y = 0;
+  end if;
+*/
+
+    //initial equation
+    //   bodyH2O = waterProperties.BodyH2O.y;
+    Physiolibrary.Osmotic.Components.OsmoticCell plasma(
+        useImpermeableSolutesInput=true,
+      NumberOfMembraneTypes=2,
+      volume_start=0.00302)
+      "Plasma water with two membrane types: capillary (index 1) and cell membrane (index 2)"
+      annotation (Placement(transformation(extent={{-42,-1},{-22,19}})));
+    QHP.Water.WaterCompartments.Torso_MT_OM
+                                      MiddleTorso(
+      InterstitialPressureVolumeData={{1200.0,-30.0,0.01},{4800.0,-4.8,0.0004},
+          {12000.0,0.0,0.0004},{24000.0,50.0,0.01}},
+      InterstitialWater_start=0.00567,
+      IntracellularWater_start=0.01246,
+      NormalLymphFlow=1.3333333333333e-08,
+      CapillaryConductance(displayUnit="l/(kPa.d)") = 3.7268518518519e-11,
+      ICFVFract=0.94,
+      SizeFract=0.5,
+      CalsFract=0.5,
+      SweatFract=0.34,
+      SkinFract=0.34,
+      LungFract=1)
+      annotation (Placement(transformation(extent={{7,-58},{27,-38}})));
+    QHP.Water.WaterCompartments.Torso_LT_OM
+                                      LowerTorso(
+      LungFract=0,
+      InterstitialPressureVolumeData={{600.0,-30.0,0.02},{3000.0,-4.8,0.0004},{
+          4000.0,-4.0,0.0004},{6000.0,50.0,0.03}},
+      InterstitialWater_start=0.0034,
+      IntracellularWater_start=0.00747,
+      NormalLymphFlow=2.1666666666667e-08,
+      CapillaryConductance(displayUnit="l/(kPa.d)") = 1.5509259259259e-11,
+      ICFVFract=0.94,
+      SizeFract=0.3,
+      CalsFract=0.2,
+      SweatFract=0.33,
+      SkinFract=0.33)
+      annotation (Placement(transformation(extent={{6,-86},{26,-66}})));
+    //  interstitiumProteins=2.2,
+    QHP.Water.WaterCompartments.Peritoneum_const      peritoneum_const(
+        initialVolume=1e-09)
+      annotation (Placement(transformation(extent={{58,-12},{78,8}})));
+    Physiolibrary.Types.Constants.VolumeConst lungEdema(k=0)
+      annotation (Placement(transformation(extent={{57,18},{65,26}})));
+    QHP.Hormones.ADH aDH
+      annotation (Placement(transformation(extent={{-26,63},{-6,83}})));
+    equation
+    //   changePerMin = waterProperties.BodyH2O_Change.y;
+    //   stateValue = bodyH2O;
+
+    connect(IVDrip.solutionFlow, busConnector.IVDrip_H2ORate) annotation (Line(
+        points={{9,38.6},{46,38.6},{46,90},{-89,90}},
+        color={0,0,127},
+        smooth=Smooth.None), Text(
+        string="%second",
+        index=1,
+        extent={{6,3},{6,3}}));
+    connect(Transfusion.solutionFlow, busConnector.Transfusion_H2ORate)
+      annotation (Line(
+        points={{9,51.6},{46,51.6},{46,90},{-89,90}},
+        color={0,0,127},
+        smooth=Smooth.None), Text(
+        string="%second",
+        index=1,
+        extent={{6,3},{6,3}}));
+    connect(Hemorrhage.solutionFlow, busConnector.Hemorrhage_H2ORate)
+      annotation (Line(
+        points={{9,64.6},{46,64.6},{46,90},{-89,90}},
+        color={0,0,127},
+        smooth=Smooth.None), Text(
+        string="%second",
+        index=1,
+        extent={{6,3},{6,3}}));
+
+      connect(busConnector, Kidney.busConnector) annotation (Line(
+          points={{-89,90},{-89,-22.4},{-63,-22.4}},
+          color={0,0,255},
+          thickness=0.5,
+          smooth=Smooth.None));
+
+      connect(busConnector, GILumen.busConnector) annotation (Line(
+          points={{-89,90},{-89,49},{-66.6,49}},
+          color={0,0,255},
+          thickness=0.5,
+          smooth=Smooth.None));
+      connect(Bladder.busConnector, busConnector) annotation (Line(
+          points={{-49,-69},{-89,-69},{-89,90}},
+          color={0,0,255},
+          thickness=0.5,
+          smooth=Smooth.None));
+    connect(plasma.q_in[1], Hemorrhage.q_in) annotation (Line(
+        points={{-32,8.5},{-32,46},{-7,46},{-7,59},{4.2,59}},
+        color={127,127,0},
+        thickness=1,
+        smooth=Smooth.None));
+    connect(plasma.q_in[1], Transfusion.q_out) annotation (Line(
+        points={{-32,8.5},{-32,46},{4.2,46}},
+        color={127,127,0},
+        thickness=1,
+        smooth=Smooth.None));
+    connect(plasma.q_in[1], IVDrip.q_out) annotation (Line(
+        points={{-32,8.5},{-32,46},{-7,46},{-7,33},{4.2,33}},
+        color={127,127,0},
+        thickness=1,
+        smooth=Smooth.None));
+    connect(busConnector.PlasmaProtein_Mass, plasma.impermeableSolutes[1])
+      annotation (Line(
+        points={{-89,90},{-89,14},{-40,14}},
+        color={0,0,255},
+        thickness=0.5,
+        smooth=Smooth.None), Text(
+        string="%first",
+        index=-1,
+        extent={{-6,3},{-6,3}}));
+    connect(plasma.volume, busConnector.PlasmaVol) annotation (Line(
+        points={{-26,-1},{-89,-1},{-89,90}},
+        color={0,0,127},
+        smooth=Smooth.None));
+    connect(plasma.volume, busConnector.PlasmaVol_Vol) annotation (Line(
+        points={{-26,-1},{-89,-1},{-89,90}},
+        color={0,0,127},
+        smooth=Smooth.None));
+      connect(busConnector, waterProperties.busConnector) annotation (Line(
+          points={{-89,90},{-89,-76},{-83,-76},{-83,-75.9},{-82.9,-75.9}},
+          color={0,0,255},
+          thickness=0.5,
+          smooth=Smooth.None));
+    connect(UpperTorso.torsoSpecific, busConnector) annotation (Line(
+        points={{20,-15},{50,-15},{50,90},{-89,90}},
+        color={170,255,255},
+        thickness=0.5,
+        smooth=Smooth.None), Text(
+        string="%second",
+        index=1,
+        extent={{6,3},{6,3}}));
+    connect(UpperTorso.busConnector, busConnector) annotation (Line(
+        points={{20,-9},{50,-9},{50,90},{-89,90}},
+        color={0,0,255},
+        thickness=0.5,
+        smooth=Smooth.None));
+    connect(MiddleTorso.torsoSpecific, busConnector) annotation (Line(
+        points={{21,-46},{50,-46},{50,90},{-89,90}},
+        color={170,255,255},
+        thickness=0.5,
+        smooth=Smooth.None), Text(
+        string="%second",
+        index=1,
+        extent={{6,3},{6,3}}));
+    connect(LowerTorso.torsoSpecific, busConnector) annotation (Line(
+        points={{20,-74},{50,-74},{50,90},{-89,90}},
+        color={170,255,255},
+        thickness=0.5,
+        smooth=Smooth.None), Text(
+        string="%second",
+        index=1,
+        extent={{6,3},{6,3}}));
+    connect(LowerTorso.busConnector, busConnector) annotation (Line(
+        points={{20,-68},{50,-68},{50,90},{-89,90}},
+        color={0,0,255},
+        thickness=0.5,
+        smooth=Smooth.None));
+    connect(MiddleTorso.busConnector, busConnector) annotation (Line(
+        points={{21,-40},{50,-40},{50,90},{-89,90}},
+        color={0,0,255},
+        thickness=0.5,
+        smooth=Smooth.None));
+    connect(peritoneum_const.busConnector, busConnector) annotation (Line(
+        points={{75,5},{78,5},{78,89},{-89,89},{-89,90}},
+        color={0,0,255},
+        thickness=0.5,
+        smooth=Smooth.None));
+    connect(lungEdema.y, busConnector.ExcessLungWater_Volume) annotation (Line(
+        points={{66,22},{105,22},{105,90},{-89,90}},
+        color={0,0,127},
+        smooth=Smooth.None), Text(
+        string="%second",
+        index=1,
+        extent={{6,3},{6,3}}));
+    connect(busConnector, aDH.busConnector) annotation (Line(
+        points={{-89,90},{-31,90},{-31,67},{-24,67}},
+        color={255,204,51},
+        thickness=0.5,
+        smooth=Smooth.None));
+    connect(busConnector.PlasmaActiveOsmoles, plasma.impermeableSolutes[2])
+      annotation (Line(
+        points={{-89,90},{-89,15},{-42,15},{-42,16},{-40,16}},
+        color={255,204,51},
+        thickness=0.5,
+        smooth=Smooth.None));
+    connect(plasma.q_in[2], GILumen.vascularH2O) annotation (Line(
+        points={{-32,9.5},{-32,9},{-35,9},{-35,49},{-47,49}},
+        color={127,127,0},
+        thickness=1,
+        smooth=Smooth.None));
+    connect(UpperTorso.vascularH2O, plasma.q_in[1]) annotation (Line(
+        points={{10,-17},{-11,-17},{-11,8.5},{-32,8.5}},
+        color={127,127,0},
+        thickness=1,
+        smooth=Smooth.None));
+    connect(MiddleTorso.vascularH2O, plasma.q_in[1]) annotation (Line(
+        points={{11,-48},{-11,-48},{-11,8.5},{-32,8.5}},
+        color={127,127,0},
+        thickness=1,
+        smooth=Smooth.None));
+    connect(LowerTorso.vascularH2O, plasma.q_in[1]) annotation (Line(
+        points={{10,-76},{-11,-76},{-11,8.5},{-32,8.5}},
+        color={127,127,0},
+        thickness=1,
+        smooth=Smooth.None));
+    connect(peritoneum_const.flux, plasma.q_in[1]) annotation (Line(
+        points={{68,2},{19,2},{19,8.5},{-32,8.5}},
+        color={127,127,0},
+        thickness=1,
+        smooth=Smooth.None));
+    connect(Kidney.plasma, plasma.q_in[1]) annotation (Line(
+        points={{-53,-30},{-42,-30},{-42,8.5},{-32,8.5}},
+        color={127,127,0},
+        thickness=1,
+        smooth=Smooth.None));
+    connect(Kidney.urine, Bladder.con) annotation (Line(
+        points={{-57,-40},{-57,-60},{-50,-60}},
+        color={127,127,0},
+        thickness=1,
+        smooth=Smooth.None));
+      annotation (
+    Documentation(info="<HTML>
+<PRE>
+QHP 2008 / H2O Reference
+ 
+Created : 26-Jun-06
+Last Modified : 24-Mar-08
+Author : Tom Coleman
+Copyright : 2008-2008
+By : University of Mississippi Medical Center
+Solver : DES 2005
+Schema : 2005.0
+ 
+There are several different ways to describe the body's
+water compartments while implementing mass balance.
+ 
+Water compartments can initially be divided into two
+basic types: intracellular (ICFV) and extracellular (ECFV).
+ 
+Intracellular compartments are red blood cells and
+(all other) cells.
+ 
+Extracellular compartments are plasma and interstitium.
+ 
+Red Cells     =  1.6
+Cells         = 26.4
+                -----
+ICFV          = 28.0
+ 
+Interstitium  = 12.0
+Plasma        =  3.0
+                -----
+ECFV          = 15.0
+ 
+Total         = 43.0
+ 
+The problem with this scheme is that water cannot move
+freely between plasma and interstitium but it can move
+freely between interstitium and cell H2O.
+ 
+So, we'll divide the body's water compartments into
+vascular and extravascular. The vascular compartment
+is futher subdivided into RBC water and plasma.
+ 
+Red Cells     =  1.6
+Plasma        =  3.0
+                 ---
+Vascular      =  4.6
+ 
+Cells         = 26.4 (ICFV less RBC's H2O)
+Interstitium  = 12.0
+                ----
+Extravascular = 38.4
+ 
+Total         = 43.0
+ 
+To relax the nomenclature a bit, extravascular water
+is referred to as tissue H2O.
+ 
+This scheme is implemented using three integrals: plasma,
+RBC and extravascular.
+ 
+Exchanges are internal and external.
+ 
+Internal exchanges are capillary
+filtration and lymph flow.
+ 
+External exchanges are many: absorption
+from gut, urine, IV drip, transfusion,
+hemorrhage ...
+ 
+External exchanges influence the derivative
+of either plasma or extravasular H2O.
+ 
+Traditional compartments are also
+represented here.
+ 
+Red Cell H2O  =  1584
+Organ H2O     = 26428
+                -----
+Cell H2O      = 28012
+ 
+IFV           = 11988
+Plasma        =  3000
+                -----
+Extracellular = 14988
+ 
+Total         = 43000
+</PRE>
+</HTML>
+",   revisions="<html>
+<ul>
+<li><i>  </i>
+       </li>
+<li><i> january 2009 </i><br> 
+       by Marek Matejak in Modelica initially implemented (consulted with Jiri Kofranek), Charles University, Prague<br>
+       orginaly described by Tom Coleman in QHP 2008 beta 3, University of Mississippi Medical Center
+       </li>
+</ul>
+</html>"),
+       Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,-100},{
+              100,100}},
+            grid={1,1}),                graphics), Icon(coordinateSystem(
+              preserveAspectRatio=true, extent={{-100,-100},{100,100}},
+            grid={1,1}), graphics={Text(
+              extent={{-139,-99},{142,-124}},
+              lineColor={0,0,255},
+              textString="%name")}));
+    end Water_OM;
     annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
               -100},{100,100}}), graphics),                   Documentation(revisions="<html>
 
@@ -47315,10 +49585,10 @@ Total         = 43000
         smooth=Smooth.None));
     connect(Change.solutionFlow, busConnector.PeritoneumSpace_Change)
       annotation (Line(
-        points={{-34,-27.6},{-34,14},{92,14}},
+        points={{-34,-25.8},{-34,14},{92,14}},
         color={0,0,127},
         smooth=Smooth.None));
-    connect(UpperTorso.solutionVolume, busConnector.UT.InterstitialWater_Vol)
+    connect(UpperTorso.solutionVolume, busConnector.UT_InterstitialWater_Vol)
       annotation (Line(
         points={{70,78},{92,78},{92,14}},
         color={0,0,127},
@@ -47326,7 +49596,7 @@ Total         = 43000
         string="%second",
         index=1,
         extent={{6,3},{6,3}}));
-      connect(busConnector.UT.InterstitialProtein_Mass,UpperTorso. solute) annotation (
+      connect(busConnector.UT_InterstitialProtein_Mass,UpperTorso. solute) annotation (
           Line(
           points={{92,14},{92,70},{60,70},{60,64}},
           color={0,0,127},
@@ -47334,7 +49604,7 @@ Total         = 43000
      string="%first",
      index=-1,
      extent={{-6,3},{-6,3}}));
-    connect(MiddleTorso.solutionVolume, busConnector.MT.InterstitialWater_Vol)
+    connect(MiddleTorso.solutionVolume, busConnector.MT_InterstitialWater_Vol)
       annotation (Line(
         points={{68,34},{92,34},{92,14}},
         color={0,0,127},
@@ -47342,7 +49612,7 @@ Total         = 43000
         string="%second",
         index=1,
         extent={{6,3},{6,3}}));
-      connect(busConnector.MT.InterstitialProtein_Mass,MiddleTorso. solute) annotation (
+      connect(busConnector.MT_InterstitialProtein_Mass,MiddleTorso. solute) annotation (
           Line(
           points={{92,14},{58,14},{58,20}},
           color={0,0,127},
@@ -47350,7 +49620,7 @@ Total         = 43000
      string="%first",
      index=-1,
      extent={{-6,3},{-6,3}}));
-    connect(LowerTorso.solutionVolume, busConnector.LT.InterstitialWater_Vol)
+    connect(LowerTorso.solutionVolume, busConnector.LT_InterstitialWater_Vol)
       annotation (Line(
         points={{72,-8},{92,-8},{92,14}},
         color={0,0,127},
@@ -47358,7 +49628,7 @@ Total         = 43000
         string="%second",
         index=1,
         extent={{6,3},{6,3}}));
-      connect(busConnector.LT.InterstitialProtein_Mass,LowerTorso. solute) annotation (
+      connect(busConnector.LT_InterstitialProtein_Mass,LowerTorso. solute) annotation (
           Line(
           points={{92,14},{92,-22},{62,-22}},
           color={0,0,127},
@@ -47366,22 +49636,22 @@ Total         = 43000
      string="%first",
      index=-1,
      extent={{-6,3},{-6,3}}));
-    connect(busConnector.UT.LymphFlow, UT_Lymph.solutionFlow) annotation (Line(
-        points={{92,14},{18,14},{18,54},{6,54},{6,67},{5,67}},
+    connect(busConnector.UT_LymphFlow, UT_Lymph.solutionFlow) annotation (Line(
+        points={{92,14},{18,14},{18,54},{6,54},{6,65.5},{5,65.5}},
         color={0,0,127},
         smooth=Smooth.None), Text(
         string="%first",
         index=-1,
         extent={{-6,3},{-6,3}}));
-    connect(busConnector.MT.LymphFlow, MT_Lymph.solutionFlow) annotation (Line(
-        points={{92,14},{6,14},{6,21},{5,21}},
+    connect(busConnector.MT_LymphFlow, MT_Lymph.solutionFlow) annotation (Line(
+        points={{92,14},{6,14},{6,19.5},{5,19.5}},
         color={0,0,127},
         smooth=Smooth.None), Text(
         string="%first",
         index=-1,
         extent={{-6,3},{-6,3}}));
-    connect(busConnector.LT.LymphFlow, LT_Lymph.solutionFlow) annotation (Line(
-        points={{92,14},{14,14},{14,-26},{6,-26},{6,-19},{5,-19}},
+    connect(busConnector.LT_LymphFlow, LT_Lymph.solutionFlow) annotation (Line(
+        points={{92,14},{14,14},{14,-26},{6,-26},{6,-20.5},{5,-20.5}},
         color={0,0,127},
         smooth=Smooth.None), Text(
         string="%first",
@@ -75706,7 +77976,8 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
       Physiolibrary.Chemical.Sources.UnlimitedSolutePump Diet(
           useSoluteFlowInput=true)
         annotation (Placement(transformation(extent={{-84,-4},{-64,16}})));
-        Modelica.Blocks.Interfaces.RealInput DietIntakeElectrolytes_PO4(final
+        Physiolibrary.Types.RealIO.MolarFlowRateInput
+                                             DietIntakeElectrolytes_PO4(final
             quantity="VolumeFlowRate", final displayUnit="mEq/min")
           annotation (Placement(transformation(extent={{-84,8},{-76,16}}),
               iconTransformation(
@@ -75808,7 +78079,7 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
             thickness=1));
       connect(glomerulusPhosphateRate.solutionFlow, GlomerulusFiltrate_GFR)
         annotation (Line(
-          points={{10,28},{10,34},{0,34}},
+          points={{10,31},{10,34},{0,34}},
           color={0,0,127},
           smooth=Smooth.None));
         connect(glomerulus.q_out, glomerulusPhosphateRate.q_in)
@@ -75864,7 +78135,7 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
             color={0,0,127},
             smooth=Smooth.None));
       connect(PO4Pool.solute, gain1.u) annotation (Line(
-          points={{-54,14},{-54,-12},{-50.4,-12}},
+          points={{-48,14},{-48,-12},{-50.4,-12}},
           color={0,0,127},
           smooth=Smooth.None));
         connect(gain1.y, PO4Pool_Osmoles) annotation (Line(
@@ -75877,7 +78148,7 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
             thickness=1,
             smooth=Smooth.None));
       connect(bladderVoid.solutionFlow, BladderVoidFlow) annotation (Line(
-          points={{72,-11.6},{72,-4},{62,-4}},
+          points={{72,-9.8},{72,-4},{62,-4}},
           color={0,0,127},
           smooth=Smooth.None));
       connect(concentrationMeasure1.concentration, ctPO4) annotation (Line(
@@ -75889,8 +78160,8 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
             color={200,0,0},
             thickness=1,
             smooth=Smooth.None));
-        annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-                  -100},{100,100}}),       graphics), Icon(coordinateSystem(
+        annotation (Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,
+                -100},{100,100}}),         graphics), Icon(coordinateSystem(
                 preserveAspectRatio=true, extent={{-100,-100},{100,100}}),
               graphics));
       end Phosphate;
@@ -76269,7 +78540,7 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
             thickness=1));
       connect(glomerulusPhosphateRate.solutionFlow, busConnector.GlomerulusFiltrate_GFR)
         annotation (Line(
-          points={{10,28},{10,82},{-84,82}},
+          points={{10,31},{10,82},{-84,82}},
           color={0,0,127},
           smooth=Smooth.None), Text(
           string="%second",
@@ -76313,7 +78584,7 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
        index=-1,
        extent={{-3,1},{-3,1}}));
       connect(PO4Pool.solute, gain1.u) annotation (Line(
-          points={{-54,14},{-54,-12},{-50.4,-12}},
+          points={{-48,14},{-48,-12},{-50.4,-12}},
           color={0,0,127},
           smooth=Smooth.None));
         connect(gain1.y, busConnector. PO4Pool_Osmoles) annotation (Line(
