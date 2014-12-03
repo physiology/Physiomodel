@@ -37905,46 +37905,48 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
             extent={{-40,-20},{0,20}})));
     Physiolibrary.Types.Constants.MolarFlowRateConst diet_Na(k(displayUnit=
             "mmol/min") = 2.1368833333333e-06)
-      annotation (Placement(transformation(extent={{-92,48},{-84,56}})));
+      annotation (Placement(transformation(extent={{-90,32},{-82,40}})));
     Physiolibrary.Types.Constants.MolarFlowRateConst diet_K(k(displayUnit=
             "mmol/min") = 8.6666666666667e-07)
-      annotation (Placement(transformation(extent={{-92,36},{-84,44}})));
+      annotation (Placement(transformation(extent={{-90,20},{-82,28}})));
     Physiolibrary.Types.Constants.MolarFlowRateConst diet_Cl(k(displayUnit=
             "mmol/min") = 2.3743166666667e-06)
-      annotation (Placement(transformation(extent={{-92,24},{-84,32}})));
+      annotation (Placement(transformation(extent={{-90,8},{-82,16}})));
     Physiolibrary.Types.Constants.MolarFlowRateConst diet_PO4(k(displayUnit=
             "mmol/min") = 3.6666666666667e-07)
-      annotation (Placement(transformation(extent={{-92,72},{-84,80}})));
+      annotation (Placement(transformation(extent={{-90,56},{-82,64}})));
     Physiolibrary.Types.Constants.MolarFlowRateConst diet_SO4(k=
           6.1666666666667e-07)
-      annotation (Placement(transformation(extent={{-92,60},{-84,68}})));
+      annotation (Placement(transformation(extent={{-90,44},{-82,52}})));
     Physiolibrary.Types.Constants.TemperatureConst          diet_temperature(k=294.261)
       annotation (Placement(transformation(extent={{-90,84},{-84,90}})));
     Physiolibrary.Types.Constants.AmountOfSubstanceConst fiber_GILumen(k(
           displayUnit="mosm") = 0.043)
       annotation (Placement(transformation(extent={{-88,-36},{-80,-28}})));
+    Physiolibrary.Types.Constants.VolumeFlowRateConst diet_H2O(k=2.48235e-08)
+      annotation (Placement(transformation(extent={{-90,70},{-82,78}})));
     equation
     connect(diet_Na.y, busConnector.DietIntakeElectrolytes_Na) annotation (Line(
-        points={{-83,52},{-32,52},{-32,-12}},
+        points={{-81,36},{-32,36},{-32,-12}},
         color={0,0,127},
         smooth=Smooth.None));
     connect(diet_K.y, busConnector.DietIntakeElectrolytes_K) annotation (Line(
-        points={{-83,40},{-32,40},{-32,-12}},
+        points={{-81,24},{-32,24},{-32,-12}},
         color={0,0,127},
         smooth=Smooth.None));
     connect(diet_Cl.y, busConnector.DietIntakeElectrolytes_Cl) annotation (Line(
-        points={{-83,28},{-32,28},{-32,-12}},
+        points={{-81,12},{-32,12},{-32,-12}},
         color={0,0,127},
         smooth=Smooth.None));
     connect(diet_PO4.y, busConnector.DietIntakeElectrolytes_PO4) annotation (
         Line(
-        points={{-83,76},{-32,76},{-32,-12}},
+        points={{-81,60},{-32,60},{-32,-12}},
         color={0,0,127},
         thickness=0.5,
         smooth=Smooth.None));
     connect(diet_SO4.y, busConnector.DietIntakeElectrolytes_SO4) annotation (
         Line(
-        points={{-83,64},{-32,64},{-32,-12}},
+        points={{-81,48},{-32,48},{-32,-12}},
         color={0,0,127},
         thickness=0.5,
         smooth=Smooth.None));
@@ -37958,6 +37960,13 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
           extent={{6,3},{6,3}}));
     connect(fiber_GILumen.y, busConnector.GILumenFiber_Mass) annotation (Line(
         points={{-79,-32},{-56,-32},{-56,-12},{-32,-12}},
+        color={0,0,127},
+        smooth=Smooth.None), Text(
+        string="%second",
+        index=1,
+        extent={{6,3},{6,3}}));
+    connect(diet_H2O.y, busConnector.DietIntakeH2O_Rate) annotation (Line(
+        points={{-81,74},{-32,74},{-32,-12}},
         color={0,0,127},
         smooth=Smooth.None), Text(
         string="%second",
@@ -38299,7 +38308,7 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
       annotation (Placement(transformation(extent={{26,-72},{20,-66}})));
     Physiolibrary.Types.Constants.ConcentrationConst        Constant1(k=0)
       annotation (Placement(transformation(extent={{-80,-88},{-72,-80}})));
-    Physiolibrary.Types.Constants.ConcentrationConst        Constant2(k=0)
+    Physiolibrary.Types.Constants.MassConcentrationConst    Constant2(k=0)
       annotation (Placement(transformation(extent={{-92,6},{-84,14}})));
     Physiolibrary.Types.Constants.FractionConst             const9(k=1)
       annotation (Placement(transformation(extent={{-92,60},{-88,64}})));
@@ -39264,6 +39273,22 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
             smooth=Smooth.None));
         annotation (Diagram(graphics));
       end Setup_test_SI;
+
+      model Test
+      import Physiomodel;
+      Setup setup
+        annotation (Placement(transformation(extent={{-30,32},{-10,52}})));
+      Physiomodel.Setup.IO_Bus.OutputComparison outputComparison
+        annotation (Placement(transformation(extent={{18,40},{38,60}})));
+      equation
+      connect(setup.busConnector, outputComparison.busConnector) annotation (
+          Line(
+          points={{-12,48},{8,48},{8,50},{28,50}},
+          color={0,0,255},
+          thickness=0.5,
+          smooth=Smooth.None));
+      annotation (Diagram(graphics));
+      end Test;
     end IO_Bus;
 
     annotation (Documentation(revisions="<html>
