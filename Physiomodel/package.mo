@@ -2,12 +2,10 @@
 package Physiomodel "Mammalian physiology model"
   extends Physiolibrary.Icons.GolemLib;
 
-
   package CardioVascular "Blood and Cardio-Vascular System"
     extends Physiolibrary.Icons.CardioVascularLib;
     class References "References"
       extends Modelica.Icons.References;
-
       annotation (Documentation(info="<html>
 <table>
 
@@ -560,10 +558,8 @@ package Physiomodel "Mammalian physiology model"
     end References;
 
     package Heart "Heart Components"
-
       class References "References"
         extends Modelica.Icons.References;
-
         annotation (Documentation(info="<html>
 <table>
 
@@ -706,7 +702,6 @@ package Physiomodel "Mammalian physiology model"
           parameter Physiolibrary.Types.Volume initialVol = 90e-6
           "Initial blood volume in ventricle";
         //  parameter Physiolibrary.Types.Volume initialESV = 50e-6;
-
         parameter Physiolibrary.Types.Volume NormalEndDiastolicVolume = 70e-6
           "Typical value of blood volume in ventricle after filling"
             annotation (Dialog(group="Diastole"));
@@ -722,7 +717,6 @@ package Physiomodel "Mammalian physiology model"
         //parameter Real Abasic_Diastole = 0.00051
         //    "parametrization of end diastolic volume curve"
         //    annotation (Dialog(group="Diastole"));
-
         parameter Physiolibrary.Types.Pressure NormalSystolicPressure = 15998.684210526315789473684210526
           "Typical value of systolic pressure relative to pericardium pressure"
             annotation (Dialog(group="Systole"));
@@ -740,34 +734,28 @@ package Physiomodel "Mammalian physiology model"
         parameter Physiolibrary.Types.Fraction n_Systole(displayUnit="1")=0.5
           "Exponent of P-V characteristic of ESV curve on systolic pressure"
             annotation (Dialog(group="Systole"));
-
         parameter Physiolibrary.Types.Frequency K
           "time adaptation coeficient of average ventricle blood volume";
                                                       // = 1
         parameter Physiolibrary.Types.HydraulicCompliance BasicCompliance; //(final quantity="Compliance", final displayUnit="ml/mmHg") = 1;
-
         //parameter Physiolibrary.Types.HydraulicCompliance MaxContractionCompliance; //=1;
         //parameter Physiolibrary.Types.HydraulicConductance Cond1;//=1;
         //parameter Physiolibrary.Types.HydraulicConductance Cond2;//=1;
-
         Physiolibrary.Hydraulic.Interfaces.HydraulicPort_a q_in annotation (
             extent=[-10,-110; 10,-90], Placement(transformation(extent={{-90,70},
                   {-70,90}}),iconTransformation(extent={{10,70},{30,90}})));
         Physiolibrary.Hydraulic.Interfaces.HydraulicPort_b q_out annotation (
             extent=[-10,-110; 10,-90], Placement(transformation(extent={{70,70},
                   {90,90}}),   iconTransformation(extent={{-30,90},{-10,110}})));
-
         Physiolibrary.Types.BusConnector busConnector annotation (Placement(
               transformation(extent={{12,-8},{32,12}}), iconTransformation(
                 extent={{-10,-64},{10,-44}})));
-
           Physiolibrary.Types.RealIO.VolumeOutput Vol
                                               annotation (Placement(transformation(
                   extent={{70,30},{76,36}}),    iconTransformation(
                 extent={{-20,-20},{20,20}},
                 rotation=270,
                 origin={40,-40})));
-
          annotation (
             Documentation(info="<html>
 <pre>Heart ventricle interface.</pre>
@@ -1216,23 +1204,18 @@ package Physiomodel "Mammalian physiology model"
       model Ventricle
         import Physiomodel;
        extends Physiomodel.CardioVascular.Heart.Interfaces.IVentricle;
-
        parameter String stateName;
-
       Physiolibrary.Types.Constants.FractionConst
         basicContractility(k=contractilityBasic)
         annotation (Placement(transformation(extent={{60,6},{68,14}})));
-
         Physiomodel.Nerves.BetaReceptorsActivityFactor betaReceptorsActivityFactor
           annotation (Placement(transformation(extent={{64,-20},{84,0}})));
-
         Modelica.Blocks.Math.Add Vol_SteadyState(k1=0.5, k2=0.5)
                                                    annotation (Placement(
               transformation(
               extent={{10,-10},{-10,10}},
               rotation=270,
               origin={-34,18})));
-
       Physiomodel.CardioVascular.Heart.Diastole diastole(
         stiffnes=stiffnes,
         n_Diastole=n_Diastole,
@@ -1240,7 +1223,6 @@ package Physiomodel "Mammalian physiology model"
         NormalEndDiastolicVolume=NormalEndDiastolicVolume)
         annotation (Placement(transformation(extent={{-76,-44},{-56,-24}})));
       //    ,Abasic_Diastole=Abasic_Diastole
-
         Systole systole(
           n_Systole=n_Systole,
           additionalPressure_Systolic=additionalPressure_Systolic,
@@ -1248,25 +1230,21 @@ package Physiomodel "Mammalian physiology model"
           NormalEndSystolicVolume=NormalEndSystolicVolume)
           annotation (Placement(transformation(extent={{52,-44},{72,-24}})));
        //   Abasic_Systole=Abasic_Systole,
-
         Modelica.Blocks.Math.Feedback StrokeVolume
           annotation (Placement(transformation(extent={{-10,-10},{10,10}},
               rotation=0,
               origin={-8,-6})));
-
         VentricleVolumeAndPumping2 ventricle(
           initialVolume=initialVol,
           K=K,
           BasicCompliance=BasicCompliance,
           stateName=stateName)
                  annotation (Placement(transformation(extent={{-8,70},{12,90}})));
-
         Modelica.Blocks.Math.Product BloodFlow     annotation (Placement(
               transformation(
               extent={{-10,-10},{10,10}},
               rotation=90,
               origin={16,40})));
-
       equation
         connect(basicContractility.y, betaReceptorsActivityFactor.yBase)
                                                                annotation (Line(
@@ -1379,7 +1357,6 @@ package Physiomodel "Mammalian physiology model"
             string="%second",
             index=1,
             extent={{6,3},{6,3}}));
-
        annotation (
           Documentation(info="<HTML>
 <PRE>
@@ -1476,17 +1453,13 @@ SYSTOLE
       end Ventricle;
 
       model Systole
-
       //  Real iconPoint[20,2](each final displayUnit="mm");
       //  Real iconActualPoint[2,2](each final displayUnit="mm");
-
       Physiolibrary.Hydraulic.Interfaces.HydraulicPort_b outflow annotation (
           Placement(transformation(extent={{80,20},{120,60}}),
             iconTransformation(extent={{80,20},{120,60}})));
-
         Physiolibrary.Types.RealIO.FractionInput contractility
         "heart muscle contractility"   annotation ( extent = [70,90;90,110], rotation = -90);
-
       parameter Physiolibrary.Types.Fraction n_Systole(displayUnit="1")
         "parametrization of end diastolic volume curve";
       //parameter Real Abasic_Systole "parametrization of end systolic volume curve";
@@ -1496,14 +1469,12 @@ SYSTOLE
         "= 2.64 ml for left ventricle, parametrization of end systolic volume curve";
       parameter Physiolibrary.Types.Pressure additionalPressure_Systolic
         "parametrization of end systolic volume curve";
-
         Physiolibrary.Types.RealIO.VolumeOutput
                                             ESV   annotation (Placement(transformation(extent={{-74,-74},
                   {-34,-34}}), iconTransformation(
               extent={{-10,-10},{10,10}},
               rotation=180,
               origin={-100,80})));
-
         Physiolibrary.Types.RealIO.PressureInput externalPressure
         "pressure around ventricle"                                             annotation (
       Placement(transformation(extent={{-110,-70},{-90,-50}}), iconTransformation(
@@ -1513,7 +1484,6 @@ SYSTOLE
       //  P=outflow.pressure;
       //  ESV = ((outflow.pressure+additionalPressure_Systolic-externalPressure)/(contractility*Abasic_Systole))^(1/n_Systole);
         ESV = NormalEndSystolicVolume*((outflow.pressure+additionalPressure_Systolic-externalPressure)/(contractility*NormalSystolicPressure))^(1/n_Systole);
-
       // drawing icon
       /*  for i in 1:size(iconPoint,1) loop
     iconPoint[i,1]=((i-1)/(size(iconPoint,1)))*180 - 90;
@@ -1554,7 +1524,6 @@ SYSTOLE
       Physiolibrary.Hydraulic.Interfaces.HydraulicPort_a inflow annotation (
           Placement(transformation(extent={{-122,-24},{-82,16}}),
             iconTransformation(extent={{-120,20},{-80,60}})));
-
         Physiolibrary.Types.RealIO.PressureInput externalPressure
         "pericardium pressure around ventricle"
                                        annotation ( Placement(transformation(extent={{94,-58},
@@ -1562,7 +1531,6 @@ SYSTOLE
               extent={{-10,-10},{10,10}},
               rotation=180,
               origin={100,-60})));
-
       parameter Physiolibrary.Types.Fraction stiffnes
         "parametrization of end diastolic volume curve";
       parameter Physiolibrary.Types.Fraction n_Diastole(displayUnit="1")
@@ -1573,22 +1541,18 @@ SYSTOLE
       parameter Physiolibrary.Types.Volume NormalEndDiastolicVolume
         "= (NormalDiastolicPressure/Abasic_Diastole)^n_Diastole";
       //Abasic_Diastole "parametrization of end diastolic volume curve";
-
         Physiolibrary.Types.RealIO.VolumeOutput
                                             EDV   annotation (Placement(transformation(extent={{-74,-74},
                   {-34,-34}}), iconTransformation(
               extent={{-10,-10},{10,10}},
               rotation=0,
               origin={100,80})));
-
       equation
         inflow.q = 0;
       //  P = inflow.pressure;
       //  EDV = ((inflow.pressure-externalPressure)/(stiffnes*Abasic_Diastole))^(1/n_Diastole);
         EDV = NormalEndDiastolicVolume*((inflow.pressure-externalPressure)/(stiffnes*NormalFillingPressure))^(1/n_Diastole);
-
         //  Stiffness = stiffnes;
-
       // drawing icon
       /*  for i in 1:size(iconPoint,1) loop
     iconPoint[i,1]=((i-1)/(size(iconPoint,1)))*180 - 90;
@@ -1625,7 +1589,6 @@ SYSTOLE
         model VentricleVolumeAndPumping2
       "Multiple PressureFlow connector with pressures from multiple inputs"
                    extends Physiolibrary.SteadyStates.Interfaces.SteadyState(state_start=initialVolume, state(nominal=1e-4));
-
                     Physiolibrary.Types.RealIO.VolumeFlowRateInput BloodFlow( displayUnit=
                          "ml/min") "heart cardiac output"
                       annotation (Placement(transformation(extent={{-140,-20},{-100,20}},
@@ -1635,15 +1598,11 @@ SYSTOLE
                     Physiolibrary.Hydraulic.Interfaces.HydraulicPort_a q_in annotation (
                     Placement(transformation(extent={{100,-20},{140,20}}, rotation=0),
                       iconTransformation(extent={{-110,-10},{-90,10}})));
-
                     parameter Physiolibrary.Types.Volume initialVolume(displayUnit="ml");
-
                     Physiolibrary.Hydraulic.Interfaces.HydraulicPort_b q_out annotation (
                     extent=[-10,-110; 10,-90], Placement(transformation(extent={{90,-10},
                           {110,10}}), iconTransformation(extent={{90,-10},{110,10}})));
-
                     Physiolibrary.Types.VolumeFlowRate delta(displayUnit="ml/min");
-
                      Physiolibrary.Types.RealIO.VolumeInput VentricleSteadyStateVolume(
                                                                              displayUnit="ml")
         "heart ventricle steady state volume"
@@ -1651,7 +1610,6 @@ SYSTOLE
                           rotation=0), iconTransformation(extent={{-20,-20},{20,20}},
                         rotation=90,
                         origin={-80,-100})));
-
                     parameter Physiolibrary.Types.Frequency K( displayUnit="1/min") = 0.01666666666666666666666666666667;
                     parameter Physiolibrary.Types.Volume V0( displayUnit="ml") = 0;
                     parameter Physiolibrary.Types.HydraulicCompliance BasicCompliance(displayUnit="ml/mmHg");
@@ -1659,7 +1617,6 @@ SYSTOLE
                                                           start=initialVolume, displayUnit="ml") annotation (Placement(transformation(
                             extent={{84,-70},{124,-30}}), iconTransformation(extent={{84,-70},{
                               124,-30}})));
-
                   //  Real Compliance(final quantity="Compliance", final displayUnit="ml/mmHg");
                   //  Real StressedVol(final quantity="Volume", final displayUnit="ml");
                   //  Real Pressure(final quantity="Pressure", final displayUnit="mmHg");
@@ -1667,7 +1624,6 @@ SYSTOLE
                   //  Volume = initialVolume;
                     //der(Volume) = 0;
         equation
-
                     delta = (VentricleSteadyStateVolume - Volume)*K;
                   /*  if STEADY then
     der(Volume) = 0;
@@ -1676,20 +1632,16 @@ SYSTOLE
   end if;
 */
                     q_in.q + q_out.q = delta;
-
                   if Simulation == Physiolibrary.Types.SimulationType.SteadyState then //Physiolibrary.SimulationType.STEADY then
                     q_in.q = BloodFlow;
                   else
                     q_in.q = if (delta<0) then BloodFlow else BloodFlow+delta;
                   end if;
-
                     //increase (delta>0) average ventricle volume means flow delta from q_in (veins)
                     //decrease (delta<0) average ventricle volume means flow delta to q_to (atrys)
-
                    // StressedVol  =  max( Volume - V0,  0.0);
                    // Compliance  =  BasicCompliance / VentricleDiastole_Stiffness;
                    // Pressure  =  ( StressedVol / Compliance)  + ExternalPressure;
-
                     state = Volume;
                     change = delta;
                     annotation (Documentation(info="<HTML>
@@ -1706,53 +1658,43 @@ vector of pressure-flow connectors.
       extends Modelica.Icons.UnderConstruction;
         model Ventricle4
          extends Physiomodel.CardioVascular.Heart.Interfaces.IVentricle;
-
          parameter String stateName;
-
         Physiolibrary.Types.Constants.DeprecatedUntypedConstant
           basicContractility(k=contractilityBasic)
           annotation (Placement(transformation(extent={{60,2},{68,10}})));
-
           Physiomodel.Nerves.BetaReceptorsActivityFactor betaReceptorsActivityFactor
             annotation (Placement(transformation(extent={{64,-20},{84,0}})));
-
           Modelica.Blocks.Math.Add Vol_SteadyState(k1=0.5, k2=0.5)
                                                      annotation (Placement(
                 transformation(
                 extent={{10,-10},{-10,10}},
                 rotation=270,
                 origin={-34,18})));
-
         Diastole4 diastole(
           stiffnes=stiffnes,
           n_Diastole=n_Diastole,
           Abasic_Diastole=Abasic_Diastole) annotation (Placement(
               transformation(extent={{-76,-44},{-56,-24}})));
-
           Systole systole(
             n_Systole=n_Systole,
             Abasic_Systole=Abasic_Systole,
             additionalPressure_Systolic=additionalPressure_Systolic)
             annotation (Placement(transformation(extent={{56,-44},{76,-24}})));
-
           Modelica.Blocks.Math.Feedback StrokeVolume
             annotation (Placement(transformation(extent={{-10,-10},{10,10}},
                 rotation=0,
                 origin={-8,-6})));
-
           VentricleVolumeAndPumping2 ventricle(
             initialVolume=initialVol,
             K=K,
             BasicCompliance=BasicCompliance,
             stateName=stateName)
                    annotation (Placement(transformation(extent={{-8,66},{12,86}})));
-
           Modelica.Blocks.Math.Product BloodFlow     annotation (Placement(
                 transformation(
                 extent={{-10,-10},{10,10}},
                 rotation=90,
                 origin={16,40})));
-
         equation
           connect(basicContractility.y, betaReceptorsActivityFactor.yBase)
                                                                  annotation (Line(
@@ -1869,7 +1811,6 @@ vector of pressure-flow connectors.
               points={{16,51},{16,59},{77,59}},
               color={0,0,127},
               smooth=Smooth.None));
-
           connect(diastole.HR, busConnector.HeartVentricleRate) annotation (
               Line(
               points={{-56,-33.2},{22,-33.2},{22,2}},
@@ -1983,11 +1924,9 @@ SYSTOLE
         model Diastole4
           Real iconPoint[20,2](final displayUnit="mm");
           Real iconActualPoint[2,2](final displayUnit="mm");
-
         Physiolibrary.Hydraulic.Interfaces.HydraulicPort_a inflow annotation (
             Placement(transformation(extent={{-122,-24},{-82,16}}),
               iconTransformation(extent={{-120,20},{-80,60}})));
-
           Modelica.Blocks.Interfaces.RealInput externalPressure(final quantity=
                 "Pressure", final displayUnit="mmHg")
           "pericardium pressure around ventricle"
@@ -1996,13 +1935,11 @@ SYSTOLE
                 extent={{-10,-10},{10,10}},
                 rotation=180,
                 origin={100,-60})));
-
         parameter Real stiffnes "parametrization of end diastolic volume curve";
         parameter Real n_Diastole
           "parametrization of end systolic volume curve";
         parameter Real Abasic_Diastole
           "parametrization of end diastolic volume curve";
-
           Modelica.Blocks.Interfaces.RealOutput
                                               EDV( final quantity="Volume",
               final displayUnit="ml")   annotation (Placement(transformation(extent={{-74,-74},
@@ -2010,7 +1947,6 @@ SYSTOLE
                 extent={{-10,-10},{10,10}},
                 rotation=0,
                 origin={100,80})));
-
           Modelica.Blocks.Interfaces.RealOutput P(final quantity="Pressure",
               final displayUnit="mmHg") annotation (Placement(transformation(extent={{-74,-74},
                     {-34,-34}}), iconTransformation(
@@ -2031,7 +1967,6 @@ SYSTOLE
                 origin={100,8})));
           Real HR_effect;
           Real EDV_withoutHReffect;
-
           Modelica.Blocks.Interfaces.RealInput preESV(final quantity="Volume", final displayUnit=
                    "ml") "previous end systolic volume"
                                          annotation ( Placement(transformation(extent={{94,-58},
@@ -2044,11 +1979,9 @@ SYSTOLE
           P = inflow.pressure;
           //linearna zavislost na HR - vid. mathematica/Efect_EDVonHR.nb
           HR_effect = -0.00247654 * HR + 1.18574; //  1 = a*75+b;
-
           EDV_withoutHReffect = (((inflow.pressure-externalPressure)/(stiffnes*Abasic_Diastole))^(1/n_Diastole));
           EDV = HR_effect * (EDV_withoutHReffect-preESV) + preESV;
           Stiffness = stiffnes;
-
         // drawing icon
           for i in 1:size(iconPoint,1) loop
             iconPoint[i,1]=((i-1)/(size(iconPoint,1)))*180 - 90;
@@ -2097,9 +2030,7 @@ SYSTOLE
 
         model Ventricle2
          extends Physiomodel.CardioVascular.Heart.Interfaces.IVentricle;
-
          extends Physiolibrary.SteadyStates.Interfaces.SteadyState;
-
         type VentriclePhase = enumeration(
             ISOVOLUMIC_CONTRACTION,
             EJECTION,
@@ -2154,13 +2085,10 @@ SYSTOLE
           when edge(c) then
             state=mod(pre(state)+1,4);
           end when;
-
           Power=der(P)*V + der(V)*P;  //=der(V*P)
-
         //  der(V)= q_out.q + q_in.q;
         state = V;
           changePerMin = q_out.q + q_in.q;
-
           if state==VentriclePhase.ISOVOLUMIC_CONTRACTION then
             Power=HeartMusclePower;
             q_in.q=0;
@@ -2182,10 +2110,8 @@ SYSTOLE
             q_out.q=0;
             b = q_in.q<=0; //reach true when atrium-ventricle valve close
           end if;
-
           CO=-q_out.q;
           Vol = V;
-
           annotation (Icon(graphics));
         end Ventricle2;
 
@@ -2193,11 +2119,9 @@ SYSTOLE
         /*  Real iconPoint[20,2](each final displayUnit="mm");
   Real iconActualPoint[2,2](each final displayUnit="mm");
   */
-
         Physiolibrary.Hydraulic.Interfaces.HydraulicPort_a inflow annotation (
             Placement(transformation(extent={{-122,-24},{-82,16}}),
               iconTransformation(extent={{-120,20},{-80,60}})));
-
           Physiolibrary.Types.RealIO.PressureInput externalPressure
           "pericardium pressure around ventricle"
                                          annotation ( Placement(transformation(extent={{94,-58},
@@ -2205,21 +2129,18 @@ SYSTOLE
                 extent={{-10,-10},{10,10}},
                 rotation=180,
                 origin={100,-60})));
-
         parameter Physiolibrary.Types.Fraction stiffnes
           "parametrization of end diastolic volume curve";
         parameter Physiolibrary.Types.Fraction n_Diastole
           "parametrization of end systolic volume curve";
         parameter Real Abasic_Diastole
           "parametrization of end diastolic volume curve";
-
           Physiolibrary.Types.RealIO.VolumeOutput
                                               EDV   annotation (Placement(transformation(extent={{-74,-74},
                     {-34,-34}}), iconTransformation(
                 extent={{-10,-10},{10,10}},
                 rotation=0,
                 origin={100,80})));
-
           Physiolibrary.Types.RealIO.PressureOutput P annotation (Placement(transformation(extent={{-74,-74},
                     {-34,-34}}), iconTransformation(
                 extent={{-10,-10},{10,10}},
@@ -2246,10 +2167,8 @@ SYSTOLE
           HR_effect = a*HR+b;
           1 = a*75+b;
           0.52 = a*200+b;
-
           EDV = (((inflow.pressure-externalPressure)/(stiffnes*Abasic_Diastole))^(1/n_Diastole))*HR_effect;
           Stiffness = stiffnes;
-
         // drawing icon
         /*  for i in 1:size(iconPoint,1) loop
     iconPoint[i,1]=((i-1)/(size(iconPoint,1)))*180 - 90;
@@ -2298,29 +2217,23 @@ SYSTOLE
 
         model Ventricle3
          extends Physiomodel.CardioVascular.Heart.Interfaces.IVentricle;
-
          parameter String stateName;
-
         Physiolibrary.Types.Constants.FractionConst
           basicContractility(k=contractilityBasic)
           annotation (Placement(transformation(extent={{60,2},{68,10}})));
-
           Physiomodel.Nerves.BetaReceptorsActivityFactor betaReceptorsActivityFactor
             annotation (Placement(transformation(extent={{64,-20},{84,0}})));
-
           Modelica.Blocks.Math.Add Vol_SteadyState(k1=0.5, k2=0.5)
                                                      annotation (Placement(
                 transformation(
                 extent={{10,-10},{-10,10}},
                 rotation=270,
                 origin={-34,18})));
-
         develop.Diastole3 diastole(
           stiffnes=stiffnes,
           n_Diastole=n_Diastole,
           Abasic_Diastole=Abasic_Diastole) annotation (Placement(
               transformation(extent={{-76,-44},{-56,-24}})));
-
           Systole systole(
             n_Systole=n_Systole,
             Abasic_Systole=Abasic_Systole,
@@ -2328,25 +2241,21 @@ SYSTOLE
           NormalSystolicPressure=NormalSystolicPressure,
           NormalEndSystolicVolume=NormalEndSystolicVolume)
             annotation (Placement(transformation(extent={{56,-44},{76,-24}})));
-
           Modelica.Blocks.Math.Feedback StrokeVolume
             annotation (Placement(transformation(extent={{-10,-10},{10,10}},
                 rotation=0,
                 origin={-8,-6})));
-
           VentricleVolumeAndPumping2 ventricle(
             initialVolume=initialVol,
             K=K,
             BasicCompliance=BasicCompliance,
             stateName=stateName)
                    annotation (Placement(transformation(extent={{-8,66},{12,86}})));
-
           Modelica.Blocks.Math.Product BloodFlow     annotation (Placement(
                 transformation(
                 extent={{-10,-10},{10,10}},
                 rotation=90,
                 origin={16,40})));
-
         equation
           connect(basicContractility.y, betaReceptorsActivityFactor.yBase)
                                                                  annotation (Line(
@@ -2463,7 +2372,6 @@ SYSTOLE
               points={{16,51},{16,59},{77,59}},
               color={0,0,127},
               smooth=Smooth.None));
-
           connect(diastole.HR, busConnector.HeartVentricleRate) annotation (
               Line(
               points={{-56,-33.2},{22,-33.2},{22,2}},
@@ -2575,7 +2483,6 @@ SYSTOLE
     package VascularCompartments "Blood Cardio-Vascular Distribution"
       class References "References"
         extends Modelica.Icons.References;
-
         annotation (Documentation(info="<html>
 <table>
 
@@ -2820,10 +2727,8 @@ SYSTOLE
       end References;
 
       package Interfaces "Abstract Interfaces"
-
         partial model IVascularElasticBloodCompartment
           extends Physiolibrary.Icons.ElasticBalloon;
-
         Physiolibrary.Hydraulic.Interfaces.HydraulicPort_a referencePoint
           annotation (extent=[-10,-110; 10,-90], Placement(transformation(
                 extent={{-110,-10},{-90,10}}), iconTransformation(extent={{-10,
@@ -2837,12 +2742,10 @@ SYSTOLE
           Modelica.Blocks.Interfaces.RealInput Compliance(
                                                         final quantity="Compliance", final displayUnit="ml/mmHg")
           "elasticity of the stressed walls"                               annotation (extent = [50,90;70,110], rotation = -90);
-
           Modelica.Blocks.Interfaces.RealOutput Pressure(  final quantity="Pressure", final displayUnit="mmHg")
           "blod pressure in compartment"
             annotation (Placement(transformation(extent={{30,-110},{50,-90}}, rotation=-90)));
          // Real Vol "blood volume in compartment";
-
           parameter Real initialVol = 0;
           Modelica.Blocks.Interfaces.RealOutput Vol(start=initialVol, final
               quantity =                                                             "Volume", final displayUnit=
@@ -2850,7 +2753,6 @@ SYSTOLE
             annotation (Placement(transformation(extent={{-10,-10},{10,10}},
                 rotation=270,
                 origin={-40,-100})));
-
          // parameter Real initialVol = 0;
          annotation (
             preferredView = text,
@@ -2866,21 +2768,18 @@ SYSTOLE
 
         model ISequesteredBlood
          extends Physiolibrary.Icons.BloodSequesteredCompartment;
-
         Physiolibrary.Hydraulic.Interfaces.HydraulicPort_a referencePoint
           annotation (extent=[-10,-110; 10,-90], Placement(transformation(
                 extent={{-110,-10},{-90,10}}), iconTransformation(extent={{-10,
                   -10},{10,10}})));
           Physiolibrary.Types.RealIO.PressureInput ExternalPressure
           "external pressure around the compartment"                              annotation (extent = [-100,90;-80,110], rotation = -90);
-
           Physiolibrary.Types.RealIO.PressureOutput Pressure
           "blod pressure in compartment"
             annotation (Placement(transformation(extent={{30,-110},{50,-90}}, rotation=-90)));
           Physiolibrary.Types.RealIO.VolumeOutput Vol
           "blood volume in compartment"
             annotation (Placement(transformation(extent={{-50,-110},{-30,-90}}, rotation=-90)));
-
          annotation (
             Documentation(info="<HTML>
 </HTML>
@@ -2891,12 +2790,10 @@ SYSTOLE
                     -100},{100,100}}),
                             graphics));
         end ISequesteredBlood;
-
       end Interfaces;
 
       model SystemicCirculationFullDynamic
         extends Physiolibrary.Icons.SystemicCirculation;
-
       Physiolibrary.Hydraulic.Interfaces.HydraulicPort_a q_in "Blood inflow"
         annotation (extent=[-10,-110; 10,-90], Placement(transformation(extent=
                 {{90,-10},{110,10}}), iconTransformation(extent={{90,-10},{110,
@@ -2905,7 +2802,6 @@ SYSTOLE
         annotation (extent=[-10,-110; 10,-90], Placement(transformation(extent=
                 {{-110,-10},{-90,10}}), iconTransformation(extent={{-110,-10},{
                 -90,10}})));
-
         /*
   Library.PressureFlow.NegativePressureFlow fromSystemicVeins annotation (
       Placement(transformation(extent={{-110,-10},{-90,10}}),iconTransformation(
@@ -2914,7 +2810,6 @@ SYSTOLE
     annotation (Placement(transformation(extent={{88,-10},{108,10}}),
         iconTransformation(extent={{90,46},{110,66}})));
 */
-
       Physiolibrary.Hydraulic.Components.ElasticVessel systemicArtys(
         stateName="SystemicArtys.Vol",
         useV0Input=true,
@@ -3081,7 +2976,6 @@ SYSTOLE
           color={0,0,0},
           thickness=1,
           smooth=Smooth.None));
-
         connect(gravityHydrostaticDifference.q_up, pressureMeasure.q_in)
           annotation (Line(
             points={{69,39},{80,39},{80,40.4},{81.9,40.4}},
@@ -3229,7 +3123,6 @@ SYSTOLE
             color={0,0,0},
             thickness=1,
             smooth=Smooth.None));
-
         connect(rightCororaryCirculation.q_in, q_in) annotation (Line(
             points={{-22,72},{36,72},{36,86},{100,86},{100,0}},
             color={0,0,0},
@@ -3405,11 +3298,8 @@ SYSTOLE
       end SystemicCirculationFullDynamic;
 
       model PulmonaryCirculation
-
          extends Physiolibrary.Icons.PulmonaryCirculation;
-
         //Can not be one port, because for example whole periferal resistance is taken as ResistorBases, but blood can accumulate inside
-
       Physiolibrary.Hydraulic.Interfaces.HydraulicPort_a q_in "Blood inflow"
         annotation (extent=[-10,-110; 10,-90], Placement(transformation(extent=
                 {{-112,-10},{-92,10}}), iconTransformation(extent={{-112,-10},{
@@ -3418,7 +3308,6 @@ SYSTOLE
         annotation (extent=[-10,-110; 10,-90], Placement(transformation(extent=
                 {{90,-10},{110,10}}), iconTransformation(extent={{90,-10},{110,
                 10}})));
-
       Physiolibrary.Hydraulic.Components.ElasticVessel pulmCapys(
         stateName="PulmCapys.Vol",
         useComplianceInput=true,
@@ -3546,7 +3435,6 @@ SYSTOLE
             string="%second",
             index=1,
             extent={{6,3},{6,3}}));
-
         connect(pulmArtyConductance.q_out, flowMeasure.q_in) annotation (Line(
             points={{-39,0},{-42,0}},
             color={0,0,0},
@@ -3567,7 +3455,6 @@ SYSTOLE
               31.4667}},
             color={0,0,127},
             smooth=Smooth.None));
-
         connect(CapysV0.y, sum1.u[2]) annotation (Line(
             points={{-19,20},{-18,20},{-18,26},{-80,26},{-80,32},{-28.8,32}},
             color={0,0,127},
@@ -3682,13 +3569,11 @@ SYSTOLE
           extends Physiolibrary.Icons.LungShunt;
         Physiolibrary.Types.RealIO.VolumeFlowRateInput CardiacOutput
           annotation (Placement(transformation(extent={{-120,40},{-80,80}})));
-
         parameter Physiolibrary.Types.Fraction BasicRLShuntFraction(displayUnit="%") =  0.02
         "basic percentage of total blood flow not exposed to lung air";                                                            //
       //  parameter Real BasicRLShunt(final displayUnit="ml/min") =  110; // 220.0;
         parameter Physiolibrary.Types.Pressure RightHemithorax_Pressure( displayUnit="mmHg") =   -533.28954966;
         parameter Physiolibrary.Types.Pressure LeftHemithorax_Pressure( displayUnit="mmHg") =   -533.28954966;
-
         Physiolibrary.Types.Pressure PressureGradientRightLeft(displayUnit="mmHg")
         "difference between right and left hemithorax pressure";
         Physiolibrary.Types.Fraction Thorax_RightLungFlowFract(displayUnit="1")
@@ -3701,12 +3586,10 @@ SYSTOLE
         "dammage effect of left hemithorax inflation";
         Physiolibrary.Types.VolumeFlowRate Total(displayUnit="ml/min")
         "cardiac output";
-
         Physiolibrary.Types.VolumeFlowRate RightLeftShunt(displayUnit="ml/min")
         "blood flow not exposed to lung air without dammage effect";
         Physiolibrary.Types.VolumeFlowRate Alveolar(displayUnit="ml/min")
         "blood flow exposed to lung air without dammage effect";
-
       //  Real RightLungTotal(final displayUnit="ml/min") "right lung blood flow exposed to lung air without dammage effect";
       //  Real RightLungVentilated(final displayUnit="ml/min") "right lung blood flow exposed to lung air";
       //  Real RightLungShunt(final displayUnit="ml/min");
@@ -3715,10 +3598,8 @@ SYSTOLE
       //  Real LeftLungShunt(final displayUnit="ml/min");
       //  Real AlveolarShunt(final displayUnit="ml/min");
       //  Real TotalShunt(final displayUnit="ml/min");
-
         parameter Real[:,3] PressureOnInflation =   {{ -4.0,  1.0,  0}, {  4.0,  0.0,  0}};
         parameter Real[:,3] PressureGradientOnFlowDist =   {{ -25,  0.0,  0}, {   0,  0.5,  0.03}, {  25,  1.0,  0}};
-
         Physiolibrary.Types.RealIO.VolumeFlowRateOutput AlveolarVentilated(
                                                           final displayUnit="ml/min") annotation (Placement(transformation(extent={{80,40},{120,80}}),
               iconTransformation(extent={{80,40},{120,80}})));
@@ -3743,18 +3624,15 @@ SYSTOLE
         annotation (Placement(transformation(extent={{-2,-24},{18,-4}})));
       equation
              PressureGradientRightLeft  =  RightHemithorax_Pressure - LeftHemithorax_Pressure;
-
       //division between left and rigth lung blood flow by hemithorax pressure
              Thorax_PressureGradientOnFlowDist.u = PressureGradientRightLeft;
              Thorax_LeftLungFlowFract  =  Thorax_PressureGradientOnFlowDist.val;
              Thorax_RightLungFlowFract  =  1.0 - Thorax_LeftLungFlowFract;
-
       //damage effect of hemithorax pressure
              Thorax_PressureOnInflationR.u = RightHemithorax_Pressure;
              RightHemithorax_LungInflation = Thorax_PressureOnInflationR.val;
              Thorax_PressureOnInflationL.u = LeftHemithorax_Pressure;
              LeftHemithorax_LungInflation = Thorax_PressureOnInflationL.val;
-
              Total  =  CardiacOutput;
              RightLeftShunt  = BasicRLShuntFraction*Total; //min(BasicRLShunt,Total);
              Alveolar  =  Total - RightLeftShunt;
@@ -3806,7 +3684,6 @@ SYSTOLE
 
       model SystemicVeinsElacticBloodCompartment
        extends Physiolibrary.Icons.ElasticBalloon;
-
       Physiolibrary.Hydraulic.Interfaces.HydraulicPort_a referencePoint
         annotation (extent=[-10,-110; 10,-90], Placement(transformation(extent=
                 {{-110,-10},{-90,10}}), iconTransformation(
@@ -3817,7 +3694,6 @@ SYSTOLE
         "external pressure around the compartment"                              annotation (extent = [-10,90;10,110], rotation = -90);
         Physiolibrary.Types.RealIO.HydraulicComplianceInput Compliance( displayUnit="ml/mmHg")
         "elasticity of the stressed walls"                               annotation (extent = [50,90;70,110], rotation = -90);
-
         Physiolibrary.Types.RealIO.PressureOutput Pressure( displayUnit="mmHg")
         "blod pressure in compartment"
           annotation (Placement(transformation(extent={{30,-110},{50,-90}}, rotation=-90)));
@@ -3858,9 +3734,7 @@ SYSTOLE
               extent={{-10,-10},{10,10}},
               rotation=90,
               origin={-68,100})));
-
         parameter Physiolibrary.Types.Volume initialSystemisVeinsVol = 2329.57e-6; // = 2200;// = 2980;
-
         Physiolibrary.Hydraulic.Sensors.PressureMeasure pressureMeasure
           annotation (Placement(transformation(extent={{16,-20},{36,0}})));
       equation
@@ -3923,7 +3797,6 @@ SYSTOLE
             points={{-20,13},{-20,5.5},{-27.5,5.5}},
             color={0,0,127},
             smooth=Smooth.None));
-
         connect(systemicVeins.q_in, pressureMeasure.q_in) annotation (Line(
             points={{-4,0},{10,0},{10,-16},{22,-16}},
             color={0,0,0},
@@ -3987,11 +3860,9 @@ SYSTOLE
 
       model SequesteredBlood
        extends Interfaces.ISequesteredBlood;
-
       parameter Physiolibrary.Types.Volume initialVol
         "initial compartment blood volume";
        parameter Real[:,3] data;
-
       Physiolibrary.Blocks.Interpolation.Curve curve(
         x=data[:, 1],
         y=data[:, 2],
@@ -3999,7 +3870,6 @@ SYSTOLE
         Xscale=1e-6,
         Yscale=101325/760)
         annotation (Placement(transformation(extent={{-60,50},{-40,70}})));
-
         Modelica.Blocks.Math.Add add annotation (Placement(transformation(
               extent={{-10,-10},{10,10}},
               rotation=270,
@@ -4022,7 +3892,6 @@ SYSTOLE
             points={{-6,29},{-6,20},{40,20},{40,-100}},
             color={0,0,127},
             smooth=Smooth.None));
-
       connect(referencePoint, pressureControledCompartment.q_in) annotation (
           Line(
           points={{-100,0},{-18,0},{-18,2.22045e-016},{-14,2.22045e-016}},
@@ -4205,9 +4074,7 @@ SYSTOLE
         end SystemicCirculation_Simplified;
 
         model SystemicCirculationBase2_Simplified
-
           extends Physiolibrary.Icons.SystemicCirculation;
-
         Physiolibrary.Hydraulic.Interfaces.HydraulicPort_a q_in "Blood inflow"
           annotation (extent=[-10,-110; 10,-90], Placement(transformation(extent=
                   {{90,-10},{110,10}}), iconTransformation(extent={{90,-10},{110,
@@ -4217,7 +4084,6 @@ SYSTOLE
           annotation (extent=[-10,-110; 10,-90], Placement(transformation(extent=
                   {{-110,-10},{-90,10}}), iconTransformation(extent={{-110,-10},{
                   -90,10}})));
-
           /*
   Library.PressureFlow.NegativePressureFlow fromSystemicVeins annotation (
       Placement(transformation(extent={{-110,-10},{-90,10}}),iconTransformation(
@@ -4226,7 +4092,6 @@ SYSTOLE
     annotation (Placement(transformation(extent={{88,-10},{108,10}}),
         iconTransformation(extent={{90,46},{110,66}})));
 */
-
         Physiolibrary.Hydraulic.Components.ElasticVessel systemicArtys(
           stateName="SystemicArtys.Vol",
           useComplianceInput=true,
@@ -4368,7 +4233,6 @@ SYSTOLE
               string="%second",
               index=1,
               extent={{3,-3},{3,-3}}));
-
           connect(gravityHydrostaticDifference.q_up, pressureMeasure.q_in)
             annotation (Line(
               points={{68.2,39.8},{80,39.8},{80,42.1},{80.2,42.1}},
@@ -4521,7 +4385,6 @@ SYSTOLE
               color={0,0,0},
               thickness=1,
               smooth=Smooth.None));
-
           connect(rightCororaryCirculation.q_in, q_in) annotation (Line(
               points={{-22,72},{36,72},{36,86},{100,86},{100,0}},
               color={0,0,0},
@@ -4588,9 +4451,7 @@ SYSTOLE
         end SystemicCirculationBase2_Simplified;
 
         model SystemicCirculationBase2
-
            extends Physiolibrary.Icons.SystemicCirculation;
-
         Physiolibrary.Hydraulic.Interfaces.HydraulicPort_a q_in "Blood inflow"
           annotation (extent=[-10,-110; 10,-90], Placement(transformation(extent=
                   {{90,-10},{110,10}}), iconTransformation(extent={{90,-10},{110,
@@ -4600,7 +4461,6 @@ SYSTOLE
           annotation (extent=[-10,-110; 10,-90], Placement(transformation(extent=
                   {{-110,-10},{-90,10}}), iconTransformation(extent={{-110,-10},{
                   -90,10}})));
-
           /*
   Library.PressureFlow.NegativePressureFlow fromSystemicVeins annotation (
       Placement(transformation(extent={{-110,-10},{-90,10}}),iconTransformation(
@@ -4609,7 +4469,6 @@ SYSTOLE
     annotation (Placement(transformation(extent={{88,-10},{108,10}}),
         iconTransformation(extent={{90,46},{110,66}})));
 */
-
         Physiolibrary.Hydraulic.Components.ElasticVessel systemicArtys(
           stateName="SystemicArtys.Vol",
           useComplianceInput=true,
@@ -4747,7 +4606,6 @@ SYSTOLE
               string="%second",
               index=1,
               extent={{3,-3},{3,-3}}));
-
           connect(gravityHydrostaticDifference.q_up, pressureMeasure.q_in)
             annotation (Line(
               points={{68.2,39.8},{80,39.8},{80,42.1},{80.2,42.1}},
@@ -4900,7 +4758,6 @@ SYSTOLE
               color={0,0,0},
               thickness=1,
               smooth=Smooth.None));
-
           connect(rightCororaryCirculation.q_in, q_in) annotation (Line(
               points={{-22,72},{36,72},{36,86},{100,86},{100,0}},
               color={0,0,0},
@@ -5125,9 +4982,7 @@ SYSTOLE
         end SystemicCirculation;
 
         model SystemicCirculationBase
-
           extends Physiolibrary.Icons.SystemicCirculation;
-
         Physiolibrary.Hydraulic.Interfaces.HydraulicPort_a q_in "Blood inflow"
           annotation (extent=[-10,-110; 10,-90], Placement(transformation(extent=
                   {{90,-10},{110,10}}), iconTransformation(extent={{90,-10},{110,
@@ -5145,7 +5000,6 @@ SYSTOLE
     annotation (Placement(transformation(extent={{88,-10},{108,10}}),
         iconTransformation(extent={{90,46},{110,66}})));
 */
-
         Physiolibrary.Hydraulic.Components.ElasticVessel systemicArtys(
           stateName="SystemicArtys.Vol",
           useComplianceInput=true,
@@ -5303,7 +5157,6 @@ SYSTOLE
               string="%second",
               index=1,
               extent={{3,-3},{3,-3}}));
-
           connect(gravityHydrostaticDifference.q_up, pressureMeasure.q_in)
             annotation (Line(
               points={{68.2,39.8},{80,39.8},{80,42.1},{80.2,42.1}},
@@ -5461,7 +5314,6 @@ SYSTOLE
               color={0,0,0},
               thickness=1,
               smooth=Smooth.None));
-
           connect(rightCororaryCirculation.q_in, q_in) annotation (Line(
               points={{-22,72},{36,72},{36,86},{100,86},{100,0}},
               color={0,0,0},
@@ -5529,7 +5381,6 @@ SYSTOLE
         end SystemicCirculationBase;
 
         model GuytonOutputPump
-
         Physiolibrary.Hydraulic.Interfaces.HydraulicPort_a q_in annotation (
             extent=[-10,-110; 10,-90], Placement(transformation(extent={{-110,-10},
                   {-90,10}}), iconTransformation(extent={{-110,-10},{-90,10}})));
@@ -5539,10 +5390,8 @@ SYSTOLE
                 extent={{-20,-20},{20,20}},
                 rotation=270,
                 origin={-80,60})));
-
         equation
           q_in.pressure = inputPressure;
-
           annotation (Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,
                     -100},{100,100}}), graphics={
                 Text(
@@ -5563,7 +5412,6 @@ SYSTOLE
         end GuytonOutputPump;
 
         model GuytonPump
-
         Physiolibrary.Hydraulic.Interfaces.HydraulicPort_b q_out annotation (
             extent=[-10,-110; 10,-90], Placement(transformation(extent={{90,-10},
                   {110,10}}), iconTransformation(extent={{90,-10},{110,10}})));
@@ -5576,11 +5424,9 @@ SYSTOLE
                 extent={{-20,-20},{20,20}},
                 rotation=270,
                 origin={-80,60})));
-
         equation
           q_in.pressure = inputPressure;
           q_in.q + q_out.q = 0;
-
           annotation (Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,
                     -100},{100,100}}), graphics={
                 Text(
@@ -5601,7 +5447,6 @@ SYSTOLE
 
         model SystemicVeinsElacticBloodCompartment2
          extends Physiolibrary.Icons.ElasticBalloon;
-
         Physiolibrary.Hydraulic.Interfaces.HydraulicPort_a referencePoint
           annotation (extent=[-10,-110; 10,-90], Placement(transformation(extent=
                   {{-110,-10},{-90,10}}), iconTransformation(
@@ -5614,7 +5459,6 @@ SYSTOLE
           Modelica.Blocks.Interfaces.RealInput Compliance(
                                                         final quantity="Compliance", final displayUnit="ml/mmHg")
           "elasticity of the stressed walls"                               annotation (extent = [50,90;70,110], rotation = -90);
-
           Modelica.Blocks.Interfaces.RealOutput Pressure(  final quantity="Pressure", final displayUnit="mmHg")
           "blod pressure in compartment"
             annotation (Placement(transformation(extent={{30,-110},{50,-90}}, rotation=-90)));
@@ -5639,9 +5483,7 @@ SYSTOLE
                 extent={{-10,-10},{10,10}},
                 rotation=90,
                 origin={-68,100})));
-
           parameter Real initialSystemisVeinsVol(final quantity="Volume", final unit =   "ml")= 2329.57; // = 2200;// = 2980;
-
           Modelica.Blocks.Interfaces.RealOutput NormalizedVolume(final quantity=
                 "NormalizedVolume", final displayUnit="1")
           "maximal zero pressure blood volume in compartment"
@@ -5657,16 +5499,12 @@ SYSTOLE
                 extent={{-20,-20},{20,20}},
                 rotation=90,
                 origin={-40,-100})));
-
           Real StressedVolume(   final quantity="Volume", final displayUnit="ml");
-
         equation
           StressedVolume = max(BloodVolume-V0,0);
           Pressure = (StressedVolume/Compliance) + ExternalPressure;
           referencePoint.pressure = Pressure;
-
           NormalizedVolume = if initialSystemisVeinsVol==0 then 0 else BloodVolume/initialSystemisVeinsVol;
-
           connect(AplhaReceptors.y,V0_A2_Effect. yBase) annotation (Line(
               points={{-20,23},{-20,19}},
               color={0,0,127},
@@ -5716,7 +5554,6 @@ SYSTOLE
               points={{-20,13},{-20,5.5},{-27.5,5.5}},
               color={0,0,127},
               smooth=Smooth.None));
-
          annotation (
             Documentation(info="<HTML>
 <PRE>
@@ -5764,9 +5601,7 @@ SYSTOLE
           extends Physiolibrary.SteadyStates.Interfaces.SteadyState;
           extends
           Physiomodel.CardioVascular.VascularCompartments.Interfaces.IVascularElasticBloodCompartment;
-
           Real StressedVolume(   final quantity="Volume", final displayUnit="ml");
-
           Modelica.Blocks.Interfaces.RealOutput NormalizedVolume(final quantity="NormalizedVolume",
               final displayUnit="1")
           "actual volume divided by standard compartement volume"
@@ -5780,16 +5615,12 @@ SYSTOLE
         //  Vol = initialVol;
          // der(Vol) = 0;
         equation
-
           StressedVolume = max(Vol-V0,0);
           Pressure = (StressedVolume/Compliance) + ExternalPressure;
           referencePoint.pressure = Pressure;
-
           NormalizedVolume = if initialVol==0 then 0 else Vol/initialVol;
-
         state = Vol;
           change = referencePoint.q/60;
-
          annotation (
             preferredView = text,
             Documentation(info="<HTML>
@@ -5836,7 +5667,6 @@ SYSTOLE
 
       model SystemicCirculationFullDynamic_OM
         extends Physiolibrary.Icons.SystemicCirculation;
-
       Physiolibrary.Hydraulic.Interfaces.HydraulicPort_a q_in "Blood inflow"
         annotation (extent=[-10,-110; 10,-90], Placement(transformation(extent=
                 {{90,-10},{110,10}}), iconTransformation(extent={{90,-10},{110,
@@ -5845,7 +5675,6 @@ SYSTOLE
         annotation (extent=[-10,-110; 10,-90], Placement(transformation(extent=
                 {{-110,-10},{-90,10}}), iconTransformation(extent={{-110,-10},{
                 -90,10}})));
-
         /*
   Library.PressureFlow.NegativePressureFlow fromSystemicVeins annotation (
       Placement(transformation(extent={{-110,-10},{-90,10}}),iconTransformation(
@@ -5854,7 +5683,6 @@ SYSTOLE
     annotation (Placement(transformation(extent={{88,-10},{108,10}}),
         iconTransformation(extent={{90,46},{110,66}})));
 */
-
       Physiolibrary.Hydraulic.Components.ElasticVessel systemicArtys(
         stateName="SystemicArtys.Vol",
         useV0Input=true,
@@ -6022,7 +5850,6 @@ SYSTOLE
           color={0,0,0},
           thickness=1,
           smooth=Smooth.None));
-
         connect(gravityHydrostaticDifference.q_up, pressureMeasure.q_in)
           annotation (Line(
             points={{69,39},{80,39},{80,40.4},{81.9,40.4}},
@@ -6050,11 +5877,6 @@ SYSTOLE
         connect(V0_artys.y, busConnector.SystemicArtys_V0) annotation (Line(
             points={{86.75,23},{70,23},{70,22},{46,22},{46,50}},
             color={0,0,127},
-            smooth=Smooth.None));
-        connect(q_out, q_out) annotation (Line(
-            points={{-100,0},{-100,0}},
-            color={0,0,0},
-            thickness=1,
             smooth=Smooth.None));
       connect(q_in, systemicArtys.q_in) annotation (Line(
           points={{100,0},{99.75,0},{99.75,0.5},{75.5,0.5}},
@@ -6170,7 +5992,6 @@ SYSTOLE
             color={0,0,0},
             thickness=1,
             smooth=Smooth.None));
-
         connect(rightCororaryCirculation.q_in, q_in) annotation (Line(
             points={{-22,72},{36,72},{36,86},{100,86},{100,0}},
             color={0,0,0},
@@ -6351,7 +6172,6 @@ SYSTOLE
     package OrganFlow "Tissue vessels hydraulic conductance (=1/resistance)"
       class References "References"
         extends Modelica.Icons.References;
-
         annotation (Documentation(info="<html>
 <table>
 
@@ -6592,14 +6412,12 @@ SYSTOLE
 
       model TissueBloodFlow
         extends Physiomodel.CardioVascular.OrganFlow.BaseBadDirection;
-
         parameter Real[:,3] VasculatureConductanceOnPO2 = {{41,1.2,0},{51,1.0,-0.03},{61,0.8,0}};
         parameter Real[:,3] PO2OnConductance = {{10,2.0,0},{30,1.0,0}};
         parameter Real[:,3] Angiotensin2Effect = {{0.0,1.05,0},{1.3,1.00,-0.08},{3.5,0.50,0}};
         parameter Real[:,3] AlphaReceptorsEffect = {{0.0,1.3,0},{1.0,1.0,-0.3},{5.0,0.1,0}};
         parameter Real[:,3] VasopressinEffect = {{0.8,1.0,0},{3.0,0.1,0}};
         parameter Physiolibrary.Types.Time VasculatureHalfTime=30*86400*Modelica.Math.log(2);
-
       Physiolibrary.Blocks.Factors.Spline A2Effect(
         Xscale=1e-9/Substances.AngiotensinII.mw,
         UsePositiveLog10=true,
@@ -6632,7 +6450,6 @@ SYSTOLE
       Physiolibrary.Blocks.Factors.Spline pO2OnConductance(
                      Xscale=101325/760, data=PO2OnConductance)
         annotation (Placement(transformation(extent={{0,30},{20,50}})));
-
       Physiolibrary.Types.TissueBusConnector tissueSubBusConnector annotation (
           Placement(transformation(extent={{-86,40},{-66,60}}),
             iconTransformation(extent={{-20,60},{20,100}})));
@@ -6794,7 +6611,6 @@ Blood resistance in gastro interstitial tract.
         import QHP = Physiomodel;
         extends Physiomodel.CardioVascular.OrganFlow.BaseBadDirection;
         extends Physiolibrary.Icons.PeripheralCirculation;
-
         Physiomodel.CardioVascular.OrganFlow.Bone bone
           annotation (Placement(transformation(extent={{-38,64},{-12,90}})));
         Physiomodel.CardioVascular.OrganFlow.Brain brain
@@ -6816,7 +6632,6 @@ Blood resistance in gastro interstitial tract.
             transformation(extent={{-100,80},{-80,100}}), iconTransformation(
               extent={{60,10},{78,28}})));
       equation
-
         connect(bone.q_in, flowMeasure.q_out) annotation (Line(
             points={{-12,77},{68,77},{68,0},{78,0}},
             color={0,0,0},
@@ -6968,7 +6783,6 @@ Blood resistance in gastro interstitial tract.
             points={{-13.9,-91.5},{52,-91.5},{52,90},{-90,90}},
             color={0,0,127},
             smooth=Smooth.None));
-
           connect(bone.BloodFlow, busConnector.Bone_BloodFlow)
           annotation (Line(
             points={{-15.9,70.5},{52,70.5},{52,90},{-90,90}},
@@ -7009,7 +6823,6 @@ Blood resistance in gastro interstitial tract.
             points={{-13.9,-91.5},{52,-91.5},{52,90},{-90,90}},
             color={0,0,127},
             smooth=Smooth.None));
-
         connect(kidney.q_out,q_out) annotation (Line(
             points={{18,21},{-84,21},{-84,0},{-100,0}},
             color={0,0,0},
@@ -7020,7 +6833,6 @@ Blood resistance in gastro interstitial tract.
             color={0,0,0},
             smooth=Smooth.None,
             thickness=1));
-
         annotation (
           Documentation(info="<HTML>
 <PRE>
@@ -7047,7 +6859,6 @@ Blood resistance in peripheral organs except hepatic artery, gastro interstition
       model SplanchnicCirculation
         extends Physiolibrary.Icons.PerfusionDO;
         extends Physiolibrary.Icons.GITract;
-
       Physiolibrary.Hydraulic.Interfaces.HydraulicPort_a q_in "Blood inflow"
         annotation (extent=[-10,-110; 10,-90], Placement(transformation(extent=
                 {{90,-10},{110,10}}), iconTransformation(extent={{90,-10},{110,
@@ -7056,12 +6867,10 @@ Blood resistance in peripheral organs except hepatic artery, gastro interstition
         annotation (extent=[-10,-110; 10,-90], Placement(transformation(extent=
                 {{-110,-10},{-90,10}}), iconTransformation(extent={{-110,-10},{
                 -90,10}})));
-
       Physiolibrary.Types.BusConnector busConnector
         "signals of organ bood flow resistence" annotation (Placement(
             transformation(extent={{56,-56},{76,-36}}), iconTransformation(
               extent={{-108,42},{-92,58}})));
-
       Physiolibrary.Hydraulic.Components.ElasticVessel portalVein(
         stateName="SplanchnicVeins.Vol",
         useComplianceInput=true,
@@ -7083,7 +6892,6 @@ Blood resistance in peripheral organs except hepatic artery, gastro interstition
       Physiolibrary.Hydraulic.Sensors.PressureMeasure pressureMeasure
         annotation (Placement(transformation(extent={{6,-42},{26,-22}})));
       equation
-
         connect(GITract.busConnector,busConnector)           annotation (Line(
             points={{54.28,2.28},{66,2.28},{66,-46}},
             color={0,0,255},
@@ -7218,13 +7026,11 @@ Blood resistance in peripheral organs except hepatic artery, gastro interstition
 
       package ConductanceFactors
       "Multiplication factors on conductance (=1/resistance)"
-
         model MetabolicVasodilation
           extends Physiolibrary.Icons.BaseFactorIcon5;
           Physiolibrary.Types.RealIO.MolarFlowRateInput O2Need
                        annotation (Placement(transformation(extent={{-110,60},{-82,88}}),
                 iconTransformation(extent={{-108,-10},{-88,10}})));
-
          parameter Real[:,3] data = {{   50,  1.0,  0}, { 1000,  3.5,  0.003}, { 3000,  5.5,  0}};
          parameter Physiolibrary.Types.Time OnTau = 0.2;
          parameter Physiolibrary.Types.Time OffTau = 1;
@@ -7232,7 +7038,6 @@ Blood resistance in peripheral organs except hepatic artery, gastro interstition
           parameter String stateName=getInstanceName();
           parameter Physiolibrary.Types.MolarFlowRate Xscale = 1
           "conversion scale to SI unit of x values";
-
         Physiolibrary.Blocks.Interpolation.Curve SteadyState(
           x=data[:, 1],
           y=data[:, 2],
@@ -7283,7 +7088,6 @@ Blood resistance in peripheral organs except hepatic artery, gastro interstition
               extent={{-10,-10},{10,10}},
               rotation=90,
               origin={-60,-22})));
-
         equation
           connect(SteadyState.val, feedback.u1)
                                           annotation (Line(
@@ -7319,7 +7123,6 @@ Blood resistance in peripheral organs except hepatic artery, gastro interstition
                 53}},
               color={0,0,127},
               smooth=Smooth.None));
-
           connect(switch1.y, product1.u2) annotation (Line(
               points={{-33,34},{-26,34},{-26,28}},
               color={0,0,127},
@@ -7354,7 +7157,6 @@ Blood resistance in peripheral organs except hepatic artery, gastro interstition
 
       model CollapsingVeins
       extends Physiolibrary.Icons.CollapsingVessel;
-
       Physiolibrary.Hydraulic.Interfaces.HydraulicPort_a q_in "Blood inflow"
         annotation (extent=[-10,-110; 10,-90], Placement(transformation(extent=
                 {{90,-10},{110,10}}), iconTransformation(extent={{90,-10},{110,
@@ -7363,21 +7165,17 @@ Blood resistance in peripheral organs except hepatic artery, gastro interstition
         annotation (extent=[-10,-110; 10,-90], Placement(transformation(extent=
                 {{-110,-10},{-90,10}}), iconTransformation(extent={{-110,-10},{
                 -90,10}})));
-
       Modelica.Blocks.Interfaces.RealInput ExternalPressure
                                                        annotation (Placement(
               transformation(extent={{40,0},{80,40}}), iconTransformation(
               extent={{-20,-20},{20,20}},
               rotation=270,
               origin={60,20})));
-
         parameter Real PR1LL( final quantity="Pressure", final displayUnit="mmHg") = 0
         "start-collapsing sucking pressure, when external pressure is zero";
       equation
          q_in.q + q_out.q = 0;
-
          q_in.pressure = if (q_out.pressure > (PR1LL+ExternalPressure)) then q_out.pressure else (PR1LL+ExternalPressure);
-
         annotation (Icon(graphics={
               Text(
                 extent={{-62,-32},{58,-58}},
@@ -7387,19 +7185,16 @@ Blood resistance in peripheral organs except hepatic artery, gastro interstition
 
       partial model Base
       extends Physiolibrary.Icons.PerfusionOD;
-
       Physiolibrary.Hydraulic.Interfaces.HydraulicPort_a q_in "Blood inflow"
         annotation (extent=[-10,-110; 10,-90], Placement(transformation(extent={{-110,
                   -10},{-90,10}}),    iconTransformation(extent={{-110,-10},{-90,10}})));
       Physiolibrary.Hydraulic.Interfaces.HydraulicPort_b q_out "Blood outflow"
         annotation (extent=[-10,-110; 10,-90], Placement(transformation(extent={{90,-10},
                   {110,10}}),           iconTransformation(extent={{90,-10},{110,10}})));
-
       Physiolibrary.Types.BusConnector busConnector
         "signals of organ bood flow resistence" annotation (Placement(
             transformation(extent={{-100,80},{-80,100}}), iconTransformation(
               extent={{60,10},{78,28}})));
-
         Modelica.Blocks.Interfaces.RealOutput BloodFlow
                                                  annotation (Placement(transformation(
                 extent={{-76,-18},{-66,-8}}),iconTransformation(extent={{60,-30},{80,-10}})));
@@ -7409,7 +7204,6 @@ Blood resistance in peripheral organs except hepatic artery, gastro interstition
             rotation=0,
             origin={-82,0})));
       equation
-
         connect(q_in, flowMeasure.q_in) annotation (Line(
             points={{-100,0},{-92,0}},
             color={0,0,0},
@@ -7454,7 +7248,6 @@ Blood flow variable resistor abstract model.
 
       partial model BaseBadDirection
       extends Physiolibrary.Icons.PerfusionDO;
-
       Physiolibrary.Hydraulic.Interfaces.HydraulicPort_a q_in "Blood inflow"
         annotation (extent=[-10,-110; 10,-90], Placement(transformation(extent=
                 {{90,-10},{110,10}}), iconTransformation(extent={{90,-10},{110,
@@ -7463,12 +7256,10 @@ Blood flow variable resistor abstract model.
         annotation (extent=[-10,-110; 10,-90], Placement(transformation(extent=
                 {{-110,-10},{-90,10}}), iconTransformation(extent={{-110,-10},{
                 -90,10}})));
-
       Physiolibrary.Types.BusConnector busConnector
         "signals of organ bood flow resistence" annotation (Placement(
             transformation(extent={{-100,80},{-80,100}}), iconTransformation(
               extent={{60,10},{78,28}})));
-
         Modelica.Blocks.Interfaces.RealOutput BloodFlow
                                                  annotation (Placement(transformation(
                 extent={{90,-22},{102,-10}}),iconTransformation(extent={{60,-60},{80,
@@ -7479,7 +7270,6 @@ Blood flow variable resistor abstract model.
             rotation=0,
             origin={88,0})));
       equation
-
         connect(flowMeasure.volumeFlow, BloodFlow) annotation (Line(
             points={{88,-6},{88,-16},{96,-16}},
             color={0,0,127},
@@ -7525,7 +7315,6 @@ Blood flow variable resistor abstract model.
       model SystemicVeins
         //extends QHP.Blood.OrganFlow.BaseBadDirection;
       extends Physiolibrary.Icons.Resistor;
-
       Physiolibrary.Hydraulic.Interfaces.HydraulicPort_a q_in "Blood inflow"
         annotation (extent=[-10,-110; 10,-90], Placement(transformation(extent=
                 {{90,-10},{110,10}}), iconTransformation(extent={{90,-10},{110,
@@ -7534,7 +7323,6 @@ Blood flow variable resistor abstract model.
         annotation (extent=[-10,-110; 10,-90], Placement(transformation(extent=
                 {{-110,-10},{-90,10}}), iconTransformation(extent={{-110,-10},{
                 -90,10}})));
-
       Physiolibrary.Hydraulic.Components.Conductor systemicVeinsConductance(
           useConductanceInput=true)
         annotation (Placement(transformation(extent={{0,-10},{-20,10}})));
@@ -7548,7 +7336,6 @@ Blood flow variable resistor abstract model.
             BaseConductance)
         annotation (Placement(transformation(extent={{-27,45},{-15,57}})));
         parameter Physiolibrary.Types.HydraulicConductance BaseConductance( displayUnit="ml/(mmHg.min)");
-
       Physiolibrary.Hydraulic.Sensors.FlowMeasure flowMeasure annotation (
           Placement(transformation(
             extent={{10,-10},{-10,10}},
@@ -7643,7 +7430,6 @@ Blood flow variable resistor abstract model.
       model Bone
         extends Physiomodel.CardioVascular.OrganFlow.BaseBadDirection;
         extends Physiolibrary.Icons.Bone;
-
       Physiolibrary.Blocks.Factors.Spline A2Effect_Bone(
         data={{0.0,1.05,0},{1.3,1.00,-0.08},{3.5,0.50,0}},
         Xscale=1e-9/Substances.AngiotensinII.mw,
@@ -7827,7 +7613,6 @@ Schema : 2008.0
       model Brain
         extends Physiomodel.CardioVascular.OrganFlow.BaseBadDirection;
         extends Physiolibrary.Icons.Brain;
-
         Physiolibrary.Blocks.Factors.SplineLagOrZero
           Vasculature_Brain(HalfTime=30*86400*Modelica.Math.log(2), data={{27,1.2,0},{37,1.0,-0.03},{47,0.8,0}},
           stateName="Brain-Vasculature.Effect",
@@ -7967,7 +7752,6 @@ Schema : 2008.0
       model Fat
         extends Physiomodel.CardioVascular.OrganFlow.BaseBadDirection;
         extends Physiolibrary.Icons.Fat;
-
       Physiolibrary.Blocks.Factors.Spline A2Effect_Fat(
         data={{0.0,1.05,0},{1.3,1.00,-0.08},{3.5,0.50,0}},
         Xscale=1e-9/Substances.AngiotensinII.mw,
@@ -8146,7 +7930,6 @@ Schema : 2008.0
       model Kidney
         extends Physiomodel.CardioVascular.OrganFlow.BaseBadDirection;
         extends Physiolibrary.Icons.Kidney;
-
       Physiolibrary.Blocks.Factors.Normalization
         NephronCountEffect_AfferentArtery
         annotation (Placement(transformation(extent={{20,34},{40,54}})));
@@ -8326,7 +8109,6 @@ Schema : 2008.0
             points={{-46.5,54},{-46,54},{-46,46}},
             color={0,0,127},
             smooth=Smooth.None));
-
         connect(A2Effect2.y, AplhaReceptors_KidneyEfferentArtery.yBase)
           annotation (Line(
             points={{-46,24},{-46,23}},
@@ -8565,7 +8347,6 @@ Schema : 2008.0
 
     model VariableResistorWithMyogenicResponse
       extends Physiolibrary.Icons.Resistor;
-
       Physiolibrary.Hydraulic.Interfaces.HydraulicPort_a q_in "Blood inflow"
         annotation (extent=[-10,-110; 10,-90], Placement(transformation(extent=
                 {{90,-10},{110,10}}), iconTransformation(extent={{90,-10},{110,
@@ -8574,22 +8355,18 @@ Schema : 2008.0
         annotation (extent=[-10,-110; 10,-90], Placement(transformation(extent=
                 {{-110,-10},{-90,10}}), iconTransformation(extent={{-110,-10},{
                 -90,10}})));
-
       //(q_in(pressure(start=95.5)),q_out(pressure(start=61.5)));
       extends Physiolibrary.SteadyStates.Interfaces.SteadyState(
                                                     stateName="Kidney-MyogenicDelay.PressureChange", state_start=InitialPressureChange);
-
       Physiolibrary.Types.RealIO.HydraulicConductanceInput cond(displayUnit="ml/(min.mmHg)")
           annotation (Placement(transformation(extent={{-100,92},             {-80,112}}), iconTransformation(
                    extent={{-10,-10},{10,10}},         rotation=270,         origin={0,40})));
-
       Physiolibrary.Types.Fraction myogenicEffect;
       Physiolibrary.Types.Pressure pressureChange(start=InitialPressureChange); //(start=0.161874);
     //  Real pressureChangeSteadyState;
      // Real adaptedPressure; //(start=77.9546);
     //  Real interlobarPressure;
       parameter Physiolibrary.Types.Pressure InitialPressureChange=0;
-
       parameter Physiolibrary.Types.Frequency K_PressureChange(displayUnit="1/min") =  2.0/60;
       parameter Physiolibrary.Types.Time Tau_PressureAdoption(displayUnit="hod") =  4.0*60*60;
       parameter Real[:,3] PressureChangeOnMyogenicCondEffect;
@@ -8599,7 +8376,6 @@ Schema : 2008.0
         slope=PressureChangeOnMyogenicCondEffect[:, 3],
         Xscale=101325/760)
         annotation (Placement(transformation(extent={{14,26},{34,46}})));
-
       AfferentArteryMyogenicReceptors kidneyMyogenic(initialPressure(
             displayUnit="mmHg") = 9999.179056125)
         annotation (Placement(transformation(extent={{-46,50},{-26,70}})));
@@ -8609,15 +8385,12 @@ Schema : 2008.0
      // der(pressureChange) = 0;
     equation
       q_in.q + q_out.q = 0;
-
       q_in.q = myogenicEffect * cond * (q_in.pressure - q_out.pressure);
       kidneyMyogenic.InterlobarPressure = (q_in.pressure + q_out.pressure)/2;  //stredny tlak v arteriole
      // der(adaptedPressure) = (1/(60*Tau_PressureAdoption)) * (interlobarPressure-adaptedPressure); //receptory sa adaptuju na tlak (polcas adaptacie nastane za 2hod a 45min)
      // pressureChangeSteadyState = interlobarPressure-adaptedPressure;  //zmena tlaku sa taktiez adaptuje - neviem preco? => potom to vizera, ze stimulacia receptorov je postupny proces (polcas nabudenia stimulacie je 20 sekund)
-
       state = pressureChange;
       change = K_PressureChange * (kidneyMyogenic.PressureChange_SteadyState - pressureChange);
-
       PressureChangeOnCondEffect.u = pressureChange; //zmena tlaku aktivuje receptory
       myogenicEffect = PressureChangeOnCondEffect.val; //stimulacia receptorov ma vplyv na vodivost (odpor) krvi aferentnej arterie
       annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
@@ -8650,7 +8423,6 @@ Schema : 2008.0
       model OtherTissue
         extends Physiomodel.CardioVascular.OrganFlow.BaseBadDirection;
         extends Physiolibrary.Icons.OtherTissue;
-
       Physiolibrary.Types.Constants.HydraulicConductanceConst BasicConductance(k=5.2504310309196e-10)
         annotation (Placement(transformation(extent={{20,80},{32,92}})));
       Physiolibrary.Hydraulic.Components.Conductor OtherTissue(
@@ -8852,7 +8624,6 @@ Schema : 2008.0
       model SkeletalMuscle
         extends Physiomodel.CardioVascular.OrganFlow.BaseBadDirection;
         extends Physiolibrary.Icons.SkeletalMuscle;
-
       Physiolibrary.Blocks.Factors.Spline A2Effect(
         data={{0.0,1.05,0},{1.3,1.00,-0.08},{3.5,0.50,0}},
         Xscale=1e-9/Substances.AngiotensinII.mw,
@@ -9106,7 +8877,6 @@ QHP 2008 / SkeletalMuscle-Flow
       model RespiratoryMuscle
         extends Physiomodel.CardioVascular.OrganFlow.BaseBadDirection;
         extends Physiolibrary.Icons.RespiratoryMuscle;
-
       Physiolibrary.Blocks.Factors.Spline A2Effect(
         data={{0.0,1.05,0},{1.3,1.00,-0.08},{3.5,0.50,0}},
         Xscale=1e-9/Substances.AngiotensinII.mw,
@@ -9306,10 +9076,8 @@ Schema : 2008.0
 
       partial model Heart__
         extends Physiomodel.CardioVascular.OrganFlow.BaseBadDirection;
-
       parameter Physiolibrary.Types.HydraulicConductance BasicLargeVeselsConductance( displayUnit="ml/(min.mmHg)");
       parameter Physiolibrary.Types.HydraulicConductance BasicSmallVeselsConductance( displayUnit="ml/(min.mmHg)");
-
       Physiolibrary.Blocks.Factors.Spline PO2Effect(data={{12,2.0,0},{17,1.0,-0.04},
             {30,0.8,0}}, u(start=20))
         annotation (Placement(transformation(extent={{60,20},{80,40}})));
@@ -9498,7 +9266,6 @@ Schema : 2008.0
       end Heart__;
 
       model VasaRecta
-
       Physiolibrary.Hydraulic.Components.Conductor resistorWithCond(
           useConductanceInput=true)
         annotation (Placement(transformation(extent={{2,0},{22,20}})));
@@ -9894,7 +9661,6 @@ Schema : 2008.0
       equation
       state = AdaptedPressure;
         change = K  * ( InterlobarPressure  -  AdaptedPressure);
-
         PressureChange_SteadyState = InterlobarPressure - AdaptedPressure;
         annotation (Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,
                   -100},{100,100}}),
@@ -9989,7 +9755,6 @@ Schema : 2008.0
       model Skin
         extends Physiomodel.CardioVascular.OrganFlow.BaseBadDirection;
         extends Physiolibrary.Icons.Skin;
-
       Physiolibrary.Hydraulic.Components.Conductor skin(useConductanceInput=
             true)
         annotation (Placement(transformation(extent={{80,-26},{56,-2}})));
@@ -10156,12 +9921,10 @@ Schema : 2008.0
 
       partial model Heart
         extends Physiomodel.CardioVascular.OrganFlow.BaseBadDirection;
-
       //parameter Real BasicLargeVeselsConductance( final quantity="Conductance", final displayUnit="ml/(min.mmHg)");
       //parameter Real BasicSmallVeselsConductance( final quantity="Conductance", final displayUnit="ml/(min.mmHg)");
       parameter Physiolibrary.Types.HydraulicConductance BasicLargeVeselsConductance( displayUnit="ml/(min.mmHg)");
       parameter Physiolibrary.Types.HydraulicConductance BasicSmallVeselsConductance( displayUnit="ml/(min.mmHg)");
-
       Physiolibrary.Blocks.Factors.Spline PO2Effect(data={{12,2.0,0},{17,1.0,-0.04},
             {30,0.8,0}}, Xscale=101325/760)
         annotation (Placement(transformation(extent={{60,20},{80,40}})));
@@ -10362,7 +10125,6 @@ Schema : 2008.0
       model SplanchnicCirculation_MO
         extends Physiolibrary.Icons.PerfusionDO;
         extends Physiolibrary.Icons.GITract;
-
       Physiolibrary.Hydraulic.Interfaces.HydraulicPort_a q_in "Blood inflow"
         annotation (extent=[-10,-110; 10,-90], Placement(transformation(extent=
                 {{90,-10},{110,10}}), iconTransformation(extent={{90,-10},{110,
@@ -10371,12 +10133,10 @@ Schema : 2008.0
         annotation (extent=[-10,-110; 10,-90], Placement(transformation(extent=
                 {{-110,-10},{-90,10}}), iconTransformation(extent={{-110,-10},{
                 -90,10}})));
-
       Physiolibrary.Types.BusConnector busConnector
         "signals of organ bood flow resistence" annotation (Placement(
             transformation(extent={{56,-56},{76,-36}}), iconTransformation(
               extent={{-108,42},{-92,58}})));
-
       Physiolibrary.Hydraulic.Components.ElasticVessel portalVein(
         stateName="SplanchnicVeins.Vol",
         useComplianceInput=true,
@@ -10399,7 +10159,6 @@ Schema : 2008.0
       Physiolibrary.Hydraulic.Sensors.PressureMeasure pressureMeasure
         annotation (Placement(transformation(extent={{6,-42},{26,-22}})));
       equation
-
         connect(GITract.busConnector,busConnector)           annotation (Line(
             points={{54.28,2.28},{66,2.28},{66,-46}},
             color={0,0,255},
@@ -10525,14 +10284,12 @@ Schema : 2008.0
 
       model TissueBlooFlow_GIT_OM
         extends Physiomodel.CardioVascular.OrganFlow.BaseBadDirection;
-
         parameter Real[:,3] VasculatureConductanceOnPO2 = {{41,1.2,0},{51,1.0,-0.03},{61,0.8,0}};
         parameter Real[:,3] PO2OnConductance = {{10,2.0,0},{30,1.0,0}};
         parameter Real[:,3] Angiotensin2Effect = {{0.0,1.05,0},{1.3,1.00,-0.08},{3.5,0.50,0}};
         parameter Real[:,3] AlphaReceptorsEffect = {{0.0,1.3,0},{1.0,1.0,-0.3},{5.0,0.1,0}};
         parameter Real[:,3] VasopressinEffect = {{0.8,1.0,0},{3.0,0.1,0}};
         parameter Physiolibrary.Types.Time VasculatureHalfTime=30*86400*Modelica.Math.log(2);
-
       Physiolibrary.Blocks.Factors.Spline A2Effect(
         Xscale=1e-9/Substances.AngiotensinII.mw,
         UsePositiveLog10=true,
@@ -10565,7 +10322,6 @@ Schema : 2008.0
       Physiolibrary.Blocks.Factors.Spline pO2OnConductance(
                      Xscale=101325/760, data=PO2OnConductance)
         annotation (Placement(transformation(extent={{0,30},{20,50}})));
-
       equation
         connect(Vasculature.y,pO2OnConductance. yBase) annotation (Line(
             points={{10,44},{10,42}},
@@ -10724,7 +10480,6 @@ Blood resistance in gastro interstitial tract.
     package Blood "Red Cells and Blood Properties"
       class References "References"
         extends Modelica.Icons.References;
-
         annotation (Documentation(info="<html>
 <table>
 
@@ -10815,7 +10570,6 @@ Blood resistance in gastro interstitial tract.
             rotation=270,
             origin={68,0})));
       equation
-
         connect(H2O.y, busConnector.RBCH2O_Vol) annotation (Line(
             points={{58.4,-84},{98,-84},{98,68},{-78,68}},
             color={0,0,127},
@@ -10938,7 +10692,6 @@ Blood resistance in gastro interstitial tract.
 
       model BloodPropertiesBase
           extends Physiolibrary.Icons.Blood;
-
         Modelica.Blocks.Math.Add BloodVolume
           annotation (Placement(transformation(extent={{10,-70},{18,-62}})));
         Modelica.Blocks.Math.Min CollapsedEffect
@@ -11109,7 +10862,6 @@ Blood resistance in gastro interstitial tract.
               -0.4}},
             color={0,0,127},
             smooth=Smooth.None));
-
         connect(division3.y, busConnector.ctHb_ery) annotation (Line(
             points={{0.4,2},{20,2},{20,68},{-94,68}},
             color={0,0,127},
@@ -11154,7 +10906,6 @@ Blood resistance in gastro interstitial tract.
             points={{74.4,6},{90,6},{90,68},{-94,68}},
             color={0,0,127},
             smooth=Smooth.None));
-
         connect(busConnector.PulmonaryCirculation_V0,V0. u[1])
           annotation (Line(
             points={{-94,68},{-94,-82},{-32,-82},{-32,-86.64},{-30.8,-86.64}},
@@ -11365,13 +11116,11 @@ Blood resistance in gastro interstitial tract.
 
 </html>"));
       end BloodPropertiesBase;
-
     end Blood;
 
     model CVS_Dynamic
       extends Physiolibrary.Icons.CardioVascular;
     //  extends Physiomodel.Library.Utilities.DynamicState(stateName="BloodVol.Vol", initType=Library.Utilities.Init.NoInit);
-
     Heart.Heart heart
       annotation (Placement(transformation(extent={{0,-6},{26,20}})));
       VascularCompartments.PulmonaryCirculation pulmonaryCirculation
@@ -11387,13 +11136,11 @@ Blood resistance in gastro interstitial tract.
       annotation (Placement(transformation(extent={{-34,26},{-54,46}})));
     Blood.BloodPropertiesBase bloodProperties
       annotation (Placement(transformation(extent={{-36,-34},{-56,-14}})));
-
     /*initial equation 
   if STEADY then
      bloodProperties.feedback.y = 0;
   end if;
 */
-
     equation
       connect(busConnector, pulmonaryCirculation.busConnector) annotation (
           Line(
@@ -11444,9 +11191,7 @@ Blood resistance in gastro interstitial tract.
           color={0,0,0},
           thickness=1,
           smooth=Smooth.None));
-
     //  stateValue = bloodProperties.BloodVolume1.y;
-
       annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
                 -100},{100,100}}),       graphics), Documentation(info="<html>
 <p><h4><font color=\"#008000\">Cardiovascular system</font></h4></p>
@@ -11491,9 +11236,7 @@ Blood resistance in gastro interstitial tract.
 
     package IO_Bus
       extends Physiolibrary.Types.IO_Bus;
-
       redeclare model extends Variables
-
       T.Volume ArtysVol(varName="ArtysVol.Vol")
         "Volume of oxygenated blood in body."
       annotation (Placement(transformation(extent={{-36,10},{-30,16}})));
@@ -11655,7 +11398,6 @@ Blood resistance in gastro interstitial tract.
         "Atrial Low Pressure Receptors neural activity."
           annotation (Placement(transformation(extent={{-84,-90},{-78,-84}})));
       equation
-
       connect(ArtysVol.y, busConnector.ArtysVol) annotation (Line(
        points={{-29.7,13},{90,13},{90,-2}},
             color={0,0,127},
@@ -11958,7 +11700,6 @@ Blood resistance in gastro interstitial tract.
             string="%second",
             index=1,
             extent={{6,3},{6,3}}));
-
         connect(Liver_BloodFlow.y, busConnector.Liver_BloodFlow) annotation (Line(
             points={{-23.7,-23},{90,-23},{90,-2}},
             color={0,0,127},
@@ -12251,7 +11992,6 @@ Blood resistance in gastro interstitial tract.
     model CVS_Dynamic_OM
       extends Physiolibrary.Icons.CardioVascular;
     //  extends Physiomodel.Library.Utilities.DynamicState(stateName="BloodVol.Vol", initType=Library.Utilities.Init.NoInit);
-
     Heart.Heart heart
       annotation (Placement(transformation(extent={{0,-6},{26,20}})));
       VascularCompartments.PulmonaryCirculation pulmonaryCirculation
@@ -12267,13 +12007,11 @@ Blood resistance in gastro interstitial tract.
       annotation (Placement(transformation(extent={{-34,26},{-54,46}})));
     Blood.BloodPropertiesBase bloodProperties
       annotation (Placement(transformation(extent={{-36,-34},{-56,-14}})));
-
     /*initial equation 
   if STEADY then
      bloodProperties.feedback.y = 0;
   end if;
 */
-
     equation
       connect(busConnector, pulmonaryCirculation.busConnector) annotation (
           Line(
@@ -12324,9 +12062,7 @@ Blood resistance in gastro interstitial tract.
           color={0,0,0},
           thickness=1,
           smooth=Smooth.None));
-
     //  stateValue = bloodProperties.BloodVolume1.y;
-
       annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
                 -100},{100,100}}),       graphics), Documentation(info="<html>
 <p><h4><font color=\"#008000\">Cardiovascular system</font></h4></p>
@@ -12425,16 +12161,12 @@ Blood resistance in gastro interstitial tract.
                       graphics));
   end CardioVascular;
 
-
   package Gases "Body O2 and CO2"
     extends Physiolibrary.Icons.GasesLib;
     package O2 "Body O2 Transport"
-
     partial model BloodO2Base
     //start values is for tissues veins blood
-
       parameter Boolean isSaturated = false;
-
       Physiolibrary.Types.Concentration tO2(start=0.75*8.14);
       Real aO2;
     //  Real pO2(start=5.33,           unit="kPa");
@@ -12444,25 +12176,21 @@ Blood resistance in gastro interstitial tract.
       Physiolibrary.Types.Concentration cO2Hb(start=6);
       //
       Physiolibrary.Types.Fraction sCO;
-
       Physiolibrary.Types.Concentration ceHb;
       Real a(start=0.5);
       Real k;
       Real x;
       Real y;
       Real h;
-
     /*  Real ex;
   Real ey;
   Real ey0;
   Real tnh;
 */
       Physiolibrary.Types.Fraction FCOHb(start=0);
-
     //  Real pCO;
     //  Real pCO2;
       //(start=5);
-
       Physiolibrary.Types.RealIO.FractionOutput sO2
                                           annotation (Placement(
             transformation(extent={{-30,-112},{10,-72}}),
@@ -12480,7 +12208,6 @@ Blood resistance in gastro interstitial tract.
             extent={{-10,-10},{10,10}},
             rotation=180,
             origin={90,100})));
-
       Physiolibrary.Types.RealIO.TemperatureInput T(start=310.15)  annotation (Placement(transformation(extent={{-120,
                 -20},{-80,20}}),      iconTransformation(extent={{-100,10},{
                 -80,30}})));
@@ -12505,31 +12232,25 @@ Blood resistance in gastro interstitial tract.
             extent={{-10,-10},{10,10}},
             rotation=180,
             origin={90,20})));
-
       Physiolibrary.Types.RealIO.FractionInput FHbF
                                        annotation (Placement(transformation(extent={{60,-60},
                 {100,-20}}),          iconTransformation(
             extent={{-10,-10},{10,10}},
             rotation=180,
             origin={90,-20})));
-
     //  Real mlTOmmol_O2(unit="mMol/ml") = 8.18/0.182
     //    "conversion constant for oxygen mass from ml to mMol";
-
      // Real mlTOmmol_O2(unit="mMol/ml") = 1/(740*2*16/1000)
      //   "conversion constant for oxygen mass from ml to mMol";
                                                        //8.18 / 0.182
                                                        //molar mass = 2*16 g/mol; density = 740 ml/g
-
      // constant Real MiniliterPerLiter(final unit="ml/l")=1000;
-
       Physiolibrary.Types.RealIO.PressureOutput pO2(start=5330)
                                           annotation (Placement(
             transformation(extent={{2,-112},{42,-72}}), iconTransformation(
             extent={{-20,-20},{20,20}},
             rotation=270,
             origin={40,-120})));
-
       Physiolibrary.Types.Concentration cdO2;
     /*    
   Real aa;
@@ -12537,7 +12258,6 @@ Blood resistance in gastro interstitial tract.
   Real yy;
   Real ssO2CO(start=0.96);
 */
-
      parameter Physiolibrary.Types.Temperature T0 = 273.15+37
         "normal temperature";
      parameter Physiolibrary.Types.pH pH0 = 7.4 "normal arterial pH";
@@ -12551,18 +12271,13 @@ Blood resistance in gastro interstitial tract.
      parameter Real dadlnpCO2 = 0.048 "used by a";
      parameter Real dadxMetHb = -0.7 "used by a";
      parameter Real dadxHbF = -0.25 "used by a";
-
      //constant Real PaTOmmHg = 1/133;
-
     equation
     //   PO2 = PaTOmmHg*1000 * pO2;
-
     //  pCOmmHg = PaTOmmHg*1000 * pCO;
     //  pCO2mmHg = PaTOmmHg*1000 * pCO2;
-
     //oxygen:
       ceHb = ctHb * (1-FCOHb-FMetHb); //effective haemoglobin
-
       assert(tO2 <= ceHb*(1.06), "Model does not support this high level of oxygen in blood. Maximum of oxygen concentration should be connected with efective hemoglobin concentration!");
         //pO2,pCO,pCO2 .. Pa
       //TODO: check units of solubility
@@ -12580,14 +12295,12 @@ Blood resistance in gastro interstitial tract.
       //TODO: check this: a=-0.88*(pH-7.4)+0.048*log(pCO2/5.33)-0.7*FMetHb+(0.3-0.25*FHbF)*cDPG/(5-1);
       //TANH
       a=dadpH*(pH-pH0)+dadlnpCO2*log(max(1e-15+1e-22*pCO2,pCO2/pCO20)) +dadxMetHb*FMetHb+(dadcDPG0 + dadcDPGxHbF*FHbF)*(cDPG/cDPG0 - 1); //log(pCO2/5330)
-
       //orginal:
       x=log(pO2CO/7000) - a - 0.055*(T-T0); //namiesto:  x=log(pO2CO/7) - a - 0.055*(T-37);
       y-1.8747=x+h*tanh(k*x);
       k=0.5342857;
       h=3.5 + a;
       y=log(sO2CO/(1-sO2CO));
-
       //simplification:
     /*  ey/ey0=ex*exp((3.5 + a)*tnh);  //TANH:  y-log(0.867/(1-0.867))=x+(3.5 + a)*tanh(0.5342857*x);
   ey0=0.867/(1-0.867);  //y0=log(0.867/(1-0.867)); //1.8747
@@ -12597,7 +12310,6 @@ Blood resistance in gastro interstitial tract.
   ey=sO2CO/(1-sO2CO); // = exp(y);  y=log(max(1e-15*(1+1e-6*sO2CO/(1-sO2CO)),sO2CO/(1-sO2CO)));
   */
         /************ O2 ********************/
-
       /************ CO ********************/
       //Haldane:
      /* if (pCOmmHg<1e-10) then
@@ -12610,11 +12322,9 @@ Blood resistance in gastro interstitial tract.
         pO2CO = pO2 + 218*pCO;
         sO2CO = (cO2Hb + ctHb*FCOHb)/(ctHb*(1-FMetHb));
         sCO = ctHb*FCOHb/(ctHb*(1-FMetHb));
-
     //    {pCO,FCOHb,pO2CO,sO2CO}=homotopy({sCO*pO2CO/ 218*sO2CO,sCO*(1-FMetHb),pO2 + 218*pCO,(cO2Hb + ctHb*FCOHb)/(ctHb*(1-FMetHb))},
     //    {0,0,pO2,sO2});
     //  end if;
-
     /*  ceHb = ctHb * (1-FCOHb-FMetHb); //effective haemoglobin
   aO2 = exp(log(0.0105)+(-0.0115*(T-37))+0.5*0.00042*(T-37)^2); //solubility
   tO2 = aO2*pO2 + ceHb*sO2;
@@ -12641,14 +12351,12 @@ Blood resistance in gastro interstitial tract.
   y=log(max(1e-15+1e-24*sO2CO/(1-sO2CO),sO2CO/(1-sO2CO)));
 
 */
-
     //oxygen: working well:
       //TANH
     //  a=-0.88*(pH-7.4)+0.048*log(max(1e-15+1e-19*pCO2,pCO2/5.33))-0.7*FMetHb+(0.3-0.25*FHbF)*cDPG/(5-1); //Bohr coefficient: -der(log10(pO2),pH)=0.88/ln(10)=0.38, -der(ln(pO2),pH)=0.88
     //  x=log(pO2CO/7);
     //  x=log(max(1e-15+1e-19*pO2CO,pO2CO/7)) - a - 0.055*(T-37); //namiesto:  x=log(pO2CO/7) - a - 0.055*(T-37);
     //  y=log(max(1e-15+1e-19*sO2CO/(1-sO2CO),sO2CO/(1-sO2CO)));
-
       annotation (Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,
                 -100},{100,100}}), graphics={Rectangle(
               extent={{-100,100},{100,-100}},
@@ -12674,15 +12382,12 @@ Blood resistance in gastro interstitial tract.
       end MeassureBloodO2;
 
       model BloodO2_Siggaard
-
       extends BloodO2Base;
                           //_withoutCO_;
-
       //Physiolibrary.Chemical.Interfaces.ChemicalPort_a q_in;
       //Physiolibrary.Chemical.Interfaces.ChemicalPort_b q_out;
       //Physiolibrary.Chemical.Interfaces.ChemicalPort_b alveolar;
       //Modelica.Blocks.Interfaces.RealInput
-
         Physiolibrary.Chemical.Interfaces.ChemicalPort_a q_in
           annotation (Placement(transformation(extent={{-100,-100},{-80,-80}}),
               iconTransformation(extent={{-100,-100},{-80,-80}})));
@@ -12703,16 +12408,11 @@ Blood resistance in gastro interstitial tract.
               origin={-40,-120})));
       equation
       q_in.q + q_out.q + alveolar.q = 0;  //flows: mmol/min
-
       alveolar.conc =cdO2;
-
       q_in.conc = q_in.q/ BloodFlow; //mmol/l
-
       //tO2 = MiniliterPerLiter * (-q_out.q/ BloodFlow); //mmol/l
       tO2 =  (-q_out.q/ BloodFlow); //mmol/l
-
       ceHb_ = ceHb;
-
         annotation (Diagram(graphics), Icon(graphics));
       end BloodO2_Siggaard;
 
@@ -12727,12 +12427,10 @@ Blood resistance in gastro interstitial tract.
       Physiolibrary.Hydraulic.Interfaces.HydraulicPort_a alveolar annotation (
           Placement(transformation(extent={{-20,80},{20,120}}),
             iconTransformation(extent={{-20,80},{20,120}})));
-
         Modelica.Blocks.Interfaces.RealInput HepaticArtyBloodFlow(
                                                            displayUnit="ml/min")
                                          annotation (Placement(transformation(extent={{-120,
                   -80},{-80,-40}}),     iconTransformation(extent={{-100,-80},{-80,-60}})));
-
       Physiolibrary.Chemical.Interfaces.ChemicalPort_a GIT annotation (
           Placement(transformation(extent={{-120,-120},{-80,-80}}),
             iconTransformation(extent={{-120,-40},{-80,0}})));
@@ -12742,15 +12440,11 @@ Blood resistance in gastro interstitial tract.
                   -80},{-80,-40}}),     iconTransformation(extent={{-100,0},{-80,20}})));
       equation
         GIT.q + hepaticArty.q + q_out.q + alveolar.q = 0;  //flows: mmol/min
-
         alveolar.pressure =Physiolibrary.NonSIunits.PaTOmmHg
                                                        *1000 * pO2;
-
         hepaticArty.conc = hepaticArty.q/ HepaticArtyBloodFlow; //mmol/ml
         GIT.conc = GIT.q/ GITBloodFlow; //mmol/ml
-
         tO2 = MiniliterPerLiter * (-q_out.q/ (GITBloodFlow+HepaticArtyBloodFlow)); //mmol/l
-
         annotation (Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,
                   -100},{100,100}}), graphics={
               Rectangle(
@@ -12809,7 +12503,6 @@ Blood resistance in gastro interstitial tract.
         annotation (Placement(transformation(extent={{-108,72},{-68,112}})));
         Tissues.SkinO2 skinO2(       initialMass=28.2)
           annotation (Placement(transformation(extent={{-54,-84},{-34,-64}})));
-
        Physiolibrary.Types.MolarFlowRate O2ToTissues(displayUnit="mmol/min");
       // Real O2ToTissues2(displayUnit="mmol/min");
       // Real O2ToTissues3(displayUnit="ml/min");
@@ -12855,13 +12548,11 @@ Blood resistance in gastro interstitial tract.
        kidneyO2.BloodFlow +
        GITractO2.BloodFlow +
        skinO2.BloodFlow;
-
         connect(q_out, skeletalMuscleO2.vein) annotation (Line(
             points={{-100,0},{-82,0},{-82,76},{-54,76}},
             color={200,0,0},
             thickness=1,
             smooth=Smooth.None));
-
         connect(q_out, boneO2.vein) annotation (Line(
             points={{-100,0},{-82,0},{-82,48},{-54,48}},
             color={200,0,0},
@@ -12967,7 +12658,6 @@ Blood resistance in gastro interstitial tract.
             color={200,0,0},
             thickness=1,
             smooth=Smooth.None));
-
         connect(busConnector.cDPG, boneO2.cDPG)     annotation (
            Line(
             points={{-88,92},{-88,56},{-53,56}},
@@ -13064,7 +12754,6 @@ Blood resistance in gastro interstitial tract.
             string="%first",
             index=-1,
             extent={{-5,2},{-5,2}}));
-
         connect(busConnector.FHbF, boneO2.FHbF)      annotation (
            Line(
             points={{-88,92},{-88,40},{-53,40}},
@@ -13161,7 +12850,6 @@ Blood resistance in gastro interstitial tract.
             string="%first",
             index=-1,
             extent={{-5,2},{-5,2}}));
-
         connect(busConnector.bone_pCO2, boneO2.pCO2)        annotation (
            Line(
             points={{-88,92},{-88,36},{-53,36}},
@@ -13258,7 +12946,6 @@ Blood resistance in gastro interstitial tract.
             string="%first",
             index=-1,
             extent={{-5,2},{-5,2}}));
-
         connect(busConnector.ctHb, boneO2.ctHb)      annotation (
            Line(
             points={{-88,92},{-88,44},{-53,44}},
@@ -13355,7 +13042,6 @@ Blood resistance in gastro interstitial tract.
             string="%first",
             index=-1,
             extent={{-5,2},{-5,2}}));
-
         connect(busConnector.pCO, boneO2.pCO)
           annotation (Line(
             points={{-88,92},{-87.5,92},{-87.5,52},{-53,52}},
@@ -13452,7 +13138,6 @@ Blood resistance in gastro interstitial tract.
             string="%first",
             index=-1,
             extent={{-5,2},{-5,2}}));
-
         connect(boneO2.pH_plasma, busConnector.bone_pH_plasma)       annotation (
            Line(
             points={{-35,56},{6,56},{6,92},{-88,92}},
@@ -13645,7 +13330,6 @@ Blood resistance in gastro interstitial tract.
             string="%second",
             index=1,
             extent={{5,2},{5,2}}));
-
         connect(boneO2.Tissue_O2Use, busConnector.bone_O2Use)       annotation (
            Line(
             points={{-35,44},{6,44},{6,92},{-88,92}},
@@ -13742,7 +13426,6 @@ Blood resistance in gastro interstitial tract.
             string="%second",
             index=1,
             extent={{5,2},{5,2}}));
-
         connect(boneO2.BloodFlow, busConnector.bone_BloodFlow)        annotation (
            Line(
             points={{-35,36},{6,36},{6,92},{-88,92}},
@@ -13831,7 +13514,6 @@ Blood resistance in gastro interstitial tract.
             string="%second",
             index=1,
             extent={{5,2},{5,2}}));
-
         connect(boneO2.T, busConnector.bone_T)       annotation (
            Line(
             points={{-35,40},{6,40},{6,92},{-88,92}},
@@ -13928,7 +13610,6 @@ Blood resistance in gastro interstitial tract.
             string="%second",
             index=1,
             extent={{5,2},{5,2}}));
-
           connect(boneO2.sO2, busConnector.bone_sO2) annotation (
            Line(
             points={{-44,35},{6,35},{6,92},{-88,92}},
@@ -13989,7 +13670,6 @@ Blood resistance in gastro interstitial tract.
             points={{-44,63},{5.5,63},{5.5,92},{-88,92}},
             color={127,0,0},
             smooth=Smooth.None));
-
         connect(boneO2.pO2, busConnector.Bone_PO2) annotation (
            Line(
             points={{-46,35},{6,35},{6,92},{-88,92}},
@@ -14050,7 +13730,6 @@ Blood resistance in gastro interstitial tract.
             points={{-46,63},{5.5,63},{5.5,92},{-88,92}},
             color={127,0,0},
             smooth=Smooth.None));
-
         connect(kidneyO2.TubulePO2, busConnector.KidneyO2_TubulePO2) annotation (Line(
             points={{64,-41},{64,-46},{96,-46},{96,92},{-88,92}},
             color={0,0,127},
@@ -14084,14 +13763,12 @@ Blood resistance in gastro interstitial tract.
 
       package Tissues
         model TissueO2Base
-
         Physiolibrary.Chemical.Interfaces.ChemicalPort_a arty annotation (
             Placement(transformation(extent={{-82,-6},{-62,14}}),
               iconTransformation(extent={{80,0},{120,40}})));
         Physiolibrary.Chemical.Interfaces.ChemicalPort_b vein annotation (
             Placement(transformation(extent={{62,-6},{82,14}}),
               iconTransformation(extent={{-120,0},{-80,40}})));
-
           parameter Physiolibrary.Types.AmountOfSubstance initialMass;
           Physiolibrary.Types.RealIO.ConcentrationInput ctHb
           "concentration of haemoglobin"                        annotation (Placement(transformation(extent={{72,-20},
@@ -14104,7 +13781,6 @@ Blood resistance in gastro interstitial tract.
                     {-42,4}}),            iconTransformation(extent={{-10,-10},{10,10}},
                 rotation=180,
                 origin={90,-100})));
-
           Physiolibrary.Types.RealIO.TemperatureInput T "outgoing temperature"
                                                                  annotation (Placement(transformation(extent={{-38,-12},
                     {-30,-4}}),           iconTransformation(extent={{-10,-10},{10,10}},
@@ -14128,7 +13804,6 @@ Blood resistance in gastro interstitial tract.
                     {48,-4}}),            iconTransformation(extent={{-10,-10},{10,10}},
                 rotation=180,
                 origin={90,60})));
-
           Physiolibrary.Types.RealIO.MolarFlowRateInput
                                                Tissue_O2Use
                                            annotation (Placement(transformation(extent={{-82,-64},
@@ -14165,13 +13840,11 @@ Blood resistance in gastro interstitial tract.
                   extent={{-10,-10},{10,10}},
                 rotation=270,
                 origin={-20,-110})));
-
         //  Real O2Use_ml_per_min;
         // Real O2Use_mmol_per_min;
         equation
         //  O2Use_mmol_per_min = fromMLtoMMOL.q_MMOL.q;
         //  O2Use_ml_per_min = -fromMLtoMMOL.q_ML.q;
-
           connect(O2Tissue.sO2, sO2)          annotation (Line(
               points={{-8,6},{-8,17},{11,17}},
               color={0,0,127},
@@ -14254,7 +13927,6 @@ Blood resistance in gastro interstitial tract.
         model TissueO2_kidney
           extends Physiolibrary.Icons.Kidney;
           extends TissueO2Base;
-
                                    /*(cO2Hb(start=7.39))*/
         Physiolibrary.Types.Constants.DiffusionPermeabilityConst O2PermBasic(k(
               displayUnit="l/min") = 0.00028333333333333)
@@ -14284,7 +13956,6 @@ Blood resistance in gastro interstitial tract.
         equation
          // O2Use_mmol_per_min = fromMLtoMMOL.q_MMOL.q;
          // O2Use_ml_per_min = -fromMLtoMMOL.q_ML.q;
-
           connect(O2PermBasic.y, HgbOnPerm.yBase) annotation (Line(
               points={{61.75,-33},{64,-33},{64,-46}},
               color={0,0,127},
@@ -14415,7 +14086,6 @@ Blood resistance in gastro interstitial tract.
       package IO_Bus
       extends Physiolibrary.Types.IO_Bus;
         redeclare model extends Variables
-
         T.Pressure Bone_PO2(varName="Bone-Flow.PO2")
           "Partial oxygen pressure in bone blood venules."
         annotation (Placement(transformation(extent={{-64,-120},{-58,-114}})));
@@ -14489,7 +14159,6 @@ Blood resistance in gastro interstitial tract.
         T.Fraction skin_sO2(varName="skin_sO2")
         annotation (Placement(transformation(extent={{114,288},{120,294}})));
         equation
-
         connect(Bone_PO2.y, busConnector.Bone_PO2) annotation (Line(
          points={{-57.7,-117},{90,-117},{90,-2}},
               color={0,0,127},
@@ -14703,10 +14372,8 @@ Blood resistance in gastro interstitial tract.
 
         model Oxygen_test_SI
           import Physiomodel;
-
           import Modelica.Utilities.*;
          // constant String OUTPUT_FILE = "setup/output_startValues.txt"; //"setup/output.txt"; //"setup/v2.txt";
-
         Physiomodel.CardioVascular.IO_Bus.InputFromFile_SI cardioVascularSystem
             annotation (Placement(transformation(extent={{40,72},{60,94}})));
           Physiomodel.Metabolism.IO_Bus.InputFromFile_SI
@@ -14783,7 +14450,6 @@ Blood resistance in gastro interstitial tract.
               thickness=0.5,
               smooth=Smooth.None));
         //if terminal() then
-
         /*   Streams.print("cardioVascularSystem.busConnector.Bone_PCO2\n"+String(cardioVascularSystem.busConnector.Bone_PCO2),OUTPUT_FILE);
 
 Streams.print("cardioVascularSystem.busConnector.Brain_PCO2\n"+String(cardioVascularSystem.busConnector.Brain_PCO2),OUTPUT_FILE);
@@ -14948,7 +14614,6 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
           // x = -O2Lung.q_out.q;
         //   x = ((-O2Lung.q_out.q - tissuesO2.O2ToTissues)/O2Lung.BloodFlow)*Veins.SolventVolume;
            // end if;
-
       equation
         x = ((-O2Lung.q_out.q - tissuesO2.O2ToTissues)/O2Lung.BloodFlow)*veins.volume;
         connect(pulmShortCircuitFlow.u1, busConnector.CardiacOutput)
@@ -15371,10 +15036,8 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
     end O2;
 
     package CO2 "Body CO2 Transport"
-
       partial model HendersonHasselbach
         import Modelica.Math;
-
         Real pK;
         Real aCO2(final displayUnit="mmol/(l.kPa)");
          Physiolibrary.Types.Concentration cdCO2(displayUnit="mmol/l");
@@ -15382,7 +15045,6 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
       //  Physiolibrary.Types.Pressure pCO2(start=6000,            displayUnit="kPa");
       //  start=6,
        // constant Real MiniliterPerLiter(final displayUnit="ml/l")=1000;
-
          Physiolibrary.Types.RealIO.ConcentrationOutput cHCO3(
                                               displayUnit="mmol/l")
         "outgoing concentration of HCO3"                                                             annotation (Placement(
@@ -15395,7 +15057,6 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
                   {110,14}}),           iconTransformation(extent={{-10,-10},{10,10}},
               rotation=180,
               origin={90,80})));        /*start=37,*/
-
          Physiolibrary.Types.RealIO.pHInput pH "outgoing plasma pH"
                                                               annotation (Placement(transformation(extent={{-120,50},
                   {-80,90}}),           iconTransformation(extent={{-100,70},{-80,90}})));
@@ -15413,7 +15074,6 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
         cdCO2 = aCO2*pCO2;
        // pH = if ( cdCO2 > 1e-8) then  pK + log10(max(1e-15,cHCO3/cdCO2)) else pK;
         cdCO2 * 10^(pH-pK) = cHCO3;
-
         annotation (Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,
                   -100},{100,100}}),
                                graphics), Documentation(revisions="<html>
@@ -15446,20 +15106,14 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
 
       partial model BloodCO2Base
         extends Physiomodel.Gases.CO2.HendersonHasselbach;
-
         import Modelica.Math;
-
         Physiolibrary.Types.Concentration tCO2_P(start=24, displayUnit="mmol/l");
         //start=24,
-
         Real pK_ery;
         Physiolibrary.Types.GasSolubility aCO2_ery( displayUnit="mmol/l/mmHg");
         Physiolibrary.Types.Concentration tCO2_ery( displayUnit="mmol/l");
-
          Physiolibrary.Types.Concentration tCO2( displayUnit="mmol/l");
-
       //  constant Real MiniliterPerLiter(final displayUnit="ml/l")=1000;
-
          Physiolibrary.Types.RealIO.pHInput pH_ery
         "outgoing intracellular erytrocytes pH"
                                         annotation (Placement(transformation(extent={{-120,10},
@@ -15477,19 +15131,15 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
               extent={{-10,-10},{10,10}},
               rotation=180,
               origin={90,0})));
-
       equation
         //total plasma CO2 from SimpleCO2Solution
         tCO2_P = cHCO3 + cdCO2;
-
         //erythrocytes:
         pK_ery = 6.125 - log10(1+10^(pH_ery-7.84-0.06*sO2));
         tCO2_ery=aCO2_ery*pCO2*(1+10^(pH_ery-pK_ery));
         aCO2_ery=0.000195; //solubility 0.23 (mmol/l)/kPa at 25degC
-
         //plasma+erythrocyte
         tCO2 = tCO2_ery*Hct + tCO2_P*(1-Hct);
-
         annotation (Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,
                   -100},{100,100}}), graphics={Rectangle(
                 extent={{-100,100},{100,-100}},
@@ -15531,7 +15181,6 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
 
       partial model BloodCO2TransportBase
         extends BloodCO2Base;
-
       Physiolibrary.Chemical.Interfaces.ChemicalPort_a q_in
         "CO2 inflow to ventilated alveols in mmol/ml" annotation (Placement(
             transformation(extent={{-120,-100},{-80,-60}}), iconTransformation(
@@ -15547,9 +15196,7 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
                   -80},{-80,-40}}),     iconTransformation(extent={{-100,-10},{-80,10}})));
       equation
         q_in.conc = q_in.q/ BloodFlow; //mmol/l
-
         tCO2 = (-q_out.q/BloodFlow); //mmol/l
-
         annotation (Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,
                   -100},{100,100}}), graphics={
               Rectangle(
@@ -15626,7 +15273,6 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
           rightHeartCO2(vein(q(start=-0.914))),
           skinCO2(vein(q(start=-3.5889))))
           annotation (Placement(transformation(extent={{-48,-40},{-28,-20}})));
-
           /*(
     skeletalMuscleCO2(tissueVeinsCO2(pCO2(start=6.079))),
     liverCO2(tissueVeinsCO2(pCO2(start=5.8879))),
@@ -15640,7 +15286,6 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
     leftHeartCO2(tissueVeinsCO2(pCO2(start=7.8986))),
     rightHeartCO2(tissueVeinsCO2(pCO2(start=7.9346))),
     skinCO2(tissueVeinsCO2(pCO2(start=5.9118))))*/
-
       Physiolibrary.Types.BusConnector busConnector annotation (Placement(
             transformation(extent={{-114,-62},{-74,-22}}), iconTransformation(
               extent={{60,40},{100,80}})));
@@ -15665,13 +15310,11 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
           annotation (Placement(transformation(extent={{-96,22},{-76,42}})));
         Physiomodel.Gases.CO2.MeassureBloodCO2 artysCO2(tCO2_P(start=26), pCO2(start=5330))
           annotation (Placement(transformation(extent={{72,22},{92,42}})));
-
         Physiomodel.Gases.CO2.BloodCO2 CO2Lung(
           q_in(q(start=115.472)),
           tCO2_P(start=24.9),
         pCO2(start=5160))
           annotation (Placement(transformation(extent={{-10,22},{10,42}})));
-
       Physiolibrary.Chemical.Components.GasSolubility gasSolubility(
         useHeatPort=true,
           C=2400,
@@ -16018,14 +15661,12 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
 
       model MeassureBloodCO2
         extends BloodCO2Base;
-
       Physiolibrary.Chemical.Interfaces.ChemicalPort_a q_in annotation (
           Placement(transformation(extent={{80,-20},{120,20}}),
             iconTransformation(extent={{-20,-100},{20,-60}})));
       equation
         q_in.q=0;
         tCO2 = q_in.conc;// * MiniliterPerLiter;  //mmol/l
-
         annotation (Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,
                   -100},{100,100}}), graphics={Rectangle(
                 extent={{-100,100},{100,-100}},
@@ -16042,7 +15683,6 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
       model TissueHCO3
         extends Physiomodel.Gases.CO2.HendersonHasselbach;
         import Modelica.Math;
-
       /*  Real pK;
   Real aCO2(final displayUnit="mmol/(l.kPa)");
   Real cdCO2(start=3,             final displayUnit="mmol/l");
@@ -16067,7 +15707,6 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
             {-80,90}}),           iconTransformation(extent={{-100,70},{-80,90}})));
 */
        Physiolibrary.Types.Concentration tCO2(final displayUnit="mmol/l");
-
        Physiolibrary.Types.RealIO.PressureInput pCO2_(       displayUnit="mmHg")
         "tissue venous partial pressure of CO2"
                                           annotation (Placement(transformation(
@@ -16075,10 +15714,8 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
               extent={{-10,-10},{10,10}},
               rotation=0,
               origin={-90,42})));               //start=45,
-
       equation
         pCO2 = pCO2_;
-
         /*
   
    
@@ -16093,7 +15730,6 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
 */
         //total interstitial CO2 from SimpleCO2Solution
         tCO2 = cHCO3 + cdCO2;
-
         annotation (Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,
                   -100},{100,100}}), graphics={Rectangle(
                 extent={{-100,100},{100,-100}},
@@ -16135,7 +15771,6 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
 
       model FlowMeasureCO2
         extends Physiomodel.Gases.CO2.BloodCO2Base;
-
         import Modelica.Math;
       /*
   Real tCO2_P(start=24,              final displayUnit="mmol/l");
@@ -16179,11 +15814,9 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
                                          annotation (Placement(transformation(extent={{-120,
                   -80},{-80,-40}}),     iconTransformation(extent={{-100,-10},{-80,10}})));
       equation
-
         q_in.q + q_out.q = 0;
         q_in.conc = (q_in.q/BloodFlow);
         tCO2 = q_in.conc; //=(-q_out.q/BloodFlow);  //mmol/l
-
       /*
   //total plasma CO2 from SimpleCO2Solution
   tCO2_P = cHCO3 + cdCO2;
@@ -16219,7 +15852,6 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
       end FlowMeasureCO2;
 
       package TissuesWithInterstitium
-
         model TissuesCO2
           import QHP = Physiomodel;
          extends Physiolibrary.Icons.Tissues;
@@ -16259,7 +15891,6 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
           annotation (Placement(transformation(extent={{-108,72},{-68,112}})));
           SkinCO2 skinCO2(                initialMass=28.2)
             annotation (Placement(transformation(extent={{-54,-84},{-34,-64}})));
-
           Physiolibrary.Types.MolarFlowRate CO2FromTissues(displayUnit="mmol/min");
         equation
           CO2FromTissues = -( q_out.q + q_in.q);
@@ -16313,7 +15944,6 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
               color={200,0,0},
               thickness=1,
               smooth=Smooth.None));
-
           connect(skeletalMuscleCO2.arty, q_in) annotation (Line(
               points={{-34,75},{84,75},{84,0},{100,0}},
               color={200,0,0},
@@ -16374,7 +16004,6 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
               color={200,0,0},
               thickness=1,
               smooth=Smooth.None));
-
           connect(busConnector.bone_pH_plasma, boneCO2.pH_plasma)      annotation (
              Line(
               points={{-88,92},{-88,44},{-53,44}},
@@ -16472,7 +16101,6 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
               string="%first",
               index=-1,
               extent={{-5,2},{-5,2}}));
-
           connect(busConnector.bone_pH_ery, boneCO2.pH_ery)      annotation (
              Line(
               points={{-88,92},{-88,56},{-53,56}},
@@ -16569,7 +16197,6 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
               string="%first",
               index=-1,
               extent={{-5,2},{-5,2}}));
-
           connect(busConnector.bone_sO2, boneCO2.sO2)        annotation (
              Line(
               points={{-88,92},{-88,52},{-53,52}},
@@ -16666,7 +16293,6 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
               string="%first",
               index=-1,
               extent={{-5,2},{-5,2}}));
-
           connect(busConnector.BloodVol_Hct, boneCO2.Hct)      annotation (
              Line(
               points={{-88,92},{-88,40},{-53,40}},
@@ -16763,7 +16389,6 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
               string="%first",
               index=-1,
               extent={{-5,2},{-5,2}}));
-
           connect(boneCO2.Tissue_CO2FromMetabolism, busConnector.bone_CO2FromMetabolism)    annotation (
              Line(
               points={{-35,44},{6,44},{6,92},{-88,92}},
@@ -16860,7 +16485,6 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
               string="%second",
               index=1,
               extent={{5,2},{5,2}}));
-
           connect(boneCO2.BloodFlow, busConnector.bone_BloodFlow)        annotation (
              Line(
               points={{-35,51.4},{6,51.4},{6,92},{-88,92}},
@@ -16949,7 +16573,6 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
               string="%second",
               index=1,
               extent={{5,2},{5,2}}));
-
           connect(boneCO2.T, busConnector.bone_T)       annotation (
              Line(
               points={{-35,40},{6,40},{6,92},{-88,92}},
@@ -17046,7 +16669,6 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
               string="%second",
               index=1,
               extent={{5,2},{5,2}}));
-
           connect(boneCO2.pCO2, busConnector.bone_pCO2)       annotation (
              Line(
               points={{-44,35},{6,35},{6,92},{-88,92}},
@@ -17107,7 +16729,6 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
               points={{-44,63},{5.5,63},{5.5,92},{-88,92}},
               color={127,0,0},
               smooth=Smooth.None));
-
           connect(boneCO2.pCO2, busConnector.Bone_PCO2)       annotation (
              Line(
               points={{-44,35},{6,35},{6,92},{-88,92}},
@@ -17168,7 +16789,6 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
               points={{-44,63},{5.5,63},{5.5,92},{-88,92}},
               color={127,0,0},
               smooth=Smooth.None));
-
           connect(boneCO2.cHCO3, busConnector.bone_cHCO3)       annotation (
              Line(
               points={{-46,35},{6,35},{6,92},{-88,92}},
@@ -17229,7 +16849,6 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
               points={{-46,63},{5.5,63},{5.5,92},{-88,92}},
               color={127,0,0},
               smooth=Smooth.None));
-
           connect(boneCO2.cHCO3_interstitial, busConnector.bone_cHCO3_interstitial)       annotation (
              Line(
               points={{-42,35},{6,35},{6,92},{-88,92}},
@@ -17290,7 +16909,6 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
               points={{-42,63},{5.5,63},{5.5,92},{-88,92}},
               color={127,0,0},
               smooth=Smooth.None));
-
           connect(liverCO2.HepaticArtyBloodFlow, busConnector.HepaticArty_BloodFlow)
             annotation (Line(
               points={{71,50},{98,50},{98,92},{-88,92}},
@@ -17325,7 +16943,6 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
         end TissuesCO2;
 
         model TissueCO2
-
         Physiolibrary.Chemical.Interfaces.ChemicalPort_a arty annotation (
             Placement(transformation(extent={{76,-66},{96,-46}}),
               iconTransformation(extent={{80,-10},{120,30}})));
@@ -17335,7 +16952,6 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
         Physiolibrary.Chemical.Sources.UnlimitedSolutePump InflowBase(
             useSoluteFlowInput=true)
           annotation (Placement(transformation(extent={{-64,42},{-44,62}})));
-
           parameter Real initialMass;
           Modelica.Blocks.Interfaces.RealInput pH_plasma "outgoing plasma pH"
                                                                 annotation (Placement(transformation(extent={{-3,-3},
@@ -17354,7 +16970,6 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
                     {58,-44}}),           iconTransformation(extent={{-10,-10},{10,10}},
                 rotation=180,
                 origin={90,54})));
-
           Modelica.Blocks.Interfaces.RealInput T "outgoing temperature"
                                                                  annotation (Placement(transformation(extent={{-4,-4},
                     {4,4}},
@@ -17379,7 +16994,6 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
                 extent={{-10,-10},{10,10}},
                 rotation=0,
                 origin={-90,-60})));
-
           Modelica.Blocks.Interfaces.RealInput Tissue_CO2FromMetabolism
           "Co2 flow from metabolism"       annotation (Placement(transformation(extent={{-74,66},
                     {-66,74}}),           iconTransformation(
@@ -17415,11 +17029,6 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
           Modelica.Blocks.Math.Gain DonnansCoeficient(k=1.04)
             annotation (Placement(transformation(extent={{34,36},{42,44}})));
         equation
-
-          connect(arty, arty) annotation (Line(
-              points={{86,-56},{86,-56}},
-              color={200,0,0},
-              smooth=Smooth.None));
           connect(arty, tissueFlow.q_in) annotation (Line(
               points={{86,-56},{52,-56}},
               color={200,0,0},
@@ -17517,7 +17126,6 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
         Physiolibrary.Chemical.Sources.UnlimitedSolutePump InflowBase(
             useSoluteFlowInput=true)
           annotation (Placement(transformation(extent={{-64,24},{-44,44}})));
-
           parameter Real initialMass;
           Modelica.Blocks.Interfaces.RealInput pH_plasma "outgoing plasma pH"
                                                                 annotation (Placement(transformation(extent={{-3,-3},
@@ -17530,7 +17138,6 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
                     {3,3}},
                 rotation=180,
                 origin={7,-43}),          iconTransformation(extent={{-100,90},{-80,110}})));
-
           Modelica.Blocks.Interfaces.RealInput T "outgoing temperature"
                                                                  annotation (Placement(transformation(extent={{-4,-4},
                     {4,4}},
@@ -17555,7 +17162,6 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
                 extent={{-10,-10},{10,10}},
                 rotation=0,
                 origin={-90,-60})));
-
           Modelica.Blocks.Interfaces.RealOutput pCO2
                                                    annotation (Placement(
                 transformation(extent={{38,-82},{46,-74}}),  iconTransformation(
@@ -17613,7 +17219,6 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
           Modelica.Blocks.Math.Gain DonnansCoeficient(k=1.04)
             annotation (Placement(transformation(extent={{32,36},{40,44}})));
         equation
-
           connect(tissueVeinsCO2.pCO2, pCO2) annotation (Line(
               points={{-18,-60},{-18,-78},{42,-78}},
               color={0,0,127},
@@ -17773,10 +17378,8 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
       end TissuesWithInterstitium;
 
       model BloodCO2
-
        extends BloodCO2TransportBase;
       // extends Physiolibrary.Icons.LungShunt;
-
       Physiolibrary.Chemical.Interfaces.ChemicalPort_a alveolar_outflow
         "CO2 outflow from blood to alveol space in mmol/min"
           annotation (Placement(transformation(extent={{-20,80},{20,120}}),
@@ -17784,14 +17387,12 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
       equation
         q_in.q + q_out.q + alveolar_outflow.q = 0;
         alveolar_outflow.conc = cdCO2;
-
         annotation (Icon(graphics));
       end BloodCO2;
 
       package IO_Bus
       extends Physiolibrary.Types.IO_Bus;
         redeclare model extends Variables
-
         T.Pressure Brain_PCO2(varName="Brain-CO2.PCO2")
           "Partial carbondioxyde pressure in brain venules."
         annotation (Placement(transformation(extent={{-80,128},{-74,134}})));
@@ -17881,7 +17482,6 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
               "mol/l")
           annotation (Placement(transformation(extent={{-80,-20},{-74,-14}})));
         equation
-
         connect(Brain_PCO2.y, busConnector.Brain_PCO2) annotation (Line(
          points={{-73.7,131},{90,131},{90,-2}},
               color={0,0,127},
@@ -18286,7 +17886,6 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
                   {{-100,-100},{100,100}}), graphics));
         end CO2_test_SI;
       end IO_Bus;
-
       annotation (Documentation(revisions="<html>
 
 <table>
@@ -18366,7 +17965,6 @@ annotation (Placement(transformation(extent={{16,-70},{22,-64}})));
 */
       equation
        // efferentPath.TotalDrive=homotopy(actual=afferentPath.TotalDrive, simplified=1.045922);
-
         connect(busConnector, afferentPath.busConnector)      annotation (Line(
             points={{-70,90},{61.8,90},{61.8,40.2}},
             color={0,0,255},
@@ -18457,7 +18055,6 @@ annotation (Placement(transformation(extent={{16,-70},{22,-64}})));
             color={0,0,255},
             thickness=0.5,
             smooth=Smooth.None));
-
         connect(centralChemoreceptors.CentralChemoreceptors, afferentPath.CentralChemoreceptors)
           annotation (Line(
             points={{27.4,62},{38,62},{38,29},{58,29}},
@@ -18481,7 +18078,6 @@ annotation (Placement(transformation(extent={{16,-70},{22,-64}})));
         extends Physiolibrary.Icons.RespiratoryCenter;
         parameter Real RadiationTotalDrive[:,3]={{    0,  0.0,  0}, {  500,  3.5,  0.003}, { 1000,  4.0,  0}};
         parameter Real OutputRate[:,3]={{  0,   0,  12}, {  1,  12,   4}, { 10,  40,   0}};
-
         Physiolibrary.Types.RealIO.FractionOutput TotalDrive
           annotation (Placement(transformation(extent={{80,-20},{120,20}}),
               iconTransformation(extent={{74,20},{114,60}})));
@@ -18544,7 +18140,6 @@ annotation (Placement(transformation(extent={{16,-70},{22,-64}})));
             points={{34,68},{-18,68},{-18,86},{-80,86}},
             color={0,0,127},
             smooth=Smooth.None));
-
         connect(RespiratoryCenterIntegration_TotalDrive.y, TotalDrive)
           annotation (Line(
             points={{87,34},{94,34},{94,0},{100,0}},
@@ -18575,7 +18170,6 @@ annotation (Placement(transformation(extent={{16,-70},{22,-64}})));
         extends Physiolibrary.Icons.RespiratoryCenter;
         parameter Real RadiationTotalDrive[:,3]={{    0,  0.0,  0}, {  500,  3.5,  0.003}, { 1000,  4.0,  0}};
         parameter Real OutputRate[:,3]={{  0,   0,  12}, {  1,  12,   4}, { 10,  40,   0}};
-
       Physiolibrary.Blocks.Interpolation.Curve RespiratoryCenterOutput(
         x=OutputRate[:, 1],
         y=OutputRate[:, 2],
@@ -18646,7 +18240,6 @@ annotation (Placement(transformation(extent={{16,-70},{22,-64}})));
             string="%first",
             index=-1,
             extent={{-6,3},{-6,3}}));
-
         connect(TotalDrive, RespiratoryCenterOutput.u) annotation (Line(
             points={{-100,20},{-56,20},{-56,-6},{-10,-6}},
             color={0,0,127},
@@ -18673,7 +18266,6 @@ annotation (Placement(transformation(extent={{16,-70},{22,-64}})));
 
       model CentralChemoreceptors
           extends Physiolibrary.Icons.RespiratoryCenter;
-
           parameter Real data[:,3]={{6.60,0.0,0},{6.85,10.0,0},{7.07,1.0,-8.0},{7.50,0.0,0}}; //{{6.60,0.0,0},{6.87,10.0,0},{7.12,1.0,-8.0},{7.50,0.0,0}};
         Physiolibrary.Types.RealIO.FractionOutput CentralChemoreceptors
           annotation (Placement(transformation(extent={{80,-20},{120,20}}),
@@ -18687,7 +18279,6 @@ annotation (Placement(transformation(extent={{16,-70},{22,-64}})));
         slope=data[:, 3])
         annotation (Placement(transformation(extent={{18,-10},{38,10}})));
       equation
-
         connect(curve.val, CentralChemoreceptors) annotation (Line(
             points={{38,0},{100,0}},
             color={0,0,127},
@@ -18731,7 +18322,6 @@ annotation (Placement(transformation(extent={{16,-70},{22,-64}})));
         parameter Real PO2Effect_original[:,3]={{  30,  10.0,  0}, {  60,   2.0,  -0.05}, {  94,   0.5,  -0.005}, { 200,   0.2,  0}};
         parameter Real SteadyState[:,3]={{  0,  0,  0}, {  1,  1,  0.3}, { 10,  2,  0}};
         parameter Physiolibrary.Types.Time Tau(displayUnit="h") = 20*60*60;
-
       Physiolibrary.Types.BusConnector busConnector annotation (Placement(
             transformation(extent={{-102,64},{-82,84}}), iconTransformation(
               extent={{-96,-18},{-56,22}})));
@@ -18868,7 +18458,6 @@ annotation (Placement(transformation(extent={{16,-70},{22,-64}})));
             points={{76,70},{88,70},{88,32},{26,32},{26,11.3333},{30,11.3333}},
             color={0,0,127},
             smooth=Smooth.None));
-
         annotation (Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,-100},
                   {100,100}}),       graphics), Icon(coordinateSystem(
                 preserveAspectRatio=true, extent={{-100,-100},{100,100}}),
@@ -18894,7 +18483,6 @@ annotation (Placement(transformation(extent={{16,-70},{22,-64}})));
         Physiolibrary.Types.RealIO.FractionOutput NA
           annotation (Placement(transformation(extent={{80,-20},{120,20}})));
          parameter Real PhOnNerveActivity[:,3]={{ 6.5,  5.0,  0}, { 6.9,  0.0,  0}};
-
       equation
         connect(NerveActivity.val, NA)      annotation (Line(
             points={{26,0},{100,0}},
@@ -18915,7 +18503,6 @@ annotation (Placement(transformation(extent={{16,-70},{22,-64}})));
       end SkeletalMuscleMetaboreflex;
 
       model GasEquation
-
         Physiolibrary.Types.RealIO.VolumeInput
                                            V1(
                                          displayUnit="ml") annotation (Placement(transformation(extent={
@@ -18970,7 +18557,6 @@ annotation (Placement(transformation(extent={{16,-70},{22,-64}})));
       end GasEquation;
 
       model VaporPressure
-
         Physiolibrary.Types.RealIO.TemperatureInput
                                            T(
                                         displayUnit="degC")   annotation (Placement(transformation(extent={
@@ -19021,11 +18607,9 @@ annotation (Placement(transformation(extent={{16,-70},{22,-64}})));
                                                         annotation (Placement(transformation(extent={{-88,6},
                   {-48,46}}),           iconTransformation(extent={{-100,26},{-72,
                   54}})));
-
         parameter Physiolibrary.Types.Fraction DeadSpaceSlope =   0.20;
         parameter Physiolibrary.Types.Volume DeadSpaceMin =                            60.0e-6;
         parameter Real[:,3] DriveOnTidalVolume =  {{  0,     0,    0}, {  1,   450,  400}, { 10,  2630,    0}};  //corrected from {{  0,     0,    0}, {  1,   550,  400}, { 10,  2630,    0}}
-
       // Real TidalVolumeBasic;
       Physiolibrary.Blocks.Interpolation.Curve curve(
         x=DriveOnTidalVolume[:, 1],
@@ -19033,7 +18617,6 @@ annotation (Placement(transformation(extent={{16,-70},{22,-64}})));
         slope=DriveOnTidalVolume[:, 3],
         Yscale=1e-6)
         annotation (Placement(transformation(extent={{-2,32},{18,52}})));
-
       Physiolibrary.Blocks.Factors.Normalization LungInflation
         annotation (Placement(transformation(extent={{16,6},{36,26}})));
       Physiolibrary.Blocks.Factors.Normalization FunctionEffect
@@ -19141,7 +18724,6 @@ annotation (Placement(transformation(extent={{16,-70},{22,-64}})));
         extends Physiolibrary.Icons.Lungs;
       //  parameter Real EnvironmentPressure(final displayUnit="mmHg");
       //  parameter Real EnvironmentTemperature(final displayUnit="degC");
-
         Physiolibrary.Types.RealIO.FrequencyInput RespRate
                                                annotation (Placement(transformation(
                 extent={{26,68},{40,82}}),    iconTransformation(
@@ -19250,7 +18832,6 @@ annotation (Placement(transformation(extent={{16,-70},{22,-64}})));
               rotation=0,
               origin={100,-100})));
       equation
-
         connect(TidalVolume,tidalVolume. V1) annotation (Line(
             points={{-54,-36},{-10.6,-36}},
             color={0,0,127},
@@ -19308,7 +18889,6 @@ annotation (Placement(transformation(extent={{16,-70},{22,-64}})));
             points={{-84,-10},{-62,-10}},
             color={0,0,127},
             smooth=Smooth.None));
-
         connect(airPressureWitoutVapor.y, tidalVolume.P1) annotation (Line(
             points={{-45,-10},{-28,-10},{-28,-42},{-10.6,-42}},
             color={0,0,127},
@@ -19317,7 +18897,6 @@ annotation (Placement(transformation(extent={{16,-70},{22,-64}})));
             points={{-45,-10},{-28,-10},{-28,-68},{-10.6,-68}},
             color={0,0,127},
             smooth=Smooth.None));
-
         connect(Constant.y, dilution.u1) annotation (Line(
             points={{-39,10},{-28,10}},
             color={0,0,127},
@@ -19384,7 +18963,6 @@ annotation (Placement(transformation(extent={{16,-70},{22,-64}})));
       Physiolibrary.Chemical.Interfaces.ChemicalPort_b expired annotation (
           extent=[-10,-110; 10,-90], Placement(transformation(extent={{68,18},{
                 88,38}}), iconTransformation(extent={{90,70},{110,90}})));
-
       Physiolibrary.Chemical.Interfaces.ChemicalPort_a inspired annotation (
           Placement(transformation(extent={{-120,8},{-80,48}}),
             iconTransformation(extent={{-110,70},{-90,90}})));
@@ -19420,7 +18998,6 @@ annotation (Placement(transformation(extent={{16,-70},{22,-64}})));
               rotation=180,
               origin={80,-40})));
       equation
-
         connect(solventFlowPump1.q_out, expired) annotation (Line(
             points={{64,28},{78,28}},
             color={200,0,0},
@@ -19431,7 +19008,6 @@ annotation (Placement(transformation(extent={{16,-70},{22,-64}})));
             color={200,0,0},
             smooth=Smooth.None,
             thickness=1));
-
       connect(AlveolarVentilation_Env, solventFlowPump.solutionFlow)
         annotation (Line(
           points={{-7,51},{8,51},{8,32}},
@@ -19477,7 +19053,6 @@ annotation (Placement(transformation(extent={{16,-70},{22,-64}})));
       end AlveolarVentilation;
 
       model GasEquation_Flow
-
         Physiolibrary.Types.RealIO.VolumeFlowRateInput
                                            V1(
                                          displayUnit="ml/min") annotation (Placement(transformation(extent={
@@ -19690,7 +19265,6 @@ annotation (Placement(transformation(extent={{16,-70},{22,-64}})));
       extends Physiolibrary.Types.IO_Bus;
         redeclare model extends Variables
         //  extends Physiolibrary.Icons.Ventilation;
-
         T.Frequency RespiratoryCenter_RespRate(varName="RespiratoryCenter-Output.Rate")
           "Respiration rate."
         annotation (Placement(transformation(extent={{-44,-62},{-38,-56}})));
@@ -19706,7 +19280,6 @@ annotation (Placement(transformation(extent={{16,-70},{22,-64}})));
                                   varName="Breathing.TotalVentilation")
         annotation (Placement(transformation(extent={{-34,10},{-28,16}})));
         equation
-
         connect(RespiratoryCenter_MotorNerveActivity.y, busConnector.RespiratoryCenter_MotorNerveActivity) annotation (Line(
          points={{-37.7,-69},{90,-69},{90,-2}},
               color={0,0,127},
@@ -19757,7 +19330,6 @@ annotation (Placement(transformation(extent={{16,-70},{22,-64}})));
 
     model Gases
       extends Physiolibrary.Icons.Gases;
-
     Physiolibrary.Types.BusConnector busConnector annotation (Placement(
           transformation(extent={{38,-4},{58,16}}), iconTransformation(extent={
               {60,60},{100,100}})));
@@ -19807,9 +19379,7 @@ annotation (Placement(transformation(extent={{16,-70},{22,-64}})));
 
     package IO_Bus
       extends Physiolibrary.Types.IO_Bus;
-
       redeclare model extends Variables
-
       CO2.IO_Bus.Variables co2(T(redeclare block Variable = T.Variable))
         annotation (Placement(transformation(extent={{-14,-46},{6,-26}})));
       Ventilation.IO_Bus.Variables ventilation(T(redeclare block Variable =
@@ -19818,7 +19388,6 @@ annotation (Placement(transformation(extent={{16,-70},{22,-64}})));
       O2.IO_Bus.Variables o2(T(redeclare block Variable = T.Variable))
         annotation (Placement(transformation(extent={{-58,-48},{-38,-28}})));
       equation
-
       connect(co2.busConnector, busConnector) annotation (Line(
           points={{-4,-36},{-4,-2},{90,-2}},
           color={0,0,255},
@@ -19843,10 +19412,8 @@ annotation (Placement(transformation(extent={{16,-70},{22,-64}})));
 
       model Gases_test
         import Physiomodel;
-
         import Modelica.Utilities.*;
        // constant String OUTPUT_FILE = "setup/output_startValues.txt"; //"setup/output.txt"; //"setup/v2.txt";
-
       Physiomodel.CardioVascular.IO_Bus.InputFromFile cardioVascularSystem
           annotation (Placement(transformation(extent={{40,72},{60,94}})));
         Physiomodel.Metabolism.IO_Bus.InputFromFile
@@ -19941,7 +19508,6 @@ annotation (Placement(transformation(extent={{16,-70},{22,-64}})));
             thickness=0.5,
             smooth=Smooth.None));
       if terminal() then
-
       /*   Streams.print("cardioVascularSystem.busConnector.Bone_PCO2\n"+String(cardioVascularSystem.busConnector.Bone_PCO2),OUTPUT_FILE);
 
 Streams.print("cardioVascularSystem.busConnector.Brain_PCO2\n"+String(cardioVascularSystem.busConnector.Brain_PCO2),OUTPUT_FILE);
@@ -20016,10 +19582,8 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
 
       model Gases_test_SI
         import Physiomodel;
-
         import Modelica.Utilities.*;
        // constant String OUTPUT_FILE = "setup/output_startValues.txt"; //"setup/output.txt"; //"setup/v2.txt";
-
       Physiomodel.CardioVascular.IO_Bus.InputFromFile_SI cardioVascularSystem
           annotation (Placement(transformation(extent={{40,72},{60,94}})));
         Physiomodel.Metabolism.IO_Bus.InputFromFile_SI
@@ -20114,7 +19678,6 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
             thickness=0.5,
             smooth=Smooth.None));
       //if terminal() then
-
       /*   Streams.print("cardioVascularSystem.busConnector.Bone_PCO2\n"+String(cardioVascularSystem.busConnector.Bone_PCO2),OUTPUT_FILE);
 
 Streams.print("cardioVascularSystem.busConnector.Brain_PCO2\n"+String(cardioVascularSystem.busConnector.Brain_PCO2),OUTPUT_FILE);
@@ -20189,10 +19752,8 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
 
       model WithoutProteins_test_SI
         import Physiomodel;
-
         import Modelica.Utilities.*;
        // constant String OUTPUT_FILE = "setup/output_startValues.txt"; //"setup/output.txt"; //"setup/v2.txt";
-
         Physiomodel.Setup.IO_Bus.InputFromFile_SI     setup
           annotation (Placement(transformation(extent={{-16,-106},{4,-86}})));
         Physiomodel.Gases.Gases gases
@@ -20239,7 +19800,6 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
             thickness=0.5,
             smooth=Smooth.None));
       //if terminal() then
-
       /*   Streams.print("cardioVascularSystem.busConnector.Bone_PCO2\n"+String(cardioVascularSystem.busConnector.Bone_PCO2),OUTPUT_FILE);
 
 Streams.print("cardioVascularSystem.busConnector.Brain_PCO2\n"+String(cardioVascularSystem.busConnector.Brain_PCO2),OUTPUT_FILE);
@@ -20363,10 +19923,8 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
 
       model GasesAndElectrolytes_test_SI
         import Physiomodel;
-
         import Modelica.Utilities.*;
        // constant String OUTPUT_FILE = "setup/output_startValues.txt"; //"setup/output.txt"; //"setup/v2.txt";
-
       Physiomodel.CardioVascular.IO_Bus.InputFromFile_SI cardioVascularSystem
           annotation (Placement(transformation(extent={{40,72},{60,94}})));
         Physiomodel.Metabolism.IO_Bus.InputFromFile_SI
@@ -20461,7 +20019,6 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
             thickness=0.5,
             smooth=Smooth.None));
       //if terminal() then
-
       /*   Streams.print("cardioVascularSystem.busConnector.Bone_PCO2\n"+String(cardioVascularSystem.busConnector.Bone_PCO2),OUTPUT_FILE);
 
 Streams.print("cardioVascularSystem.busConnector.Brain_PCO2\n"+String(cardioVascularSystem.busConnector.Brain_PCO2),OUTPUT_FILE);
@@ -20534,7 +20091,6 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
           __Dymola_experimentSetupOutput);
       end GasesAndElectrolytes_test_SI;
     end IO_Bus;
-
     annotation (Documentation(revisions="<html>
 
 <table cellspacing=\"2\" cellpadding=\"0\" border=\"0\"><tr>
@@ -20567,7 +20123,6 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
 </html>"), Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
               {100,100}}), graphics));
   end Gases;
-
 
   package Metabolism "Body Nutrients, Metabolism and Heat Systems"
     extends Physiolibrary.Icons.NutrientsMetabolismLib;
@@ -20854,7 +20409,6 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
         points={{-98,96},{-6,96},{-6,-16},{-22,-16}},
         color={0,0,127},
         smooth=Smooth.None));
-
     connect(busConnector.PortalVein_Glucagon, GlucagonEffect_AminoAcids2Glucose.u)
       annotation (Line(
         points={{-98,96},{-2,96},{-2,-4},{46,-4}},
@@ -21146,11 +20700,6 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
         points={{80,46},{80,26},{26,26},{26,78},{22,78}},
         color={0,0,127},
         smooth=Smooth.None));
-    connect(AminoAcids, AminoAcids) annotation (Line(
-        points={{86,-24},{81,-24},{81,-24},{86,-24}},
-        color={107,45,134},
-        thickness=1,
-        smooth=Smooth.None));
     connect(concentrationMeasure1.concentration, AminoAcidEffect.u)
       annotation (Line(
         points={{96,-8},{96,2},{90,2}},
@@ -21325,7 +20874,6 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
           color={255,0,0},
           smooth=Smooth.None,
           thickness=1));
-
       connect(GlucosePool.q_out, q_out)       annotation (Line(
           points={{-66,56},{-30,56},{-30,28}},
           color={200,0,0},
@@ -21395,7 +20943,6 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
           color={200,0,0},
           thickness=1,
           smooth=Smooth.None));
-
       connect(bladder.busConnector, busConnector) annotation (Line(
           points={{88,54},{88,10},{-90,10}},
           color={0,0,255},
@@ -21831,7 +21378,6 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
           color={200,0,0},
           thickness=1,
           smooth=Smooth.None));
-
       connect(busConnector.BloodIons_ProteinAnions, glomerulus.ProteinAnions)
         annotation (Line(
           points={{-86,92},{-84,92},{-84,-28},{-34,-28},{-34,-41}},
@@ -22034,7 +21580,6 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
           points={{16,6},{16,4}},
           color={0,0,127},
           smooth=Smooth.None));
-
       connect(FattyAcids, concentrationMeasure.q_in) annotation (Line(
           points={{-66,-44},{-30,-44},{-30,-20},{-34,-20}},
           color={200,0,0},
@@ -22132,7 +21677,6 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
           color={200,0,0},
           thickness=1,
           smooth=Smooth.None));
-
       connect(FAPool.q_out, FADecomposition.q_in) annotation (Line(
           points={{10,-54},{-2,-54},{-2,-80},{16,-80}},
           color={200,0,0},
@@ -22291,7 +21835,6 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
           false, solute_start=0.015)
       annotation (Placement(transformation(extent={{-24,-70},{-4,-50}})));
     equation
-
       connect(Lactate, flowMeasure.q_in) annotation (Line(
           points={{-64,-8},{-16,-8},{-16,-10}},
           color={200,0,0},
@@ -22397,7 +21940,6 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
           transformation(extent={{-86,62},{-66,82}}), iconTransformation(extent=
              {{-102,-10},{-82,10}})));
     equation
-
     connect(AminoAcids, AminoAcidsPool.q_out) annotation (Line(
         points={{90,44},{52,44}},
         color={107,45,134},
@@ -22483,11 +22025,8 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
 
     model CellularMetabolism
       extends Physiolibrary.Icons.CellularMetabolism;
-
       constant Physiolibrary.Types.Density WaterDensity = 1000;
-
       parameter Boolean canBurnFattyAcids = true;
-
       parameter Physiolibrary.Types.MolarEnergy glucoseEnergy = (1/0.2439e-6)*4.1864*Substances.Glucose.mw
       "Metabolism-Tools.CarboAerobic(mg/cal)=0.2439";   // 1/(kg/cal)*(J/cal)*(kg/mol) = J/mol
       parameter Physiolibrary.Types.MolarEnergy fattyAcidsEnergy = (1/0.1075e-6)*4.1864*Substances.FattyAcids.mw
@@ -22497,7 +22036,6 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
       parameter Physiolibrary.Types.MolarEnergy ketoAcidsEnergy = (1/0.1075e-6)*4.1864*Substances.KetoAcids.mw
       "Metabolism-Tools.Fat(mg/cal)=0.1075";
       parameter Physiolibrary.Types.MolarEnergy oxygenEnergy = (1/0.2093)*4.1864*22710.95322615; // 22710.95322615 ml/mol of oxygen at 0 degC
-
       parameter Physiolibrary.Types.MolarEnergy glucoseAnaerobicEnergy = glucoseEnergy - lactateEnergy;
       parameter Physiolibrary.Types.MolarEnergy glycogenAnaerobicEnergy = glucoseAnaerobicEnergy;
     /*  
@@ -22520,7 +22058,6 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
     "how much energy in callories is produced by one gram of glycogen";  
       
 */
-
       parameter Real RQglu(displayUnit="1") = 1
       "how much CO2 will be produced with one oxygen by glucose burning";
       parameter Real RQlac(displayUnit="1") = 1
@@ -22529,7 +22066,6 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
       "how much CO2 will be produced with one oxygen by fatty acid burning";
       parameter Real RQketo(displayUnit="1") = 0.7
       "how much CO2 will be produced with one oxygen by keto acid burning";
-
         /*
   parameter Physiolibrary.Types.MolarMass lacDensity( displayUnit="g/mol") = 0.09008 "density of lactate";
 
@@ -22538,15 +22074,12 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
   parameter Real gly2lac( displayUnit="mEq/g") =  1.0 / lacDensity 
     "how much lactate is produced by one gram of glycogen";
   */
-
       parameter Real[:,3] LacFractionData
       "fraction of oxygen to be use for lactate metabolism (depends on lactate concentration)";
-
     //  parameter Real[:,3] PO2OnAerobicFractionData
     //    "Aerobic Fraction of O2 tissue use depents on pO2";
       parameter Real[:,3] PO2OnAerobicFractionData = {{2,0,0},{10,1,0}}
       "Aerobic Fraction of O2 tissue use depents on pO2";
-
     Physiolibrary.Blocks.Interpolation.Curve LacFraction(
       x=LacFractionData[:, 1],
       y=LacFractionData[:, 2],
@@ -22561,7 +22094,6 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
           Physiolibrary.Chemical.Interfaces.ChemicalPort_a glucose
       annotation (Placement(transformation(extent={{45,-4},{65,16}}),
           iconTransformation(extent={{-110,70},{-90,90}})));       //(q(final displayUnit="mg/min"), conc(final displayUnit="mg/ml")) "in mg/ml"
-
       Physiolibrary.Types.RealIO.MolarFlowRateOutput
                                             Tissue_CO2FromMetabolism
                                                               annotation (
@@ -22574,7 +22106,6 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
             iconTransformation(extent={{-20,-20},{20,20}},
             rotation=270,
             origin={14,-98})));
-
       Physiolibrary.Types.RealIO.PowerInput CalsUse(
                                             displayUnit="cal/min") annotation (
           Placement(transformation(extent={{46,-86},{56,-76}}),
@@ -22604,16 +22135,13 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
       Physiolibrary.Types.MolarFlowRate O2UseByGlu,O2UseByLac,O2UseByFA, O2UseByKA;
       Physiolibrary.Types.Fraction FAfraction, KAfraction, Ratio;
       Physiolibrary.Types.Power AnaerobicCals;
-
     Physiolibrary.Chemical.Interfaces.ChemicalPort_a fattyAcids
       annotation (Placement(transformation(extent={{45,-60},{65,-40}}),
           iconTransformation(extent={{-110,-10},{-90,10}})));  //(q(final displayUnit="mg/min"), conc(final displayUnit="mg/ml")) "in mg/ml"
-
     Physiolibrary.Chemical.Interfaces.ChemicalPort_a glycogen "glycogen flow"
       annotation (Placement(transformation(extent={{4,-50},{26,-28}}),
           iconTransformation(extent={{-110,30},{-90,50}})));
       parameter Real GlycogenAvailability[:,3]= {{  0,  0.0,  0.0}, { 50,  1.0,  0.0}};
-
     Physiolibrary.Blocks.Interpolation.Curve GlycogenAvailabilityCurve(
       x=GlycogenAvailability[:, 1],
       y=GlycogenAvailability[:, 2],
@@ -22630,61 +22158,45 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
       annotation (Placement(transformation(extent={{67,-40},{87,-20}}),
           iconTransformation(extent={{-38,90},{-18,110}})));  //(q(final displayUnit="mg/min"), conc(final displayUnit="mg/ml")) "in mg/ml"
     equation
-
      AerobicFraction.u = pO2;
      LacFraction.u = lactate.conc; // * lacDensity * 100.0; //  [mg/dl]
      O2Use*oxygenEnergy = AerobicFraction.val * CalsUse; //O2Use = AerobicFraction.val * eTOo2_coef * CalsUse;
      O2UseByLac = LacFraction.val * O2Use;
-
      Tissue_MetabolicH2ORate = (O2Use/2)*Substances.Water.mw / WaterDensity;
-
      if canBurnFattyAcids then
        ketoAcids.q=0;
        KAfraction=0;
        O2UseByKA=0;
-
        O2UseByFA  = FAfraction    * O2Use;
        O2UseByGlu + O2UseByLac + O2UseByFA = O2Use;
        FAfraction = (1-LacFraction.val)*(Ratio/(Ratio+0.026*(Substances.Glucose.mw/Substances.FattyAcids.mw)));
        Ratio = (fattyAcids.conc) / (glucose.conc); // Ratio = fattyAcids.conc / glucose.conc;
-
        //Tissue_CO2FromMetabolism = 0.0446 * (O2UseByGlu*RQglu + O2UseByLac*RQlac + O2UseByFA*RQfat);
        Tissue_CO2FromMetabolism = (O2UseByGlu*RQglu + O2UseByLac*RQlac + O2UseByFA*RQfat);
-
       // Tissue_MetabolicH2ORate = 0.000176 * CalsUse;
       // Tissue_MetabolicH2ORate = (0.176e-9/4.1864) * CalsUse; // 0.000176 ml/cal = 0.176e-9/4.1864 m3/J
-
        fattyAcids.q*fattyAcidsEnergy = FAfraction * CalsUse;
      else
        fattyAcids.q=0;
        FAfraction=0;
        O2UseByFA=0;
-
        O2UseByKA  = KAfraction    * O2Use;
        O2UseByGlu + O2UseByLac + O2UseByKA = O2Use;
        KAfraction = (1-LacFraction.val)*(Ratio/(Ratio+0.222*(Substances.Glucose.mw/Substances.KetoAcids.mw)));
        Ratio = (ketoAcids.conc) / (glucose.conc);
-
        Tissue_CO2FromMetabolism = (O2UseByGlu*RQglu + O2UseByLac*RQlac + O2UseByKA*RQketo);
        //Tissue_MetabolicH2ORate = (0.176e-9/4186.4) * CalsUse; // 0.000176 ml/cal = 0.176e-9/4186.4 m3/J
-
        ketoAcids.q*ketoAcidsEnergy = KAfraction * CalsUse;
      end if;
-
      GlycogenAvailabilityCurve.u = glycogen.conc;
-
       if AerobicFraction.val<1-Modelica.Constants.eps then
           // with anaerobic metabolism
         AnaerobicCals = (1-AerobicFraction.val)*CalsUse; //anaerobic callories
-
         glycogen.q = GlycogenAvailabilityCurve.val * AnaerobicCals;
-
        // anaerobic_glu2energy *(glucose.q - (O2UseByGlu/eTOo2_coef) * eTOglu_coef) + gly2energy*glycogen.q = AnaerobicCals;
        // (glucose.q - (O2UseByGlu/eTOo2_coef) * eTOglu_coef) + gly2lac*glycogen.q = (lactate.q*lacDensity - LacFraction.val * CalsUse * eTOlac_coef);
-
        glucoseAnaerobicEnergy *(glucose.q - (O2UseByGlu*oxygenEnergy)/glucoseEnergy) + glycogenAnaerobicEnergy*glycogen.q = AnaerobicCals;
        ((glucose.q - (O2UseByGlu*oxygenEnergy)/glucoseEnergy) + glycogen.q)*lactateEnergy = (lactate.q*lactateEnergy - LacFraction.val * CalsUse);
-
       else
           // only aerobic metabolism
        AnaerobicCals = 0.0;
@@ -22692,7 +22204,6 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
        lactate.q*lactateEnergy = LacFraction.val * CalsUse;
        glucose.q*glucoseEnergy = O2UseByGlu*oxygenEnergy;
       end if;
-
       annotation (Icon(coordinateSystem(preserveAspectRatio=false,extent={{-100,-100},
                 {100,100}}),       graphics),
                                         Diagram(coordinateSystem(
@@ -23038,29 +22549,21 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
     end GILumenLeptinDriven;
 
     package TissueMetabolism "Metabolism Reactions in Tissues"
-
       partial model TissueMetabolismBase
       extends Physiolibrary.Icons.MetabolismPart;
-
         parameter Physiolibrary.Types.AmountOfSubstance initialTissueO2(displayUnit="ml_STP")=1.7612646902879852858386051702718e-4; //pO2*solubility*LiquidVolume
       //  parameter Physiolibrary.Types.GasSolubility O2solubility(final displayUnit="ml/mmHg"); //=0.00003;
       //  parameter Real O2fromBloodtoTissueConductance(final displayUnit="ml/(min.mmHg)")=1000000;
-
         parameter Physiolibrary.Types.AmountOfSubstance initialLactateMass(displayUnit="mEq") = 0;
-
         parameter Real NormalCalsUsed
         "basal energy per kilogram of tissue [cal/min]";
-
         parameter Physiolibrary.Types.PowerPerMass BasalCalsUsed
         "basal energy per kilogram of tissue";            //= NormalCalsUsed*(4.1864/60)
-
                                                                                        //BasalCalsUsedPerKG(final displayUnit="kcal/min")
         parameter Physiolibrary.Types.Mass TissueSize "mass of tissue";
-
         parameter Physiolibrary.Types.VolumeFlowRate DC(displayUnit="(mEq/min)/(mEq/ml)");
         parameter Real[:,3] PO2OnAerobicFractionData = {{2,0,0},{10,1,0}}
         "Aerobic Fraction of O2 tissue use depents on pO2";
-
         Physiolibrary.Types.RealIO.VolumeInput LiquidVol(
                                                 final displayUnit="ml")
         "sum of interstitial and intracellular tissue water"
@@ -23213,12 +22716,10 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
               origin={71.5,59.5})));
         NutrientDelivery lactateDelivery
           annotation (Placement(transformation(extent={{-80,42},{-60,22}})));
-
         Physiolibrary.Types.Constants.MassConst size(k=TissueSize)
           annotation (Placement(transformation(extent={{98,90},{90,98}})));
       initial equation
        // BasalCalsUsedPerKG = NormalCalsUsed*(4186.4/60)/mass;
-
       equation
         connect(Thyroid.y,HeatMetabolism_Skin. yBase)       annotation (Line(
             points={{70,80},{70,82}},
@@ -23265,7 +22766,6 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
             points={{-43.6,0},{-40,0}},
             color={0,0,127},
             smooth=Smooth.None));
-
         connect(TotalCaloriesUse.y, TotalCalsUsed) annotation (Line(
             points={{71,41.6},{71,38},{96,38}},
             color={0,0,127},
@@ -23326,7 +22826,6 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
 
       model TissueMetabolism
         extends TissueMetabolismBase;
-
       Physiolibrary.Chemical.Interfaces.ChemicalPort_a fattyAcids
        annotation (
           Placement(transformation(extent={{-103,-80},{-83,-60}}),
@@ -23451,7 +22950,6 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
           PartCaloriesUse(nin=3));
        //   Lactate(stateName="SkeletalMuscle-Lactate.Mass"),
         extends Physiolibrary.Icons.SkeletalMuscle;
-
       Physiolibrary.Chemical.Interfaces.ChemicalPort_a fattyAcids
              annotation (
           Placement(transformation(extent={{-103,-78},{-83,-58}}),
@@ -23566,7 +23064,6 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
             points={{6,-12},{6,-5},{5.25,-5}},
             color={0,0,127},
             smooth=Smooth.None));
-
         connect(InsulinEffect.y, GlucoseEffect.yBase) annotation (Line(
             points={{6,-22},{6,-20}},
             color={0,0,127},
@@ -23584,7 +23081,6 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
             points={{91.04,-60},{96,-60}},
             color={0,0,127},
             smooth=Smooth.None));
-
         connect(flowMeasure.q_in, cellularMetabolism.lactate) annotation (Line(
             points={{44,14},{56,14},{56,-44},{65.44,-44}},
             color={200,0,0},
@@ -23731,7 +23227,6 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
                 37.1+273.15,1.0,0.12},{40.0+273.15,1.5,0},{46.0+273.15,0.0,0}}));
       //    ,Lactate(stateName="RespiratoryMuscle-Lactate.Mass")
         extends Physiolibrary.Icons.RespiratoryMuscle;
-
       Physiolibrary.Types.Constants.HeatFlowRateConst Shivering_Cals(k=0)
         annotation (Placement(transformation(extent={{-36,38},{-26,48}})));
       Physiolibrary.Types.Constants.HeatFlowRateConst motionCals(k=0.3489)
@@ -23811,7 +23306,6 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
             points={{-24.75,43},{-6,43},{-6,56},{71,56},{71,50.8}},
             color={0,0,127},
             smooth=Smooth.None));
-
         connect(motionCals.y, TotalCaloriesUse.u[2]) annotation (Line(
             points={{-24.5,72},{-6,72},{-6,56},{71,56},{71,50.8}},
             color={0,0,127},
@@ -23859,7 +23353,6 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
             points={{89.04,-56},{94,-56},{94,-60},{96,-60}},
             color={0,0,127},
             smooth=Smooth.None));
-
         connect(flowMeasure.q_in, cellularMetabolism.lactate) annotation (Line(
             points={{44,14},{56,14},{56,-40},{63.44,-40}},
             color={200,0,0},
@@ -24106,7 +23599,6 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
         extends Physiomodel.Metabolism.TissueMetabolism.TissueMetabolism(
             TotalCaloriesUse(nin=4));//, Lactate(stateName="Kidney-Lactate.Mass"));
         extends Physiolibrary.Icons.Kidney;
-
         Physiolibrary.Types.RealIO.MolarFlowRateInput PT_Na_Reab( displayUnit="mmol/min")
           annotation (Placement(transformation(extent={{-38,55},{-28,65}}),
               iconTransformation(extent={{-100,-70},{-80,-50}})));
@@ -24116,7 +23608,6 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
         Physiolibrary.Types.RealIO.MolarFlowRateInput DT_Na_Reab( displayUnit="mmol/min")
           annotation (Placement(transformation(extent={{-38,39},{-28,49}}),
               iconTransformation(extent={{-100,-50},{-80,-30}})));
-
         Modelica.Blocks.Math.Gain CalPerNa(k=3600*4.1864) "CalPerNa+(Meq/Min)"
           annotation (Placement(transformation(extent={{-19,58},{-15,62}})));
         Modelica.Blocks.Math.Gain CalPerNa1(k=3600*4.1864) "CalPerNa+(Meq/Min)"
@@ -24160,7 +23651,6 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
       model HeartMuscle
         extends Physiomodel.Metabolism.TissueMetabolism.TissueMetabolism(
             TotalCaloriesUse(nin=3));
-
         parameter Physiolibrary.Types.Power MotionCals( displayUnit="cal/min");
         parameter Physiolibrary.Types.Power HeatCals( displayUnit="cal/min");
       Physiolibrary.Types.Constants.HeatFlowRateConst motionCals(k=MotionCals)
@@ -24168,7 +23658,6 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
       Physiolibrary.Types.Constants.HeatFlowRateConst heatCals(k=HeatCals)
         annotation (Placement(transformation(extent={{-44,38},{-32,50}})));
       equation
-
         connect(motionCals.y, TotalCaloriesUse.u[2]) annotation (Line(
             points={{-28.5,66},{-8,66},{-8,56},{71,56},{71,50.8}},
             color={0,0,127},
@@ -24183,7 +23672,6 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
       model GITract
         extends TissueMetabolismBase;//(Lactate(stateName="GITract-Lactate.Mass"));
         extends Physiolibrary.Icons.GITract;
-
       Physiolibrary.Chemical.Interfaces.ChemicalPort_a fattyAcids
              annotation (
           Placement(transformation(extent={{-103,-80},{-83,-60}}),
@@ -24307,7 +23795,6 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
             color={200,0,0},
             thickness=1,
             smooth=Smooth.None));
-
         connect(cellularMetabolism.Tissue_MetabolicH2ORate, H2OFromMetabolism)
           annotation (Line(
             points={{77.1,-61.7},{77.1,-80},{84,-80}},
@@ -24467,10 +23954,6 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
             color={200,0,0},
             thickness=1,
             smooth=Smooth.None));
-        connect(Fuel_FractUseDelay, Fuel_FractUseDelay) annotation (Line(
-            points={{-40,0},{-44,0},{-44,0},{-40,0}},
-            color={0,0,127},
-            smooth=Smooth.None));
         connect(glucoseDelivery.FuelFractUseDelay, min.u[2]) annotation (Line(
             points={{-68,-41},{-68,-44},{-58,-44},{-58,0.4},{-52.8,0.4}},
             color={0,0,127},
@@ -24627,7 +24110,6 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
           DC(displayUnit="ml/min") = 4.5e-06)
           annotation (Placement(transformation(extent={{66,-54},{40,-28}})));
       //   initialLactateMass=2.73208,
-
         Physiomodel.Metabolism.TissueMetabolism.GITract gITract(
           NormalCalsUsed=92.7945,
           initialTissueO2(displayUnit="ml_STP") = 8.0401733111647e-05,
@@ -24747,12 +24229,10 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
           annotation (Placement(transformation(extent={{-6,-88},{2,-80}})));
         Modelica.Blocks.Math.Gain gain(k=-1)
           annotation (Placement(transformation(extent={{8,-86},{12,-82}})));
-
        Physiolibrary.Types.MolarFlowRate tissuesO2Use,tissueCO2Produce;
       equation
         tissuesO2Use = brain.O2Use + fat.O2Use + gITract.O2Use + kidney.O2Use + liver.O2Use + otherTissue.O2Use + respiratoryMuscle.O2Use + leftHeart.O2Use + rightHeart.O2Use + skeletalMuscle.O2Use + skin.O2Use + bone.O2Use;
         tissueCO2Produce = brain.Tissue_CO2FromMetabolism + fat.Tissue_CO2FromMetabolism + gITract.Tissue_CO2FromMetabolism + kidney.Tissue_CO2FromMetabolism + liver.Tissue_CO2FromMetabolism + otherTissue.Tissue_CO2FromMetabolism + respiratoryMuscle.Tissue_CO2FromMetabolism + leftHeart.Tissue_CO2FromMetabolism + rightHeart.Tissue_CO2FromMetabolism + skeletalMuscle.Tissue_CO2FromMetabolism + skin.Tissue_CO2FromMetabolism + bone.Tissue_CO2FromMetabolism;
-
         connect(brain.glucose, glucose) annotation (Line(
             points={{-32,114},{-28,114},{-28,12},{-2,12}},
             color={200,0,0},
@@ -24918,7 +24398,6 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
             color={200,0,0},
             smooth=Smooth.None,
             thickness=1));
-
         connect(busConnector.Brain_LiquidVol,brain. LiquidVol)  annotation (Line(
             points={{-82,116},{-62,116},{-62,105.6},{-58.6,105.6}},
             color={0,0,255},
@@ -25010,7 +24489,6 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
             string="%first",
             index=-1,
             extent={{-5,0},{-5,0}}));
-
         connect(busConnector.LeftHeart_BloodFlow,leftHeart. BloodFlow)  annotation (
             Line(
             points={{-82,116},{-62,116},{-62,5.2},{-56.6,5.2}},
@@ -25101,7 +24579,6 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
             string="%second",
             index=1,
             extent={{5,0},{5,0}}));
-
         connect(bone.Structure_Effect, busConnector.Bone_StructureEffect)
           annotation (Line(
             points={{64.7,103.6},{68,103.6},{68,116},{-82,116}},
@@ -25205,7 +24682,6 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
             string="%first",
             index=-1,
             extent={{-5,0},{-5,0}}));
-
         connect(kidney.PT_Na_Reab, busConnector.PT_Na_Reab)  annotation (Line(
             points={{64.7,15.2},{68,15.2},{68,116},{-82,116}},
             color={0,0,127},
@@ -25236,7 +24712,6 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
             string="%first",
             index=-1,
             extent={{-5,0},{-5,0}}));
-
         connect(busConnector.BloodVol_PVCrit,brain. BloodVol_PVCrit)  annotation (Line(
             points={{-82,116},{-62,116},{-62,114},{-58.6,114}},
             color={0,0,255},
@@ -25297,7 +24772,6 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
             color={0,0,255},
             thickness=0.5,
             smooth=Smooth.None));
-
         connect(busConnector.Thyroxine,brain. Thyroxine)  annotation (Line(
             points={{-82,116},{-62,116},{-62,97.2},{-58.6,97.2}},
             color={0,0,255},
@@ -25358,7 +24832,6 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
             color={0,0,255},
             thickness=0.5,
             smooth=Smooth.None));
-
         connect(bone.pO2, busConnector.Bone_PO2)
           annotation (Line(
             points={{64.7,108.8},{68,108.8},{68,116},{-82,116}},
@@ -25461,7 +24934,6 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
             string="%first",
             index=-1,
             extent={{-5,0},{-5,0}}));
-
       connect(bone.T, busConnector.bone_T)
           annotation (Line(
             points={{64.7,101},{68,101},{68,116},{-82,116}},
@@ -25564,7 +25036,6 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
             string="%first",
             index=-1,
             extent={{-5,0},{-5,0}}));
-
         connect(bone.cLactate, busConnector.bone_cLactate)
           annotation (Line(
             points={{56.9,88},{68,88},{68,116},{-82,116}},
@@ -25631,7 +25102,6 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
             color={0,0,255},
             thickness=0.5,
             smooth=Smooth.None));
-
         connect(bone.Tissue_CO2FromMetabolism, busConnector.bone_CO2FromMetabolism)
           annotation (Line(
             points={{59.5,88},{68,88},{68,116},{-82,116}},
@@ -25699,7 +25169,6 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
             color={0,0,255},
             thickness=0.5,
             smooth=Smooth.None));
-
        connect(bone.LactateFromMetabolism, busConnector.bone_LactateFromMetabolism)
           annotation (Line(
             points={{49.1,88},{68,88},{68,116},{-82,116}},
@@ -25768,7 +25237,6 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
             color={0,0,255},
             thickness=0.5,
             smooth=Smooth.None));
-
        connect(bone.O2Use, busConnector.bone_O2Use)
           annotation (Line(
             points={{54.3,88},{68,88},{68,116},{-82,116}},
@@ -25835,7 +25303,6 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
             color={0,0,255},
             thickness=0.5,
             smooth=Smooth.None));
-
        connect(bone.O2Need, busConnector.Bone_O2Need)
           annotation (Line(
             points={{51.7,88},{68,88},{68,116},{-82,116}},
@@ -25902,7 +25369,6 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
             color={0,0,255},
             thickness=0.5,
             smooth=Smooth.None));
-
         connect(bone.Fuel_FractUseDelay, busConnector.bone_Fuel_FractUseDelay)
           annotation (Line(
             points={{62.1,88},{68,88},{68,116},{-82,116}},
@@ -25970,7 +25436,6 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
             color={0,0,255},
             thickness=0.5,
             smooth=Smooth.None));
-
         connect(brain.ketoAcids, ketoAcids) annotation (Line(
             points={{-32,91.6},{0,91.6},{0,86}},
             color={200,0,0},
@@ -26032,7 +25497,6 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
             string="%second",
             index=1,
             extent={{6,3},{6,3}}));
-
        connect(bone.H2OFromMetabolism, MetabolicH2ORate.u[1])
           annotation (Line(
             points={{46.5,88},{68,88},{68,-92.7333},{79.2,-92.7333}},
@@ -26099,7 +25563,6 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
             color={0,0,255},
             thickness=0.5,
             smooth=Smooth.None));
-
         connect(liver.GILumenCarbohydrates, GILumenCarbohydrates) annotation (
             Line(
             points={{55.6,70},{56,70},{56,82},{80,82}},
@@ -26140,7 +25603,6 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
             string="%second",
             index=1,
             extent={{6,3},{6,3}}));
-
         connect(CoreHeat.y, busConnector.MetabolismCaloriesUsed_CoreHeat)         annotation (Line(
             points={{88.4,-98},{94,-98},{94,-88},{68,-88},{68,116},{-82,116}},
             color={0,0,127},
@@ -26148,7 +25610,6 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
             string="%second",
             index=1,
             extent={{6,3},{6,3}}));
-
         connect(bone.TotalCalsUsed, CoreHeat.u[1])
           annotation (Line(
             points={{43.9,88},{68,88},{68,-98.7273},{79.2,-98.7273}},
@@ -26264,13 +25725,11 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
       end Metabolism_;
 
       model NutrientDelivery
-
       Physiolibrary.Chemical.Interfaces.ChemicalPort_b q_out annotation (extent=
            [-10,-110; 10,-90], Placement(transformation(extent={{90,-10},{110,
                 10}})));
         Physiolibrary.Types.RealIO.VolumeFlowRateInput solventFlow
                                       annotation ( extent = [-10,50;10,70], rotation = -90);
-
       Physiolibrary.Chemical.Interfaces.ChemicalPort_a q_in annotation (
           Placement(transformation(extent={{-120,-20},{-80,20}}),
             iconTransformation(extent={{-110,-10},{-90,10}})));
@@ -26369,7 +25828,6 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
       end NutrientDelivery2;
 
       model FuelDeficit
-
       Physiolibrary.Chemical.Interfaces.ChemicalPort_a delivered
         "delivery flow is limited" annotation (Placement(transformation(extent=
                 {{-38,72},{2,112}}), iconTransformation(extent={{-10,90},{10,
@@ -26382,7 +25840,6 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
         "maximal flow limit of delivered connector"                                                 annotation (Placement(
               transformation(extent={{-120,40},{-80,80}}), iconTransformation(extent={
                   {-120,40},{-80,80}})));
-
         Physiolibrary.Types.RealIO.FractionOutput FractUseDelay(
                                                            start=1)
         "less than 1 if neededFlow is grater than delivered flow"   annotation (
@@ -26390,7 +25847,6 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
               extent={{-20,-20},{20,20}},
               rotation=270,
               origin={0,-100})));
-
         parameter Real Zero = 1e-1;
       equation
         delivered.conc = neededFlow.conc;
@@ -26446,7 +25902,6 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
       end RightHeartMuscle;
 
       model FuelDeficit2
-
       Physiolibrary.Chemical.Interfaces.ChemicalPort_a delivered
         "delivery flow is limited" annotation (Placement(transformation(extent=
                 {{-38,72},{2,112}}), iconTransformation(extent={{-10,90},{10,
@@ -26459,14 +25914,12 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
         "maximal flow limit of delivered connector"                                                 annotation (Placement(
               transformation(extent={{-120,40},{-80,80}}), iconTransformation(extent={
                   {-120,40},{-80,80}})));
-
         Physiolibrary.Types.RealIO.FractionOutput FractUseDelay
         "less than 1 if neededFlow is grater than delivered flow"   annotation (
             Placement(transformation(
               extent={{-20,-20},{20,20}},
               rotation=270,
               origin={0,-100})));
-
         parameter Real Zero = 1e-10;
         Physiolibrary.Types.RealIO.ConcentrationInput concChange
         "aditional change of delivered concentration"                                               annotation (Placement(
@@ -26488,13 +25941,11 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
       end FuelDeficit2;
 
       model NutrientDelivery_Fat
-
       Physiolibrary.Chemical.Interfaces.ChemicalPort_b q_out annotation (extent=
            [-10,-110; 10,-90], Placement(transformation(extent={{90,-10},{110,
                 10}})));
         Physiolibrary.Types.RealIO.VolumeFlowRateInput solventFlow
                                       annotation ( extent = [-10,50;10,70], rotation = -90);
-
       Physiolibrary.Chemical.Interfaces.ChemicalPort_a q_in annotation (
           Placement(transformation(extent={{-120,-20},{-80,20}}),
             iconTransformation(extent={{-110,-10},{-90,10}})));
@@ -26615,7 +26066,6 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
       end NutrientDelivery_Fat;
 
       model NutrientDelivery_2
-
       Physiolibrary.Chemical.Interfaces.ChemicalPort_b q_out
         "Base plasma pool of glucose, outflow of glucose to plasma pool from tissue"
         annotation (extent=[-10,-110; 10,-90], Placement(transformation(extent=
@@ -26623,7 +26073,6 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
         Physiolibrary.Types.RealIO.VolumeFlowRateInput solventFlow
         "Portal vein plus hepatic artery plasma flow"
                                       annotation ( extent = [-10,50;10,70], rotation = -90);
-
       Physiolibrary.Chemical.Interfaces.ChemicalPort_a q_in
         "Base plasma pool of glucose, delivery of glucose minus absorbtion from GI lumen"
         annotation (Placement(transformation(extent={{-120,-20},{-80,20}}),
@@ -26654,11 +26103,9 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
                   {20,20}},
               rotation=270,
               origin={-80,60})));
-
         Physiolibrary.Types.MolarFlowRate consumption;
       //  Real fromGILumen_conc;
         Physiolibrary.Types.MolarFlowRate delivery; //(start=300);
-
       equation
       //  delivered.conc  = neededFlow.conc + concChange;
         if ( -neededFlow.q > delivery) then
@@ -26669,17 +26116,12 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
           FuelFractUseDelay = 1;
         end if;
         delivery = q_in.q + fromGILumen.q + GITUsed;
-
         consumption = q_in.q + q_out.q + fromGILumen.q;
-
         neededFlow.conc * solventFlow = - q_out.q;
-
         q_in.q = q_in.conc * solventFlow;
-
       //calculation of glucose concentration in gartro intestinal tract:  fromGILumen.conc
         q_in.conc = fromGILumen.conc;
       //  fromGILumen.q + q_in.conc * (solventFlow-HepaticArty) + GITUsed = fromGILumen.conc * (solventFlow-HepaticArty);
-
        annotation (
           Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{
                   100,100}}), graphics={
@@ -26732,7 +26174,6 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
           TissueSize=16.6)
           annotation (Placement(transformation(extent={{66,-54},{40,-28}})));
       //   initialLactateMass=2.73208,
-
         Physiomodel.Metabolism.TissueMetabolism.GITract gITract(
           NormalCalsUsed=92.7945,
           initialTissueO2(displayUnit="ml_STP") = 8.0401733111647e-05,
@@ -26852,12 +26293,10 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
           annotation (Placement(transformation(extent={{-6,-88},{2,-80}})));
         Modelica.Blocks.Math.Gain gain(k=-1)
           annotation (Placement(transformation(extent={{8,-86},{12,-82}})));
-
        Physiolibrary.Types.MolarFlowRate tissuesO2Use,tissueCO2Produce;
       equation
         tissuesO2Use = brain.O2Use + fat.O2Use + gITract.O2Use + kidney.O2Use + liver.O2Use + otherTissue.O2Use + respiratoryMuscle.O2Use + leftHeart.O2Use + rightHeart.O2Use + skeletalMuscle.O2Use + skin.O2Use + bone.O2Use;
         tissueCO2Produce = brain.Tissue_CO2FromMetabolism + fat.Tissue_CO2FromMetabolism + gITract.Tissue_CO2FromMetabolism + kidney.Tissue_CO2FromMetabolism + liver.Tissue_CO2FromMetabolism + otherTissue.Tissue_CO2FromMetabolism + respiratoryMuscle.Tissue_CO2FromMetabolism + leftHeart.Tissue_CO2FromMetabolism + rightHeart.Tissue_CO2FromMetabolism + skeletalMuscle.Tissue_CO2FromMetabolism + skin.Tissue_CO2FromMetabolism + bone.Tissue_CO2FromMetabolism;
-
         connect(brain.glucose, glucose) annotation (Line(
             points={{-32,114},{-28,114},{-28,12},{-2,12}},
             color={200,0,0},
@@ -27023,7 +26462,6 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
             color={200,0,0},
             smooth=Smooth.None,
             thickness=1));
-
         connect(busConnector.Brain_LiquidVol,brain. LiquidVol)  annotation (Line(
             points={{-82,116},{-62,116},{-62,105.6},{-58.6,105.6}},
             color={0,0,255},
@@ -27115,7 +26553,6 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
             string="%first",
             index=-1,
             extent={{-5,0},{-5,0}}));
-
         connect(busConnector.LeftHeart_BloodFlow,leftHeart. BloodFlow)  annotation (
             Line(
             points={{-82,116},{-62,116},{-62,5.2},{-56.6,5.2}},
@@ -27206,7 +26643,6 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
             string="%second",
             index=1,
             extent={{5,0},{5,0}}));
-
         connect(bone.Structure_Effect, busConnector.Bone_StructureEffect)
           annotation (Line(
             points={{64.7,103.6},{68,103.6},{68,116},{-82,116}},
@@ -27310,7 +26746,6 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
             string="%first",
             index=-1,
             extent={{-5,0},{-5,0}}));
-
         connect(kidney.PT_Na_Reab, busConnector.PT_Na_Reab)  annotation (Line(
             points={{64.7,15.2},{68,15.2},{68,116},{-82,116}},
             color={0,0,127},
@@ -27341,7 +26776,6 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
             string="%first",
             index=-1,
             extent={{-5,0},{-5,0}}));
-
         connect(busConnector.BloodVol_PVCrit,brain. BloodVol_PVCrit)  annotation (Line(
             points={{-82,116},{-62,116},{-62,114},{-58.6,114}},
             color={0,0,255},
@@ -27402,7 +26836,6 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
             color={0,0,255},
             thickness=0.5,
             smooth=Smooth.None));
-
         connect(busConnector.Thyroxine,brain. Thyroxine)  annotation (Line(
             points={{-82,116},{-62,116},{-62,97.2},{-58.6,97.2}},
             color={0,0,255},
@@ -27463,7 +26896,6 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
             color={0,0,255},
             thickness=0.5,
             smooth=Smooth.None));
-
         connect(bone.pO2, busConnector.Bone_PO2)
           annotation (Line(
             points={{64.7,108.8},{68,108.8},{68,116},{-82,116}},
@@ -27566,7 +26998,6 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
             string="%first",
             index=-1,
             extent={{-5,0},{-5,0}}));
-
       connect(bone.T, busConnector.bone_T)
           annotation (Line(
             points={{64.7,101},{68,101},{68,116},{-82,116}},
@@ -27669,7 +27100,6 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
             string="%first",
             index=-1,
             extent={{-5,0},{-5,0}}));
-
         connect(bone.cLactate, busConnector.bone_cLactate)
           annotation (Line(
             points={{56.9,88},{68,88},{68,116},{-82,116}},
@@ -27736,7 +27166,6 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
             color={0,0,255},
             thickness=0.5,
             smooth=Smooth.None));
-
         connect(bone.Tissue_CO2FromMetabolism, busConnector.bone_CO2FromMetabolism)
           annotation (Line(
             points={{59.5,88},{68,88},{68,116},{-82,116}},
@@ -27804,7 +27233,6 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
             color={0,0,255},
             thickness=0.5,
             smooth=Smooth.None));
-
        connect(bone.LactateFromMetabolism, busConnector.bone_LactateFromMetabolism)
           annotation (Line(
             points={{49.1,88},{68,88},{68,116},{-82,116}},
@@ -27873,7 +27301,6 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
             color={0,0,255},
             thickness=0.5,
             smooth=Smooth.None));
-
        connect(bone.O2Use, busConnector.bone_O2Use)
           annotation (Line(
             points={{54.3,88},{68,88},{68,116},{-82,116}},
@@ -27940,7 +27367,6 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
             color={0,0,255},
             thickness=0.5,
             smooth=Smooth.None));
-
        connect(bone.O2Need, busConnector.Bone_O2Need)
           annotation (Line(
             points={{51.7,88},{68,88},{68,116},{-82,116}},
@@ -28007,7 +27433,6 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
             color={0,0,255},
             thickness=0.5,
             smooth=Smooth.None));
-
         connect(bone.Fuel_FractUseDelay, busConnector.bone_Fuel_FractUseDelay)
           annotation (Line(
             points={{62.1,88},{68,88},{68,116},{-82,116}},
@@ -28075,7 +27500,6 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
             color={0,0,255},
             thickness=0.5,
             smooth=Smooth.None));
-
         connect(brain.ketoAcids, ketoAcids) annotation (Line(
             points={{-32,91.6},{0,91.6},{0,86}},
             color={200,0,0},
@@ -28137,7 +27561,6 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
             string="%second",
             index=1,
             extent={{6,3},{6,3}}));
-
        connect(bone.H2OFromMetabolism, MetabolicH2ORate.u[1])
           annotation (Line(
             points={{46.5,88},{68,88},{68,-92.7333},{79.2,-92.7333}},
@@ -28204,7 +27627,6 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
             color={0,0,255},
             thickness=0.5,
             smooth=Smooth.None));
-
         connect(liver.GILumenCarbohydrates, GILumenCarbohydrates) annotation (
             Line(
             points={{55.6,70},{56,70},{56,82},{80,82}},
@@ -28245,7 +27667,6 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
             string="%second",
             index=1,
             extent={{6,3},{6,3}}));
-
         connect(CoreHeat.y, busConnector.MetabolismCaloriesUsed_CoreHeat)         annotation (Line(
             points={{88.4,-98},{94,-98},{94,-88},{68,-88},{68,116},{-82,116}},
             color={0,0,127},
@@ -28253,7 +27674,6 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
             string="%second",
             index=1,
             extent={{6,3},{6,3}}));
-
         connect(bone.TotalCalsUsed, CoreHeat.u[1])
           annotation (Line(
             points={{43.9,88},{68,88},{68,-98.7273},{79.2,-98.7273}},
@@ -28404,15 +27824,15 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
              {{60,60},{100,100}})));
       Physiomodel.Metabolism.LiverMetabolism liverMetabolism
         annotation (Placement(transformation(extent={{-66,-12},{-26,28}})));
-      Physiomodel.Metabolism.Glucose Glucose
+      Physiomodel.Metabolism.Glucose glucose
         annotation (Placement(transformation(extent={{0,-4},{20,16}})));
-      Physiomodel.Metabolism.KetoAcids KetoAcids
+      Physiomodel.Metabolism.KetoAcids ketoAcids
         annotation (Placement(transformation(extent={{0,24},{20,44}})));
     QHP.Metabolism.GILumenLeptinDriven GILumen
       annotation (Placement(transformation(extent={{46,-80},{72,-54}})));
-      QHP.Metabolism.Urea Urea
+      QHP.Metabolism.Urea urea
         annotation (Placement(transformation(extent={{-74,-52},{-54,-32}})));
-      QHP.Metabolism.Lipids Lipids
+      QHP.Metabolism.Lipids lipids
         annotation (Placement(transformation(extent={{0,54},{20,74}})));
       Lactate lactate
         annotation (Placement(transformation(extent={{2,-30},{22,-10}})));
@@ -28438,7 +27858,6 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
     Modelica.Blocks.Math.Add add
       annotation (Placement(transformation(extent={{48,-40},{56,-32}})));
     equation
-
      connect(tissuesMetabolism.busConnector, busConnector) annotation (Line(
           points={{86.4,28.5455},{96,28.5455},{96,80},{80,80}},
           color={0,0,255},
@@ -28449,17 +27868,17 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
           color={0,0,255},
           thickness=0.5,
           smooth=Smooth.None));
-      connect(busConnector, Glucose.busConnector)     annotation (Line(
+      connect(busConnector,glucose. busConnector)     annotation (Line(
           points={{80,80},{-4,80},{-4,5.8},{1,5.8}},
           color={0,0,255},
           thickness=0.5,
           smooth=Smooth.None));
-      connect(KetoAcids.q_out, tissuesMetabolism.ketoAcids) annotation (Line(
+      connect(ketoAcids.q_out, tissuesMetabolism.ketoAcids) annotation (Line(
           points={{10,28},{28,28},{28,17.6364},{50,17.6364}},
           color={200,0,0},
           thickness=1,
           smooth=Smooth.None));
-      connect(liverMetabolism.Glucose, Glucose.q_out) annotation (Line(
+      connect(liverMetabolism.Glucose,glucose. q_out) annotation (Line(
           points={{-26,-4},{-8,-4},{-8,12},{10,12}},
           color={200,0,0},
           thickness=1,
@@ -28469,33 +27888,32 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
           color={0,0,255},
           thickness=0.5,
           smooth=Smooth.None));
-
-      connect(KetoAcids.q_out, liverMetabolism.Ketoacids) annotation (Line(
+      connect(ketoAcids.q_out, liverMetabolism.Ketoacids) annotation (Line(
           points={{10,28},{-10,28},{-10,8},{-26,8}},
           color={200,0,0},
           thickness=1,
           smooth=Smooth.None));
-      connect(Urea.ureaFromMetabolism, liverMetabolism.Urea) annotation (Line(
+      connect(urea.ureaFromMetabolism, liverMetabolism.Urea) annotation (Line(
           points={{-58,-32},{-58,-12}},
           color={200,0,0},
           thickness=1,
           smooth=Smooth.None));
-      connect(Urea.busConnector, busConnector) annotation (Line(
+      connect(urea.busConnector, busConnector) annotation (Line(
           points={{-72,-38},{-86,-38},{-86,-92},{96,-92},{96,80},{80,80}},
           color={0,0,255},
           thickness=0.5,
           smooth=Smooth.None));
-      connect(KetoAcids.busConnector, busConnector) annotation (Line(
+      connect(ketoAcids.busConnector, busConnector) annotation (Line(
           points={{1,44},{-4,44},{-4,80},{80,80}},
           color={0,0,255},
           thickness=0.5,
           smooth=Smooth.None));
-      connect(busConnector, Lipids.busConnector) annotation (Line(
+      connect(busConnector,lipids. busConnector) annotation (Line(
           points={{80,80},{-4,80},{-4,60.2},{2,60.2}},
           color={0,0,255},
           thickness=0.5,
           smooth=Smooth.None));
-      connect(Lipids.FattyAcids, tissuesMetabolism.fattyAcids) annotation (Line(
+      connect(lipids.FattyAcids, tissuesMetabolism.fattyAcids) annotation (Line(
           points={{10,64},{40,64},{40,26.7273},{50,26.7273}},
           color={200,0,0},
           thickness=1,
@@ -28527,18 +27945,18 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
           color={200,0,0},
           thickness=1,
           smooth=Smooth.None));
-      connect(Lipids.toTriglicerides, GILumen.Fat_Absorption) annotation (Line(
+      connect(lipids.toTriglicerides, GILumen.Fat_Absorption) annotation (Line(
           points={{10,56},{78,56},{78,-67},{72,-67}},
           color={200,0,0},
           thickness=1,
           smooth=Smooth.None));
-      connect(Lipids.toTriglicerides, liverMetabolism.triglicerides)
+      connect(lipids.toTriglicerides, liverMetabolism.triglicerides)
         annotation (Line(
           points={{10,56},{-14,56},{-14,20},{-26,20}},
           color={200,0,0},
           thickness=1,
           smooth=Smooth.None));
-      connect(Lipids.FattyAcids, liverMetabolism.fattyAcids) annotation (Line(
+      connect(lipids.FattyAcids, liverMetabolism.fattyAcids) annotation (Line(
           points={{10,64},{-20,64},{-20,28},{-26,28}},
           color={200,0,0},
           thickness=1,
@@ -28580,7 +27998,7 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
           color={0,0,255},
           thickness=0.5,
           smooth=Smooth.None));
-    connect(molarFlowMeasure.q_in, Glucose.q_out) annotation (Line(
+    connect(molarFlowMeasure.q_in,glucose. q_out) annotation (Line(
         points={{24,10},{18,10},{18,12},{10,12}},
         color={107,45,134},
         thickness=1,
@@ -28628,9 +28046,7 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
 
     package IO_Bus
        extends Physiolibrary.Types.IO_Bus;
-
       redeclare model extends Variables
-
       T.MolarFlowRate bone_CO2FromMetabolism(varName="Bone-CO2.OutflowBase")
         "Bone carbondioxyde outflow from cells metabolism. "
       annotation (Placement(transformation(extent={{-36,10},{-30,16}})));
@@ -28757,7 +28173,6 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
       T.MolarFlowRate LeftHeart_O2Need(varName="LeftHeart-Metabolism.O2Need", storeUnit="ml_STP/min")
         "Oxygen needed to be consumed by left heart cells if only aerobic metabolism is running."
       annotation (Placement(transformation(extent={{-36,440},{-30,446}})));
-
       T.AmountOfSubstance LipidDeposits_Mass(varName="LipidDeposits.Mass", storeUnit="g", unitConversions = Substances.FattyAcids.unitConversions)
         "Mass of lipids in fat cells."
       annotation (Placement(transformation(extent={{-36,450},{-30,456}})));
@@ -28800,18 +28215,15 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
       T.MolarFlowRate respiratoryMuscle_CO2FromMetabolism(varName="RespiratoryMuscle-CO2.OutflowBase")
         "RespiratoryMuscle carbondioxyde outflow from cells metabolism."
       annotation (Placement(transformation(extent={{-36,580},{-30,586}})));
-
       T.MolarFlowRate respiratoryMuscle_O2Use(varName="RespiratoryMuscle-Flow.O2Use", storeUnit="ml_STP/min")
         "RespiratoryMuscle oxygen consumption."
       annotation (Placement(transformation(extent={{-36,590},{-30,596}})));
       T.Fraction respiratoryMuscle_Fuel_FractUseDelay(varName="RespiratoryMuscle-Fuel.FractUseDelay")
         "RespiratoryMuscle deficiency of nutrients needed by cells metabolism."
       annotation (Placement(transformation(extent={{-36,600},{-30,606}})));
-
       T.MolarFlowRate respiratoryMuscle_GlucoseToCellStorageFlow(varName="RespiratoryMuscle-Glycogen.Synthesis", storeUnit="mg/min", unitConversions = Substances.Glucose.unitConversions)
         "Glycogen synthesis in skeletal muscle cells of respiratory muscles."
       annotation (Placement(transformation(extent={{-36,610},{-30,616}})));
-
       T.MolarFlowRate respiratoryMuscle_LactateFromMetabolism(varName="RespiratoryMuscle-Lactate.Outflux")
         "Lactate flow from respiratoryMuscle cells."
       annotation (Placement(transformation(extent={{-36,620},{-30,626}})));
@@ -28821,7 +28233,6 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
       T.MolarFlowRate RespiratoryMuscle_O2Need(varName="RespiratoryMuscle-Metabolism.O2Need", storeUnit="ml_STP/min")
         "Oxygen needed to be consumed by respiratory muscle cells if only aerobic metabolism is running."
       annotation (Placement(transformation(extent={{-36,640},{-30,646}})));
-
       T.MolarFlowRate rightHeart_CO2FromMetabolism(varName="RightHeart-CO2.OutflowBase")
         "RightHeart carbondioxyde outflow from cells metabolism."
       annotation (Placement(transformation(extent={{-36,650},{-30,656}})));
@@ -28855,7 +28266,6 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
       T.MolarFlowRate SkeletalMuscle_O2Need(varName="SkeletalMuscle-Metabolism.O2Need", storeUnit="ml_STP/min")
         "Oxygen needed to be consumed by skeletal muscle cells if only aerobic metabolism is running."
       annotation (Placement(transformation(extent={{-36,750},{-30,756}})));
-
       T.MolarFlowRate skin_CO2FromMetabolism(varName="Skin-CO2.OutflowBase")
         "Skin carbondioxyde outflow from cells metabolism."
       annotation (Placement(transformation(extent={{-36,760},{-30,766}})));
@@ -28881,7 +28291,6 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
               "RightHeart-Metabolism.O2Need", storeUnit="ml_STP/min")
         "Oxygen needed to be consumed by left heart cells if only aerobic metabolism is running."
       annotation (Placement(transformation(extent={{-36,-18},{-30,-12}})));
-
       T.MolarFlowRate CD_KA_Outflow(varName="CD_KA.Outflow", storeUnit="mmol/min")
         "Collecting duct keto-acids outflow to urine."
       annotation (Placement(transformation(extent={{-36,-32},{-30,-26}})));
@@ -28918,11 +28327,9 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
       T.Concentration Glucagon_conc(varName="GlucagonPool.[Glucagon]",storeUnit="ng/l", unitConversions = Substances.Glucagon.unitConversions)
         "Extracellular glucagon concentration."
       annotation (Placement(transformation(extent={{-84,-4},{-78,2}})));
-
       T.Concentration ThyroidEffect1(varName="ThyroidPool.[Total_T4-T3]", storeUnit="ug/dl", unitConversions = Substances.Thyroxine.unitConversions)
         "Triiodothyronine  and thyroxine effect to metabolism."
         annotation (Placement(transformation(extent={{-82,4},{-76,10}})));
-
         ////to debug:
       T.Concentration FAPool(varName="FAPool.[FA(mMol/L)]")
         "Fatty-acids extracellular concentration."
@@ -28934,7 +28341,6 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
                               varName="GILumenCarbohydrates.Absorption", storeUnit="mg/min", unitConversions = Substances.Glucose.unitConversions)
         "Glucose absorption from gastro intestinal lumen."
           annotation (Placement(transformation(extent={{-108,64},{-102,70}})));
-
       T.MolarFlowRate GlucoseToTissues(
                               varName="Metabolism-Glucose.TotalBurn", storeUnit="mg/min", unitConversions = Substances.Glucose.unitConversions)
         "Glucose flux."
@@ -29521,7 +28927,6 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
             string="%second",
             index=1,
             extent={{6,3},{6,3}}));
-
         connect(RightHeart_O2Need.y, busConnector.RightHeart_O2Need) annotation (
             Line(
             points={{-29.7,-15},{90,-15},{90,-2}},
@@ -30232,7 +29637,6 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
         points={{-98,96},{-6,96},{-6,-16},{-22,-16}},
         color={0,0,127},
         smooth=Smooth.None));
-
     connect(busConnector.PortalVein_Glucagon, GlucagonEffect_AminoAcids2Glucose.u)
       annotation (Line(
         points={{-98,96},{-2,96},{-2,-4},{46,-4}},
@@ -30692,21 +30096,17 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
     end LiverMetabolism2;
 
     package deprecated
-
       model ContinualReaction "Continual flow reaction of type  a A <-> b B"
-
         Physiolibrary.Chemical.Interfaces.ChemicalPort_a A "solute A" annotation (
             Placement(transformation(extent={{-120,-20},{-80,20}}),
               iconTransformation(extent={{-110,-10},{-90,10}})));
         Physiolibrary.Chemical.Interfaces.ChemicalPort_b B "solute B" annotation (
             extent=[-10,-110; 10,-90], Placement(transformation(extent={{90,20},{
                   110,40}}), iconTransformation(extent={{90,20},{110,40}})));
-
         parameter Modelica.SIunits.StoichiometricNumber a=1
         "Stoichiometric number of solute A";
         parameter Modelica.SIunits.StoichiometricNumber b=1
         "Stoichiometric number of solute B";
-
       equation
          a*A.q + b*B.q = 0;
          a*A.conc = b*B.conc;  // sound strange, dissociation constand should be here
@@ -30739,14 +30139,12 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
 
       model ContinualReaction2
       "Continual flow reaction of type  a A <-> b B + c C, where the concentration of C does not play the role"
-
         Physiolibrary.Chemical.Interfaces.ChemicalPort_b q_out annotation (extent=[
               -10,-110; 10,-90], Placement(transformation(extent={{90,20},{110,40}}),
               iconTransformation(extent={{90,20},{110,40}})));
         Modelica.Blocks.Interfaces.RealInput coef
         "who much units of q_out produce one unit of q_in"
                                       annotation ( extent = [-10,30;10,50], rotation = -90);
-
         Physiolibrary.Chemical.Interfaces.ChemicalPort_a q_in annotation (Placement(
               transformation(extent={{-120,-20},{-80,20}}), iconTransformation(
                 extent={{-110,-10},{-90,10}})));
@@ -30760,11 +30158,9 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
               extent={{-10,-10},{10,10}},
               rotation=270,
               origin={60,40})));
-
        // parameter Modelica.SIunits.StoichiometricNumber a_in=1 "Stoichiometric number of solute A";
        // parameter Modelica.SIunits.StoichiometricNumber a_out=1 "Stoichiometric number of solute B";
        // parameter Modelica.SIunits.StoichiometricNumber a_out2=1 "Stoichiometric number of solute C";
-
       equation
         q_out.q + coef*q_in.q = 0;
         q_out2.q + coef2*q_in.q = 0;
@@ -30795,7 +30191,6 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
 </html>"),          Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
                   -100},{100,100}}), graphics));
       end ContinualReaction2;
-
     end deprecated;
     annotation (Documentation(revisions="<html>
 
@@ -30837,28 +30232,23 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
               {100,100}}), graphics));
   end Metabolism;
 
-
   package Hormones "Hormones"
     extends Physiolibrary.Icons.HormonesLib;
-
     package Insulin_Physiolibrary = Physiolibrary(Types(
       redeclare type Concentration = Real(quantity="Insulin Concentration",unit="1/m3",displayUnit="iu/l"),
       redeclare type AmountOfSubstance = Real(quantity="Unsulin AmountOfSubstance",unit="1",displayUnit="iu"),
       redeclare type MolarFlowRate = Real(quantity="Insulin Flow Rate",unit="1/s",displayUnit="iu/min"),
       redeclare type MolarEnergy = Real(quantity="Insulin Internal Energy",unit="J",displayUnit="cal/iu")));
-
     package EPO_Physiolibrary = Physiolibrary(Types(
       redeclare type Concentration = Real(quantity="EPO Concentration",unit="1/m3",displayUnit="iu/l"),
       redeclare type AmountOfSubstance = Real(quantity="EPO AmountOfSubstance",unit="1",displayUnit="iu"),
       redeclare type MolarFlowRate = Real(quantity="EPO Flow Rate",unit="1/s",displayUnit="iu/min"),
       redeclare type MolarEnergy = Real(quantity="EPO Internal Energy",unit="J",displayUnit="cal/iu")));
-
     package TSH_Physiolibrary = Physiolibrary(Types(
       redeclare type Concentration = Real(quantity="TSH Concentration",unit="1/m3",displayUnit="iu/l"),
       redeclare type AmountOfSubstance = Real(quantity="TSH AmountOfSubstance",unit="1",displayUnit="iu"),
       redeclare type MolarFlowRate = Real(quantity="TSH Flow Rate",unit="1/s",displayUnit="iu/min"),
       redeclare type MolarEnergy = Real(quantity="TSH Internal Energy",unit="J",displayUnit="cal/iu")));
-
   /*  package ADH_Physiolibrary = Physiolibrary(Types(
     redeclare type Concentration = Real(quantity="ADH Concentration",unit="1/m3",displayUnit="iu/l"),
     redeclare type AmountOfSubstance = Real(quantity="ADH AmountOfSubstance",unit="1",displayUnit="iu"),
@@ -30870,13 +30260,10 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
       redeclare type AmountOfSubstance = Real(quantity="Renin Goldblat AmountOfSubstance",unit="1",displayUnit="Gu"),
       redeclare type MolarFlowRate = Real(quantity="Renin Goldblat Flow Rate",unit="1/s",displayUnit="Gu/min"),
       redeclare type MolarEnergy = Real(quantity="Renin Goldblat Internal Energy",unit="J",displayUnit="cal/Gu")));
-
    //  constant Physiolibrary.Types.MolarMass ADHMolarMass=1.084 "kDa = molar mass of arginine vassopressin";
-
     model Insulin
       extends Physiolibrary.Icons.Pancreas;
     // outer parameter Real ECF_Vol(final displayUnit="ml");
-
     Insulin_Physiolibrary.Chemical.Components.Substance InsulinPool(
       stateName="InsulinPool.Mass",
       useNormalizedVolume=false,
@@ -31019,7 +30406,6 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
           color={200,0,0},
           thickness=1,
           smooth=Smooth.None));
-
       connect(busConnector.PortalVein_PlasmaFlow, PortalVeinConcentration.solutionFlow)
         annotation (Line(
           points={{-98,40},{-56,40},{-56,16}},
@@ -31110,7 +30496,6 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
     model Glucagon
      extends Physiolibrary.Icons.Pancreas;
      // outer parameter Real ECF_Vol(final displayUnit="ml");
-
       Modelica.Blocks.Math.Gain gain(k=0.05/60)
         annotation (Placement(transformation(extent={{-44,-32},{-38,-26}})));
     Physiolibrary.Chemical.Sources.UnlimitedSolutePumpOut clearance(
@@ -31158,7 +30543,6 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
                "ng/l")  annotation (Placement(transformation(extent={{-78,-60},
                 {-58,-40}}), iconTransformation(extent={{80,-20},{120,20}})));
     equation
-
     connect(GlucagonPool.solute, gain.u) annotation (Line(
         points={{-56,-16},{-56,-29},{-44.6,-29}},
         color={0,0,127},
@@ -31221,7 +30605,6 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
           color={200,0,0},
           thickness=1,
           smooth=Smooth.None));
-
       connect(Insulin, InsulinEffect.u) annotation (Line(
           points={{68,44},{90,44},{90,10},{76,10}},
           color={0,0,127},
@@ -31277,12 +30660,10 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
     model ADH
       extends Physiolibrary.Icons.Hypophysis;
     // outer parameter Real ECF_Vol(final displayUnit="ml");
-
       constant Physiolibrary.Types.Volume NormalMedullaVolume = 31e-6
       "Normal kidney medulla volume (31ml)";
       constant Physiolibrary.Types.Volume NormalECFVolume = 14.3610097207699e-3
       "normal volume of extracellular fluid (15L)";
-
     Physiolibrary.Chemical.Components.Substance ADHPool(
       stateName="ADHPool.Mass",
       useNormalizedVolume=false,
@@ -31427,7 +30808,6 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
           points={{66,-14},{66,-16},{70,-16},{70,12},{76,12}},
           color={0,0,127},
           smooth=Smooth.None));
-
     connect(busConnector.Kidney_BloodFlow, Kidney_clearance.solutionFlow)
       annotation (Line(
         points={{-90,28},{-96,28},{-96,-56},{-24,-56}},
@@ -31530,7 +30910,6 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
 
     model Aldosterone
       extends Physiolibrary.Icons.AdrenalGland;
-
     Physiolibrary.Chemical.Components.Substance AldoPool(
       stateName="AldoPool.Mass",
       useNormalizedVolume=false,
@@ -31646,7 +31025,6 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
         points={{14,-54},{14,-49},{0.3,-49}},
         color={0,0,127},
         smooth=Smooth.None));
-
     connect(AngiotensinII, A2Effect.u)
       annotation (Line(
         points={{-18,14},{48,14}},
@@ -31684,7 +31062,6 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
     model ANP
       extends Physiolibrary.Icons.Heart;
     // outer parameter Real ECF_Vol(final displayUnit="ml");
-
     Physiolibrary.Chemical.Components.Substance ANPPool(
       stateName="ANPPool.Mass",
       useNormalizedVolume=false,
@@ -31820,7 +31197,6 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
         points={{38,-25},{38,-40},{34,-40}},
         color={0,0,127},
         smooth=Smooth.None));
-
     connect(concentrationMeasure.concentration, ANP) annotation (Line(
         points={{-26,-12},{-26,12},{-14,12}},
         color={0,0,127},
@@ -31911,7 +31287,6 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
     model EPO
       extends Physiolibrary.Icons.Kidney;
     // outer parameter Real ECF_Vol(final displayUnit="ml");
-
     EPO_Physiolibrary.Chemical.Components.Substance EPOPool(
       stateName="EPOPool.Mass",
       useNormalizedVolume=false,
@@ -31919,7 +31294,6 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
       "default = 20 iu/l = 20e3 iu/m3 "
       annotation (Placement(transformation(extent={{-50,-54},{-30,-34}})));
       //NominalSolute=Substances.Erythropoietin.molpIU
-
     EPO_Physiolibrary.Chemical.Sources.UnlimitedSolutePump secretion(
         useSoluteFlowInput=true)
       annotation (Placement(transformation(extent={{76,-54},{56,-34}})));
@@ -32027,7 +31401,6 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
      string="%first",
      index=-1,
      extent={{-6,3},{-6,3}}));
-
       connect(CountEffect.y, FunctionEffect.yBase) annotation (Line(
           points={{66,30},{66,26}},
           color={0,0,127},
@@ -32051,7 +31424,6 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
      string="%second",
      index=1,
      extent={{6,3},{6,3}}));
-
     connect(concentrationMeasure.concentration, Erythropoetin) annotation (Line(
         points={{-38,-28},{8,-28}},
         color={0,0,127},
@@ -32060,7 +31432,6 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
         points={{-57.4,-40},{-44,-40}},
         color={0,0,127},
         smooth=Smooth.None));
-
       connect(PO2Effect.y, avg1.exponent)
         annotation (Line(
           points={{-14,20},{-14,11.6},{-8,11.6}},
@@ -32078,7 +31449,6 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
     model Thyroxine
      extends Physiolibrary.Icons.ThyroidGland;
     // outer parameter Real ECF_Vol(final displayUnit="ml");
-
     Physiolibrary.Chemical.Components.Substance ThyroidPool(
       stateName="ThyroidPool.Mass",
       useNormalizedVolume=false,
@@ -32152,12 +31522,10 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
           points={{66.5,-18},{66,-18},{66,-28}},
           color={0,0,127},
           smooth=Smooth.None));
-
     connect(secretion.soluteFlow, TSHEffect.y) annotation (Line(
         points={{62,-40},{62,-38},{66,-38},{66,-34}},
         color={0,0,127},
         smooth=Smooth.None));
-
       connect(TSH, TSHEffect.u) annotation (Line(
           points={{14,-30},{58,-30}},
           color={0,0,127},
@@ -32198,7 +31566,6 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
     model Thyrotropin
       extends Physiolibrary.Icons.Hypophysis;
     // outer parameter Real ECF_Vol(final displayUnit="ml");
-
     TSH_Physiolibrary.Types.Constants.ConcentrationConst hormoneConstant(k=4)
       "4 uU/ml"
       annotation (Placement(transformation(extent={{-8,30},{-20,42}})));
@@ -32234,7 +31601,6 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
           points={{-24,18},{-24,14}},
           color={0,0,127},
           smooth=Smooth.None));
-
       connect(HypothalamusTSH.y, TSH)   annotation (Line(
           points={{-24,8},{-24,-8},{-10,-8}},
           color={0,0,127},
@@ -32283,7 +31649,6 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
     model Renin
       extends Physiolibrary.Icons.Kidney;
     // outer parameter Real ECF_Vol(final displayUnit="ml");
-
     Renin_Physiolibrary.Chemical.Components.Substance ReninPool(
       stateName="ReninPool.Mass",
       useNormalizedVolume=false,
@@ -32469,7 +31834,6 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
         points={{-61.4,-2},{-56,-2},{-56,-16},{-90,-16},{-90,-40},{-76,-40}},
         color={0,0,127},
         smooth=Smooth.None));
-
       connect(CountEffect.y, FunctionEffect.yBase) annotation (Line(
           points={{46,68},{46,68}},
           color={0,0,127},
@@ -32508,7 +31872,6 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
           color={200,0,0},
           thickness=1,
           smooth=Smooth.None));
-
       connect(concentrationMeasure.concentration, Renin) annotation (Line(
           points={{-62,-28},{-52,-28},{-52,-36},{-38,-36}},
           color={0,0,127},
@@ -32682,9 +32045,7 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
     //  extends Library.Interfaces.Tissues.Liver;
     //  extends Library.Interfaces.Tissues.Kidney;
       extends Physiolibrary.Icons.Lungs;
-
     // outer parameter Real ECF_Vol(final displayUnit="ml");
-
     Physiolibrary.Blocks.Factors.Normalization A2 annotation (Placement(transformation(extent={{-2,-2},{18,18}})));
     Physiolibrary.Types.Constants.ConcentrationConst A2CONC(k=0.3333e-9/
           Substances.AngiotensinII.mw) "0.3333 pg/ml = 0.3333*1e-15/1e-6 kg/m3"
@@ -32711,7 +32072,6 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
           points={{-1.5,62},{8,62},{8,10}},
           color={0,0,127},
           smooth=Smooth.None));
-
       connect(CEBase_ReninConc.y, EndogenousRate.u2) annotation (Line(
           points={{-43.5,-2},{-40,-2},{-40,2},{-32,2}},
           color={0,0,127},
@@ -32756,7 +32116,6 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
   model Leptin
      extends Physiolibrary.Icons.Fat;
      // outer parameter Real ECF_Vol(final displayUnit="ml");
-
       Modelica.Blocks.Math.Gain gain(                        y(unit="mol/s"), k(unit=
             "1/s") = 0.01/60)
         annotation (Placement(transformation(extent={{-44,-32},{-38,-26}})));
@@ -32795,7 +32154,6 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
                "ng/ml") annotation (Placement(transformation(extent={{-78,-62},{-58,
               -42}}),        iconTransformation(extent={{80,-20},{120,20}})));
   equation
-
     connect(LeptinPool.solute, gain.u) annotation (Line(
         points={{-56,-18},{-56,-29},{-44.6,-29}},
         color={0,0,127},
@@ -32829,7 +32187,6 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
           color={200,0,0},
           thickness=1,
           smooth=Smooth.None));
-
       connect(LeptinPool.q_out, concentrationMeasure.q_in)   annotation (Line(
           points={{-56,-8},{-54,-8},{-54,6},{-60,6}},
           color={200,0,0},
@@ -32925,22 +32282,17 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
     Physiolibrary.Types.Constants.DeprecatedUntypedConstant Constant1(k=
           0.0001604)
       annotation (Placement(transformation(extent={{-64,36},{-56,44}})));
-
       model PT
-
         Modelica.Blocks.Interfaces.RealInput Calcitriol
           annotation (Placement(transformation(extent={{-110,40},{-70,80}})));
         Modelica.Blocks.Interfaces.RealInput Ca
           annotation (Placement(transformation(extent={{-110,-64},{-70,-24}})));
         Modelica.Blocks.Interfaces.RealOutput PT_pool
           annotation (Placement(transformation(extent={{56,-18},{96,22}})));
-
         Real T64m;
         Real T64p;
-
         parameter Real initialPT(displayUnit="1") = 0.5
         "initial pool of PT gland";
-
       initial equation
       //  PT_pool = initialPT;
         der( PT_pool) = 0;
@@ -32953,7 +32305,6 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
               coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
                   100,100}}), graphics));
       end PT;
-
       PT PT_pool
         annotation (Placement(transformation(extent={{36,46},{56,66}})));
     Physiolibrary.Chemical.Sensors.ConcentrationMeasure concentrationMeasure(
@@ -33100,9 +32451,7 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
       extends Physiolibrary.Icons.Kidney;
     Physiolibrary.Types.BusConnector busConnector
       annotation (Placement(transformation(extent={{-86,72},{-66,92}})));
-
       model One_alpha_OH
-
         function H
         input Real x;
         input Real alpha;
@@ -33123,7 +32472,6 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
       algorithm
         value:=alpha-(alpha-ro)*x^gamma/(delta^gamma+x^gamma);
       end H_minus;
-
         Modelica.Blocks.Interfaces.RealInput PO4
           annotation (Placement(transformation(extent={{-110,-64},{-70,-24}}),
               iconTransformation(extent={{-100,-60},{-60,-20}})));
@@ -33133,7 +32481,6 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
         Modelica.Blocks.Interfaces.RealOutput One_alpha_OH
           annotation (Placement(transformation(extent={{56,-18},{96,22}}),
               iconTransformation(extent={{60,-20},{100,20}})));
-
       initial equation
         //One_alpha_OH = 126;
         der( One_alpha_OH)  = 0;
@@ -33169,7 +32516,6 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
           rotation=0,
           origin={30,0})));
     equation
-
     connect(gain1.y, clearance1.soluteFlow) annotation (Line(
         points={{60.3,-37},{74,-37},{74,-26}},
         color={0,0,127},
@@ -33245,11 +32591,9 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
 
     package Catechols "Epinephrine and Norepinephrine"
       extends Physiolibrary.Icons.AdrenalGland;
-
       model Epinephrine
         extends Physiolibrary.Icons.AdrenalGland;
       // outer parameter Real ECF_Vol(final displayUnit="ml");
-
       Physiolibrary.Chemical.Components.Substance EpiPool(
         stateName="EpiPool.Mass",
         useNormalizedVolume=false,
@@ -33357,7 +32701,6 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
       model Norepinephrine
         extends Physiolibrary.Icons.AdrenalGland;
       // outer parameter Real ECF_Vol(final displayUnit="ml");
-
       Physiolibrary.Chemical.Components.Substance NEPool(
         stateName="NEPool.Mass",
         useNormalizedVolume=false,
@@ -33500,7 +32843,6 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
       Physiolibrary.Types.BusConnector busConnector annotation (Placement(
             transformation(extent={{-88,78},{-68,98}}), iconTransformation(
               extent={{-90,-70},{-70,-50}})));
-
         Epinephrine epinephrine
           annotation (Placement(transformation(extent={{-30,46},{-10,66}})));
         Norepinephrine norepinephrine
@@ -33640,7 +32982,6 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
             points={{-25.6,-19.2},{-36,-19.2},{-36,-2},{-4,-2},{-4,24},{-9,24}},
             color={0,0,127},
             smooth=Smooth.None));
-
         connect(BetaTotal.u2, epinephrine.Epinephrine) annotation (Line(
             points={{-25.6,-28.8},{-40,-28.8},{-40,2},{16,2},{16,56},{-9,56}},
             color={0,0,127},
@@ -33712,7 +33053,6 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
     package FemaleSexHormones "Ovarian Cycle Driving Hormones"
         extends Physiolibrary.Icons.FemaleSex;
       model Estradiol
-
         Physiolibrary.Molar.ConcentrationCompartment_knownConc
           estradiol(
             q_out(conc(final displayUnit="nMol/ml"), q(final displayUnit="nMol/min")),
@@ -33806,13 +33146,11 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
             points={{67.4,-18},{66,-18},{66,-28}},
             color={0,0,127},
             smooth=Smooth.None));
-
       connect(CorpusLuteum_OvariesSecretion.soluteFlow, MassEffect2.y)
         annotation (Line(
           points={{66,-40},{66,-32}},
           color={0,0,127},
           smooth=Smooth.None));
-
         connect(Follicle_OvariesSecretion.q_out,estradiol. q_out) annotation (
             Line(
             points={{60,-88},{-4,-88},{-4,-44},{-72,-44}},
@@ -33892,7 +33230,6 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
                                annotation (Placement(transformation(extent={{-100,44},
                   {-92,52}}),         iconTransformation(extent={{-120,60},{-80,
                   100}})));
-
         DayCounter dayCounter
           annotation (Placement(transformation(extent={{50,16},{70,36}})));
       equation
@@ -34076,7 +33413,6 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
       end FemaleSexHormones;
 
       model OvariesFollicle
-
         Modelica.Blocks.Interfaces.RealInput FSH_Circulating(
                                                       quantity="Concentration",
             final displayUnit="IU/l") annotation (Placement(transformation(extent={{-70,6},{-62,
@@ -34223,7 +33559,6 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
       end OvariesFollicle;
 
       model OvarianCycle
-
         Modelica.StateGraph.InitialStepWithSignal FOLLICULAR(
                                                    nIn=3)
           annotation (Placement(transformation(extent={{-94,18},{-74,38}})));
@@ -34487,7 +33822,6 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
       end OvarianCycle;
 
       model CorpusLuteum
-
         Modelica.Blocks.Interfaces.RealInput hCG(
                                           quantity="Concentration", final displayUnit="IU/l")
                                annotation (Placement(transformation(extent={{-42,34},{
@@ -34554,7 +33888,6 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
       end CorpusLuteum;
 
       model Progesterone
-
         Physiolibrary.Molar.ConcentrationCompartment_knownConc
           progesterone(q_out(conc(final displayUnit="nMol/ml"), q(final displayUnit=
                   "nMol/min")), concentration=0.0001,
@@ -34630,12 +33963,10 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
             points={{67.4,-18},{66,-18},{66,-28}},
             color={0,0,127},
             smooth=Smooth.None));
-
       connect(OvariesSecretion.soluteFlow, MassEffect2.y) annotation (Line(
           points={{66,-40},{66,-32}},
           color={0,0,127},
           smooth=Smooth.None));
-
         connect(EFCV_Vol, progesterone.SolventVolume) annotation (Line(
             points={{-96,-36},{-82,-36}},
             color={0,0,127},
@@ -34657,7 +33988,6 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
 
       model LH
                                              //Library.Interfaces.Tissues.Hypothalamus;
-
       Physiolibrary.Chemical.Components.Substance LH_Circulating_Mass(
         q_out(conc(final displayUnit="IU/ml"), q(final displayUnit="IU/min")),
         stateName="LH-Circulating.Mass",
@@ -34744,7 +34074,6 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
           points={{-20,-84},{-20,-77},{-31.7,-77}},
           color={0,0,127},
           smooth=Smooth.None));
-
         connect(AnteriorPituitary.q_out, LH_Circulating_Mass.q_out)
                                                                   annotation (
             Line(
@@ -34809,7 +34138,6 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
       end LH;
 
       model FSH
-
       Physiolibrary.Chemical.Components.Substance FSH_Circulating_(
         q_out(conc(final displayUnit="IU/ml"), q(final displayUnit="IU/min")),
         stateName="FSH-Circulating.Mass",
@@ -34899,7 +34227,6 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
           points={{-20,-84},{-20,-77},{-31.7,-77}},
           color={0,0,127},
           smooth=Smooth.None));
-
         connect(AnteriorPituitary.q_out, FSH_Circulating_.q_out)  annotation (
             Line(
             points={{60,-44},{-72,-44}},
@@ -34963,7 +34290,6 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
       end FSH;
 
       model GnRH
-
       Physiolibrary.Types.Constants.TimeConst hormoneFlowConstant1(k=4800)
         annotation (Placement(transformation(extent={{30,40},{18,52}})));
       Physiolibrary.Blocks.Factors.Spline EstradiolEffect(data={{0.0,1.0,0.0},{
@@ -34985,7 +34311,6 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
           annotation (Placement(transformation(extent={{24,-24},{32,-16}}),
               iconTransformation(extent={{80,-100},{120,-60}})));
       equation
-
         connect(EstradiolEffect.u, Estradiol) annotation (Line(
             points={{4.2,24},{-10,24}},
             color={0,0,127},
@@ -35013,7 +34338,6 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
       end GnRH;
 
       model Inhibin
-
         Physiolibrary.Molar.ConcentrationCompartment_knownConc
           inhibin(
             q_out(conc(final displayUnit="IU/ml"), q(final displayUnit="IU/min")),
@@ -35103,12 +34427,10 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
             points={{67.4,-18},{66,-18},{66,-28}},
             color={0,0,127},
             smooth=Smooth.None));
-
       connect(A.soluteFlow, MassEffect2.y) annotation (Line(
           points={{66,-40},{66,-32}},
           color={0,0,127},
           smooth=Smooth.None));
-
         connect(EFCV_Vol, inhibin.SolventVolume) annotation (Line(
             points={{-96,-36},{-82,-36}},
             color={0,0,127},
@@ -35153,7 +34475,6 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
       end Inhibin;
 
       model Testosterone
-
         Physiolibrary.Molar.ConcentrationCompartment_knownConc
           testosterone(q_out(conc(final displayUnit="nMol/ml"), q(final displayUnit=
                   "nMol/min")), concentration=0.0006,
@@ -35216,7 +34537,6 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
           points={{-20,-84},{-20,-77},{-31.7,-77}},
           color={0,0,127},
           smooth=Smooth.None));
-
         connect(EFCV_Vol, testosterone.SolventVolume) annotation (Line(
             points={{-96,-36},{-82,-36}},
             color={0,0,127},
@@ -35238,7 +34558,6 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
       end Testosterone;
 
       model hCG
-
         Physiolibrary.Molar.ConcentrationCompartment_knownConc
           hCG_Pool(
             q_out(conc(final displayUnit="IU/ml"), q(final displayUnit="IU/min")),
@@ -35300,7 +34619,6 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
           points={{-20,-84},{-20,-77},{-31.7,-77}},
           color={0,0,127},
           smooth=Smooth.None));
-
         connect(EFCV_Vol, hCG_Pool.SolventVolume) annotation (Line(
             points={{-96,-36},{-82,-36}},
             color={0,0,127},
@@ -35321,12 +34639,10 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
       end hCG;
 
       model DayCounter
-
         Modelica.Blocks.Interfaces.BooleanInput Reset
         "restart counter on rising edge"
           annotation (Placement(transformation(extent={{-68,-2},{-60,6}}),
               iconTransformation(extent={{-120,-20},{-80,20}})));
-
        discrete Real startTime(start=0);
         Modelica.Blocks.Interfaces.RealOutput dayInCycle
           annotation (Placement(transformation(extent={{100,-20},{140,20}}),
@@ -35432,7 +34748,6 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
           color={0,0,255},
           thickness=0.5,
           smooth=Smooth.None));
-
     connect(renin.Renin, angiotensine2.Renin)
       annotation (Line(
         points={{-60,82},{-42,82}},
@@ -35557,7 +34872,6 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
           points={{-8,-86},{0,-86},{0,-72},{-80,-72},{-80,-78},{-76,-78}},
           color={0,0,127},
           smooth=Smooth.None));
-
       connect(busConnector, leptin.busConnector) annotation (Line(
           points={{-88,30},{16,30},{16,-58},{24,-58}},
           color={0,0,255},
@@ -35678,7 +34992,6 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
           points={{-8,-86},{0,-86},{0,-72},{-80,-72},{-80,-78},{-76,-78}},
           color={0,0,127},
           smooth=Smooth.None));
-
       connect(busConnector.ECFV_Vol, femaleSexHormones.EFCV_Vol) annotation (
           Line(
           points={{-88,30},{16,30},{16,44},{42,44}},
@@ -35708,10 +35021,8 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
 
     package IO_Bus
        extends Physiolibrary.Types.IO_Bus;
-
       redeclare model extends Variables
         extends Physiolibrary.Icons.Hormones;
-
       T.Concentration A2Pool(varName="A2Pool.[A2(pMol/L)]", storeUnit="pmol/l")
         "Angiotensin 2 extracelular concentration."
       annotation (Placement(transformation(extent={{-40,-62},{-34,-56}})));
@@ -35733,7 +35044,6 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
       //Variable NephronADH_conc(varName="NephronADH.[ADH]")
       //    "Nephron vasopresine concentration. [ng/l]"
       //annotation (Placement(transformation(extent={{-36,170},{-30,176}})));
-
       T.Concentration Epinephrine(varName="EpiPool.[Epi(nMol/L)]", storeUnit=
             "nmol/l") "Epinephrine extracelular concentration."
         annotation (Placement(transformation(extent={{-40,-28},{-34,-22}})));
@@ -35769,7 +35079,6 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
             string="%second",
             index=1,
             extent={{6,3},{6,3}}));
-
         connect(A2Pool.y, busConnector.Angiotensin2) annotation (Line(
             points={{-33.7,-59},{90,-59},{90,-2}},
             color={0,0,127},
@@ -36011,17 +35320,14 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
           EPO_Physiolibrary.Types.RealTypes);
       redeclare model extends Variables
         extends Physiolibrary.Icons.Hormones;
-
       //Variable NephronADH_conc(varName="NephronADH.[ADH]")
       //    "Nephron vasopresine concentration. [ng/l]"
       //annotation (Placement(transformation(extent={{-36,170},{-30,176}})));
-
       T.Concentration EPOPool(
         varName="EPOPool.[EPO]", storeUnit="iu/l")
         "Erythropoetin concentration."
         annotation (Placement(transformation(extent={{-40,48},{-34,54}})));
       equation
-
         connect(EPOPool.y, busConnector.Erythropoietin) annotation (Line(
             points={{-33.7,51},{90,51},{90,-2}},
             color={0,0,127},
@@ -36137,7 +35443,6 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
       redeclare model extends Variables
         extends Physiolibrary.Types.IO_Bus.IVariables;
         extends Physiolibrary.Icons.NutrientsMetabolism;
-
       T.Concentration         Insulin(varName="InsulinPool.[Insulin]", storeUnit="uiu/ml")
         "Insulin extracellular concentration."
       annotation (Placement(transformation(extent={{-68,2},{-62,8}})));
@@ -36169,7 +35474,6 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
               graphics));
       end Variables;
     end IO_Insulin;
-
     annotation (Documentation(revisions="<html>
 
 <table cellspacing=\"2\" cellpadding=\"0\" border=\"0\"><tr>
@@ -36241,7 +35545,6 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
               {100,100}}), graphics));
   end Hormones;
 
-
   package Nerves "Autonimic Nerves"
     extends Physiolibrary.Icons.NervesLib;
     model BaroReceptorAdaptation
@@ -36268,7 +35571,6 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
       parameter Physiolibrary.Types.Pressure AdaptivePressure(displayUnit="mmHg");
       parameter Physiolibrary.Types.Time Tau(displayUnit="h");
       parameter Real PressureChangeOnNA[3,:];
-
     equation
       connect(pressureChange.u2, adaptivePressure.y) annotation (Line(
           points={{-60,-8},{-60,-22},{12,-22},{12,0},{-1,0}},
@@ -36308,7 +35610,6 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
       parameter Real LowPressureEffect[:, 3]={{ 0.0,  1.1,  0}, { 1.0,  1.0,  -0.1}, { 4.0,  0.9,  0}};
       parameter Real FuelEffect[:,3]={{ 0.30,  0.0,  0}, { 0.60,  3.0,  0}, { 0.80,  0.0,  0}};
       parameter Real A2ConcEffect[:,3]={{ 1.7,  1.0,  0}, { 2.3,  1.4,  0}};
-
       Modelica.Blocks.Interfaces.RealInput CarotidSinusReceptors
         annotation (Placement(transformation(extent={{-100,60},{-60,100}}),
             iconTransformation(extent={{-100,60},{-60,100}})));
@@ -36445,7 +35746,6 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
     extends Physiolibrary.Icons.PhysicalExercise;
       parameter Real MotorRadiation_TotalEffect[:,3]={{    0,  0.0,  0.004}, {  500,  2.2,  0.002}, { 1000,  2.6,  0}};
       parameter Real PhOnNerveActivity[:,3]={{ 6.5,  5.0,  0}, { 6.9,  0.0,  0}};
-
     Physiolibrary.Blocks.Interpolation.Curve
       SkeletalMuscle_Metaboreflex_NerveActivity(
       x=PhOnNerveActivity[:, 1],
@@ -36514,7 +35814,6 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
     model VagusNerve
     extends Physiolibrary.Icons.NervusVagus;
       parameter Real SympsOnParasymps[:,3]={{ 0.0,  8.0,  0}, { 1.5,  2.0,  -2.0}, { 4.5,  0.0,  0}};
-
     Physiolibrary.Blocks.Interpolation.Curve sympsOnParasymps(
       x=SympsOnParasymps[:, 1],
       y=SympsOnParasymps[:, 2],
@@ -36550,7 +35849,6 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
       extends Physiolibrary.Icons.Kidney;
       parameter Real LowPressureEffect[:,3]={{ 0.0,  1.5,  0}, { 1.0,  1.0,  -0.4}, { 4.0,  0.2,  0}};
       parameter Real FuelEffect[:,3]={{ 0.30,  0.0,  0}, { 0.60,  3.0,  0}, { 0.80,  0.0,  0}};
-
       Modelica.Blocks.Interfaces.RealInput SympsCNS_BaroEffect
         annotation (Placement(transformation(extent={{-120,-60},{-80,-20}}),
             iconTransformation(extent={{-120,-60},{-80,-20}})));
@@ -36645,7 +35943,6 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
 
     model BetaReceptorsActivityFactor
       //extends Library.BaseFactor2;
-
       Modelica.Blocks.Interfaces.RealInput GangliaGeneral_NA(final quantity=
             "Frequency", final displayUnit="Hz")       annotation (Placement(transformation(extent={{-100,40},
                 {-80,60}}), iconTransformation(extent={{-108,-70},{-88,-50}})));
@@ -36670,12 +35967,10 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
             origin={80,-90}),
             iconTransformation(extent={{-10,-10},{10,10}},  rotation=270,
             origin={0,-70})));
-
       parameter Real NEURALK(displayUnit="1/Hz") = 0.333;
       parameter Real HUMORALK = 0.5;
       parameter Boolean Switch = false;
       parameter Real Setting = 0;
-
       Modelica.Blocks.Math.Add TotalAgonism(k1=NEURALK, k2=HUMORALK)
         annotation (Placement(transformation(extent={{-58,20},{-38,40}})));
       Modelica.Blocks.Logical.Switch switch1
@@ -36692,7 +35987,6 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
             rotation=270,
             origin={80,-66})));
     equation
-
       connect(Activity.u2, BetaBlockade_Effect) annotation (Line(
           points={{-8,-36},{-32,-36}},
           color={0,0,127},
@@ -36753,7 +36047,6 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
 
     model AplhaReceptorsActivityFactor
       //extends Library.BaseFactor2;
-
       Physiolibrary.Types.RealIO.FractionInput GangliaGeneral_NA(displayUnit="1")       annotation (Placement(transformation(extent={{-100,40},
                 {-80,60}}), iconTransformation(extent={{-108,-70},{-88,-50}})));
       Physiolibrary.Types.RealIO.FractionInput AlphaPool_Effect
@@ -36777,14 +36070,11 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
             origin={80,-90}),
             iconTransformation(extent={{-10,-10},{10,10}},  rotation=270,
             origin={0,-70})));
-
       parameter Real[:,3] data;
-
       parameter Physiolibrary.Types.Fraction NEURALK = 0.333;
       parameter Physiolibrary.Types.Fraction HUMORALK = 0.5;
       parameter Boolean Switch = false;
       parameter Physiolibrary.Types.Fraction Setting = 0;
-
       Modelica.Blocks.Math.Add TotalAgonism(k1=NEURALK, k2=HUMORALK)
         annotation (Placement(transformation(extent={{-58,20},{-38,40}})));
       Modelica.Blocks.Logical.Switch switch1
@@ -36806,7 +36096,6 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
             rotation=270,
             origin={80,-66})));
     equation
-
       connect(SympsEffect.u2, SympsOnConductance.val)
                                       annotation (Line(
           points={{74,-54},{74,-30},{50,-30}},
@@ -36875,7 +36164,6 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
     model Pituitary
       extends Physiolibrary.Icons.Hypophysis;
       parameter Real BaroreflexOnBaroEffectData[:,3]={{ 0.0,  1.5,  0}, { 1.0,  1.0,  -0.5}, { 2.0,  0.5,  0}};
-
     Physiolibrary.Blocks.Interpolation.Curve BaroreflexOnBaroEffect(
       x=BaroreflexOnBaroEffectData[:, 1],
       y=BaroreflexOnBaroEffectData[:, 2],
@@ -36941,7 +36229,6 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
     end Pituitary;
 
     model Hypothalamus
-
       Modelica.Blocks.Interfaces.RealInput BrainFunctionEffect
         annotation (Placement(transformation(extent={{-120,40},{-80,80}})));
       Modelica.Blocks.Interfaces.RealOutput HypothalamusSkinFlow_NA
@@ -37106,7 +36393,6 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
           points={{-100,-40},{-68,-40},{-68,-34},{-12,-34},{-12,80},{0,80}},
           color={0,0,127},
           smooth=Smooth.None));
-
       connect(Constant.y, HypothalamusSweatingAcclimation1.yBase) annotation (
           Line(
           points={{7,88},{8,88},{8,82}},
@@ -37120,7 +36406,6 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
     extends Physiolibrary.Icons.SinoatrialNode;
       parameter Real SympatheticEffect[:,3]={{ 0.0,    0,  0}, { 1.0,   10,  10}, { 5.0,  120,  0}};
       parameter Real ParasympatheticEffect[:,3]={{ 0.0,    0,  0}, { 2.0,  -20,  -8}, { 8.0,  -40,  0}};
-
       Modelica.Blocks.Interfaces.RealInput GangliaGeneral_NA
         annotation (Placement(transformation(extent={{-120,-40},{-80,0}})));
     Physiolibrary.Blocks.Interpolation.Curve parasympatheticEffect(
@@ -37412,9 +36697,7 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
 
     package IO_Bus
         extends Physiolibrary.Types.IO_Bus;
-
       redeclare model extends Variables
-
       T.Fraction AdrenalNerve_NA(varName="AdrenalNerve.NA")
         "Nerve activity of adrenal nerve."
       annotation (Placement(transformation(extent={{-36,10},{-30,16}})));
@@ -37437,7 +36720,6 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
         "Sympathetis pituitary nerve activity."
       annotation (Placement(transformation(extent={{-36,110},{-30,116}})));
       equation
-
       connect(AdrenalNerve_NA.y, busConnector.AdrenalNerve_NA) annotation (Line(
        points={{-29.7,13},{90,13},{90,-2}},
             color={0,0,127},
@@ -37480,7 +36762,6 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
             string="%second",
             index=1,
             extent={{6,3},{6,3}}));
-
         connect(VagusNerve.y, busConnector.VagusNerve_NA_Hz) annotation (Line(
             points={{-29.7,-9},{66,-9},{66,-2},{90,-2}},
             color={0,0,127},
@@ -37692,7 +36973,6 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
         annotation (Diagram(graphics));
       end Nerves_test_SI;
     end IO_Bus;
-
     annotation (Documentation(revisions="<html>
 
 <table cellspacing=\"2\" cellpadding=\"0\" border=\"0\"><tr>
@@ -37729,10 +37009,8 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
               {100,100}}), graphics));
   end Nerves;
 
-
   package Setup "Environment Influences"
     extends Physiolibrary.Icons.SetupLib;
-
     model Setup
       extends Physiolibrary.Icons.Setup;
     Physiolibrary.Types.BusConnector busConnector annotation (Placement(
@@ -37798,7 +37076,6 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
     end Setup;
 
     model Enviroment
-
     Physiolibrary.Types.BusConnector busConnector annotation (Placement(
           transformation(extent={{-40,-20},{-26,-6}}), iconTransformation(
             extent={{-40,-20},{0,20}})));
@@ -37899,7 +37176,6 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
     end Enviroment;
 
     model Diet
-
     Physiolibrary.Types.BusConnector busConnector annotation (Placement(
           transformation(extent={{-40,-20},{-24,-4}}), iconTransformation(
             extent={{-40,-20},{0,20}})));
@@ -37982,7 +37258,6 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
     end Diet;
 
     model Healthy
-
     Physiolibrary.Types.BusConnector busConnector annotation (Placement(
           transformation(extent={{-40,-20},{-24,-4}}), iconTransformation(
             extent={{-40,-20},{0,20}})));
@@ -38164,7 +37439,6 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
     end Healthy;
 
     model Exercise
-
     Physiolibrary.Types.BusConnector busConnector annotation (Placement(
           transformation(extent={{-40,-20},{-26,-6}}), iconTransformation(
             extent={{-40,-20},{0,20}})));
@@ -38247,7 +37521,6 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
     end Exercise;
 
     model Posture
-
     Physiolibrary.Types.BusConnector busConnector annotation (Placement(
           transformation(extent={{-40,-20},{-26,-6}}), iconTransformation(
             extent={{-40,-20},{0,20}})));
@@ -38300,7 +37573,6 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
     end Posture;
 
     model Drugs
-
     Physiolibrary.Types.BusConnector busConnector annotation (Placement(
           transformation(extent={{-40,-20},{-26,-6}}), iconTransformation(
             extent={{-40,-20},{0,20}})));
@@ -38363,7 +37635,6 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
     end Drugs;
 
     model Tissues
-
     Physiolibrary.Types.BusConnector busConnector annotation (Placement(
           transformation(extent={{-40,-20},{-26,-6}}), iconTransformation(
             extent={{-40,-20},{0,20}})));
@@ -38459,10 +37730,8 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
 
     package IO_Bus
       extends Physiolibrary.Types.IO_Bus;
-
       redeclare model extends Variables
         extends Physiolibrary.Icons.Setup;
-
       T.Pressure AirSupplyInspiredAirPressure(varName="AirSupply-InspiredAir.Pressure")
       annotation (Placement(transformation(extent={{-80,-154},{-74,-148}})));
       T.Fraction Anesthesia_VascularConductance(varName="Anesthesia.VascularConductance")
@@ -38573,7 +37842,6 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
       annotation (Placement(transformation(extent={{72,142},{78,148}})));
       T.Mass WeightCore(varName="Weight.Core")
       annotation (Placement(transformation(extent={{72,152},{78,158}})));
-
       T.MolarFlowRate IVDrip_ProteinRate(varName="IVDrip.ProteinRate", storeUnit="mmol/min")
       annotation (Placement(transformation(extent={{-90,-40},{-84,-34}})));
       T.Temperature AmbientTemperature(varName=
@@ -38949,7 +38217,6 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
             string="%second",
             index=1,
             extent={{6,3},{6,3}}));
-
         connect(AmbientTemperature.y, busConnector.AmbientTemperature)
           annotation (Line(
             points={{-87.7,13},{90,13},{90,-2}},
@@ -39290,7 +38557,6 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
       annotation (Diagram(graphics));
       end Test;
     end IO_Bus;
-
     annotation (Documentation(revisions="<html>
 
 <table cellspacing=\"2\" cellpadding=\"0\" border=\"0\"><tr>
@@ -39320,53 +38586,39 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
               {100,100}}), graphics));
   end Setup;
 
-
   package Status "Fitness Status of Tissue Structures and Functionality"
    extends Physiolibrary.Icons.StatusLib;
     model TissuesFitness
      extends Physiolibrary.Icons.Status;
       Tissues.SkeletalMuscle skeletalMuscle
         annotation (Placement(transformation(extent={{-80,64},{-60,84}})));
-
       Tissues.Bone bone
         annotation (Placement(transformation(extent={{-80,32},{-60,52}})));
-
       Tissues.Fat fat
         annotation (Placement(transformation(extent={{-80,-58},{-60,-38}})));
-
       Tissues.Brain brain
         annotation (Placement(transformation(extent={{0,30},{20,50}})));
-
       Tissues.RightHeart rightHeart
         annotation (Placement(transformation(extent={{0,-90},{20,-70}})));
-
       Tissues.RespiratoryMuscle respiratoryMuscle
         annotation (Placement(transformation(extent={{-80,-28},{-60,-8}})));
-
       Tissues.OtherTissue otherTissue
         annotation (Placement(transformation(extent={{-80,2},{-60,22}})));
-
       Tissues.Liver liver
         annotation (Placement(transformation(extent={{0,64},{20,84}})));
-
       Tissues.LeftHeart leftHeart
         annotation (Placement(transformation(extent={{0,-60},{20,-40}})));
-
       Tissues.Kidney kidney
         annotation (Placement(transformation(extent={{0,-30},{20,-10}})));
-
       Tissues.GITract GITract
         annotation (Placement(transformation(extent={{0,-2},{20,18}})));
-
     Physiolibrary.Types.BusConnector busConnector
       annotation (Placement(transformation(extent={{-108,72},{-68,112}})));
       Tissues.Skin skin
         annotation (Placement(transformation(extent={{-80,-88},{-60,-68}})));
-
       PatientStatus patientStatus
         annotation (Placement(transformation(extent={{74,16},{94,36}})));
     equation
-
       connect(bone.pH_intracellular, busConnector.bone_pH_intracellular)        annotation (
          Line(
           points={{-61,50},{-20,50},{-20,92},{-88,92}},
@@ -39463,7 +38715,6 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
           string="%second",
           index=1,
           extent={{5,2},{5,2}}));
-
       connect(bone.T, busConnector.bone_T)        annotation (
          Line(
           points={{-61,46},{-20,46},{-20,92},{-88,92}},
@@ -39560,7 +38811,6 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
           string="%second",
           index=1,
           extent={{5,2},{5,2}}));
-
       connect(bone.Fuel_FractUseDelay, busConnector.bone_Fuel_FractUseDelay)        annotation (
          Line(
           points={{-61,42},{-20,42},{-20,92},{-88,92}},
@@ -39657,7 +38907,6 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
           string="%second",
           index=1,
           extent={{5,2},{5,2}}));
-
       connect(bone.CellProteinAA, busConnector.CellProteinAA)       annotation (
          Line(
           points={{-61,34},{-20,34},{-20,92},{-88,92}},
@@ -39754,7 +39003,6 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
           string="%second",
           index=1,
           extent={{5,2},{5,2}}));
-
     connect(bone.StructureEffect, busConnector.bone_StructureEffect) annotation (Line(
           points={{-68,30},{-20,30},{-20,92},{-88,92}},
           color={0,0,127},
@@ -39803,7 +39051,6 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
           points={{-68,62},{-20,62},{-20,92},{-88,92}},
           color={0,0,127},
           smooth=Smooth.None));
-
     connect(bone.StructureEffect, busConnector.Bone_StructureEffect) annotation (Line(
           points={{-68,30},{-20,30},{-20,92},{-88,92}},
           color={0,0,127},
@@ -39848,7 +39095,6 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
           points={{-68,62},{-20,62},{-20,92},{-88,92}},
           color={0,0,127},
           smooth=Smooth.None));
-
      connect(bone.FunctionEffect, busConnector.bone_FunctionEffect) annotation (Line(
           points={{-72,30},{-20,30},{-20,92},{-88,92}},
           color={0,0,127},
@@ -39897,7 +39143,6 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
           points={{-72,62},{-20,62},{-20,92},{-88,92}},
           color={0,0,127},
           smooth=Smooth.None));
-
     connect(bone.FunctionEffect, busConnector.BoneFunctionEffect) annotation (Line(
           points={{-72,30},{-20,30},{-20,92},{-88,92}},
           color={0,0,127},
@@ -39946,7 +39191,6 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
           points={{-72,62},{-20,62},{-20,92},{-88,92}},
           color={0,0,127},
           smooth=Smooth.None));
-
     connect(bone.FunctionFailed, busConnector.Bone_Function_Failed) annotation (Line(
           points={{-64,30},{-20,30},{-20,92},{-88,92}},
           color={0,0,127},
@@ -39995,7 +39239,6 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
           points={{-64,62},{-20,62},{-20,92},{-88,92}},
           color={0,0,127},
           smooth=Smooth.None));
-
       connect(brain.FunctionEffect, patientStatus.BrainFunctionEffect)
         annotation (Line(
           points={{8,28},{8,26},{74,26}},
@@ -40022,7 +39265,6 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
     model Failed
       parameter Real effectAtFailing=0.2;
       parameter Real effectAtRevitaling=0.4;
-
       Modelica.Blocks.Interfaces.RealInput FunctionEffect
                                                    annotation (Placement(
             transformation(extent={{-118,-20},{-78,20}}), iconTransformation(extent=
@@ -40464,7 +39706,6 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
 
     package Tissues
       model TissueFitness
-
         Physiolibrary.Types.RealIO.FractionOutput FunctionEffect   annotation (Placement(transformation(
                 extent={{56,-14},{68,-2}}),  iconTransformation(
               extent={{-20,-20},{20,20}},
@@ -40475,7 +39716,6 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
               extent={{-20,-20},{20,20}},
               rotation=270,
               origin={20,-120})));
-
         Physiolibrary.Types.RealIO.pHInput pH_intracellular
                                          annotation (Placement(transformation(extent={{-84,42},
                   {-72,54}}),           iconTransformation(
@@ -40489,12 +39729,10 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
               extent={{-10,-10},{10,10}},
               rotation=180,
               origin={90,40})));
-
         Physiolibrary.Types.RealIO.FractionInput Fuel_FractUseDelay                        annotation (Placement(transformation(extent={{-96,54},
                   {-84,66}}),           iconTransformation(extent={{-10,-10},{10,10}},
               rotation=180,
               origin={90,0})));
-
         Physiolibrary.Types.RealIO.AmountOfSubstanceInput
                                                       CellProteinAA(final displayUnit=
              "mol") annotation (Placement(transformation(extent={{-2,30},{8,40}}),
@@ -40502,7 +39740,6 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
               extent={{-10,-10},{10,10}},
               rotation=180,
               origin={90,-80})));
-
       Physiolibrary.Blocks.Factors.Spline PhOnStructure(data={{6.5,0.1,0},{6.6,
             0.0,0}})
         annotation (Placement(transformation(extent={{-64,14},{-44,36}})));
@@ -40547,7 +39784,6 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
       Physiolibrary.Types.Constants.FrequencyConst            Constant2(k=0)
         annotation (Placement(transformation(extent={{-86,-30},{-78,-22}})));
       equation
-
         connect(PhOnStructure.u, pH_intracellular)
                                                   annotation (Line(
             points={{-62,25},{-70,25},{-70,48},{-78,48}},
@@ -40714,7 +39950,6 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
     package IO_Bus
         extends Physiolibrary.Types.IO_Bus;
       redeclare model extends Variables
-
       T.Fraction Bone_StructureEffect(varName="Bone-Structure.Effect")
         "Bone tissue structural damage effect. []"
       annotation (Placement(transformation(extent={{-36,10},{-30,16}})));
@@ -41032,7 +40267,6 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
             string="%second",
             index=1,
             extent={{6,3},{6,3}}));
-
         connect(skin_FunctionEffect.y, busConnector.skin_FunctionEffect)
           annotation (Line(
             points={{-29.7,5},{25.15,5},{25.15,-2},{90,-2}},
@@ -41247,7 +40481,6 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
         annotation (Diagram(graphics));
       end Status_test_SI;
     end IO_Bus;
-
     annotation (Documentation(revisions="<html>
 
 <table cellspacing=\"2\" cellpadding=\"0\" border=\"0\"><tr>
@@ -41277,22 +40510,17 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
               {100,100}}), graphics));
   end Status;
 
-
   package Water "Body Water"
     extends Physiolibrary.Icons.WaterLib;
     package Hydrostatics
     "Hydrostatic pressure difference in upper, midle and lower torso"
-
     block Constant "Generate constant signal of type Posture"
       parameter Posture k=Posture.Lying "Constant output value";
-
       PostureOutput y "Connector of Real output signal"
         annotation (Placement(transformation(extent={{100,-10},{120,10}},
             rotation=0)));
-
     equation
       y = k;
-
       annotation (
         Icon(coordinateSystem(
         preserveAspectRatio=true,
@@ -41329,31 +40557,25 @@ The Real output y is a constant signal:
         Standing,
         Tilting,
         SteadyState);
-
       model TorsoHydrostatics
-
          parameter Physiolibrary.Types.Fraction Alpha =   0.1667
         "torso: capilary pressure coeficient between artery and vein pressure";
          parameter Physiolibrary.Types.Acceleration GravityAcceleration = 9.81
         "gravity constant";
          parameter Physiolibrary.Types.Density BloodDensity = 1060
         "blood density";
-
          parameter Physiolibrary.Types.Position TorsoHeight
         "torso: center of gravity - height";
-
          parameter Physiolibrary.Types.Fraction artyFractGz[Posture]
         "torso: arty hydrostatic effects for posturing";
          parameter Physiolibrary.Types.Fraction veinFractGz[Posture]
         "torso: vein hydrostatic effects for posturing";
-
          Physiolibrary.Types.Fraction ArtyFractGz;
          Physiolibrary.Types.Fraction VeinFractGz;
          Physiolibrary.Types.Pressure TorsoArtyGradient;
          Physiolibrary.Types.Pressure TorsoVeinGradient;
          Physiolibrary.Types.Pressure Arty;
          Physiolibrary.Types.Pressure Vein;
-
         Physiolibrary.Types.RealIO.FractionInput
                                            Pump_Effect "xNormal"
                                                  annotation (Placement(transformation(extent={{
@@ -41376,12 +40598,10 @@ The Real output y is a constant signal:
       equation
          ArtyFractGz = artyFractGz[Status_Posture];
          VeinFractGz = veinFractGz[Status_Posture]; //in legs veins are valves
-
          TorsoArtyGradient  =  TorsoHeight * GravityAcceleration * BloodDensity * ArtyFractGz;  //Hydrostatic pressure: P=ro.g.h
          //cm *  0.01 m/cm * 9.81 m/s² * 1060 kg/m3 * 1/133.322 mmHg/Pa
          //= height[cm] * 0.77996129671022036873134216408395 [mmHg]
          //Blood density = 1060 kg/m3: Cutnell, John & Johnson, Kenneth. Physics, Fourth Edition. Wiley, 1998: 308.
-
          //bloodDensity = 1060 kg/m3
          //gravityAcceleration = 9.81 m/s2
          //Pa2mmHg = 1/133.322 mmHg/Pa
@@ -41389,13 +40609,10 @@ The Real output y is a constant signal:
          //averageHydrostaticHeight = TorsoCM * postureCoef[Status_Posture]
          //hydrostaticPressure = averageHydrostaticHeight * cm2m * bloodDensity * gravityAcceleration * Pa2mmHg
          //                    = 0.77996 * averageHydrostaticHeight
-
          TorsoVeinGradient  =  TorsoHeight * GravityAcceleration * BloodDensity * VeinFractGz;
-
          Arty  = max( (fromPressure + TorsoArtyGradient), 0);
          Vein  = max( toPressure + ( TorsoVeinGradient * Pump_Effect), 0);  //only lower torso has LegMusclePump_Effect
          Capy  = max( ( Alpha * Arty)   + ( 1.0 - Alpha)  * Vein, 0);
-
        annotation (
       Documentation(info="<HTML>
 <PRE>
@@ -41425,9 +40642,7 @@ Schema : 2008.0
 
       model Hydrostatics
         extends Physiolibrary.Icons.Hydrostatics;
-
          parameter Real TiltTable_Degrees( final quantity="Angle", final displayUnit="Deg")= 0;
-
         TorsoHydrostatics UpperTorsoHydrostatics(
           artyFractGz={0,1,1,sin(Modelica.SIunits.Conversions.from_deg(
               TiltTable_Degrees)),1.76947},
@@ -41435,7 +40650,6 @@ Schema : 2008.0
               TiltTable_Degrees)),1.76947},
           TorsoHeight=-0.1)
           annotation (Placement(transformation(extent={{-12,34},{16,62}})));
-
         TorsoHydrostatics LowerTorsoHydrostatics(
           artyFractGz={0,0.7,1,sin(Modelica.SIunits.Conversions.from_deg(
               TiltTable_Degrees)),0.0190301},
@@ -41443,7 +40657,6 @@ Schema : 2008.0
               TiltTable_Degrees)),0.0190301},
           TorsoHeight=0.5)
           annotation (Placement(transformation(extent={{-12,-42},{16,-14}})));
-
         TorsoHydrostatics MiddleTorsoHydrostatics(
           artyFractGz={0,1,1,sin(Modelica.SIunits.Conversions.from_deg(
               TiltTable_Degrees)),-0.00024891},
@@ -41451,7 +40664,6 @@ Schema : 2008.0
               TiltTable_Degrees)),-0.00024891},
           TorsoHeight=0.04)
           annotation (Placement(transformation(extent={{-12,-4},{16,24}})));
-
       Physiolibrary.Types.Constants.FractionConst             PumpEffect(k=1)
         annotation (Placement(transformation(extent={{-40,32},{-36,36}})));
         Physiolibrary.Types.RealIO.PressureInput
@@ -41546,13 +40758,11 @@ Schema : 2008.0
             points={{16,-28},{46,-28}},
             color={0,0,127},
             smooth=Smooth.None));
-
         connect(UpperTorsoHydrostatics.Status_Posture, real2Posture.y) annotation (
             Line(
             points={{-12,59.2},{-32,59.2},{-32,24},{-63.2,24}},
             color={0,127,127},
             smooth=Smooth.None));
-
         connect(real2Posture.y, MiddleTorsoHydrostatics.Status_Posture) annotation (
             Line(
             points={{-63.2,24},{-32,24},{-32,21.2},{-12,21.2}},
@@ -41606,7 +40816,6 @@ Schema : 2008.0
 Connector with one input signal of type Posture.
 </p>
 </html>"));
-
       connector PostureOutput =
                           output Posture "'input Posture' as connector"
       annotation (defaultComponentName="u",
@@ -41635,20 +40844,16 @@ Connector with one input signal of type Posture.
 Connector with one input signal of type Posture.
 </p>
 </html>"));
-
     model Real2Posture "Convert Real to type Posture"
       extends Physiolibrary.Icons.ConversionIcon;
-
       PostureOutput y "Connector of Real output signal"
         annotation (Placement(transformation(extent={{60,-20},{80,0}},
             rotation=0), iconTransformation(extent={{100,-20},{140,20}})));
-
       Modelica.Blocks.Interfaces.RealInput u
                                       annotation (Placement(transformation(extent={{-130,
                 -20},{-90,20}}),      iconTransformation(extent={{-140,-20},{-100,20}})));
       Integer tmp;
     equation
-
       tmp = integer(u);
       y = if tmp <= 0 then Posture.Lying elseif tmp == 1 then Posture.Sitting
        elseif tmp == 2 then Posture.Standing
@@ -41673,9 +40878,7 @@ The Real output y is a constant signal:
     end Hydrostatics;
 
     package Osmoles "Intracellular vs. Extracellular Water"
-
       model OsmBody
-
         Physiolibrary.Types.RealIO.AmountOfSubstanceInput
                                            OsmECFV_Electrolytes                                annotation (Placement(transformation(
                 extent={{-120,50},{-80,90}}), iconTransformation(extent={{-100,88},{-76,
@@ -41705,9 +40908,7 @@ The Real output y is a constant signal:
                                             ICFV "intracellular water"
                                                            annotation (Placement(transformation(extent={{60,60},
                   {100,100}}),iconTransformation(extent={{92,68},{116,92}})));
-
         parameter Physiolibrary.Types.Fraction Dissociation = 0.890;
-
         Physiolibrary.Types.AmountOfSubstance OsmECFV_NonElectrolytes;
         Physiolibrary.Types.AmountOfSubstance OsmCell_NonElectrolytes;
         Physiolibrary.Types.AmountOfSubstance Electrolytes;
@@ -41740,7 +40941,6 @@ The Real output y is a constant signal:
       equation
             OsmECFV_NonElectrolytes = UreaECF + GlucoseECF + 0.340;
             OsmCell_NonElectrolytes = UreaICF + 0.354;
-
              Electrolytes  =  OsmECFV_Electrolytes + OsmCell_Electrolytes;
              NonElectrolytes  =  OsmECFV_NonElectrolytes + OsmCell_NonElectrolytes;
              Total  =  Electrolytes + NonElectrolytes;
@@ -41754,7 +40954,6 @@ The Real output y is a constant signal:
              Osmoreceptors  = ActiveElectrolytes / BodyH2O_Vol; //, simplified=0.25331);
              ICFV  =  ( ICFVActiveOsmoles / ActiveOsmoles)  * BodyH2O_Vol;
              ECFV  =  BodyH2O_Vol - ICFV; // == ( ECFVActiveOsmoles / ActiveOsmoles)  * BodyH2O_Vol
-
              ECFVOsmolarity = ECFVActiveOsmoles/ECFV; // == OsmBody_Osm_conc_CellWalls
       annotation (
       Documentation(info="<html>
@@ -41784,7 +40983,6 @@ The Real output y is a constant signal:
 
       model ActiveOsmolesFake
       "Fake Distribution of active osmoles into extracellular parts to have the same extracellular osmolarity (typically 285 mosm/l)"
-
         Modelica.Blocks.Math.Product plasmaOsmoles
           annotation (Placement(transformation(extent={{40,9},{52,20}})));
       Physiolibrary.Types.BusConnector busConnector annotation (Placement(
@@ -41895,18 +41093,13 @@ The Real output y is a constant signal:
     end Osmoles;
 
     package WaterCompartments "Body Water Distribution"
-
       model Outtake
-
       Physiolibrary.Osmotic.Interfaces.OsmoticPort_a     H2OLoss annotation (
           Placement(transformation(extent={{-120,-20},{-80,20}}),
             iconTransformation(extent={{-110,-10},{-90,10}})));
-
       //parameter Real H2OTarget(final quantity="VolumeFlowRate",final displayUnit="ml/min") = 0;
-
       parameter Real H2OMassEffect[ :,3] = {{  0.0,  0.0,  0.0}, { 50.0,  1.0,  0.0}}
         "volume to outtake effect";
-
       Physiolibrary.Osmotic.Sources.SolventOutflux  outputPump(
           useSolutionFlowInput=true)
         annotation (Placement(transformation(extent={{20,-20},{60,20}})));
@@ -41938,7 +41131,6 @@ The Real output y is a constant signal:
               rotation=270,
               origin={-60,40})));
       equation
-
         connect(curve.val, product.u2) annotation (Line(
             points={{-40,34},{-10,34}},
             color={0,0,127},
@@ -41981,7 +41173,6 @@ The Real output y is a constant signal:
       model GILumenInternal
         extends Physiolibrary.SteadyStates.Interfaces.SteadyState(state_start=mass_start);
         extends Physiolibrary.Icons.GILumen;
-
         Physiolibrary.Types.RealIO.AmountOfSubstanceInput
                                              GILumenSodium
         "sodium in gastro intestinal lumen"                                                                  annotation (Placement(transformation(extent={{120,20},
@@ -41992,11 +41183,9 @@ The Real output y is a constant signal:
         "potasium in gastro intestinal lumen"                     annotation (Placement(transformation(
                 extent={{120,60},{80,100}}),iconTransformation(extent={{-100,10},{-80,
                   30}})));
-
       Physiolibrary.Osmotic.Interfaces.OsmoticPort_b absorbtion annotation (
           Placement(transformation(extent={{60,-20},{100,20}}),
             iconTransformation(extent={{90,-10},{110,10}})));
-
       /*Physiolibrary.Hydraulic.Interfaces.HydraulicPort_a env annotation (
     Placement(transformation(extent={{-120,-60},{-80,-20}}),
     iconTransformation(extent={{-120,-60},{-80,-20}})));
@@ -42011,7 +41200,6 @@ The Real output y is a constant signal:
       Physiolibrary.Types.Osmolarity OsmNa;
       Physiolibrary.Types.Osmolarity OsmK;
       //Physiolibrary.Types.Osmolarity Fiber;
-
         Physiolibrary.Types.RealIO.VolumeOutput
                                               Vol
                                            annotation (Placement(transformation(
@@ -42024,18 +41212,14 @@ The Real output y is a constant signal:
         //mass = 949.201;
       equation
       //   der(mass) = (intake.q + absorbtion.q + outtake.q)/Library.SecPerMin;
-
        //  env.pressure = Vol; //used in diarrea or vomitus calculation
       //   OsmNa=Na_EqToAllConnectedOsm*GILumenSodium_Mass/mass;
       //   OsmK = K_EqToAllConnectedOsm*GILumenPotassium_Mass/mass;
          OsmNa=2*GILumenSodium/mass;
          OsmK =2*GILumenPotassium/mass;
-
       //   Fiber =Fiber_mass; ///mass;
          absorbtion.o = (Fiber + OsmNa + OsmK);
-
          Vol = mass;
-
       state = mass;
          change = (            absorbtion.q)/60;
                    /*env.q + */
@@ -42118,7 +41302,6 @@ To get heat from temperature
       model GI_Absorption
         import QHP = Physiomodel;
       extends Physiolibrary.Icons.GILumen;
-
       Physiolibrary.Osmotic.Interfaces.OsmoticPort_b vascularH2O
         "plasma osmolarity on cell membranes"
                       annotation (Placement(transformation(extent={{80,44},{100,
@@ -42127,7 +41310,6 @@ To get heat from temperature
       //parameter Real Na_EqToAllConnectedOsm(final displayUnit="mOsm/mEq") = 2;
       //parameter Real K_EqToAllConnectedOsm(final displayUnit="mOsm/mEq") = 2;
       //parameter Real initialVolume(final quantity="Volume", final displayUnit="ml") =  1000;
-
       //    Na_EqToAllConnectedOsm=Na_EqToAllConnectedOsm,
       //    K_EqToAllConnectedOsm=K_EqToAllConnectedOsm,
         Outtake vomitus
@@ -42171,7 +41353,6 @@ To get heat from temperature
           k2=2,
           k3=1) annotation (Placement(transformation(extent={{-48,22},{-36,34}})));
       equation
-
         connect(absorption.q_out, flowMeasure.q_in) annotation (Line(
             points={{26,22},{42,22},{42,26}},
             color={127,127,0},
@@ -42181,7 +41362,6 @@ To get heat from temperature
             points={{-59,-10},{-54,-10},{-54,-20}},
             color={0,0,127},
             smooth=Smooth.None));
-
       connect(flowMeasure.volumeFlowRate, busConnector.GILumenVolume_Absorption)
         annotation (Line(
           points={{45.6,33},{98,33},{98,90},{-88,90}},
@@ -42392,9 +41572,7 @@ To get heat from temperature
 
       model LungEdema
       extends Physiolibrary.Icons.Lungs;
-
        parameter Real initialVolume(displayUnit="ml") = 0;
-
       Physiolibrary.Osmotic.Interfaces.OsmoticPort_a q_in(o(final displayUnit=
               "g/ml")) annotation (Placement(transformation(extent={{-110,10},{
                 -90,30}}), iconTransformation(extent={{-10,30},{10,50}})));
@@ -42418,14 +41596,12 @@ To get heat from temperature
       Physiolibrary.Types.BusConnector busConnector annotation (Placement(
             transformation(extent={{-104,61},{-84,81}}), iconTransformation(
               extent={{60,60},{80,80}})));
-
         Physiolibrary.Hydraulic.Components.ElasticVessel waterInLungs(
           volume_start=0,
           Compliance=0,
           ExternalPressure=0,
           ZeroPressureVolume=0.002) "excess water in lungs"
           annotation (Placement(transformation(extent={{12,16},{32,36}})));
-
       equation
         connect(toPressure.q_in, q_in) annotation (Line(
             points={{-86,20},{-100,20}},
@@ -42510,10 +41686,8 @@ Torso water compartment.
         "plasma proteins concentration" annotation (Placement(transformation(
               extent={{76,-8},{96,12}}), iconTransformation(extent={{-10,30},{
                 10,50}})));
-
         parameter Physiolibrary.Types.Volume initialVolume = 0
         "initial water in peritoneum";
-
       Physiomodel.Metabolism.deprecated.HydraulicPressure colloidhydraulicPressure0_1
         annotation (Placement(transformation(extent={{68,34},{60,42}})));
       Physiomodel.Metabolism.deprecated.HydraulicPressure colloidhydraulicPressure0_2
@@ -42534,11 +41708,9 @@ Torso water compartment.
       Physiolibrary.Types.Constants.HydraulicComplianceConst complianceConstant(
           k=5.700467976427015e-006)
         annotation (Placement(transformation(extent={{-74,48},{-66,56}})));
-
       Physiolibrary.Types.BusConnector busConnector annotation (Placement(
             transformation(extent={{-84,71},{-64,91}}), iconTransformation(
               extent={{60,60},{80,80}})));
-
         Physiolibrary.Hydraulic.Components.IdealValve idealValve
           annotation (Placement(transformation(extent={{30,-8},{50,12}})));
         Physiolibrary.Hydraulic.Components.Conductor lymph(Conductance=1.8751539396141e-10)
@@ -42549,7 +41721,6 @@ Torso water compartment.
           annotation (Placement(transformation(extent={{-28,32},{-8,52}})));
         Physiolibrary.Hydraulic.Sensors.FlowMeasure flowMeasure1
           annotation (Placement(transformation(extent={{20,52},{0,32}})));
-
       Physiolibrary.Osmotic.Sensors.FlowMeasure flowMeasure2
         annotation (Placement(transformation(extent={{82,32},{70,16}})));
       equation
@@ -42689,20 +41860,15 @@ QHP 2008 / Peritoneum
       model Torso
         import Physiomodel;
           extends Physiolibrary.Icons.Torso;
-
       //    parameter Real interstitiumProteins = 2.6;
-
           parameter Physiolibrary.Types.Volume InterstitialWater_start
         "2270,5670,3400 ml";
           parameter Physiolibrary.Types.Volume IntracellularWater_start
         "4980,12460,7470 ml";
-
           parameter Physiolibrary.Types.VolumeFlowRate NormalLymphFlow
         "0.4,0.8,1.3 ml/min";
-
           parameter Physiolibrary.Types.OsmoticPermeability CapillaryConductance
         "Capillary wall permeability for water. 0.6, 3.6, 1.3 ml/(kPa.min)";
-
           parameter Real[ :,3] InterstitialPressureVolumeData
         "{{600.0,-30.0,0.01},{2000.0,-4.8,0.0004},{5000.0,0.0,0.0004},{12000.0,50.0,0.01}}, {{1200.0,-30.0,0.01},{4800.0,-4.8,0.0004},{12000.0,0.0,0.0004},{24000.0,50.0,0.01}}, {{600.0,-30.0,0.02},{3000.0,-4.8,0.0004},{4000.0,-4.0,0.0004},{6000.0,50.0,0.03}}";
           parameter Physiolibrary.Types.Fraction ICFVFract
@@ -42712,7 +41878,6 @@ QHP 2008 / Peritoneum
           parameter Physiolibrary.Types.Fraction SweatFract "0.33,0.34,0.33";
           parameter Physiolibrary.Types.Fraction SkinFract "0.33,0.34,0.33";
           parameter Physiolibrary.Types.Fraction LungFract "0,1,0";
-
       Physiolibrary.Types.TorsoBusConnector torsoSpecific annotation (Placement(
             transformation(extent={{62,27},{80,44}}), iconTransformation(extent=
                {{30,10},{50,30}})));
@@ -42725,7 +41890,6 @@ QHP 2008 / Peritoneum
               extent={{-6,-6},{6,6}},
               rotation=0,
               origin={48,-82})));
-
       //  Physiolibrary.Types.Volume volume;
       //  Physiolibrary.Types.VolumeFlowRate change;
       Physiolibrary.Osmotic.Sources.SolventInflux metabolicH2O(useSolutionFlowInput=true)
@@ -42815,21 +41979,18 @@ QHP 2008 / Peritoneum
             extent={{-4,-4},{4,4}},
             rotation=0,
             origin={10,64})));
-
         Physiolibrary.Types.VolumeFlowRate fromCapillaries, toLymph, evaporation, fromMetabolism;
       equation
         fromCapillaries = capyMembrane.q_in.q;
         toLymph = lymph.q_out.q;
         evaporation = insensibleLungVapor.q_in.q + insensibleSkinVapor.q_in.q + sweat.q_in.q;
         fromMetabolism = metabolicH2O.q_out.q;
-
         connect(calsFract.y, metabolicH2O.solutionFlow) annotation (Line(
             points={{54.6,-82},{78,-82},{78,-81}},
             color={0,0,127},
             smooth=Smooth.None));
       //  volume = extravascularH2O.WaterVolume;
       //  change = extravascularH2O.q_out.q;
-
         connect(vascularH2O, capyMembrane.q_in) annotation (Line(
             points={{-82,-32},{-82,-14},{-60,-14}},
             color={127,127,0},
@@ -43102,7 +42263,6 @@ QHP 2008 / Peritoneum
             transformation(extent={{28,81},{48,101}}), iconTransformation(
               extent={{50,-10},{70,10}})));
       equation
-
       connect(flowMeasure.volumeFlowRate, choroid_plexus_hydraulic.solutionFlow)
         annotation (Line(
           points={{6,-12},{6,-28}},
@@ -43239,13 +42399,11 @@ QHP 2008 / Peritoneum
       Physiolibrary.Types.BusConnector busConnector annotation (Placement(
             transformation(extent={{-100,69},{-80,89}}), iconTransformation(
               extent={{-100,-100},{-80,-80}})));
-
       //  Real volume;
       //  Real change;
       equation
       //  volume = volumeCompartement.Volume;
       //  change = volumeCompartement.con.q;
-
       connect(busConnector.BladderVoidFlow, bladderVoidFlow.solutionFlow)
         annotation (Line(
           points={{-90,79},{-90,0},{-65.5,0},{-65.5,-12.5}},
@@ -43305,7 +42463,6 @@ QHP 2008 / Peritoneum
             0.0004},{24000.0,50.0,0.01}},
         initialWaterVolume=0.018613)
         annotation (Placement(transformation(extent={{20,-32},{40,-12}})));
-
       Physiomodel.Water.WaterCompartments.test.Lymph lymph(
           InterstitialPressureOnLymphFlow={{-14.0,0.0,0.0},{-4.0,1.0,0.1},{2.0,
             8.0,4.0},{6.0,25.0,0.0}}, NormalLymphFlowRate=0.8)
@@ -43342,7 +42499,6 @@ QHP 2008 / Peritoneum
       equation
         volume = extravascularH2O.WaterVolume;
         change = extravascularH2O.q_out.q;
-
         connect(lungs.busConnector, busConnector) annotation (Line(
             points={{-27,92},{-27,97},{-96,97}},
             color={0,0,255},
@@ -43520,9 +42676,7 @@ QHP 2008 / Peritoneum
 
       package Kidney "Kidney Water Excretion"
          extends Physiolibrary.Icons.Kidney;
-
         model DistalTubule
-
         Physiolibrary.Osmotic.Interfaces.OsmoticPort_a Inflow annotation (
             Placement(transformation(extent={{-120,-20},{-80,20}}),
               iconTransformation(extent={{-120,-20},{-80,20}})));
@@ -43570,17 +42724,14 @@ QHP 2008 / Peritoneum
         model CD_H2OChannels
           extends Physiolibrary.SteadyStates.Interfaces.SteadyState(
                                                         stateName="CD_H2OChannels.Inactive", state_start = 2-initialActive);
-
         parameter Physiolibrary.Types.Fraction initialActive(final displayUnit="1") = 1;
         parameter Physiolibrary.Types.Volume InactivateKinv(final displayUnit="ml")
           "1/0.000125 ml";
         parameter Physiolibrary.Types.Frequency ReactivateK(final displayUnit="1/min")
           "0.0004 1/min";
-
         Physiolibrary.Osmotic.Interfaces.OsmoticPort_a     CD_H2O_Reab
           annotation (Placement(transformation(extent={{-20,80},{20,120}}),
               iconTransformation(extent={{-20,80},{20,120}})));
-
           Physiolibrary.Types.Fraction Inactive( start = 2-initialActive, final displayUnit="1");
           Physiolibrary.Types.RealIO.FractionOutput Active(final displayUnit="1")
                                      annotation (Placement(transformation(extent={{96,46},
@@ -43591,10 +42742,8 @@ QHP 2008 / Peritoneum
         equation
           q_out.q + CD_H2O_Reab.q = 0;
           q_out.o = CD_H2O_Reab.o;
-
         //  der(Inactive) = ((1/InactivateKinv) * CD_H2O_Reab.q - ReactivateK * Inactive) / Library.SecPerMin;
           Active = 2 - Inactive;
-
         state = Inactive;
           change = ((1/InactivateKinv) * CD_H2O_Reab.q - ReactivateK * Inactive);
           annotation (Icon(coordinateSystem(preserveAspectRatio=false,extent={{-100,-100},
@@ -43729,7 +42878,6 @@ QHP 2008 / Peritoneum
                 rotation=90,
                 origin={-78,44})));
         equation
-
           connect(gain1.y, sum1.u[1]) annotation (Line(
               points={{49.8,26},{48.6,26},{48.6,20.8}},
               color={0,0,127},
@@ -43763,7 +42911,6 @@ QHP 2008 / Peritoneum
               points={{62,-30},{30,-30},{30,-20},{36,-20}},
               color={0,0,127},
               smooth=Smooth.None));
-
           connect(Constant.y, PermOnOutflow.yBase) annotation (Line(
               points={{71.5,-30},{68,-30}},
               color={0,0,127},
@@ -43780,15 +42927,12 @@ QHP 2008 / Peritoneum
               points={{-10.2,-62.6},{-15.82,-62.6},{-15.82,-64},{-19.6,-64}},
               color={0,0,127},
               smooth=Smooth.None));
-
           connect(CollectingDuct.outflowMin, MedullaNaEffect.y) annotation (
               Line(
               points={{48,-8},{48,2}},
               color={0,0,127},
               smooth=Smooth.None));
-
           //!!!
-
           connect(busConnector.DT_Na_Outflow, ADHEffect.yBase)       annotation (Line(
               points={{-92,86},{48,86},{48,46}},
               color={0,0,127},
@@ -43817,7 +42961,6 @@ QHP 2008 / Peritoneum
               points={{-92,86},{98,86},{98,20.8},{47.4,20.8}},
               color={0,0,127},
               smooth=Smooth.None));
-
         connect(NephronADHEffect.u, busConnector.Vasopressin) annotation (Line(
             points={{72,58},{96,58},{96,86},{-92,86}},
             color={0,0,127},
@@ -43941,7 +43084,6 @@ QHP 2008 / Peritoneum
               color={127,127,0},
               thickness=1,
               smooth=Smooth.None));
-
           connect(ProximalTubule.FractReab, busConnector.PT_Na_FractReab) annotation (Line(
               points={{-14,52},{-14,86},{-92,86}},
               color={0,0,127},
@@ -44010,7 +43152,6 @@ QHP 2008 / Peritoneum
                 preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
               graphics));
         end Kidney;
-
       end Kidney;
 
       model LT
@@ -44224,27 +43365,22 @@ QHP 2008 / Peritoneum
 
     model Peritoneum_const
     extends Physiolibrary.Icons.Peritoneum;
-
     Physiolibrary.Osmotic.Interfaces.OsmoticPort_a flux
         "plasma proteins concentration"
                                       annotation (Placement(transformation(
             extent={{56,30},{76,50}}), iconTransformation(extent={{-10,30},{
               10,50}})));
-
       parameter Physiolibrary.Types.Volume initialVolume(displayUnit="ml") = 0
         "initial water in peritoneum";
-
     Physiolibrary.Types.BusConnector busConnector annotation (Placement(
           transformation(extent={{-106,87},{-86,107}}), iconTransformation(
             extent={{60,60},{80,80}})));
-
     Physiolibrary.Types.Constants.VolumeFlowRateConst PeritoneumSpace_Change(k=0)
         "Water gain to peritoneum. "
         annotation (Placement(transformation(extent={{-66,-4},{-20,42}})));
     Physiolibrary.Types.Constants.VolumeConst
              PeritoneumSpace_Volume(k=1e-18) "Water in peritoneum. [ml]"
     annotation (Placement(transformation(extent={{-66,48},{-20,94}})));
-
     equation
       flux.q=0;
       connect(PeritoneumSpace_Volume.y, busConnector.PeritoneumSpace_Vol)
@@ -44300,7 +43436,6 @@ QHP 2008 / Peritoneum
     Physiolibrary.Types.BusConnector busConnector annotation (Placement(
           transformation(extent={{-100,69},{-80,89}}), iconTransformation(
             extent={{-100,-100},{-80,-80}})));
-
     Physiolibrary.Types.Constants.VolumeConst volumeConstant(k=0.0003)
       annotation (Placement(transformation(extent={{-28,32},{-20,40}})));
     Physiolibrary.Hydraulic.Sensors.FlowMeasure flowMeasure annotation (
@@ -44308,7 +43443,6 @@ QHP 2008 / Peritoneum
           extent={{-10,10},{10,-10}},
           rotation=270,
           origin={-38,6})));
-
       Physiolibrary.Hydraulic.Components.ElasticVessel elasticVesselvolumeCompartement(
         stateName="BladderVolume.Mass",
         ZeroPressureVolume(displayUnit="l") = 0.001,
@@ -44375,13 +43509,11 @@ QHP 2008 / Peritoneum
     Physiolibrary.Types.BusConnector busConnector annotation (Placement(
           transformation(extent={{-100,69},{-80,89}}), iconTransformation(
             extent={{-100,-100},{-80,-80}})));
-
     Physiolibrary.Osmotic.Sensors.FlowMeasure   flowMeasure annotation (
         Placement(transformation(
           extent={{-10,10},{10,-10}},
           rotation=270,
           origin={-38,6})));
-
       Physiolibrary.Osmotic.Components.OsmoticCell bladder(volume_start=0.0003)
         annotation (Placement(transformation(extent={{-26,28},{-6,48}})));
     equation
@@ -44440,20 +43572,15 @@ QHP 2008 / Peritoneum
       model Torso_UT_OM
         import Physiomodel;
           extends Physiolibrary.Icons.Torso;
-
       //    parameter Real interstitiumProteins = 2.6;
-
           parameter Physiolibrary.Types.Volume InterstitialWater_start
         "2270,5670,3400 ml";
           parameter Physiolibrary.Types.Volume IntracellularWater_start
         "4980,12460,7470 ml";
-
           parameter Physiolibrary.Types.VolumeFlowRate NormalLymphFlow
         "0.4,0.8,1.3 ml/min";
-
           parameter Physiolibrary.Types.OsmoticPermeability CapillaryConductance
         "Capillary wall permeability for water. 0.6, 3.6, 1.3 ml/(kPa.min)";
-
           parameter Real[ :,3] InterstitialPressureVolumeData
         "{{600.0,-30.0,0.01},{2000.0,-4.8,0.0004},{5000.0,0.0,0.0004},{12000.0,50.0,0.01}}, {{1200.0,-30.0,0.01},{4800.0,-4.8,0.0004},{12000.0,0.0,0.0004},{24000.0,50.0,0.01}}, {{600.0,-30.0,0.02},{3000.0,-4.8,0.0004},{4000.0,-4.0,0.0004},{6000.0,50.0,0.03}}";
           parameter Physiolibrary.Types.Fraction ICFVFract
@@ -44463,7 +43590,6 @@ QHP 2008 / Peritoneum
           parameter Physiolibrary.Types.Fraction SweatFract "0.33,0.34,0.33";
           parameter Physiolibrary.Types.Fraction SkinFract "0.33,0.34,0.33";
           parameter Physiolibrary.Types.Fraction LungFract "0,1,0";
-
       Physiolibrary.Types.BusConnector      torsoSpecific annotation (Placement(
             transformation(extent={{62,27},{80,44}}), iconTransformation(extent=
                {{30,10},{50,30}})));
@@ -44476,7 +43602,6 @@ QHP 2008 / Peritoneum
               extent={{-6,-6},{6,6}},
               rotation=0,
               origin={48,-82})));
-
       //  Physiolibrary.Types.Volume volume;
       //  Physiolibrary.Types.VolumeFlowRate change;
       Physiolibrary.Osmotic.Sources.SolventInflux metabolicH2O(useSolutionFlowInput=true)
@@ -44566,21 +43691,18 @@ QHP 2008 / Peritoneum
             extent={{-4,-4},{4,4}},
             rotation=0,
             origin={10,64})));
-
         Physiolibrary.Types.VolumeFlowRate fromCapillaries, toLymph, evaporation, fromMetabolism;
       equation
         fromCapillaries = capyMembrane.q_in.q;
         toLymph = lymph.q_out.q;
         evaporation = insensibleLungVapor.q_in.q + insensibleSkinVapor.q_in.q + sweat.q_in.q;
         fromMetabolism = metabolicH2O.q_out.q;
-
         connect(calsFract.y, metabolicH2O.solutionFlow) annotation (Line(
             points={{54.6,-82},{78,-82},{78,-81}},
             color={0,0,127},
             smooth=Smooth.None));
       //  volume = extravascularH2O.WaterVolume;
       //  change = extravascularH2O.q_out.q;
-
         connect(vascularH2O, capyMembrane.q_in) annotation (Line(
             points={{-82,-32},{-82,-14},{-60,-14}},
             color={127,127,0},
@@ -44785,20 +43907,15 @@ QHP 2008 / Peritoneum
       model Torso_MT_OM
         import Physiomodel;
           extends Physiolibrary.Icons.Torso;
-
       //    parameter Real interstitiumProteins = 2.6;
-
           parameter Physiolibrary.Types.Volume InterstitialWater_start
         "2270,5670,3400 ml";
           parameter Physiolibrary.Types.Volume IntracellularWater_start
         "4980,12460,7470 ml";
-
           parameter Physiolibrary.Types.VolumeFlowRate NormalLymphFlow
         "0.4,0.8,1.3 ml/min";
-
           parameter Physiolibrary.Types.OsmoticPermeability CapillaryConductance
         "Capillary wall permeability for water. 0.6, 3.6, 1.3 ml/(kPa.min)";
-
           parameter Real[ :,3] InterstitialPressureVolumeData
         "{{600.0,-30.0,0.01},{2000.0,-4.8,0.0004},{5000.0,0.0,0.0004},{12000.0,50.0,0.01}}, {{1200.0,-30.0,0.01},{4800.0,-4.8,0.0004},{12000.0,0.0,0.0004},{24000.0,50.0,0.01}}, {{600.0,-30.0,0.02},{3000.0,-4.8,0.0004},{4000.0,-4.0,0.0004},{6000.0,50.0,0.03}}";
           parameter Physiolibrary.Types.Fraction ICFVFract
@@ -44808,7 +43925,6 @@ QHP 2008 / Peritoneum
           parameter Physiolibrary.Types.Fraction SweatFract "0.33,0.34,0.33";
           parameter Physiolibrary.Types.Fraction SkinFract "0.33,0.34,0.33";
           parameter Physiolibrary.Types.Fraction LungFract "0,1,0";
-
       Physiolibrary.Types.BusConnector      torsoSpecific annotation (Placement(
             transformation(extent={{62,27},{80,44}}), iconTransformation(extent=
                {{30,10},{50,30}})));
@@ -44821,7 +43937,6 @@ QHP 2008 / Peritoneum
               extent={{-6,-6},{6,6}},
               rotation=0,
               origin={48,-82})));
-
       //  Physiolibrary.Types.Volume volume;
       //  Physiolibrary.Types.VolumeFlowRate change;
       Physiolibrary.Osmotic.Sources.SolventInflux metabolicH2O(useSolutionFlowInput=true)
@@ -44911,21 +44026,18 @@ QHP 2008 / Peritoneum
             extent={{-4,-4},{4,4}},
             rotation=0,
             origin={10,64})));
-
         Physiolibrary.Types.VolumeFlowRate fromCapillaries, toLymph, evaporation, fromMetabolism;
       equation
         fromCapillaries = capyMembrane.q_in.q;
         toLymph = lymph.q_out.q;
         evaporation = insensibleLungVapor.q_in.q + insensibleSkinVapor.q_in.q + sweat.q_in.q;
         fromMetabolism = metabolicH2O.q_out.q;
-
         connect(calsFract.y, metabolicH2O.solutionFlow) annotation (Line(
             points={{54.6,-82},{78,-82},{78,-81}},
             color={0,0,127},
             smooth=Smooth.None));
       //  volume = extravascularH2O.WaterVolume;
       //  change = extravascularH2O.q_out.q;
-
         connect(vascularH2O, capyMembrane.q_in) annotation (Line(
             points={{-82,-32},{-82,-14},{-60,-14}},
             color={127,127,0},
@@ -45130,20 +44242,15 @@ QHP 2008 / Peritoneum
       model Torso_LT_OM
         import Physiomodel;
           extends Physiolibrary.Icons.Torso;
-
       //    parameter Real interstitiumProteins = 2.6;
-
           parameter Physiolibrary.Types.Volume InterstitialWater_start
         "2270,5670,3400 ml";
           parameter Physiolibrary.Types.Volume IntracellularWater_start
         "4980,12460,7470 ml";
-
           parameter Physiolibrary.Types.VolumeFlowRate NormalLymphFlow
         "0.4,0.8,1.3 ml/min";
-
           parameter Physiolibrary.Types.OsmoticPermeability CapillaryConductance
         "Capillary wall permeability for water. 0.6, 3.6, 1.3 ml/(kPa.min)";
-
           parameter Real[ :,3] InterstitialPressureVolumeData
         "{{600.0,-30.0,0.01},{2000.0,-4.8,0.0004},{5000.0,0.0,0.0004},{12000.0,50.0,0.01}}, {{1200.0,-30.0,0.01},{4800.0,-4.8,0.0004},{12000.0,0.0,0.0004},{24000.0,50.0,0.01}}, {{600.0,-30.0,0.02},{3000.0,-4.8,0.0004},{4000.0,-4.0,0.0004},{6000.0,50.0,0.03}}";
           parameter Physiolibrary.Types.Fraction ICFVFract
@@ -45153,7 +44260,6 @@ QHP 2008 / Peritoneum
           parameter Physiolibrary.Types.Fraction SweatFract "0.33,0.34,0.33";
           parameter Physiolibrary.Types.Fraction SkinFract "0.33,0.34,0.33";
           parameter Physiolibrary.Types.Fraction LungFract "0,1,0";
-
       Physiolibrary.Types.BusConnector      torsoSpecific annotation (Placement(
             transformation(extent={{62,27},{80,44}}), iconTransformation(extent=
                {{30,10},{50,30}})));
@@ -45166,7 +44272,6 @@ QHP 2008 / Peritoneum
               extent={{-6,-6},{6,6}},
               rotation=0,
               origin={48,-82})));
-
       //  Physiolibrary.Types.Volume volume;
       //  Physiolibrary.Types.VolumeFlowRate change;
       Physiolibrary.Osmotic.Sources.SolventInflux metabolicH2O(useSolutionFlowInput=true)
@@ -45256,21 +44361,18 @@ QHP 2008 / Peritoneum
             extent={{-4,-4},{4,4}},
             rotation=0,
             origin={10,64})));
-
         Physiolibrary.Types.VolumeFlowRate fromCapillaries, toLymph, evaporation, fromMetabolism;
       equation
         fromCapillaries = capyMembrane.q_in.q;
         toLymph = lymph.q_out.q;
         evaporation = insensibleLungVapor.q_in.q + insensibleSkinVapor.q_in.q + sweat.q_in.q;
         fromMetabolism = metabolicH2O.q_out.q;
-
         connect(calsFract.y, metabolicH2O.solutionFlow) annotation (Line(
             points={{54.6,-82},{78,-82},{78,-81}},
             color={0,0,127},
             smooth=Smooth.None));
       //  volume = extravascularH2O.WaterVolume;
       //  change = extravascularH2O.q_out.q;
-
         connect(vascularH2O, capyMembrane.q_in) annotation (Line(
             points={{-82,-32},{-82,-14},{-60,-14}},
             color={127,127,0},
@@ -45476,13 +44578,10 @@ QHP 2008 / Peritoneum
     package TissuesVolume
     "Division of intracellular and interstitial water into tissues"
       extends Physiolibrary.Icons.Tissues;
-
       model Tissue
       "compute tissue size from global interstitial and cell H20 volume"
-
         parameter Physiolibrary.Types.Fraction FractIFV;
         parameter Physiolibrary.Types.Fraction FractOrganH2O;
-
         Physiolibrary.Types.RealIO.VolumeInput InterstitialWater_Vol
           annotation (Placement(transformation(extent={{-120,60},{-80,100}})));
         Physiolibrary.Types.RealIO.VolumeInput CellH2O_Vol
@@ -45495,7 +44594,6 @@ QHP 2008 / Peritoneum
         "tissue cells water volume"
           annotation (Placement(transformation(extent={{80,20},{120,60}}),
               iconTransformation(extent={{80,20},{120,60}})));
-
         Physiolibrary.Types.RealIO.VolumeOutput InterstitialWater
         "tissue interstitial water volume"
           annotation (Placement(transformation(extent={{80,20},{120,60}}),
@@ -45555,18 +44653,16 @@ QHP 2008 / Peritoneum
         QHP.Water.TissuesVolume.Kidney kidney(FractIFV=4.71608978940247e-003,
             FractOrganH2O=4.71608978940247e-003)
           annotation (Placement(transformation(extent={{52,-34},{72,-14}})));
-        QHP.Water.TissuesVolume.GITract GITract(FractIFV=2.34991370540916e-002,
+        QHP.Water.TissuesVolume.GITract gITract(FractIFV=2.34991370540916e-002,
             FractOrganH2O=2.34991370540916e-002)
           annotation (Placement(transformation(extent={{52,-2},{72,18}})));
       Physiolibrary.Types.BusConnector busConnector
         annotation (Placement(transformation(extent={{-108,72},{-68,112}})));
         Skin skin(FractIFV=0.041469065389573, FractOrganH2O=0.041469065389573)
           annotation (Placement(transformation(extent={{-54,-84},{-34,-64}})));
-
       //Real ifv;
       //Real organ;
       equation
-
         connect(busConnector.InterstitialWater_Vol, bone.InterstitialWater_Vol)      annotation (
            Line(
             points={{-88,92},{-88,54},{-54,54}},
@@ -45575,7 +44671,6 @@ QHP 2008 / Peritoneum
             string="%first",
             index=-1,
             extent={{-5,2},{-5,2}}));
-
         connect(busConnector.InterstitialWater_Vol, brain.InterstitialWater_Vol)
           annotation (Line(
             points={{-88,92},{6,92},{6,46},{52,46}},
@@ -45592,7 +44687,7 @@ QHP 2008 / Peritoneum
             string="%first",
             index=-1,
             extent={{-5,2},{-5,2}}));
-        connect(busConnector.InterstitialWater_Vol, GITract.InterstitialWater_Vol)
+        connect(busConnector.InterstitialWater_Vol,gITract. InterstitialWater_Vol)
           annotation (Line(
             points={{-88,92},{6,92},{6,16},{52,16}},
             color={0,127,0},
@@ -45664,7 +44759,6 @@ QHP 2008 / Peritoneum
             string="%first",
             index=-1,
             extent={{-5,2},{-5,2}}));
-
         connect(busConnector.CellH2O_Vol, bone.CellH2O_Vol)         annotation (
            Line(
             points={{-88,92},{-88,50},{-54,50}},
@@ -45689,7 +44783,7 @@ QHP 2008 / Peritoneum
             string="%first",
             index=-1,
             extent={{-5,2},{-5,2}}));
-        connect(busConnector.CellH2O_Vol, GITract.CellH2O_Vol)
+        connect(busConnector.CellH2O_Vol,gITract. CellH2O_Vol)
           annotation (Line(
             points={{-88,92},{6,92},{6,12},{52,12}},
             color={0,127,0},
@@ -45761,7 +44855,6 @@ QHP 2008 / Peritoneum
             string="%first",
             index=-1,
             extent={{-5,2},{-5,2}}));
-
         connect(bone.LiquidVol, busConnector.bone_LiquidVol)       annotation (
            Line(
             points={{-34,54},{6,54},{6,92},{-88,92}},
@@ -45786,7 +44879,7 @@ QHP 2008 / Peritoneum
             string="%second",
             index=1,
             extent={{5,2},{5,2}}));
-        connect(GITract.LiquidVol, busConnector.GITract_LiquidVol)
+        connect(gITract.LiquidVol, busConnector.GITract_LiquidVol)
           annotation (Line(
             points={{72,16},{98,16},{98,92},{-88,92}},
             color={0,127,0},
@@ -45858,7 +44951,6 @@ QHP 2008 / Peritoneum
             string="%second",
             index=1,
             extent={{5,2},{5,2}}));
-
        connect(bone.LiquidVol, busConnector.Bone_LiquidVol)       annotation (
            Line(
             points={{-34,54},{6,54},{6,92},{-88,92}},
@@ -45947,7 +45039,6 @@ QHP 2008 / Peritoneum
             string="%second",
             index=1,
             extent={{5,2},{5,2}}));
-
         connect(bone.OrganH2O, busConnector.bone_CellH2OVol)       annotation (
            Line(
             points={{-34,50},{6,50},{6,92},{-88,92}},
@@ -45972,7 +45063,7 @@ QHP 2008 / Peritoneum
             string="%second",
             index=1,
             extent={{5,2},{5,2}}));
-        connect(GITract.OrganH2O, busConnector.GITract_CellH2OVol)
+        connect(gITract.OrganH2O, busConnector.GITract_CellH2OVol)
           annotation (Line(
             points={{72,12},{98,12},{98,92},{-88,92}},
             color={0,127,0},
@@ -46044,7 +45135,6 @@ QHP 2008 / Peritoneum
             string="%second",
             index=1,
             extent={{5,2},{5,2}}));
-
        connect(bone.InterstitialWater, busConnector.bone_InterstitialWater)       annotation (
            Line(
             points={{-34,46},{6,46},{6,92},{-88,92}},
@@ -46069,7 +45159,7 @@ QHP 2008 / Peritoneum
             string="%second",
             index=1,
             extent={{5,2},{5,2}}));
-        connect(GITract.InterstitialWater, busConnector.GITract_InterstitialWater)
+        connect(gITract.InterstitialWater, busConnector.GITract_InterstitialWater)
           annotation (Line(
             points={{72,8},{98,8},{98,92},{-88,92}},
             color={0,127,0},
@@ -46242,7 +45332,6 @@ skeletalMuscle.FractOrganH2O <> 1, "Water.TissuesVolume.Tissues: Sum of FractOrg
 
     package Skin
       extends Physiolibrary.Icons.Skin;
-
       model Skin
         extends Physiolibrary.Icons.Skin;
         parameter Real bodyPart=1/3;
@@ -47010,7 +46099,6 @@ skeletalMuscle.FractOrganH2O <> 1, "Water.TissuesVolume.Tissues: Sum of FractOrg
           string="%first",
           index=-1,
           extent={{-6,3},{-6,3}}));
-
       connect(busConnector, tissues.busConnector)         annotation (Line(
           points={{-6,40},{-6,39},{-68.8,39},{-68.8,34.2}},
           color={0,0,255},
@@ -47038,7 +46126,6 @@ skeletalMuscle.FractOrganH2O <> 1, "Water.TissuesVolume.Tissues: Sum of FractOrg
           string="%second",
           index=1,
           extent={{6,3},{6,3}}));
-
       connect(osmBody.ICFV, busConnector.ICFV_Vol) annotation (Line(
           points={{-63.6,-4},{-6,-4},{-6,40}},
           color={0,0,127},
@@ -47078,7 +46165,6 @@ skeletalMuscle.FractOrganH2O <> 1, "Water.TissuesVolume.Tissues: Sum of FractOrg
           string="%first",
           index=-1,
           extent={{-6,3},{-6,3}}));
-
     /*  connect(busConnector.ExcessLungWater_Volume, BodyH2O.u[6]) annotation (Line(
       points={{-6,40},{88,40},{88,-25.5429},{32.8,-25.5429}},
       color={0,0,255},
@@ -47090,7 +46176,6 @@ skeletalMuscle.FractOrganH2O <> 1, "Water.TissuesVolume.Tissues: Sum of FractOrg
       thickness=0.5,
       smooth=Smooth.None));
 */
-
       connect(busConnector.ExcessLungWater_Volume, ExternalH2O.u[1]) annotation (
           Line(
           points={{-6,40},{14,40},{14,30},{44,30},{44,26.5333},{49.2,26.5333}},
@@ -47153,7 +46238,6 @@ skeletalMuscle.FractOrganH2O <> 1, "Water.TissuesVolume.Tissues: Sum of FractOrg
           string="%first",
           index=-1,
           extent={{-6,-2},{-6,-2}}));
-
       connect(ExtravascularVol.y, BodyH2O.u[1]) annotation (Line(
           points={{78.4,8},{84,8},{84,-34.4},{62.8,-34.4}},
           color={0,0,127},
@@ -47513,7 +46597,6 @@ skeletalMuscle.FractOrganH2O <> 1, "Water.TissuesVolume.Tissues: Sum of FractOrg
         points={{65.6,-46},{-16,-46},{-16,-47},{-98,-47},{-98,-22},{-82.8,-22}},
         color={0,0,127},
         smooth=Smooth.None));
-
     connect(BodyH2O1.y, busConnector.BodyH2O_Vol) annotation (Line(
         points={{65.6,-46},{-6,-46},{-6,40}},
         color={0,0,127},
@@ -47582,7 +46665,6 @@ skeletalMuscle.FractOrganH2O <> 1, "Water.TissuesVolume.Tissues: Sum of FractOrg
       import QHP = Physiomodel;
       extends Physiolibrary.Icons.Water;
     //  extends Physiomodel.Library.Utilities.DynamicState(stateName="BodyH2O.Vol", initType=Library.Utilities.Init.NoInit, STEADY=false);
-
     Physiolibrary.Osmotic.Sources.SolventOutflux Hemorrhage(
         useSolutionFlowInput=true)
       annotation (Placement(transformation(extent={{1,51},{17,67}})));
@@ -47617,14 +46699,12 @@ skeletalMuscle.FractOrganH2O <> 1, "Water.TissuesVolume.Tissues: Sum of FractOrg
         annotation (Placement(transformation(extent={{-50,-70},{-30,-50}})));
       QHP.Water.WaterProperties waterProperties
         annotation (Placement(transformation(extent={{-83,-94},{-63,-74}})));
-
     //  Real bodyH2O;
     /*initial equation 
   if STEADY then
      waterProperties.BodyH2O_Change.y = 0;
   end if;
 */
-
     //initial equation
     //   bodyH2O = waterProperties.BodyH2O.y;
     Physiolibrary.Osmotic.Components.OsmoticCell plasma(
@@ -47672,7 +46752,6 @@ skeletalMuscle.FractOrganH2O <> 1, "Water.TissuesVolume.Tissues: Sum of FractOrg
     equation
     //   changePerMin = waterProperties.BodyH2O_Change.y;
     //   stateValue = bodyH2O;
-
     connect(IVDrip.solutionFlow, busConnector.IVDrip_H2ORate) annotation (Line(
         points={{9,38.6},{46,38.6},{46,90},{-89,90}},
         color={0,0,127},
@@ -47696,13 +46775,11 @@ skeletalMuscle.FractOrganH2O <> 1, "Water.TissuesVolume.Tissues: Sum of FractOrg
         string="%second",
         index=1,
         extent={{6,3},{6,3}}));
-
       connect(busConnector, Kidney.busConnector) annotation (Line(
           points={{-89,90},{-89,-22.4},{-63,-22.4}},
           color={0,0,255},
           thickness=0.5,
           smooth=Smooth.None));
-
       connect(busConnector, GILumen.busConnector) annotation (Line(
           points={{-89,90},{-89,49},{-66.6,49}},
           color={0,0,255},
@@ -47960,7 +47037,6 @@ Total         = 43000
     package IO_Bus
         extends Physiolibrary.Types.IO_Bus;
       redeclare model extends Variables
-
       T.Volume BladderVolume_Mass(varName="BladderVolume.Mass")
         "Urine volume in bladder."
       annotation (Placement(transformation(extent={{-90,-138},{-84,-132}})));
@@ -47972,14 +47048,12 @@ Total         = 43000
       T.Volume Bone_LiquidVol(varName="Bone-Size.LiquidVol")
         "Bone water volume = sum of bone interstitial and bone intracellular water."
       annotation (Placement(transformation(extent={{-90,-108},{-84,-102}})));
-
       T.Volume brain_InterstitialWater(varName="Brain-Size.IFV")
         "Brain interstitial water volume."
       annotation (Placement(transformation(extent={{-90,-98},{-84,-92}})));
       T.Volume Brain_LiquidVol(varName="Brain-Size.LiquidVol")
         "Brain water volume = sum of brain interstitial and brain intracellular water."
       annotation (Placement(transformation(extent={{-90,-88},{-84,-82}})));
-
       T.VolumeFlowRate CD_H2O_Outflow(varName="CD_H2O.Outflow")
         "Collecting duct water outflow to urine."
       annotation (Placement(transformation(extent={{-90,-78},{-84,-72}})));
@@ -47999,7 +47073,6 @@ Total         = 43000
       T.Volume Fat_LiquidVol(varName="Fat-Size.LiquidVol")
         "Fat water volume = sum of fat interstitial and fat intracellular water."
       annotation (Placement(transformation(extent={{-90,-18},{-84,-12}})));
-
       T.VolumeFlowRate GILumenVolume_Absorption(varName="GILumenVolume.Absorption")
         "Water absorbtion through intestines."
       annotation (Placement(transformation(extent={{-90,-8},{-84,-2}})));
@@ -48015,7 +47088,6 @@ Total         = 43000
       T.Volume GITract_LiquidVol(varName="GITract-Size.LiquidVol")
         "GITract water volume = sum of gITract interstitial and gITract intracellular water."
       annotation (Placement(transformation(extent={{-90,32},{-84,38}})));
-
       T.VolumeFlowRate GlomerulusFiltrate_GFR(varName="GlomerulusFiltrate.GFR")
         "Glomerulus filtration rate."
       annotation (Placement(transformation(extent={{-90,42},{-84,48}})));
@@ -48036,7 +47108,6 @@ Total         = 43000
       T.Volume Kidney_LiquidVol(varName="Kidney-Size.LiquidVol")
         "Kidney water volume = sum of kidney interstitial and kidney intracellular water."
       annotation (Placement(transformation(extent={{-90,102},{-84,108}})));
-
       T.VolumeFlowRate LH_H2O_Outflow(varName="LH_H2O.Outflow")
         "Water outflow from loop of Henle to distal tubule."
       annotation (Placement(transformation(extent={{-90,112},{-84,118}})));
@@ -48052,14 +47123,12 @@ Total         = 43000
       T.Volume LeftHeart_LiquidVol(varName="LeftHeart-Size.LiquidVol")
         "LeftHeart water volume = sum of leftHeart interstitial and leftHeart intracellular water."
       annotation (Placement(transformation(extent={{88,-138},{94,-132}})));
-
       T.Volume liver_InterstitialWater(varName="Liver-Size.IFV")
         "Liver interstitial water volume."
       annotation (Placement(transformation(extent={{88,-128},{94,-122}})));
       T.Volume Liver_LiquidVol(varName="Liver-Size.LiquidVol")
         "Liver water volume = sum of liver interstitial and liver intracellular water."
       annotation (Placement(transformation(extent={{88,-118},{94,-112}})));
-
       T.Volume MT_InterstitialWater_Vol(varName="MT_InterstitialWater.Vol")
         "Middle torso interstitional water."
       annotation (Placement(transformation(extent={{88,-108},{94,-102}})));
@@ -48078,7 +47147,6 @@ Total         = 43000
       T.Volume OtherTissue_LiquidVol(varName="OtherTissue-Size.LiquidVol")
         "OtherTissue water volume = sum of otherTissue interstitial and otherTissue intracellular water."
       annotation (Placement(transformation(extent={{88,-58},{94,-52}})));
-
       T.VolumeFlowRate PeritoneumSpace_Change(varName="PeritoneumSpace.Change")
         "Water inflow(outflow) to pericardium interstitial space."
         annotation (Placement(transformation(extent={{88,-38},{94,-32}})));
@@ -48095,28 +47163,24 @@ Total         = 43000
       T.Volume RespiratoryMuscle_LiquidVol(varName="RespiratoryMuscle-Size.LiquidVol")
         "RespiratoryMuscle water volume = sum of respiratoryMuscle interstitial and respiratoryMuscle intracellular water."
       annotation (Placement(transformation(extent={{88,12},{94,18}})));
-
       T.Volume rightHeart_InterstitialWater(varName="RightHeart-Size.IFV")
         "RightHeart interstitial water volume."
       annotation (Placement(transformation(extent={{88,22},{94,28}})));
       T.Volume RightHeart_LiquidVol(varName="RightHeart-Size.LiquidVol")
         "RightHeart water volume = sum of rightHeart interstitial and rightHeart intracellular water."
       annotation (Placement(transformation(extent={{88,32},{94,38}})));
-
       T.Volume skeletalMuscle_InterstitialWater(varName="SkeletalMuscle-Size.IFV")
         "SkeletalMuscle interstitial water volume."
       annotation (Placement(transformation(extent={{88,42},{94,48}})));
       T.Volume SkeletalMuscle_LiquidVol(varName="SkeletalMuscle-Size.LiquidVol")
         "SkeletalMuscle water volume = sum of skeletalMuscle interstitial and skeletalMuscle intracellular water."
       annotation (Placement(transformation(extent={{88,52},{94,58}})));
-
       T.Volume skin_InterstitialWater(varName="Skin-Size.IFV")
         "Skin interstitial water volume."
       annotation (Placement(transformation(extent={{88,62},{94,68}})));
       T.Volume Skin_LiquidVol(varName="Skin-Size.LiquidVol")
         "Skin water volume = sum of skin interstitial and skin intracellular water."
       annotation (Placement(transformation(extent={{88,72},{94,78}})));
-
       T.Volume UT_InterstitialWater_Vol(varName="UT_InterstitialWater.Vol")
         "Upper tissue interstitial water."
       annotation (Placement(transformation(extent={{88,92},{94,98}})));
@@ -48125,11 +47189,9 @@ Total         = 43000
       annotation (Placement(transformation(extent={{88,102},{94,108}})));
       T.VolumeFlowRate BladderVoidFlow(varName="BladderVoidFlow")
       annotation (Placement(transformation(extent={{-164,-138},{-158,-132}})));
-
       T.Concentration Vasopressin(varName="ADHPool.[ADH(pMol/L)]", storeUnit=
             "pmol/l") "Vasopressin extracellular concentration."
         annotation (Placement(transformation(extent={{-104,-150},{-98,-144}})));
-
       T.VolumeFlowRate SweatGland_H2ORate(varName="SweatGland.H2ORate")
         "Outflow of sweat gland water."
       annotation (Placement(transformation(extent={{-90,150},{-84,156}})));
@@ -48143,7 +47205,6 @@ Total         = 43000
         "Skeletal muscle intracellular water volume."
       annotation (Placement(transformation(extent={{-226,20},{-220,26}})));
       equation
-
       connect(BladderVolume_Mass.y, busConnector.BladderVolume_Mass) annotation (Line(
        points={{-83.7,-135},{90,-135},{90,-2}},
             color={0,0,127},
@@ -48565,7 +47626,6 @@ Total         = 43000
 
       model Water_test
         import Physiomodel;
-
       Physiomodel.CardioVascular.IO_Bus.InputFromFile cardioVascularSystem
           annotation (Placement(transformation(extent={{40,72},{60,94}})));
         Physiomodel.Metabolism.IO_Bus.InputFromFile nutrientsAndMetabolism
@@ -48663,7 +47723,6 @@ Total         = 43000
 
       model Water_test_SI
         import Physiomodel;
-
       Physiomodel.CardioVascular.IO_Bus.InputFromFile_SI cardioVascularSystem
           annotation (Placement(transformation(extent={{40,72},{60,94}})));
         Physiomodel.Metabolism.IO_Bus.InputFromFile_SI nutrientsAndMetabolism
@@ -48766,7 +47825,6 @@ Total         = 43000
       import QHP = Physiomodel;
       extends Physiolibrary.Icons.Water;
     //  extends Physiomodel.Library.Utilities.DynamicState(stateName="BodyH2O.Vol", initType=Library.Utilities.Init.NoInit, STEADY=false);
-
     Physiolibrary.Osmotic.Sources.SolventOutflux Hemorrhage(
         useSolutionFlowInput=true)
       annotation (Placement(transformation(extent={{1,51},{17,67}})));
@@ -48802,14 +47860,12 @@ Total         = 43000
         annotation (Placement(transformation(extent={{-50,-70},{-30,-50}})));
       QHP.Water.WaterProperties waterProperties
         annotation (Placement(transformation(extent={{-83,-94},{-63,-74}})));
-
     //  Real bodyH2O;
     /*initial equation 
   if STEADY then
      waterProperties.BodyH2O_Change.y = 0;
   end if;
 */
-
     //initial equation
     //   bodyH2O = waterProperties.BodyH2O.y;
     Physiolibrary.Osmotic.Components.OsmoticCell plasma(
@@ -48859,7 +47915,6 @@ Total         = 43000
     equation
     //   changePerMin = waterProperties.BodyH2O_Change.y;
     //   stateValue = bodyH2O;
-
     connect(IVDrip.solutionFlow, busConnector.IVDrip_H2ORate) annotation (Line(
         points={{9,38.6},{46,38.6},{46,90},{-89,90}},
         color={0,0,127},
@@ -48883,13 +47938,11 @@ Total         = 43000
         string="%second",
         index=1,
         extent={{6,3},{6,3}}));
-
       connect(busConnector, Kidney.busConnector) annotation (Line(
           points={{-89,90},{-89,-22.4},{-63,-22.4}},
           color={0,0,255},
           thickness=0.5,
           smooth=Smooth.None));
-
       connect(busConnector, GILumen.busConnector) annotation (Line(
           points={{-89,90},{-89,49},{-66.6,49}},
           color={0,0,255},
@@ -49180,10 +48233,8 @@ Total         = 43000
           graphics));
   end Water;
 
-
   package Proteins "Body Proteins"
     extends Physiolibrary.Icons.ProteinsLib;
-
     model Synthesis
     //  parameter Physiolibrary.Types.MassFlowRate  SynthesisBasic "10 mg/min";
       parameter Physiolibrary.Types.MolarFlowRate SynthesisBasic = 2.75753e-09
@@ -49195,10 +48246,8 @@ Total         = 43000
       y=data[:, 2],
       slope=data[:, 3],
       Xscale=101325/760);
-
     Physiolibrary.Chemical.Interfaces.ChemicalPort_b q_out annotation (extent=[
           -10,-110; 10,-90], Placement(transformation(extent={{90,-10},{110,10}})));
-
       Physiolibrary.Types.Pressure COP;
     //  Physiolibrary.Types.AmountOfSubstance  synthetizedAmount(start=0);
     //  Physiolibrary.Types.Mass  synthetizedMass(start=0);
@@ -49210,7 +48259,6 @@ Total         = 43000
       COP =  q_out.conc * Modelica.Constants.R * 310.15;
       c.u=COP;
       q_out.q = -SynthesisBasic * c.val;
-
     //TODO: state
     //der(synthetizedAmount) = -q_out.q;
     //  ProteinsMass2AmountOfSubstance(synthetizedMass,ghostPlasmaVol) = synthetizedAmount;
@@ -49241,7 +48289,6 @@ Total         = 43000
       "10 mg/min";
        parameter Real[:,3] data =  {{ 0.00,  0.0,  0.0}, { 1.45,  1.0,  1.59}, { 1.97,  6.0,  0.0}}
       "ProteinEffect";
-
     Physiolibrary.Blocks.Interpolation.Curve c(
       x=data[:, 1],
       y=data[:, 2],
@@ -49249,7 +48296,6 @@ Total         = 43000
     Physiolibrary.Chemical.Interfaces.ChemicalPort_a q_in annotation (Placement(
           transformation(extent={{-100,0},{-60,40}}), iconTransformation(extent=
              {{-110,-10},{-90,10}})));
-
     //  Physiolibrary.Types.AmountOfSubstance  degradedAmount(start=0);
     //  Physiolibrary.Types.Mass  degradedMass(start=0);
     //protected
@@ -49261,7 +48307,6 @@ Total         = 43000
       c.u = q_in.conc;
       q_in.q = DegradationBasic * c.val;
     //  q_in.q =ProteinsMass2AmountOfSubstance(DegradationBasic*c.val*sec,ghostPlasmaVol)/sec;
-
     //TODO: state
     //der(degradedAmount) = q_in.q;
     //  ProteinsMass2AmountOfSubstance(degradedMass,ghostPlasmaVol) = degradedAmount;
@@ -49300,7 +48345,6 @@ Total         = 43000
     end ProteinsMassConcentration2Concentration;
 
     model ProteinDivision "60% of total plasma protein mass are albumin"
-
       Physiolibrary.Types.RealIO.ConcentrationInput totalProteins
         annotation (Placement(transformation(extent={{-120,-20},{-80,20}})));
       Physiolibrary.Types.RealIO.ConcentrationOutput albumin
@@ -49309,31 +48353,25 @@ Total         = 43000
         annotation (Placement(transformation(extent={{90,-50},{110,-30}})));
       Physiolibrary.Types.RealIO.ConcentrationOutput nonAlbuminMolarConc
         annotation (Placement(transformation(extent={{90,-90},{110,-70}})));
-
     //  Physiolibrary.Types.MassConcentration tProtMassConc;
     //  Physiolibrary.Types.MassConcentration albuminMassConc;
     //  parameter Physiolibrary.Types.MolarMass albuminMM=66.5 "albumin molar mass";
-
   protected
       Physiolibrary.Types.MolarMass nonAlbuminMM
       "average molar mass of non-albumin proteins";
-
     equation
      /* totalProteins = ProteinsMassConcentration2Concentration(tProtMassConc);
   albuminMassConc = 0.6 * tProtMassConc;
   nonAlbumin = tProtMassConc - albuminMassConc;
   albumin = albuminMassConc / 66.5;
   nonAlbuminMolarConc = totalProteins - albumin; */
-
       albumin = totalProteins * (0.63/1.45);
       nonAlbuminMolarConc = totalProteins - albumin;
       nonAlbumin = nonAlbuminMM * nonAlbuminMolarConc;
-
     // inversion of totalProteins=(320*101325/760)/(310.15*8.314) *0.001*tProtMassConc + (1160*101325/760)/(310.15*8.314)* (0.001*tProtMassConc)^2;
     //  tProtMassConc = 0.0000170159 * (-8.106e6 + 63.6632 * ((1.6212e10 + 1.4208e10 * totalProteins)^0.5));
     // linear aproximation at point totalProteins = 1.45 mmol/l :
       nonAlbuminMM = 34.16-10*(totalProteins-1.45);
-
       annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
                 {100,100}}), graphics));
     end ProteinDivision;
@@ -49395,7 +48433,6 @@ Total         = 43000
         useNormalizedVolume=false,
       solute_start=1e-15)
         annotation (Placement(transformation(extent={{-64,-40},{-44,-20}})));
-
       Physiomodel.Proteins.Synthesis                 synthesis(SynthesisBasic=
           1.6666666666667e-07)
         annotation (Placement(transformation(extent={{-58,54},{-38,74}})));
@@ -49410,7 +48447,6 @@ Total         = 43000
         useNormalizedVolume=false,
       solute_start=1e-15)
         annotation (Placement(transformation(extent={{66,-70},{46,-50}})));
-
     Physiolibrary.Chemical.Sensors.ConcentrationMeasure concentrationMeasure1
       annotation (Placement(transformation(
           extent={{-10,-10},{10,10}},
@@ -49449,7 +48485,6 @@ Total         = 43000
      string="%second",
      index=1,
      extent={{6,3},{6,3}}));
-
       connect(synthesis.q_out, plasma.q_out) annotation (Line(
           points={{-38,64},{-26,64},{-26,42},{-66,42}},
           color={107,45,134},
@@ -49700,7 +48735,6 @@ Total         = 43000
     package IO_Bus
       extends Physiolibrary.Types.IO_Bus;
       redeclare model extends Variables
-
       T.Concentration ctAlb(varName="ctAlb")
         "Blood molar albumin concentration."
       annotation (Placement(transformation(extent={{-36,50},{-30,56}})));
@@ -49722,7 +48756,6 @@ annotation (Placement(transformation(extent={{-42,64},{-24,82}})));*/
         "Lower torso interstitial protein mass."
       annotation (Placement(transformation(extent={{-38,-90},{-32,-84}})));
       equation
-
       connect(ctAlb.y, busConnector.ctAlb) annotation (Line(
        points={{-29.7,53},{90,53},{90,-2}},
             color={0,0,127},
@@ -49984,7 +49017,6 @@ annotation (Placement(transformation(extent={{-42,64},{-24,82}})));*/
         __Dymola_experimentSetupOutput);
       end Proteins_test_SI;
     end IO_Bus;
-
     annotation (Documentation(revisions="<html>
 
 <table cellspacing=\"2\" cellpadding=\"0\" border=\"0\"><tr>
@@ -50021,32 +49053,26 @@ annotation (Placement(transformation(extent={{-42,64},{-24,82}})));*/
                       graphics));
   end Proteins;
 
-
   package Electrolytes "Body Electrolytes"
     extends Physiolibrary.Icons.ElectrolytesLib;
     package AcidBase "Body Acid-Base Balance"
-
       partial model BloodPhBase
         import Modelica.Math;
-
         Physiolibrary.Types.Concentration betaX "buffer value of blood";
                                                //(unit = "mEq/l")
         Physiolibrary.Types.Concentration betaP "buffer value of plasma";
                                                //(unit = "mEq/l")
-
         Physiolibrary.Types.Concentration _cTH
         "total concentration of tiratable hydrogen ions";
                                              //( displayUnit="mEq/l")
         Physiolibrary.Types.Concentration _BE "base excess";
                                             //( displayUnit="mEq/l")
-
         Physiolibrary.Types.Concentration _BEox
         "base excess in fully oxygenated blood";
                                               //( displayUnit="mEq/l")
         Physiolibrary.Types.Concentration _cTHox
         "total concentration of tiratable hydrogen ions in fully oxygenated blood";
                                                //( displayUnit="mEq/l")
-
          Physiolibrary.Types.RealIO.pHOutput pH( start=7.4) "plasma pH"    annotation (Placement(transformation(
                 extent={{30,-98},{70,-58}}), iconTransformation(
               extent={{-20,-20},{20,20}},
@@ -50058,7 +49084,6 @@ annotation (Placement(transformation(extent={{-42,64},{-24,82}})));*/
               extent={{-20,-20},{20,20}},
               rotation=270,
               origin={20,-120})));
-
         Physiolibrary.Types.RealIO.ConcentrationInput cHCO3(
                                              displayUnit="mmol/l")
         "concentration of plasma HCO3 ions (default=24.5mmol/l)"
@@ -50077,20 +49102,17 @@ annotation (Placement(transformation(extent={{-42,64},{-24,82}})));*/
               origin={90,40})));
         parameter Physiolibrary.Types.Concentration  cHb(displayUnit="mmol/l")=43
         "an empirical parameter accounting for erythrocyte plasma distributions = concentration of Hb inside erythrocytes divided by (1-0.57)";
-
         Physiolibrary.Types.RealIO.FractionInput sO2 "oxygen saturation"
                                          annotation (Placement(transformation(extent={{-100,60},
                   {-60,100}}),          iconTransformation(extent={{-10,-10},{10,10}},
               rotation=270,
               origin={60,110})));
-
         Physiolibrary.Types.RealIO.ConcentrationInput ctAlb(
                                              displayUnit="mmol/l")
         "concentration of total plasma albumins(dofault=0.65mmol/l)"                   annotation (Placement(transformation(extent={{52,-26},
                   {92,14}}),            iconTransformation(extent={{-10,-10},{10,10}},
               rotation=180,
               origin={90,0})));
-
         Physiolibrary.Types.RealIO.MassConcentrationInput ctGlb(
                                              displayUnit="g/l")
         "concentration of total plasma globulins"                                      annotation (Placement(transformation(extent={{52,-60},
@@ -50103,27 +49125,20 @@ annotation (Placement(transformation(extent={{-42,64},{-24,82}})));*/
                   {94,-52}}),           iconTransformation(extent={{-10,-10},{10,10}},
               rotation=180,
               origin={90,-80})));
-
       equation
         //Van Slyke equation:  - T=37
         _cTH = -(1-ctHb/cHb)*((cHCO3-24.5)+betaX*(pH-7.4));
       //  _cTH = -(1-(1-0.57)*(0.44))*((cHCO3-24.5)+betaX*(pH-7.4));
-
         betaX = 2.3*ctHb + betaP;
         betaP =  8*ctAlb + 0.075*ctGlb + 0.309*ctPO4;
-
       //  _betaX = 0.11 * plasmaProteinConc(displayUnit="g/l"); //mmol/l
-
       //Haldane effect:
         _cTH = _cTHox - 0.3 * (1-sO2); //homotopy(_cTHox - 0.3 * (1-sO2),_cTHox);
-
       //base excess
         _BEox = - _cTHox;
         _BE = - _cTH;
-
         //erythrocytes:
         pH_ery = 7.19 + 0.77*(pH-7.4) + 0.035*(1-sO2); //homotopy(7.19 + 0.77*(pH-7.4) + 0.035*(1-sO2),7.19 + 0.77*(pH-7.4));
-
         annotation (
           preferredView = text,
           Documentation(info="<html>
@@ -50186,9 +49201,7 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
               origin={-80,100})));
       equation
         _BEox = BEox / Modelica.Constants.F;
-
       //  cTHox.conc*1000 = _cTHox;
-
         annotation (Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,
                   -100},{100,100}}),
                             graphics), Icon(coordinateSystem(preserveAspectRatio=true,
@@ -50224,14 +49237,12 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
 
       model NormalSID
        // extends BloodPhBase;
-
        Physiolibrary.Types.RealIO.ConcentrationInput ctAlb(
                                                  final displayUnit="mmol/l")
         "concentration of total plasma albumins(dofault=0.65mmol/l)"                  annotation (Placement(transformation(extent={{-120,72},
                   {-80,112}}),         iconTransformation(extent={{-10,-10},{10,10}},
              rotation=180,
              origin={90,80})));
-
        Physiolibrary.Types.RealIO.MassConcentrationInput ctGlb(
                                                  final displayUnit="g/l")
         "concentration of total plasma globulins"                                     annotation (Placement(transformation(extent={{-120,42},
@@ -50244,7 +49255,6 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
                   {-80,52}}),          iconTransformation(extent={{-10,-10},{10,10}},
              rotation=180,
              origin={90,20})));
-
         Physiolibrary.Types.RealIO.VolumeDensityOfChargeOutput
                                             NSID
                                           annotation (Placement(transformation(extent={{80,0},{
@@ -50451,10 +49461,8 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
             points={{-100,62},{-69,62},{-69,64},{-38,64}},
             color={0,0,127},
             smooth=Smooth.None));
-
       //  NBB = (1-Hct)( [HCO3]P(40mmHg,7.4) + tAlbP*-zAlbP(7.4) + tGlbP*-zGlb(7.4) + tPO4P*-zPO4(7.4) + tORGP*-zORG(7.4) + .. ) + Hct ( [HCO3]E(40mmHg,NpHE) + tHb*-zHb(sO2,sCO2,NpHE) + tPO4E*-zPO4(NpHE) ..)
       //  NBB = 0;//_cTHox;
-
       connect(n_sO2.y, haemoglobin.sO2) annotation (Line(
           points={{-72.5,-60},{-38,-60}},
           color={0,0,127},
@@ -50489,7 +49497,6 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
       end NormalSID;
 
       model Urine
-
         Physiolibrary.Types.RealIO.MolarFlowRateInput
                                            qPO4(displayUnit="mmol/min")
         "total phosphates outflow to urine"                                                         annotation (Placement(
@@ -50518,7 +49525,6 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
                   10}},
               rotation=0,
               origin={-90,90})));
-
         parameter Real CO2_solubility(displayUnit="(mmol/l)/Pa")=0.00023;
         parameter Real pKaCO2=6.1 "CO2 acid dissociation constant";
         parameter Real pKaHCO3=10.329 "HCO3 acid dissociation constant";
@@ -50528,13 +49534,10 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
         parameter Real pKaKA=4.3
         "average Keto-acids acid dissociation constant";
         //constant Real ml2l = 0.001;
-
         Real zPO4 "average charge of one phosphate in urine";
                  //(displayUnit="Eq/Mol")
-
         Real zKA "average charge of one keto acid in purine";
                 //(displayUnit="Eq/Mol")
-
         Real zCO2_qCO2 "charge outflow in (bi)carbonates to urine";
                       //(displayUnit="Eq/min")
         Physiolibrary.Types.RealIO.PressureInput
@@ -50599,15 +49602,10 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
         parameter Physiolibrary.Types.MolarFlowRate  qX(displayUnit="mmol/min") = -5.6666666666666666666666666666667e-7
         "other acids/electrolytes charge outflow";
       equation
-
           zPO4 = -(1+2*10^(PHU-pKaH2PO4)+ 3*10^(2*PHU-pKaH2PO4 -pKaHPO4)) / (10^(pKaH3PO4-PHU)+1+10^(PHU-pKaH2PO4)+ 10^(2*PHU-pKaH2PO4-pKaHPO4));
-
           zKA = - 1/(10^(pKaKA-PHU)+1);
-
           zCO2_qCO2 = -CO2_solubility*pCO2*(10^(PHU-pKaCO2))*(qH2O);
-
           qX + 1*qNa + 1*qK + 2*qMg + 2*qCa + 1*qNH4 + (-1)*qCl + (-2)*qSO4 + zPO4*qPO4 + zKA*qKA + zCO2_qCO2 = 0;  // electroneutrality of urine outflow
-
         annotation (
           Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-120},{100,100}}),
                                graphics={
@@ -50654,46 +49652,33 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
 
       package Tissues
       "Acidity of tissue veins, interstitium or intracellular space"
-
         model Interstitia
         Interstitium.SkeletalMuscleInterstitialPh skeletalMuscle
           annotation (Placement(transformation(extent={{-54,66},{-34,86}})));
-
         Interstitium.BoneInterstitialPh bone
           annotation (Placement(transformation(extent={{-54,36},{-34,56}})));
-
         Interstitium.FatInterstitialPh fat
           annotation (Placement(transformation(extent={{-54,-54},{-34,-34}})));
-
         Interstitium.BrainInterstitialPh brain
           annotation (Placement(transformation(extent={{52,28},{72,48}})));
-
         Interstitium.RightHeartInterstitialPh rightHeart
           annotation (Placement(transformation(extent={{52,-92},{72,-72}})));
-
         Interstitium.RespiratoryMuscleInterstitialPh respiratoryMuscle
           annotation (Placement(transformation(extent={{-54,-24},{-34,-4}})));
-
         Interstitium.OtherTissueInterstitialPh otherTissue
           annotation (Placement(transformation(extent={{-54,6},{-34,26}})));
-
         Interstitium.LiverInterstitialPh liver
           annotation (Placement(transformation(extent={{52,60},{72,80}})));
-
         Interstitium.LeftHeartInterstitialPh leftHeart
           annotation (Placement(transformation(extent={{52,-62},{72,-42}})));
-
         Interstitium.KidneyInterstitialPh kidney
           annotation (Placement(transformation(extent={{52,-32},{72,-12}})));
-
         Interstitium.GITractInterstitialPh GITract
           annotation (Placement(transformation(extent={{52,-2},{72,18}})));
-
         Physiolibrary.Types.BusConnector busConnector
           annotation (Placement(transformation(extent={{-108,72},{-68,112}})));
         Interstitium.SkinInterstitialPh skin
           annotation (Placement(transformation(extent={{-54,-84},{-34,-64}})));
-
         equation
           connect(busConnector.bone_cHCO3_interstitial, bone.cHCO3)        annotation (
              Line(
@@ -50791,7 +49776,6 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
               string="%first",
               index=-1,
               extent={{-5,2},{-5,2}}));
-
          connect(busConnector.bone_pCO2, bone.pCO2)        annotation (
              Line(
               points={{-88,92},{-88,54},{-53,54}},
@@ -50888,7 +49872,6 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
               string="%first",
               index=-1,
               extent={{-5,2},{-5,2}}));
-
          connect(busConnector.bone_T, bone.T)        annotation (
              Line(
               points={{-88,92},{-88,38.8},{-53,38.8}},
@@ -50985,7 +49968,6 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
               string="%first",
               index=-1,
               extent={{-5,2},{-5,2}}));
-
         connect(bone.pH_interstitial, busConnector.bone_pH_interstitial) annotation (Line(
               points={{-38,34},{6,34},{6,92},{-88,92}},
               color={0,0,127},
@@ -51034,7 +50016,6 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
               points={{-38,64},{6,64},{6,92},{-88,92}},
               color={0,0,127},
               smooth=Smooth.None));
-
           annotation (Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,
                     -100},{100,100}}), graphics={
                 Rectangle(
@@ -51089,7 +50070,6 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
         end Interstitia;
 
         model InterstitiumBase
-
           Physiolibrary.Types.RealIO.ConcentrationInput cHCO3
           "tissue interstitial bicarbonate concentration"
                                            annotation (Placement(transformation(extent={{-106,-4},
@@ -51122,7 +50102,6 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
                 rotation=0,
                 origin={-90,80})));
         equation
-
           connect(interstitium.cHCO3, inverseBlockConstraints.u2) annotation (Line(
               points={{-4,0},{-4,-8},{-26,-8},{-26,11},{-29.8,11}},
               color={0,0,127},
@@ -51326,45 +50305,32 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
         end Interstitium;
 
         model Bloods
-
           Blood.SkeletalMuscleBloodPh skeletalMuscle
             annotation (Placement(transformation(extent={{-54,66},{-34,86}})));
-
           Blood.BoneBloodPh bone
             annotation (Placement(transformation(extent={{-54,36},{-34,56}})));
-
           Blood.FatBloodPh fat
             annotation (Placement(transformation(extent={{-54,-54},{-34,-34}})));
-
           Blood.BrainBloodPh brain
             annotation (Placement(transformation(extent={{52,28},{72,48}})));
-
           Blood.RightHeartBloodPh rightHeart
             annotation (Placement(transformation(extent={{52,-92},{72,-72}})));
-
           Blood.RespiratoryMuscleBloodPh respiratoryMuscle
             annotation (Placement(transformation(extent={{-54,-24},{-34,-4}})));
-
           Blood.OtherTissueBloodPh otherTissue
             annotation (Placement(transformation(extent={{-54,6},{-34,26}})));
-
           Blood.LiverBloodPh liver
             annotation (Placement(transformation(extent={{52,60},{72,80}})));
-
           Blood.LeftHeartBloodPh leftHeart
             annotation (Placement(transformation(extent={{52,-62},{72,-42}})));
-
           Blood.KidneyBloodPh kidney
             annotation (Placement(transformation(extent={{52,-32},{72,-12}})));
-
           Blood.GITractBloodPh GITract
             annotation (Placement(transformation(extent={{52,-2},{72,18}})));
-
         Physiolibrary.Types.BusConnector busConnector
           annotation (Placement(transformation(extent={{-108,74},{-68,114}})));
           Blood.SkinBloodPh skin
             annotation (Placement(transformation(extent={{-54,-84},{-34,-64}})));
-
           Modelica.Blocks.Math.Add cTH_lessLactate(k1=-1, k2=-1)
             annotation (Placement(transformation(extent={{-92,114},{-72,134}})));
         equation
@@ -51464,7 +50430,6 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
               string="%first",
               index=-1,
               extent={{-5,2},{-5,2}}));
-
          connect(busConnector.bone_T, bone.T)        annotation (
              Line(
               points={{-88,94},{-88,38.8},{-53,38.8}},
@@ -51561,7 +50526,6 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
               string="%first",
               index=-1,
               extent={{-5,2},{-5,2}}));
-
          connect(cTH_lessLactate.y, bone.ctHox_lessLactate)        annotation (
              Line(
               points={{-71,124},{-71,46},{-53,46}},
@@ -51650,7 +50614,6 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
               string="%first",
               index=-1,
               extent={{-5,2},{-5,2}}));
-
          connect(busConnector.bone_cLactate, bone.cLactate)        annotation (
              Line(
               points={{-88,94},{-88,50},{-53,50}},
@@ -51747,7 +50710,6 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
               string="%first",
               index=-1,
               extent={{-5,2},{-5,2}}));
-
           connect(bone.ctHb, busConnector.ctHb)       annotation (
              Line(
               points={{-35,50},{6,50},{6,94},{-88,94}},
@@ -51844,7 +50806,6 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
               string="%second",
               index=1,
               extent={{5,2},{5,2}}));
-
           connect(bone.ctAlb, busConnector.ctAlb)       annotation (
              Line(
               points={{-35,46},{6,46},{6,94},{-88,94}},
@@ -51941,7 +50902,6 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
               string="%second",
               index=1,
               extent={{5,2},{5,2}}));
-
          connect(bone.ctGlb, busConnector.ctGlb)       annotation (
              Line(
               points={{-35,42},{6,42},{6,94},{-88,94}},
@@ -52038,7 +50998,6 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
               string="%second",
               index=1,
               extent={{5,2},{5,2}}));
-
          connect(bone.ctPO4, busConnector.ctPO4)       annotation (
              Line(
               points={{-35,38},{6,38},{6,94},{-88,94}},
@@ -52135,7 +51094,6 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
               string="%second",
               index=1,
               extent={{5,2},{5,2}}));
-
           connect(bone.cHCO3, busConnector.bone_cHCO3)        annotation (
              Line(
               points={{-35,54},{6,54},{6,94},{-88,94}},
@@ -52232,7 +51190,6 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
               string="%second",
               index=1,
               extent={{5,2},{5,2}}));
-
           connect(bone.pH_ery, busConnector.bone_pH_ery) annotation (Line(
               points={{-42,34},{6,34},{6,94},{-88,94}},
               color={0,0,127},
@@ -52281,7 +51238,6 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
               points={{-42,64},{6,64},{6,94},{-88,94}},
               color={0,0,127},
               smooth=Smooth.None));
-
          connect(bone.pH, busConnector.bone_pH_plasma) annotation (Line(
               points={{-46,34},{6,34},{6,94},{-88,94}},
               color={0,0,127},
@@ -52330,7 +51286,6 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
               points={{-46,64},{6,64},{6,94},{-88,94}},
               color={0,0,127},
               smooth=Smooth.None));
-
           connect(busConnector.Blood_BEox, cTH_lessLactate.u1) annotation (Line(
               points={{-88,94},{-114,94},{-114,130},{-94,130}},
               color={0,0,255},
@@ -52406,7 +51361,6 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
 
         model BloodBase
           extends Physiomodel.Electrolytes.AcidBase.BloodPhBase;
-
           Physiolibrary.Types.RealIO.VolumeDensityOfChargeInput ctHox_lessLactate(
                                               displayUnit="mEq/l")
           "titratable acidity of oxygenated blood"
@@ -52428,12 +51382,9 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
                 rotation=0,
                 origin={-90,40})));                             //(final displayUnit="mEq/l")
         equation
-
         //base excess
           ctHox_lessLactate/Modelica.Constants.F + cLactate = _cTHox;
-
          // cTH_interstitial = -(1-((ctHb_ery/3)/43))*((cHCO3_interstitial-24.5)+betaX*(pH_interstitial-7.42));
-
           annotation (Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,
                     -100},{100,100}}),
                               graphics), Icon(coordinateSystem(preserveAspectRatio=true,
@@ -52535,45 +51486,32 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
         end Blood;
 
         model Cells
-
         Cell.SkeletalMuscleIntracellularPh skeletalMuscle
           annotation (Placement(transformation(extent={{-54,64},{-34,84}})));
-
         Cell.BoneIntracellularPh bone
           annotation (Placement(transformation(extent={{-54,36},{-34,56}})));
-
         Cell.FatIntracellularPh fat
           annotation (Placement(transformation(extent={{-54,-54},{-34,-34}})));
-
         Cell.BrainIntracellularPh brain
           annotation (Placement(transformation(extent={{52,28},{72,48}})));
-
         Cell.RightHeartIntracellularPh rightHeart
           annotation (Placement(transformation(extent={{52,-92},{72,-72}})));
-
         Cell.RespiratoryMuscleIntracellularPh respiratoryMuscle
           annotation (Placement(transformation(extent={{-54,-24},{-34,-4}})));
-
         Cell.OtherTissueIntracellularPh otherTissue
           annotation (Placement(transformation(extent={{-54,6},{-34,26}})));
-
         Cell.LiverIntracellularPh liver
           annotation (Placement(transformation(extent={{52,60},{72,80}})));
-
         Cell.LeftHeartIntracellularPh leftHeart
           annotation (Placement(transformation(extent={{52,-62},{72,-42}})));
-
         Cell.KidneyIntracellularPh kidney
           annotation (Placement(transformation(extent={{52,-32},{72,-12}})));
-
         Cell.GITractIntracellularPh GITract
           annotation (Placement(transformation(extent={{52,-2},{72,18}})));
-
         Physiolibrary.Types.BusConnector busConnector
           annotation (Placement(transformation(extent={{-108,72},{-68,112}})));
         Cell.SkinIntracellularPh skin
           annotation (Placement(transformation(extent={{-54,-84},{-34,-64}})));
-
         equation
           connect(busConnector.KCell_conc, bone.KCell)      annotation (
              Line(
@@ -52671,7 +51609,6 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
               string="%first",
               index=-1,
               extent={{-5,2},{-5,2}}));
-
           connect(busConnector.bone_cLactate, bone.cLactate)        annotation (
              Line(
               points={{-88,92},{-88,42},{-53,42}},
@@ -52768,7 +51705,6 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
               string="%first",
               index=-1,
               extent={{-5,2},{-5,2}}));
-
          connect(busConnector.bone_pCO2, bone.pCO2)        annotation (
              Line(
               points={{-88,92},{-88,54},{-53,54}},
@@ -52865,7 +51801,6 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
               string="%first",
               index=-1,
               extent={{-5,2},{-5,2}}));
-
         connect(bone.pH, busConnector.bone_pH_intracellular) annotation (Line(
               points={{-38,34},{6,34},{6,92},{-88,92}},
               color={0,0,127},
@@ -52914,7 +51849,6 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
               points={{-38,62},{6,62},{6,92},{-88,92}},
               color={0,0,127},
               smooth=Smooth.None));
-
           annotation (Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,
                     -100},{100,100}}), graphics={
                 Rectangle(
@@ -53029,7 +51963,6 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
           Modelica.Blocks.Math.Max max1
             annotation (Placement(transformation(extent={{54,46},{62,54}})));
         equation
-
           connect(anions.y, SID.u2)                                                                                                   annotation (Line(       points={{-11,-72},
                   {6,-72},{6,10}},                                                                                                    color={0,0,127},       smooth=Smooth.None));
           connect(cations.y, SID.u1)                                                                                                 annotation (Line(       points={{-7,18},
@@ -53196,42 +52129,30 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
           model TissuesPh
           Blood.SkeletalMuscleBloodPh skeletalMuscle
             annotation (Placement(transformation(extent={{-54,66},{-34,86}})));
-
           Blood.BoneBloodPh bone
             annotation (Placement(transformation(extent={{-54,36},{-34,56}})));
-
           Blood.FatBloodPh fat annotation (Placement(transformation(extent={{-54,
                     -54},{-34,-34}})));
-
           Blood.BrainBloodPh brain
             annotation (Placement(transformation(extent={{52,28},{72,48}})));
-
           Blood.RightHeartBloodPh rightHeart
             annotation (Placement(transformation(extent={{52,-92},{72,-72}})));
-
           Blood.RespiratoryMuscleBloodPh respiratoryMuscle
             annotation (Placement(transformation(extent={{-54,-24},{-34,-4}})));
-
           Blood.OtherTissueBloodPh otherTissue
             annotation (Placement(transformation(extent={{-54,6},{-34,26}})));
-
           Blood.LiverBloodPh liver
             annotation (Placement(transformation(extent={{52,60},{72,80}})));
-
           Blood.LeftHeartBloodPh leftHeart
             annotation (Placement(transformation(extent={{52,-62},{72,-42}})));
-
           Blood.KidneyBloodPh kidney
             annotation (Placement(transformation(extent={{52,-32},{72,-12}})));
-
           Blood.GITractBloodPh GITract
             annotation (Placement(transformation(extent={{52,-2},{72,18}})));
-
           Physiolibrary.Types.BusConnector busConnector annotation (Placement(
                 transformation(extent={{-108,72},{-68,112}})));
           Blood.SkinBloodPh skin annotation (Placement(transformation(extent={{
                     -54,-84},{-34,-64}})));
-
           equation
             connect(busConnector.bone_sO2, bone.sO2)        annotation (
                Line(
@@ -53329,7 +52250,6 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
                 string="%first",
                 index=-1,
                 extent={{-5,2},{-5,2}}));
-
            connect(busConnector.bone_T, bone.T)        annotation (
                Line(
                 points={{-88,92},{-88,38.8},{-53,38.8}},
@@ -53426,7 +52346,6 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
                 string="%first",
                 index=-1,
                 extent={{-5,2},{-5,2}}));
-
            connect(busConnector.bone_cTH_interstitial, bone.ctHox)        annotation (
                Line(
                 points={{-88,92},{-88,50},{-53,50}},
@@ -53523,7 +52442,6 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
                 string="%first",
                 index=-1,
                 extent={{-5,2},{-5,2}}));
-
             connect(bone.ctHb, busConnector.ctHb)       annotation (
                Line(
                 points={{-35,50},{6,50},{6,92},{-88,92}},
@@ -53620,7 +52538,6 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
                 string="%second",
                 index=1,
                 extent={{5,2},{5,2}}));
-
             connect(bone.ctAlb, busConnector.ctAlb)       annotation (
                Line(
                 points={{-35,46},{6,46},{6,92},{-88,92}},
@@ -53717,7 +52634,6 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
                 string="%second",
                 index=1,
                 extent={{5,2},{5,2}}));
-
            connect(bone.ctGlb, busConnector.ctGlb)       annotation (
                Line(
                 points={{-35,42},{6,42},{6,92},{-88,92}},
@@ -53814,7 +52730,6 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
                 string="%second",
                 index=1,
                 extent={{5,2},{5,2}}));
-
            connect(bone.ctPO4, busConnector.ctPO4)       annotation (
                Line(
                 points={{-35,38},{6,38},{6,92},{-88,92}},
@@ -53911,7 +52826,6 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
                 string="%second",
                 index=1,
                 extent={{5,2},{5,2}}));
-
             connect(bone.cHCO3, busConnector.bone_cHCO3)        annotation (
                Line(
                 points={{-35,54},{6,54},{6,92},{-88,92}},
@@ -54008,7 +52922,6 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
                 string="%second",
                 index=1,
                 extent={{5,2},{5,2}}));
-
             connect(bone.pH_ery, busConnector.bone_pH_ery) annotation (Line(
                 points={{-42,34},{6,34},{6,92},{-88,92}},
                 color={0,0,127},
@@ -54057,7 +52970,6 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
                 points={{-42,64},{6,64},{6,92},{-88,92}},
                 color={0,0,127},
                 smooth=Smooth.None));
-
            connect(bone.pH, busConnector.bone_pH_plasma) annotation (Line(
                 points={{-46,34},{6,34},{6,92},{-88,92}},
                 color={0,0,127},
@@ -54106,7 +53018,6 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
                 points={{-46,64},{6,64},{6,92},{-88,92}},
                 color={0,0,127},
                 smooth=Smooth.None));
-
             annotation (Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,
                       -100},{100,100}}), graphics={
                   Rectangle(
@@ -54164,53 +53075,39 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
            extends Physiolibrary.Icons.Tissues;
           Interstitium.SkeletalMuscleAcidity skeletalMuscle
             annotation (Placement(transformation(extent={{-54,66},{-34,86}})));
-
           Interstitium.BoneAcidity bone
             annotation (Placement(transformation(extent={{-54,36},{-34,56}})));
-
           Interstitium.FatAcidity fat annotation (Placement(transformation(
                   extent={{-54,-54},{-34,-34}})));
-
           Interstitium.BrainAcidity brain
             annotation (Placement(transformation(extent={{52,22},{72,42}})));
-
           Interstitium.RightHeartAcidity rightHeart
             annotation (Placement(transformation(extent={{52,-98},{72,-78}})));
-
           Interstitium.RespiratoryMuscleAcidity respiratoryMuscle
             annotation (Placement(transformation(extent={{-54,-24},{-34,-4}})));
-
           Interstitium.OtherTissueAcidity otherTissue
             annotation (Placement(transformation(extent={{-54,6},{-34,26}})));
-
           Interstitium.LiverAcidity liver
             annotation (Placement(transformation(extent={{52,52},{72,72}})));
-
           Interstitium.LeftHeartAcidity leftHeart
             annotation (Placement(transformation(extent={{52,-68},{72,-48}})));
-
           Interstitium.KidneyAcidity kidney
             annotation (Placement(transformation(extent={{52,-38},{72,-18}})));
-
           Interstitium.GITractAcidity GITract
             annotation (Placement(transformation(extent={{52,-8},{72,12}})));
-
           Physiolibrary.Types.BusConnector busConnector annotation (Placement(
                 transformation(extent={{-108,72},{-68,112}})));
           Interstitium.SkinAcidity skin annotation (Placement(transformation(
                   extent={{-54,-84},{-34,-64}})));
-
           Physiolibrary.Chemical.Interfaces.ChemicalPort_b q_out annotation (
               Placement(transformation(extent={{82,80},{96,92}}),
                 iconTransformation(extent={{-110,-6},{-90,14}})));
           Physiolibrary.Chemical.Interfaces.ChemicalPort_a q_in annotation (
               Placement(transformation(extent={{-98,66},{-84,78}}),
                 iconTransformation(extent={{90,-10},{110,10}})));
-
             Physiolibrary.Types.MolarFlowRate cTHfromTissues;//(displayUnit="mEq/min");
           equation
             cTHfromTissues = -( q_out.q + q_in.q);
-
           connect(bone.BloodFlow, busConnector.bone_BloodFlow)        annotation (
                Line(
                 points={{-35,54},{6,54},{6,92},{-88,92}},
@@ -54307,7 +53204,6 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
                 string="%second",
                 index=1,
                 extent={{5,2},{5,2}}));
-
             connect(bone.LactateFromMetabolism, busConnector.bone_LactateFromMetabolism)        annotation (
                Line(
                 points={{-35,40},{6,40},{6,92},{-88,92}},
@@ -54404,7 +53300,6 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
                 string="%second",
                 index=1,
                 extent={{5,2},{5,2}}));
-
           connect(bone.InterstitialWater, busConnector.bone_InterstitialWater)        annotation (
                Line(
                 points={{-35,50},{6,50},{6,92},{-88,92}},
@@ -54501,7 +53396,6 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
                 string="%second",
                 index=1,
                 extent={{5,2},{5,2}}));
-
            connect(bone.cTH, busConnector.bone_cTH_interstitial) annotation (Line(
                 points={{-42,34},{6,34},{6,92},{-88,92}},
                 color={0,0,127},
@@ -54546,7 +53440,6 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
                 points={{-42,64},{6,64},{6,92},{-88,92}},
                 color={0,0,127},
                 smooth=Smooth.None));
-
             connect(skeletalMuscle.q_out, q_out) annotation (Line(
                 points={{-34,76},{89,76},{89,86}},
                 color={200,0,0},
@@ -54607,7 +53500,6 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
                 color={200,0,0},
                 thickness=1,
                 smooth=Smooth.None));
-
            connect(skeletalMuscle.q_in, q_in) annotation (Line(
                 points={{-54,76},{-91,76},{-91,72}},
                 color={200,0,0},
@@ -54719,7 +53611,6 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
 
           model TissuePh__
             extends Physiomodel.Electrolytes.AcidBase.BloodPhBase;
-
             Physiolibrary.Types.RealIO.ConcentrationInput ctHox(
                                                  displayUnit="mmol/l")
             "titratable acidity of oxygenated blood"
@@ -54735,12 +53626,9 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
                   rotation=0,
                   origin={-90,-72})));
           equation
-
           //base excess
             ctHox = _cTHox;
-
            // cTH_interstitial = -(1-((ctHb_ery/3)/43))*((cHCO3_interstitial-24.5)+betaX*(pH_interstitial-7.42));
-
             annotation (Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,
                       -100},{100,100}}),
                                 graphics), Icon(coordinateSystem(preserveAspectRatio=true,
@@ -54780,13 +53668,10 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
           end TissuePh__;
 
           model Tissue_cTH_steady "interstitial titratable acidity"
-
           model I
             parameter String stateName;
           end I;
-
           I interstitium;
-
           Physiolibrary.Chemical.Sources.UnlimitedSolutePump inputPump1(
               useSoluteFlowInput=true)
             annotation (Placement(transformation(extent={{-76,-28},{-56,-8}})));
@@ -54909,7 +53794,6 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
           end Tissue_cTH_steady;
 
           model Tissue_cTH "interstitial titratable acidity"
-
           Physiolibrary.Chemical.Sources.UnlimitedSolutePump inputPump1(
               useSoluteFlowInput=true)
             annotation (Placement(transformation(extent={{-76,-28},{-56,-8}})));
@@ -55099,7 +53983,6 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
             Modelica.Blocks.Math.Max max1
               annotation (Placement(transformation(extent={{54,46},{62,54}})));
           equation
-
             connect(anions.y, SID.u2)                                                                                                   annotation (Line(       points={{-11,-72},
                     {6,-72},{6,10}},                                                                                                    color={0,0,127},       smooth=Smooth.None));
             connect(cations.y, SID.u1)                                                                                                 annotation (Line(       points={{-7,18},
@@ -55203,7 +54086,6 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
 
       package Buffers
         partial model BufferInterface
-
           Physiolibrary.Types.RealIO.pHInput pH
             annotation (Placement(transformation(extent={{-120,40},{-80,80}})));
           Physiolibrary.Types.RealIO.VolumeDensityOfChargeOutput
@@ -55223,22 +54105,17 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
           Physiolibrary.Types.RealIO.TemperatureInput
                                              T(displayUnit="degC") annotation (Placement(transformation(extent={{-120,
                     -20},{-80,20}}), iconTransformation(extent={{-120,-60},{-80,-20}})));
-
             Real pK;
           Real aCO2;
           Physiolibrary.Types.Concentration cdCO2;
-
           Physiolibrary.Types.VolumeDensityOfCharge y2;
         equation
-
           //Henderson-Hasselbalch equation:
           pK = 6.1 + (-0.0026)*(T-310.15);
           aCO2 = 0.00023 * 10^(-0.0092*(T-310.15)); //solubility depends on temperature
           cdCO2 = aCO2*pCO2;
           y = -cdCO2*10^(pH-pK)* Modelica.Constants.F;  //bicarbonate
-
           y2 = -cdCO2*10^(pH-6.35)* Modelica.Constants.F;  //bicarbonate
-
           annotation (Icon(graphics={Text(
                   extent={{-79,-27},{79,27}},
                   lineColor={0,0,255},
@@ -55252,15 +54129,12 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
           Physiolibrary.Types.RealIO.ConcentrationInput
                                              tAlb(displayUnit="mmol/l")
             annotation (Placement(transformation(extent={{-120,-20},{-80,20}})));
-
           Physiolibrary.Types.MassConcentration tAlb_mass;
           parameter Physiolibrary.Types.MolarMass Alb_MolarMass(displayUnit="g/mol") = 66.463;
         equation
           tAlb_mass=tAlb*Alb_MolarMass;  //kg/m3 = g/l
           y = - tAlb_mass * ( 0.123 * pH - 0.631) * Modelica.Constants.F;
-
         //where [ Albx- ] is in mEq / L and [ Albumin ] is in g / dL. Therefore, at pH 7.40, the charge contributed by 4.40 g / dL of albumin is approximately -12.3 mEq / L.
-
           annotation (Documentation(info="<html>
 <p>http://www.figge-fencl.org/titrationcurve.html</p>
 <p>:</p>
@@ -55297,14 +54171,11 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
           Physiolibrary.Types.RealIO.ConcentrationInput
                                              tPO4
             annotation (Placement(transformation(extent={{-120,-20},{-80,20}})));
-
             parameter Real pKa1=2.1;
           parameter Real pKa2=6.8;
           parameter Real pKa3=12.7;
-
         equation
            y = - tPO4*(10^(pKa2-pH)+2+3*10^(pH-pKa3))/(10^(pKa1+pKa2-2*pH)+10^(pKa2-pH)+1+10^(pH-pKa3))* Modelica.Constants.F;
-
           annotation (Diagram(graphics), Documentation(info="<html>
 <p><b><font style=\"font-size: 12pt; \"><a name=\"internal-source-marker_0.47659245471196454\">C</a>harge for phosphates:</b></p>
 <p><br/>pKa1=2.1, pKa2=6.8, pKa3=12.7 &nbsp;&nbsp;(wiki: &nbsp;2.12, 7.21, 12.67 at 25&deg;C)</p>
@@ -55341,7 +54212,6 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
           parameter Real pIo=7.13
           "isoelectric pH for oxygenated Hb without CO2";
           parameter Real pIr=7.32 "isoelectric pH for Hb without O2 and CO2";
-
           parameter Real pKzO=8.08
           "pKa for NH3+ end of oxygenated haemoglobin chain";
           parameter Real pKzR=7.14
@@ -55350,12 +54220,10 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
           "10^(pH-pKcO) is the dissociation constatnt for O2HbNH2 + CO2 <-> O2HbNHCOO- + H+ ";
           parameter Real pKcR=4.62
           "10^(pH-pKcR) is the dissociation constatnt for HbNH2 + CO2 <-> HbNHCOO- + H+ ";
-
           parameter Real KcR=10^(-pKcR);
           parameter Real KzR=10^(-pKzR);
           parameter Real KcO=10^(-pKcO);
           parameter Real KzO=10^(-pKzO);
-
           Real carbaminohaemoglobin;
           Real sCO2;
           Real zOxyHb;
@@ -55371,12 +54239,9 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
         equation
         aCO2 = 0.23 * 10^(-0.0092*(T-37)); //solubility depends on temperature
         cdCO2 = aCO2*pCO2*0.001; //from mmol to mol
-
         carbaminohaemoglobin = tHb_E*cdCO2*( ( H*H*((1-sO2)/(KzO*KcO)+sO2/(KzR*KcR)) + H*((1-sO2)/KcO + sO2/KcR) + cdCO2) / ((H*H/(KzR*KcR) + H/KcR + cdCO2)*(H*H/(KzO*KcO) + H/KcO + cdCO2))); //, where cdCO2=free disolved CO2 concentration in erythrocytes in mol/l
         sCO2 = carbaminohaemoglobin/ tHb_E;
-
         y = -tHb_E*(sO2*(1-sCO2)*zOxyHb + (1-sO2)*(1-sCO2)*zDeoxyHb + sO2*sCO2*zOxyCarbaminoHb + (1-sO2)*sCO2*zDeoxyCarbaminoHb)* Modelica.Constants.F;
-
         zOxyHb = betaOxyHb * (pH-pIo);
         zDeoxyHb = betaDeoxyHb * (pH-pIr);
         zOxyCarbaminoHb = zOxyHb + (1+2*10^(pKzO-pH))/(1+10^(pKzO-pH)); //= zOxyHb + -[O2HbNH2]/([O2HbNH2]+[O2HbNH3+]) + -2[O2HbNH3+]/([O2HbNH2]+[O2HbNH3+]), where pKZO=8.08
@@ -55391,13 +54256,10 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
 
         model OtherRBCBuffers
           extends BufferInterface;
-
           parameter Physiolibrary.Types.Concentration NCharge=9
           "charge at pH=7.4";
-
         equation
            y = - NCharge * Modelica.Constants.F;
-
           annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
                     -100},{100,100}}),
                               graphics), Documentation(info="<html>
@@ -55423,14 +54285,11 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
         annotation (Placement(transformation(extent={{86,26},{58,54}})));
       BloodPhMeassure veinsPH(_cTHox(start=0), pH(start=7.37))
         annotation (Placement(transformation(extent={{-56,26},{-84,54}})));
-
       Physiolibrary.Types.BusConnector busConnector annotation (Placement(
             transformation(extent={{-42,70},{-2,110}}), iconTransformation(
               extent={{-20,-18},{20,22}})));
-
       //initial equation
       //  ArtysPh.pH=7.4;
-
       BloodPhMeassure lungsPH
         annotation (Placement(transformation(extent={{28,26},{0,54}})));
       Tissues.Bloods tissues_blood_acidity
@@ -55647,7 +54506,6 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
             points={{11.2,23.2},{11.2,6},{34,6},{34,90},{-22,90}},
             color={0,0,127},
             smooth=Smooth.None));
-
         connect(busConnector.ctHb, veinsPH.ctHb) annotation (Line(
             points={{-22,90},{-22,72},{-100,72},{-100,45.6},{-82.6,45.6}},
             color={0,0,255},
@@ -55672,7 +54530,6 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
             string="%first",
             index=-1,
             extent={{-6,3},{-6,3}}));
-
          connect(busConnector.BloodVol_Hct,normalSID. Hct)        annotation (
             Line(
             points={{-22,90},{-100,90},{-100,-34},{-64.6,-34}},
@@ -55734,7 +54591,6 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
             string="%second",
             index=1,
             extent={{6,3},{6,3}}));
-
       connect(BEox.y, veinsPH.BEox) annotation (Line(
           points={{17,-4},{88,-4},{88,62},{-58.8,62},{-58.8,54}},
           color={0,0,127},
@@ -56053,10 +54909,8 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
           useNormalizedVolume=false,
           solute_start=(0)/1000)
           annotation (Placement(transformation(extent={{-38,-66},{-18,-46}})));
-
         //initial equation
         //  ArtysPh.pH=7.4;
-
         equation
           connect(busConnector.O2Artys_sO2, ArtysPh.sO2)        annotation (Line(
               points={{-50,88},{-50,72},{44,72},{44,58},{64,58},{64,55.4},{63.6,
@@ -56663,10 +55517,8 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
         Physiolibrary.Chemical.Sources.UnlimitedSolutePump KetoAcids(
             useSoluteFlowInput=true)
           annotation (Placement(transformation(extent={{-98,-14},{-76,8}})));
-
         //initial equation
         //  ArtysPh.pH=7.4;
-
         old.BloodPhMeassure LungsPh
           annotation (Placement(transformation(extent={{28,26},{0,54}})));
           Bladder bladder_cTH
@@ -56976,7 +55828,6 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
               points={{74.8,23.2},{74.8,2},{-36,2},{-36,-53.04},{-21.64,-53.04}},
               color={0,0,127},
               smooth=Smooth.None));
-
           connect(busConnector.CD_KA_Outflow, renalAcidification1.YORG)
                                                                        annotation (Line(
               points={{-50,88},{-50,-44},{-21.64,-44},{-21.64,-44.64}},
@@ -57162,7 +56013,6 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
         Physiolibrary.Chemical.Interfaces.ChemicalPort_b vein annotation (
             Placement(transformation(extent={{-42,-66},{-26,-50}}),
               iconTransformation(extent={{-120,-10},{-80,30}})));
-
         Physiolibrary.Chemical.Components.Stream tissueFlow(useSolutionFlowInput=
               true) annotation (Placement(transformation(
               extent={{-10,10},{10,-10}},
@@ -57193,7 +56043,6 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
                 extent={{-20,-20},{20,20}},
                 rotation=90,
                 origin={20,100})));
-
           Physiolibrary.Types.MolarFlowRate cTHoutflow; //(displayUnit="mEq/min");
         equation
           cTHoutflow=arty.q + vein.q;
@@ -57377,10 +56226,8 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
         Physiolibrary.Chemical.Sources.UnlimitedSolutePump KetoAcids(
             useSoluteFlowInput=true)
           annotation (Placement(transformation(extent={{2,0},{-20,22}})));
-
         //initial equation
         //  ArtysPh.pH=7.4;
-
         BloodPhMeassure LungsPh
           annotation (Placement(transformation(extent={{28,26},{0,54}})));
           Bladder bladder_cTH(stateVarName="AcidBase.Bladder_TH[mEq]")
@@ -57842,10 +56689,8 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
         Physiolibrary.Chemical.Sources.UnlimitedSolutePump KetoAcids(
             useSoluteFlowInput=true)
           annotation (Placement(transformation(extent={{-98,-14},{-76,8}})));
-
         //initial equation
         //  ArtysPh.pH=7.4;
-
         BloodPhMeassure LungsPh
           annotation (Placement(transformation(extent={{28,26},{0,54}})));
           Bladder bladder_cTH
@@ -58332,7 +57177,6 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
           annotation (Placement(transformation(extent={{86,26},{58,54}})));
         BloodPhMeassure veinsPH(_cTHox(start=0), pH(start=7.37))
           annotation (Placement(transformation(extent={{-56,26},{-84,54}})));
-
         Physiolibrary.Types.BusConnector busConnector annotation (Placement(
               transformation(extent={{-70,68},{-30,108}}), iconTransformation(
                 extent={{-20,-18},{20,22}})));
@@ -58354,10 +57198,8 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
         Physiolibrary.Chemical.Sources.UnlimitedSolutePump KetoAcids(
             useSoluteFlowInput=true)
           annotation (Placement(transformation(extent={{-86,-14},{-64,8}})));
-
         //initial equation
         //  ArtysPh.pH=7.4;
-
         BloodPhMeassure lungsPH
           annotation (Placement(transformation(extent={{28,26},{0,54}})));
           Bladder bladder_cTH(stateVarName="AcidBase.Bladder_TH[mEq]")
@@ -58743,7 +57585,6 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
               points={{11.2,23.2},{11.2,6},{34,6},{34,88},{-50,88}},
               color={0,0,127},
               smooth=Smooth.None));
-
         connect(baseExcessInflowConst1.y, otherAcids.soluteFlow) annotation (Line(
             points={{-81,-38},{-70,-38},{-70,-44}},
             color={0,0,127},
@@ -58838,7 +57679,6 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
           annotation (Placement(transformation(extent={{86,26},{58,54}})));
         BloodPhMeassure veinsPH(_cTHox(start=0))
           annotation (Placement(transformation(extent={{-56,26},{-84,54}})));
-
         Physiolibrary.Types.BusConnector busConnector annotation (Placement(
               transformation(extent={{-70,68},{-30,108}}), iconTransformation(
                 extent={{-20,-18},{20,22}})));
@@ -58860,10 +57700,8 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
         Physiolibrary.Chemical.Sources.UnlimitedSolutePump KetoAcids(
             useSoluteFlowInput=true)
           annotation (Placement(transformation(extent={{-98,-14},{-76,8}})));
-
         //initial equation
         //  ArtysPh.pH=7.4;
-
         BloodPhMeassure lungsPH
           annotation (Placement(transformation(extent={{28,26},{0,54}})));
           Bladder bladder_cTH(stateVarName="AcidBase.Bladder_TH[mEq]")
@@ -59267,7 +58105,6 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
               points={{11.2,23.2},{11.2,6},{34,6},{34,88},{-50,88}},
               color={0,0,127},
               smooth=Smooth.None));
-
           connect(busConnector.ctHb, veinsPH.ctHb) annotation (Line(
               points={{-50,88},{-50,72},{-100,72},{-100,45.6},{-82.6,45.6}},
               color={0,0,255},
@@ -59371,7 +58208,6 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
           annotation (Placement(transformation(extent={{86,26},{58,54}})));
         BloodPhMeassure veinsPH(_cTHox(start=0), pH(start=7.37))
           annotation (Placement(transformation(extent={{-56,26},{-84,54}})));
-
         Physiolibrary.Types.BusConnector busConnector annotation (Placement(
               transformation(extent={{-70,68},{-30,108}}), iconTransformation(
                 extent={{-20,-18},{20,22}})));
@@ -59393,10 +58229,8 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
         Physiolibrary.Chemical.Sources.UnlimitedSolutePump KetoAcids(
             useSoluteFlowInput=true)
           annotation (Placement(transformation(extent={{-98,-14},{-76,8}})));
-
         //initial equation
         //  ArtysPh.pH=7.4;
-
         BloodPhMeassure lungsPH
           annotation (Placement(transformation(extent={{28,26},{0,54}})));
           Bladder bladder_cTH(stateVarName="AcidBase.Bladder_TH[mEq]")
@@ -59796,7 +58630,6 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
               points={{11.2,23.2},{11.2,6},{34,6},{34,88},{-50,88}},
               color={0,0,127},
               smooth=Smooth.None));
-
         connect(baseExcessInflowConst1.y, otherAcids.soluteFlow) annotation (Line(
             points={{-93,-38},{-82,-38},{-82,-44}},
             color={0,0,127},
@@ -59900,7 +58733,6 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
           annotation (Placement(transformation(extent={{86,26},{58,54}})));
         BloodPhMeassure veinsPH(_cTHox(start=0), pH(start=7.37))
           annotation (Placement(transformation(extent={{-56,26},{-84,54}})));
-
         Physiolibrary.Types.BusConnector busConnector annotation (Placement(
               transformation(extent={{-70,68},{-30,108}}), iconTransformation(
                 extent={{-20,-18},{20,22}})));
@@ -59922,10 +58754,8 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
         Physiolibrary.Chemical.Sources.UnlimitedSolutePump KetoAcids(
             useSoluteFlowInput=true)
           annotation (Placement(transformation(extent={{-98,-14},{-76,8}})));
-
         //initial equation
         //  ArtysPh.pH=7.4;
-
         BloodPhMeassure lungsPH
           annotation (Placement(transformation(extent={{28,26},{0,54}})));
           Bladder bladder_cTH(stateVarName="AcidBase.Bladder_TH[mEq]")
@@ -60325,7 +59155,6 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
               points={{11.2,23.2},{11.2,6},{34,6},{34,88},{-50,88}},
               color={0,0,127},
               smooth=Smooth.None));
-
         connect(baseExcessInflowConst1.y, otherAcids.soluteFlow) annotation (Line(
             points={{-93,-38},{-82,-38},{-82,-44}},
             color={0,0,127},
@@ -60423,7 +59252,6 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
           cTHox.q=0;
           cTHox.conc = _cTHox;
         //  cTHox.conc = _cTHox;
-
           annotation (Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,
                     -100},{100,100}}),
                               graphics), Icon(coordinateSystem(preserveAspectRatio=true,
@@ -60458,9 +59286,7 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
         end BloodPhMeassure;
 
         package setup
-
         model AcidBaseConstInputs
-
           Physiolibrary.Types.BusConnector busConnector annotation (Placement(
                 transformation(extent={{72,-2},{86,12}}), iconTransformation(
                   extent={{-40,-20},{0,20}})));
@@ -60877,7 +59703,6 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
           Physiolibrary.Types.Constants.DeprecatedUntypedConstant O2Veins_sO1(k=0)
             annotation (Placement(transformation(extent={{-76,-50},{-70,-44}})));
         equation
-
         connect(ArtysVol.y, busConnector.ArtysVol) annotation (Line(
          points={{-39.7,-337},{79,-337},{79,5}},
               color={0,0,127},
@@ -61823,7 +60648,6 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
               string="%second",
               index=1,
               extent={{6,3},{6,3}}));
-
           connect(ECFV_Vol.y, busConnector.ECFV_Vol) annotation (Line(
               points={{-39.7,-363},{79,-363},{79,5}},
             color={0,0,127},
@@ -61966,11 +60790,9 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
           end RenalAcidificationTest;
 
         model AcidBaseConstInputsFromFile
-
           Physiolibrary.Types.BusConnector busConnector annotation (Placement(
                 transformation(extent={{72,-2},{86,12}}), iconTransformation(
                   extent={{-40,-20},{0,20}})));
-
           Physiolibrary.Types.Constants.DeprecatedUntypedConstant
             AlveolarVentilated_BloodFlow(varName=
                 "LungBloodFlow.AlveolarVentilated") annotation (Placement(
@@ -62397,7 +61219,6 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
           Physiolibrary.Types.Constants.DeprecatedUntypedConstant
             KA_Change_mmol_per_min(varName="KAPool.Change[mMol/min]")
             annotation (Placement(transformation(extent={{-74,650},{-68,656}})));
-
           Physiolibrary.Types.Constants.DeprecatedUntypedConstant BladderVoidFlow(
               varName="BladderVoidFlow")
             annotation (Placement(transformation(extent={{-12,12},{-6,18}})));
@@ -62414,7 +61235,6 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
             BladderVoidFlow3(varName="ctHb")
             annotation (Placement(transformation(extent={{20,36},{26,42}})));
         equation
-
         connect(ArtysVol.y, busConnector.ArtysVol) annotation (Line(
          points={{-67.7,-727},{79,-727},{79,5}},
               color={0,0,127},
@@ -63346,7 +62166,6 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
               string="%second",
               index=1,
               extent={{6,3},{6,3}}));
-
           connect(ECFV_Vol.y, busConnector.ECFV_Vol) annotation (Line(
               points={{-67.7,-607},{79,-607},{79,5}},
             color={0,0,127},
@@ -63415,7 +62234,6 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
         end AcidBaseConstInputsFromFile;
 
           model toFile
-
           Physiolibrary.Utilities.VariableToFile GITract_pH_interstitial(
                                                                    varName="GITract_pH_interstitial")
           annotation (Placement(transformation(extent={{-36,10},{-30,16}})));
@@ -63452,7 +62270,6 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
           Physiolibrary.Utilities.VariableToFile skin_pH_interstitial(
                                                                 varName="skin_pH_interstitial")
           annotation (Placement(transformation(extent={{-36,120},{-30,126}})));
-
           Physiolibrary.Utilities.VariableToFile GITract_pH_plasma(
                                                              varName="GITract_pH_plasma")
           annotation (Placement(transformation(extent={{-36,-112},{-30,-106}})));
@@ -63489,7 +62306,6 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
           Physiolibrary.Utilities.VariableToFile skin_pH_plasma(
                                                           varName="skin_pH_plasma")
           annotation (Placement(transformation(extent={{-36,-2},{-30,4}})));
-
           Physiolibrary.Utilities.VariableToFile GITract_pH_ery(
                                                           varName="GITract_pH_ery")
           annotation (Placement(transformation(extent={{52,6},{58,12}})));
@@ -63526,11 +62342,9 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
           Physiolibrary.Utilities.VariableToFile skin_pH_ery(
                                                        varName="skin_pH_ery")
           annotation (Placement(transformation(extent={{52,116},{58,122}})));
-
           Physiolibrary.Types.BusConnector busConnector annotation (Placement(
                 transformation(extent={{-92,-72},{-78,-58}}),
                 iconTransformation(extent={{-40,-20},{0,20}})));
-
           Physiolibrary.Utilities.VariableToFile Artys_pH_ery(
                                                         varName="Artys_pH_ery")
           annotation (Placement(transformation(extent={{52,-16},{58,-10}})));
@@ -63628,7 +62442,6 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
                 string="%second",
                 index=1,
                 extent={{6,3},{6,3}}));
-
           connect(GITract_pH_interstitial.y, busConnector.GITract_pH_interstitial) annotation (Line(
            points={{-36.3,13},{-85,13},{-85,-65}},
                 color={0,0,127},
@@ -63720,7 +62533,6 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
                 string="%second",
                 index=1,
                 extent={{6,3},{6,3}}));
-
           connect(bone_pH_ery.y, busConnector.bone_pH_ery) annotation (Line(
            points={{51.7,19},{-85,19},{-85,-65}},
                 color={0,0,127},
@@ -63798,7 +62610,6 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
                 string="%second",
                 index=1,
                 extent={{6,3},{6,3}}));
-
             connect(Artys_pH_ery.y, busConnector.Artys_pH_ery) annotation (Line(
            points={{51.7,-13},{-85,-13},{-85,-65}},
                 color={0,0,127},
@@ -63843,20 +62654,17 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
             Modelica.Blocks.Interfaces.RealInput
                                                T(displayUnit="degC") annotation (Placement(transformation(extent={{-120,
                       -20},{-80,20}}), iconTransformation(extent={{-120,-60},{-80,-20}})));
-
             Real pCO2_kPa;
             Real pK;
             Real aCO2;
             Real cdCO2;
           equation
             pCO2 = (760/101325)*1000 * pCO2_kPa;
-
             //Henderson-Hasselbalch equation:
             pK = 6.1 + (-0.0026)*(T-37);
             aCO2 = 0.23 * 10^(-0.0092*(T-37)); //solubility depends on temperature
             cdCO2 = aCO2*pCO2_kPa;
             y = -cdCO2*10^(pH-pK);  //bicarbonate
-
             annotation (Icon(graphics={Text(
                     extent={{-79,-27},{79,27}},
                     lineColor={0,0,255},
@@ -63870,15 +62678,12 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
             Physiolibrary.Types.RealIO.ConcentrationInput
                                                tAlb(displayUnit="mmol/l")
               annotation (Placement(transformation(extent={{-120,-20},{-80,20}})));
-
             Physiolibrary.Types.MassConcentration tAlb_mass;
             parameter Physiolibrary.Types.MolarMass Alb_MolarMass(displayUnit="g/mol") = 66.463;
           equation
             tAlb_mass=tAlb*Alb_MolarMass;  //kg/m3 = g/l
             y = -10* tAlb_g_per_dl * ( 0.123 * pH - 0.631);
-
           //where [ Albx- ] is in mEq / L and [ Albumin ] is in g / dL. Therefore, at pH 7.40, the charge contributed by 4.40 g / dL of albumin is approximately -12.3 mEq / L.
-
             annotation (Documentation(info="<html>
 <p>http://www.figge-fencl.org/titrationcurve.html</p>
 <p>:</p>
@@ -63914,14 +62719,11 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
             Modelica.Blocks.Interfaces.RealInput
                                                tPO4
               annotation (Placement(transformation(extent={{-120,-20},{-80,20}})));
-
               parameter Real pKa1=2.1;
             parameter Real pKa2=6.8;
             parameter Real pKa3=12.7;
-
           equation
              y = - tPO4*(10^(pKa2-pH)+2+3*10^(pH-pKa3))/(10^(pKa1+pKa2-2*pH)+10^(pKa2-pH)+1+10^(pH-pKa3));
-
             annotation (Diagram(graphics), Documentation(info="<html>
 <p><b><font style=\"font-size: 12pt; \"><a name=\"internal-source-marker_0.47659245471196454\">C</a>harge for phosphates:</b></p>
 <p><br/>pKa1=2.1, pKa2=6.8, pKa3=12.7 &nbsp;&nbsp;(wiki: &nbsp;2.12, 7.21, 12.67 at 25&deg;C)</p>
@@ -63958,7 +62760,6 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
             parameter Real pIo=7.13
             "isoelectric pH for oxygenated Hb without CO2";
             parameter Real pIr=7.32 "isoelectric pH for Hb without O2 and CO2";
-
             parameter Real pKzO=8.08
             "pKa for NH3+ end of oxygenated haemoglobin chain";
             parameter Real pKzR=7.14
@@ -63967,12 +62768,10 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
             "10^(pH-pKcO) is the dissociation constatnt for O2HbNH2 + CO2 <-> O2HbNHCOO- + H+ ";
             parameter Real pKcR=4.62
             "10^(pH-pKcR) is the dissociation constatnt for HbNH2 + CO2 <-> HbNHCOO- + H+ ";
-
             parameter Real KcR=10^(-pKcR);
             parameter Real KzR=10^(-pKzR);
             parameter Real KcO=10^(-pKcO);
             parameter Real KzO=10^(-pKzO);
-
             Real carbaminohaemoglobin;
             Real sCO2;
             Real zOxyHb;
@@ -63988,12 +62787,9 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
           equation
           aCO2 = 0.23 * 10^(-0.0092*(T-37)); //solubility depends on temperature
           cdCO2 = aCO2*pCO2*0.001; //from mmol to mol
-
           carbaminohaemoglobin = tHb_E*cdCO2*( ( H*H*((1-sO2)/(KzO*KcO)+sO2/(KzR*KcR)) + H*((1-sO2)/KcO + sO2/KcR) + cdCO2) / ((H*H/(KzR*KcR) + H/KcR + cdCO2)*(H*H/(KzO*KcO) + H/KcO + cdCO2))); //, where cdCO2=free disolved CO2 concentration in erythrocytes in mol/l
           sCO2 = carbaminohaemoglobin/ tHb_E;
-
           y = -tHb_E*(sO2*(1-sCO2)*zOxyHb + (1-sO2)*(1-sCO2)*zDeoxyHb + sO2*sCO2*zOxyCarbaminoHb + (1-sO2)*sCO2*zDeoxyCarbaminoHb);
-
           zOxyHb = betaOxyHb * (pH-pIo);
           zDeoxyHb = betaDeoxyHb * (pH-pIr);
           zOxyCarbaminoHb = zOxyHb + (1+2*10^(pKzO-pH))/(1+10^(pKzO-pH)); //= zOxyHb + -[O2HbNH2]/([O2HbNH2]+[O2HbNH3+]) + -2[O2HbNH3+]/([O2HbNH2]+[O2HbNH3+]), where pKZO=8.08
@@ -64007,7 +62803,6 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
           end Haemoglobin;
 
           partial model BufferInterface
-
             Modelica.Blocks.Interfaces.RealInput
                                                pH
               annotation (Placement(transformation(extent={{-120,40},{-80,80}})));
@@ -64022,9 +62817,7 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
         end buffers_Old;
 
         package Ikeda "Renal Acidification from Ikeda (1979)"
-
           model RenalDistalAcidification
-
             Modelica.Blocks.Interfaces.RealInput TPHU1 annotation (Placement(
                   transformation(extent={{-102,-98},{-82,-78}}),
                                                               iconTransformation(extent={{
@@ -64051,7 +62844,6 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
                   transformation(extent={{82,-60},{102,-40}}),
                                                             iconTransformation(extent={{76,
                       5},{94,23}})));
-
           Physiolibrary.Blocks.Math.Integrator integrator(
             y_start=6.0,
             k=1/Physiomodel.Metabolism.deprecated.SecPerMin,
@@ -64119,7 +62911,6 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
                 color={0,0,127},
                 thickness=0.5,
                 smooth=Smooth.None));
-
             connect(add.y, division.u1) annotation (Line(
                 points={{-51.3,-71},{-48.65,-71},{-48.65,-68},{-45,-68}},
                 color={0,0,127},
@@ -64448,7 +63239,6 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
           end RenalDistalAcidification;
 
           model PHUCalculation
-
             function PHUcalc
               input Real ypo4;
               input Real yorg;
@@ -64463,7 +63253,6 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
               Real c68;
               Real c43;
               Real cPHA;
-
             algorithm
               c68:=10^(-6.8);
               c43:=10^(-4.3);
@@ -64476,7 +63265,6 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
               c := c43*c68^2*cPHA*yorg + c43*c68*cPHA^2*yorg + c43^2*c68*cPHA*ypo4 +
               c43*c68*cPHA^2*ypo4 + c43^2*c68^2*yta + c43^2*c68*cPHA*yta +
               c43*c68^2*cPHA*yta + c43*c68*cPHA^2*yta;
-
               XX1 := (-b - sqrt(b*b - 4*a*c))/(2*a);
               if (XX1>(10^(-3.5))) then
                 XX1:=10^(-3.5);
@@ -64485,9 +63273,7 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
                  XX1:=10^(-3.5);
               end if;
               phu:=-Modelica.Math.log10(XX1);
-
             end PHUcalc;
-
             Modelica.Blocks.Interfaces.RealInput YPO4 annotation (Placement(
                   transformation(
                   extent={{-20,-20},{20,20}},
@@ -64512,10 +63298,8 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
                   extent={{-20,-20},{20,20}},
                   rotation=90,
                   origin={14,-46})));
-
           equation
             PHU=PHUcalc(YPO4,YORG,YTA,PHA);
-
             annotation (
               uses,
               Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},
@@ -64560,7 +63344,6 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
           end PHUCalculation;
 
           model RenalAcidification
-
             Physiolibrary.Types.RealIO.MolarFlowRateInput YORG(displayUnit="mmol/min")
             "renal excration rate of organic acid"    annotation (Placement(
                   transformation(extent={{-110,-14},{-70,26}}),iconTransformation(
@@ -64702,7 +63485,6 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
                 color={0,0,127},
                 thickness=0.5,
                 smooth=Smooth.None));
-
             connect(YPO4, pHUCaculation.YPO4) annotation (Line(
                 points={{-90,-24},{-60,-24},{-60,-2},{-8.07,-2},{-8.07,-3.71}},
                 color={0,0,127},
@@ -64729,7 +63511,6 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
                 color={0,0,127},
                 thickness=0.5,
                 smooth=Smooth.None));
-
             annotation (Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,-100},
                       {100,100}}),       graphics={Text(
                     extent={{6,-80},{74,-76}},
@@ -64795,7 +63576,6 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
           end RenalAcidification;
 
           model PHUCalculation2
-
             Physiolibrary.Types.RealIO.MolarFlowRateInput YPO4 annotation (Placement(
                   transformation(
                   extent={{-20,-20},{20,20}},
@@ -64820,14 +63600,12 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
                   extent={{-20,-20},{20,20}},
                   rotation=90,
                   origin={14,-46})));
-
             Physiolibrary.Types.MolarFlowRate ypPHA;
             Physiolibrary.Types.MolarFlowRate ypPHU;
             Physiolibrary.Types.MolarFlowRate yoPHA;
             Physiolibrary.Types.MolarFlowRate yoPHU;
           equation
           //  PHU=PHUcalc(YPO4,YORG,YTA,PHA);
-
              YTA = (ypPHA-ypPHU) + (yoPHA-yoPHU);
              ypPHA = YPO4*(10^(-PHA)+2*10^(-6.8))/(10^(-PHA)+10^(-6.8));
              ypPHU = YPO4*(10^(-PHU)+2*10^(-6.8))/(10^(-PHU)+10^(-6.8));
@@ -64877,7 +63655,6 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
           end PHUCalculation2;
 
           model RenalDistalAcidification2
-
             Physiolibrary.Types.RealIO.TimeInput TPHU1 annotation (Placement(
                   transformation(extent={{-102,-98},{-82,-78}}),
                                                               iconTransformation(extent={{
@@ -64904,7 +63681,6 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
                   transformation(extent={{82,-60},{102,-40}}),
                                                             iconTransformation(extent={{76,
                       5},{94,23}})));
-
           Physiolibrary.Blocks.Math.Integrator integrator(stateName=
                 "Urine_pH-Ikeda-Delayed", y_start=5.69444)
             annotation (Placement(transformation(extent={{-26,-78},{-12,-64}})));
@@ -64953,7 +63729,6 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
                 color={0,0,127},
                 thickness=0.5,
                 smooth=Smooth.None));
-
             connect(add.y, division.u1) annotation (Line(
                 points={{-51.3,-71},{-48.65,-71},{-48.65,-68},{-45,-68}},
                 color={0,0,127},
@@ -65189,7 +63964,6 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
           end RenalDistalAcidification2;
 
           block YCO3
-
             Modelica.Blocks.Interfaces.RealInput PCOA(displayUnit="mmHg")
             "arterial partial pressure of CO2"        annotation (Placement(
                   transformation(
@@ -65227,14 +64001,11 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
           end YCO3;
 
           model Min
-
           equation
              PHU=PHUcalc(YPO4,YORG,YTA,PHA);
-
           end Min;
 
           model RenalDistalAcidification3
-
             Modelica.Blocks.Interfaces.RealInput TPHU1 annotation (Placement(
                   transformation(extent={{-102,-98},{-82,-78}}),
                                                               iconTransformation(extent={{
@@ -65261,7 +64032,6 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
                   transformation(extent={{82,-60},{102,-40}}),
                                                             iconTransformation(extent={{76,
                       5},{94,23}})));
-
           Physiolibrary.Blocks.Math.Integrator integrator(stateName=
                 "Urine_pH-Ikeda-Delayed", y_start=5.69444)
             annotation (Placement(transformation(extent={{-26,-78},{-12,-64}})));
@@ -65327,7 +64097,6 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
                 color={0,0,127},
                 thickness=0.5,
                 smooth=Smooth.None));
-
             connect(add.y, division.u1) annotation (Line(
                 points={{-51.3,-71},{-48.65,-71},{-48.65,-68},{-45,-68}},
                 color={0,0,127},
@@ -65574,16 +64343,13 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
 
           model LinearDependences
             extends Modelica.Blocks.Interfaces.SISO;
-
             parameter Real y1;
             parameter Real y2;
             parameter Real u1;
             parameter Real u2;
-
         protected
             parameter Real a(fixed=false);
             parameter Real b(fixed=false);
-
           initial equation
            a*u1+b=y1;
            a*u2+b=y2;
@@ -65593,7 +64359,6 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
           end LinearDependences;
 
           model RenalAcidification2
-
             Modelica.Blocks.Interfaces.RealInput YORG(displayUnit="mmol/min")
             "renal excration rate of organic acid"    annotation (Placement(
                   transformation(extent={{-110,-14},{-70,26}}),iconTransformation(
@@ -65735,7 +64500,6 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
                 color={0,0,127},
                 thickness=0.5,
                 smooth=Smooth.None));
-
             connect(YPO4, pHUCaculation.YPO4) annotation (Line(
                 points={{-90,-24},{-60,-24},{-60,-2},{-8.07,-2},{-8.07,-3.71}},
                 color={0,0,127},
@@ -65762,7 +64526,6 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
                 color={0,0,127},
                 thickness=0.5,
                 smooth=Smooth.None));
-
           connect(HCO3, renalDistalAcidification.HCO3) annotation (Line(
               points={{-92,65},{-62,65},{-62,14.86},{-32.69,14.86}},
               color={0,0,127},
@@ -65837,22 +64600,17 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
         package Jim
           partial model BloodPhBase
             import Modelica.Math;
-
             parameter Real Rrbc = 0.69
             "Gibbs-Donnan ratio across RBC membrane, unitless";
-
             Real betaX(unit = "mEq/l") "buffer value of blood";
             Real betaP(unit = "mEq/l") "buffer value of plasma";
-
             Real _cTH( displayUnit="mEq/l")
             "total concentration of tiratable hydrogen ions";
             Real _BE( displayUnit="mEq/l") "base excess";
-
             Real _BEox( displayUnit="mEq/l")
             "base excess in fully oxygenated blood";
             Real _cTHox( displayUnit="mEq/l")
             "total concentration of tiratable hydrogen ions in fully oxygenated blood";
-
             Modelica.Blocks.Interfaces.RealOutput pH "plasma pH"   annotation (Placement(transformation(
                     extent={{30,-98},{70,-58}}), iconTransformation(
                   extent={{-20,-20},{20,20}},
@@ -65864,7 +64622,6 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
                   extent={{-20,-20},{20,20}},
                   rotation=270,
                   origin={20,-120})));
-
             Modelica.Blocks.Interfaces.RealInput cHCO3(
                                                 final displayUnit="mmol/l")
             "concentration of plasma HCO3 ions (default=24.5mmol/l)"
@@ -65883,20 +64640,17 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
                   origin={90,40})));
             parameter Real cHb(displayUnit="mmol/l")=43
             "an empirical parameter accounting for erythrocyte plasma distributions";
-
             Modelica.Blocks.Interfaces.RealInput sO2 "oxygen saturation"
                                              annotation (Placement(transformation(extent={{-100,60},
                       {-60,100}}),          iconTransformation(extent={{-10,-10},{10,10}},
                   rotation=270,
                   origin={60,110})));
-
             Modelica.Blocks.Interfaces.RealInput ctAlb(
                                                 final displayUnit="mmol/l")
             "concentration of total plasma albumins(dofault=0.65mmol/l)"                   annotation (Placement(transformation(extent={{52,-26},
                       {92,14}}),            iconTransformation(extent={{-10,-10},{10,10}},
                   rotation=180,
                   origin={90,0})));
-
             Modelica.Blocks.Interfaces.RealInput ctGlb(
                                                 final displayUnit="g/l")
             "concentration of total plasma globulins"                                      annotation (Placement(transformation(extent={{52,-60},
@@ -65909,27 +64663,20 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
                       {94,-52}}),           iconTransformation(extent={{-10,-10},{10,10}},
                   rotation=180,
                   origin={90,-80})));
-
           equation
             //Van Slyke equation:  - T=37
             _cTH = -(1-ctHb_ery/cHb)*((cHCO3-24.5)+betaX*(pH-7.4));
-
             betaX = 2.3*ctHb_ery + betaP;
             betaP =  8*ctAlb + 0.075*ctGlb + 0.309*ctPO4;
-
           //  _betaX = 0.11 * plasmaProteinConc(displayUnit="g/l"); //mmol/l
-
           //Haldane effect:
             _cTH = _cTHox - 0.3 * (1-sO2);
-
           //base excess
             _BEox = - _cTHox;
             _BE = - _cTH;
-
             //erythrocytes:
           //  pH_ery = 7.19 + 0.77*(pH-7.4) + 0.035*(1-sO2);
             pH = pH_ery-log10(Rrbc);
-
             annotation (
               preferredView = text,
               Documentation(info="<html>
@@ -65987,14 +64734,11 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
           annotation (Placement(transformation(extent={{86,26},{58,54}})));
         BloodPhMeassure veinsPH(_cTHox(start=0), pH(start=7.37))
           annotation (Placement(transformation(extent={{-56,26},{-84,54}})));
-
         Physiolibrary.Types.BusConnector busConnector annotation (Placement(
               transformation(extent={{-42,70},{-2,110}}), iconTransformation(
                 extent={{-20,-18},{20,22}})));
-
         //initial equation
         //  ArtysPh.pH=7.4;
-
         BloodPhMeassure lungsPH
           annotation (Placement(transformation(extent={{28,26},{0,54}})));
         Tissues.Bloods tissues_blood_acidity
@@ -66205,7 +64949,6 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
               points={{11.2,23.2},{11.2,6},{34,6},{34,90},{-22,90}},
               color={0,0,127},
               smooth=Smooth.None));
-
           connect(busConnector.ctHb, veinsPH.ctHb) annotation (Line(
               points={{-22,90},{-22,72},{-100,72},{-100,45.6},{-82.6,45.6}},
               color={0,0,255},
@@ -66230,7 +64973,6 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
               string="%first",
               index=-1,
               extent={{-6,3},{-6,3}}));
-
           connect(BEox.y, busConnector.Blood_BEox) annotation (Line(
               points={{17,-4},{88,-4},{88,90},{-22,90}},
               color={0,0,127},
@@ -66246,7 +64988,6 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
               string="%first",
               index=-1,
               extent={{-6,3},{-6,3}}));
-
         connect(BEox.y, veinsPH.BEox) annotation (Line(
             points={{17,-4},{88,-4},{88,62},{-58.8,62},{-58.8,54}},
             color={0,0,127},
@@ -66475,7 +65216,6 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
         end AcidBase3_;
 
         model PHUCalculation2_
-
           Physiolibrary.Types.RealIO.MolarFlowRateInput
                                              qPO4(displayUnit="mmol/min")
           "total phosphates outflow to urine"                                                         annotation (Placement(
@@ -66504,7 +65244,6 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
                     10}},
                 rotation=0,
                 origin={-90,90})));
-
           parameter Real CO2_solubility(displayUnit="(mmol/l)/Pa")=0.00023;
           parameter Real pKaCO2=6.1 "CO2 acid dissociation constant";
           parameter Real pKaHCO3=10.329 "HCO3 acid dissociation constant";
@@ -66514,13 +65253,10 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
           parameter Real pKaKA=4.3
           "average Keto-acids acid dissociation constant";
           //constant Real ml2l = 0.001;
-
           Real zPO4 "average charge of one phosphate in urine";
                    //(displayUnit="Eq/Mol")
-
           Real zKA "average charge of one keto acid in purine";
                   //(displayUnit="Eq/Mol")
-
           Real zCO2_qCO2 "charge outflow in (bi)carbonates to urine";
                         //(displayUnit="Eq/min")
           Physiolibrary.Types.RealIO.PressureInput
@@ -66584,21 +65320,14 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
                 origin={-90,10})));
           parameter Physiolibrary.Types.MolarFlowRate  qX(displayUnit="mmol/min") = -5.6666666666666666666666666666667e-7
           "other acids/electrolytes charge outflow";
-
             Physiolibrary.Types.MolarFlowRate x;
-
         equation
             zPO4 = -(1+2*10^(PHU-pKaH2PO4)+ 3*10^(2*PHU-pKaH2PO4 -pKaHPO4)) / (10^(pKaH3PO4-PHU)+1+10^(PHU-pKaH2PO4)+ 10^(2*PHU-pKaH2PO4-pKaHPO4));
-
             zKA = - 1/(10^(pKaKA-PHU)+1);
-
             zCO2_qCO2 = -CO2_solubility*pCO2*(10^(PHU-pKaCO2))*(qH2O);
-
             PHU=6;
-
             x=qX + 1*qNa + 1*qK + 2*qMg + 2*qCa + 1*qNH4 + (-1)*qCl + (-2)*qSO4 + zPO4*qPO4 + zKA*qKA + zCO2_qCO2;
            // qX + 1*qNa + 1*qK + 2*qMg + 2*qCa + 1*qNH4 + (-1)*qCl + (-2)*qSO4 + zPO4*qPO4 + zKA*qKA + zCO2_qCO2 = 0;  // electroneutrality of urine outflow
-
           annotation (
             Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-120},{100,100}}),
                                  graphics={
@@ -66645,58 +65374,43 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
 
         package Tissues_NSID
         "Acidity of tissue veins, interstitium or intracellular space"
-
           model Tissues_cTH
            extends Physiolibrary.Icons.Tissues;
             SkeletalMuscleAcidity skeletalMuscle
               annotation (Placement(transformation(extent={{-54,66},{-34,86}})));
-
             BoneAcidity bone
               annotation (Placement(transformation(extent={{-54,36},{-34,56}})));
-
             FatAcidity fat
               annotation (Placement(transformation(extent={{-54,-54},{-34,-34}})));
-
             BrainAcidity brain
               annotation (Placement(transformation(extent={{52,22},{72,42}})));
-
             RightHeartAcidity rightHeart
               annotation (Placement(transformation(extent={{52,-98},{72,-78}})));
-
             RespiratoryMuscleAcidity respiratoryMuscle
               annotation (Placement(transformation(extent={{-54,-24},{-34,-4}})));
-
             OtherTissueAcidity otherTissue
               annotation (Placement(transformation(extent={{-54,6},{-34,26}})));
-
             LiverAcidity liver
               annotation (Placement(transformation(extent={{52,52},{72,72}})));
-
             LeftHeartAcidity leftHeart
               annotation (Placement(transformation(extent={{52,-68},{72,-48}})));
-
             KidneyAcidity kidney
               annotation (Placement(transformation(extent={{52,-38},{72,-18}})));
-
             GITractAcidity GITract
               annotation (Placement(transformation(extent={{52,-8},{72,12}})));
-
           Physiolibrary.Types.BusConnector busConnector annotation (Placement(
                 transformation(extent={{-108,72},{-68,112}})));
             SkinAcidity skin
               annotation (Placement(transformation(extent={{-54,-84},{-34,-64}})));
-
           Physiolibrary.Chemical.Interfaces.ChemicalPort_b q_out annotation (
               Placement(transformation(extent={{82,80},{96,92}}),
                 iconTransformation(extent={{-110,-6},{-90,14}})));
           Physiolibrary.Chemical.Interfaces.ChemicalPort_a q_in annotation (
               Placement(transformation(extent={{-98,66},{-84,78}}),
                 iconTransformation(extent={{90,-10},{110,10}})));
-
           Real cTHfromTissues(displayUnit="mEq/min");
           equation
             cTHfromTissues = -( q_out.q + q_in.q);
-
           connect(bone.BloodFlow, busConnector.bone_BloodFlow)        annotation (
                Line(
                 points={{-35,54},{6,54},{6,92},{-88,92}},
@@ -66793,7 +65507,6 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
                 string="%second",
                 index=1,
                 extent={{5,2},{5,2}}));
-
             connect(bone.LactateFromMetabolism, busConnector.bone_LactateFromMetabolism)        annotation (
                Line(
                 points={{-35,40},{6,40},{6,92},{-88,92}},
@@ -66890,7 +65603,6 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
                 string="%second",
                 index=1,
                 extent={{5,2},{5,2}}));
-
           connect(bone.InterstitialWater, busConnector.bone_InterstitialWater)        annotation (
                Line(
                 points={{-35,50},{6,50},{6,92},{-88,92}},
@@ -66987,7 +65699,6 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
                 string="%second",
                 index=1,
                 extent={{5,2},{5,2}}));
-
            connect(bone.cTH, busConnector.bone_cTH_interstitial) annotation (Line(
                 points={{-42,34},{6,34},{6,92},{-88,92}},
                 color={0,0,127},
@@ -67032,7 +65743,6 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
                 points={{-42,64},{6,64},{6,92},{-88,92}},
                 color={0,0,127},
                 smooth=Smooth.None));
-
             connect(skeletalMuscle.q_out, q_out) annotation (Line(
                 points={{-34,76},{89,76},{89,86}},
                 color={200,0,0},
@@ -67093,7 +65803,6 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
                 color={200,0,0},
                 thickness=1,
                 smooth=Smooth.None));
-
            connect(skeletalMuscle.q_in, q_in) annotation (Line(
                 points={{-54,76},{-91,76},{-91,72}},
                 color={200,0,0},
@@ -67206,42 +65915,30 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
           model TissuesPh_interstitial
             SkeletalMuscleInterstitialPh skeletalMuscle
               annotation (Placement(transformation(extent={{-54,66},{-34,86}})));
-
             BoneInterstitialPh bone
               annotation (Placement(transformation(extent={{-54,36},{-34,56}})));
-
             FatInterstitialPh fat
               annotation (Placement(transformation(extent={{-54,-54},{-34,-34}})));
-
             BrainInterstitialPh brain
               annotation (Placement(transformation(extent={{52,28},{72,48}})));
-
             RightHeartInterstitialPh rightHeart
               annotation (Placement(transformation(extent={{52,-92},{72,-72}})));
-
             RespiratoryMuscleInterstitialPh respiratoryMuscle
               annotation (Placement(transformation(extent={{-54,-24},{-34,-4}})));
-
             OtherTissueInterstitialPh otherTissue
               annotation (Placement(transformation(extent={{-54,6},{-34,26}})));
-
             LiverInterstitialPh liver
               annotation (Placement(transformation(extent={{52,60},{72,80}})));
-
             LeftHeartInterstitialPh leftHeart
               annotation (Placement(transformation(extent={{52,-62},{72,-42}})));
-
             KidneyInterstitialPh kidney
               annotation (Placement(transformation(extent={{52,-32},{72,-12}})));
-
             GITractInterstitialPh GITract
               annotation (Placement(transformation(extent={{52,-2},{72,18}})));
-
           Physiolibrary.Types.BusConnector busConnector annotation (Placement(
                 transformation(extent={{-108,72},{-68,112}})));
             SkinInterstitialPh skin
               annotation (Placement(transformation(extent={{-54,-84},{-34,-64}})));
-
           equation
             connect(busConnector.bone_cHCO3_interstitial, bone.cHCO3)        annotation (
                Line(
@@ -67339,7 +66036,6 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
                 string="%first",
                 index=-1,
                 extent={{-5,2},{-5,2}}));
-
            connect(busConnector.bone_pCO2, bone.pCO2)        annotation (
                Line(
                 points={{-88,92},{-88,54},{-53,54}},
@@ -67436,7 +66132,6 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
                 string="%first",
                 index=-1,
                 extent={{-5,2},{-5,2}}));
-
            connect(busConnector.bone_T, bone.T)        annotation (
                Line(
                 points={{-88,92},{-88,38.8},{-53,38.8}},
@@ -67533,7 +66228,6 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
                 string="%first",
                 index=-1,
                 extent={{-5,2},{-5,2}}));
-
           connect(bone.pH_interstitial, busConnector.bone_pH_interstitial) annotation (Line(
                 points={{-38,34},{6,34},{6,92},{-88,92}},
                 color={0,0,127},
@@ -67582,7 +66276,6 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
                 points={{-38,64},{6,64},{6,92},{-88,92}},
                 color={0,0,127},
                 smooth=Smooth.None));
-
             annotation (Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,
                       -100},{100,100}}), graphics={
                   Rectangle(
@@ -67637,7 +66330,6 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
           end TissuesPh_interstitial;
 
           model TissuePh_interstitial
-
             Physiolibrary.Types.RealIO.ConcentrationInput cHCO3
             "tissue interstitial bicarbonate concentration"
                                              annotation (Placement(transformation(extent={{-106,-4},
@@ -67670,7 +66362,6 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
                   rotation=0,
                   origin={-90,80})));
           equation
-
             connect(interstitium.cHCO3, inverseBlockConstraints.u2) annotation (Line(
                 points={{-4,0},{-4,-8},{-26,-8},{-26,11},{-29.8,11}},
                 color={0,0,127},
@@ -67739,42 +66430,30 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
           model TissuesPh_intracellular
             SkeletalMuscleIntracellularPh skeletalMuscle
               annotation (Placement(transformation(extent={{-54,64},{-34,84}})));
-
             BoneIntracellularPh bone
               annotation (Placement(transformation(extent={{-54,36},{-34,56}})));
-
             FatIntracellularPh fat
               annotation (Placement(transformation(extent={{-54,-54},{-34,-34}})));
-
             BrainIntracellularPh brain
               annotation (Placement(transformation(extent={{52,28},{72,48}})));
-
             RightHeartIntracellularPh rightHeart
               annotation (Placement(transformation(extent={{52,-92},{72,-72}})));
-
             RespiratoryMuscleIntracellularPh respiratoryMuscle
               annotation (Placement(transformation(extent={{-54,-24},{-34,-4}})));
-
             OtherTissueIntracellularPh otherTissue
               annotation (Placement(transformation(extent={{-54,6},{-34,26}})));
-
             LiverIntracellularPh liver
               annotation (Placement(transformation(extent={{52,60},{72,80}})));
-
             LeftHeartIntracellularPh leftHeart
               annotation (Placement(transformation(extent={{52,-62},{72,-42}})));
-
             KidneyIntracellularPh kidney
               annotation (Placement(transformation(extent={{52,-32},{72,-12}})));
-
             GITractIntracellularPh GITract
               annotation (Placement(transformation(extent={{52,-2},{72,18}})));
-
           Physiolibrary.Types.BusConnector busConnector annotation (Placement(
                 transformation(extent={{-108,72},{-68,112}})));
             SkinIntracellularPh skin
               annotation (Placement(transformation(extent={{-54,-84},{-34,-64}})));
-
           equation
             connect(busConnector.KCell_conc_per_liter, bone.KCell)      annotation (
                Line(
@@ -67872,7 +66551,6 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
                 string="%first",
                 index=-1,
                 extent={{-5,2},{-5,2}}));
-
             connect(busConnector.bone_cLactate, bone.cLactate)        annotation (
                Line(
                 points={{-88,92},{-88,42},{-53,42}},
@@ -67969,7 +66647,6 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
                 string="%first",
                 index=-1,
                 extent={{-5,2},{-5,2}}));
-
            connect(busConnector.bone_pCO2, bone.pCO2)        annotation (
                Line(
                 points={{-88,92},{-88,54},{-53,54}},
@@ -68066,7 +66743,6 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
                 string="%first",
                 index=-1,
                 extent={{-5,2},{-5,2}}));
-
           connect(bone.pH, busConnector.bone_pH_intracellular) annotation (Line(
                 points={{-38,34},{6,34},{6,92},{-88,92}},
                 color={0,0,127},
@@ -68115,7 +66791,6 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
                 points={{-38,62},{6,62},{6,92},{-88,92}},
                 color={0,0,127},
                 smooth=Smooth.None));
-
             annotation (Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,
                       -100},{100,100}}), graphics={
                   Rectangle(
@@ -68229,7 +66904,6 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
             Modelica.Blocks.Math.Max max1
               annotation (Placement(transformation(extent={{54,46},{62,54}})));
           equation
-
             connect(anions.y, SID.u2)                                                                                                   annotation (Line(       points={{-11,-72},
                     {6,-72},{6,10}},                                                                                                    color={0,0,127},       smooth=Smooth.None));
             connect(cations.y, SID.u1)                                                                                                 annotation (Line(       points={{-7,18},
@@ -68610,13 +67284,10 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
           end RightHeartAcidity;
 
           model Tissue_cTH_steady "interstitial titratable acidity"
-
           model I
             parameter String stateName;
           end I;
-
           I interstitium;
-
           Physiolibrary.Chemical.Sources.UnlimitedSolutePump inputPump1(
               useSoluteFlowInput=true)
             annotation (Placement(transformation(extent={{-76,-28},{-56,-8}})));
@@ -68738,7 +67409,6 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
           end Tissue_cTH_steady;
 
           model Tissue_cTH "interstitial titratable acidity"
-
           Physiolibrary.Chemical.Sources.UnlimitedSolutePump inputPump1(
               useSoluteFlowInput=true)
             annotation (Placement(transformation(extent={{-76,-28},{-56,-8}})));
@@ -68876,7 +67546,6 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
       model AcidBase_variables
         extends Physiolibrary.Icons.AcidBase;
         package T = Physiolibrary.Types.RealTypes;
-
       Physiolibrary.Types.BusConnector busConnector annotation (Placement(
             transformation(extent={{52,-28},{66,-14}}), iconTransformation(
               extent={{-40,-20},{0,20}})));
@@ -69388,7 +68057,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
             string="%second",
             index=1,
             extent={{6,3},{6,3}}));
-
       connect(BloodIons_ProteinAnions.y, busConnector.BloodIons_ProteinAnions)
         annotation (Line(
           points={{-85.7,-69},{-10,-69},{-10,-21},{59,-21}},
@@ -69446,17 +68114,13 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
     end AcidBase;
 
     package Sodium "Body Sodium Distribution"
-
       model GlomerulusCationFiltration
-
       Physiolibrary.Chemical.Interfaces.ChemicalPort_b q_out annotation (extent=
            [-10,-110; 10,-90], Placement(transformation(extent={{90,-10},{110,
                 10}})));
-
       Physiolibrary.Chemical.Interfaces.ChemicalPort_a q_in annotation (
           Placement(transformation(extent={{-120,-20},{-80,20}}),
             iconTransformation(extent={{-110,-10},{-90,10}})));
-
         Physiolibrary.Types.RealIO.VolumeDensityOfChargeInput otherCations annotation (Placement(
               transformation(extent={{-78,30},{-38,70}}), iconTransformation(
               extent={{-20,-20},{20,20}},
@@ -69476,7 +68140,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
         Anions = Cations;
         KAdjustment = (Cations-(Anions-ProteinAnions))/(Cations+(Anions-ProteinAnions));
         q_out.conc = (1-KAdjustment)*q_in.conc;
-
        annotation (
           Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{
                   100,100}}), graphics={
@@ -70570,7 +69233,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
             annotation (Placement(transformation(extent={{4,74},{20,90}})));
         equation
           ECF_conc =concentrationMeasure1.concentration;
-
         connect(NaPool.solutionVolume, busConnector.ECFV_Vol) annotation (Line(
             points={{-84,30},{-97,30},{-97,92},{-92,92}},
             color={0,0,127},
@@ -71054,7 +69716,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
               color={200,0,0},
               thickness=1,
               smooth=Smooth.None));
-
         connect(concentrationMeasure1.concentration, busConnector.NaPool_conc_per_liter)
           annotation (Line(
             points={{-92,40},{-92,46},{-98,46},{-98,92},{-92,92}},
@@ -71145,7 +69806,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
               string="%first",
               index=-1,
               extent={{-6,3},{-6,3}}));
-
           connect(ml2l.u, division.y) annotation (Line(
               points={{89.4,-13},{89.4,-12.5},{86.3,-12.5},{86.3,-13}},
               color={0,0,127},
@@ -71267,7 +69927,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
 
       package setup
         model ConstInputsFromOtherElectrolytes
-
         Physiolibrary.Types.BusConnector busConnector annotation (Placement(
               transformation(extent={{44,58},{64,78}}), iconTransformation(
                 extent={{-40,-20},{0,20}})));
@@ -71278,7 +69937,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
               4.30150131804415)
           annotation (Placement(transformation(extent={{-20,48},{-14,54}})));
         equation
-
         connect(BloodIons_ProteinAnions.y, busConnector.BloodIons_ProteinAnions) annotation (Line(
          points={{-13.7,45},{54,45},{54,68}},
               color={0,0,127},
@@ -71302,7 +69960,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
       package expandableConnectorPatch
         record InsideBusConnector
           extends Physiomodel.Interfaces.SignalBusBlue;
-
         Modelica.Blocks.Interfaces.RealOutput BladderVoidFlow annotation (Placement(transformation(
                   extent={{80,2},{100,22}}), iconTransformation(extent={{80,0},{120,40}})));
         Modelica.Blocks.Interfaces.RealOutput A2Pool_Log10Conc annotation (Placement(transformation(
@@ -71358,17 +70015,14 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
         Modelica.Blocks.Interfaces.RealOutput
             skeletalMuscle_GlucoseToCellStorageFlow                                   annotation (Placement(transformation(
                   extent={{80,2},{100,22}}), iconTransformation(extent={{80,0},{120,40}})));
-
         Modelica.Blocks.Interfaces.RealOutput KPool annotation (Placement(transformation(
                   extent={{80,2},{100,22}}), iconTransformation(extent={{80,0},{120,40}})));
         Modelica.Blocks.Interfaces.RealOutput ProteinAnions annotation (Placement(transformation(
                   extent={{80,2},{100,22}}), iconTransformation(extent={{80,0},{120,40}})));
-
         end InsideBusConnector;
 
         record OutsideBusConnector
           extends Physiomodel.Interfaces.SignalBusBlue;
-
         Modelica.Blocks.Interfaces.RealInput BladderVoidFlow annotation (Placement(transformation(
                   extent={{-120,0},{-80,40}}), iconTransformation(extent={{-120,0},{-80,
                     40}})));
@@ -71451,18 +70105,15 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
             skeletalMuscle_GlucoseToCellStorageFlow                                  annotation (Placement(transformation(
                   extent={{-120,0},{-80,40}}), iconTransformation(extent={{-120,0},{-80,
                     40}})));
-
         Modelica.Blocks.Interfaces.RealInput KPool annotation (Placement(transformation(
                   extent={{-120,0},{-80,40}}), iconTransformation(extent={{-120,0},{-80,
                     40}})));
         Modelica.Blocks.Interfaces.RealInput ProteinAnions annotation (Placement(transformation(
                   extent={{-120,0},{-80,40}}), iconTransformation(extent={{-120,0},{-80,
                     40}})));
-
         end OutsideBusConnector;
 
       model ElectrolytesConstInputs
-
       OutsideBusConnector busConnector
           annotation (Placement(transformation(extent={{38,-12},{52,2}}),
                iconTransformation(extent={{-40,-20},{0,20}})));
@@ -71597,7 +70248,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
         Physiolibrary.Types.Constants.DeprecatedUntypedConstant Constant34(k=0)
           annotation (Placement(transformation(extent={{80,-22},{72,-14}})));
       equation
-
       connect(BladderVoidFlow.y, busConnector.BladderVoidFlow) annotation (Line(
        points={{-23.7,-95},{38,-95},{38,-3.6}},
             color={0,0,127},
@@ -71773,7 +70423,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
             string="%second",
             index=1,
             extent={{6,3},{6,3}}));
-
         connect(skeletalMuscle_GlucoseToCellStorageFlow1.y, busConnector.respiratoryMuscle_GlucoseToCellStorageFlow)
           annotation (Line(
             points={{71.7,91},{29,91},{29,-3}},
@@ -71899,7 +70548,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
       model Sodium
       import Physiomodel;
         extends Physiolibrary.Icons.Sodium;
-
         Physiolibrary.Chemical.Components.Substance                NaPool(
                                        stateName="NaPool.Mass",
         useNormalizedVolume=false,
@@ -71937,7 +70585,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
           annotation (Placement(transformation(extent={{52,-8},{72,12}})));
       equation
         ECF_conc =concentrationMeasure1.concentration;
-
         connect(Hemorrhage.q_in, NaPool.q_out) annotation (Line(
             points={{-42,-60},{-42,16},{0,16}},
             color={200,0,0},
@@ -71994,7 +70641,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
             color={200,0,0},
             smooth=Smooth.None,
             thickness=1));
-
       connect(concentrationMeasure1.concentration, busConnector.NaPool_conc_per_liter)
         annotation (Line(
           points={{-60,30},{-60,90},{-68,90}},
@@ -72003,7 +70649,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
           string="%second",
           index=1,
           extent={{6,3},{6,3}}));
-
         connect(NaPool.q_out, sweatGlandSalt.salt) annotation (Line(
             points={{0,16},{52,16},{52,53.2}},
             color={200,0,0},
@@ -72353,7 +70998,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
         annotation (Placement(transformation(extent={{54,-38},{74,-18}})));
         Modelica.Blocks.Math.Division division(y(unit="mol/m3"))
           annotation (Placement(transformation(extent={{80,-16},{86,-10}})));
-
         Physiolibrary.Chemical.Sensors.ConcentrationMeasure concentrationMeasure2 annotation (Placement(
               transformation(
               extent={{-9,-9},{9,9}},
@@ -72377,7 +71021,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
       Modelica.Blocks.Math.Gain gain1(k=Modelica.Constants.F)
         annotation (Placement(transformation(extent={{-62,48},{-52,58}})));
       equation
-
       connect(glomerulusSudiumRate.solutionFlow, busConnector.GlomerulusFiltrate_GFR)
         annotation (Line(
           points={{-6,28},{-6,38},{-32,38},{-32,92},{-92,92}},
@@ -72638,7 +71281,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
             color={200,0,0},
             thickness=1,
             smooth=Smooth.None));
-
         connect(Osm.y, busConnector.MedullaNa_Osmolarity) annotation (Line(
             points={{74.3,-101},{100,-101},{100,92},{-92,92}},
             color={0,0,127},
@@ -72717,7 +71359,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
             string="%first",
             index=-1,
             extent={{-6,3},{-6,3}}));
-
         connect(Medulla.q_out, concentrationMeasure2.q_in) annotation (Line(
             points={{38,-92},{52,-92},{52,-95},{55.2,-95}},
             color={200,0,0},
@@ -72891,9 +71532,7 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
     end Sodium;
 
     package Potassium "Body Potassium Distribution"
-
       model IkedaPotasiumIntoICFFactor
-
         Physiolibrary.Types.RealIO.MolarFlowRateInput yBase
                          annotation (Placement(transformation(extent={{-20,-20},{
                   20,20}},
@@ -72908,7 +71547,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
               origin={0,-80}),
               iconTransformation(extent={{-10,-10},{10,10}},  rotation=270,
               origin={0,-52})));
-
         Physiolibrary.Types.RealIO.pHInput Artys_pH
                                                annotation (Placement(transformation(
                 extent={{-118,10},{-78,50}}), iconTransformation(extent={{-120,10},{-80,
@@ -72917,7 +71555,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
                                                        annotation (Placement(
               transformation(extent={{-118,-28},{-78,12}}),iconTransformation(extent={
                   {-120,-50},{-80,-10}})));
-
         Real effect;
       equation
         effect = 1+0.5*log(PotasiumECF_conc/(56.744-7.06*Artys_pH));
@@ -73394,7 +72031,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
             points={{-0.6,-45},{-8,-45},{-8,-33.8}},
             color={0,0,127},
             smooth=Smooth.None));
-
           connect(KFluxToCell.q_out, KCell.q_out) annotation (Line(
               points={{-30,64},{-30,80},{-20,80}},
               color={200,0,0},
@@ -73775,7 +72411,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
         Physiolibrary.Blocks.Factors.Spline LeptinEffect2(data={{0,3.0,0},{8,
               1.0,-0.04},{50,0.0,0}})
           annotation (Placement(transformation(extent={{-66,-30},{-46,-10}})));
-
         Real ECF_conc;
         equation
           ECF_conc=concentrationMeasure2.concentration;
@@ -73918,7 +72553,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
             points={{-0.6,-45},{-8,-45},{-8,-33.8}},
             color={0,0,127},
             smooth=Smooth.None));
-
           connect(KFluxToCell.q_out, KCell.q_out) annotation (Line(
               points={{-30,64},{-30,80},{-20,80}},
               color={200,0,0},
@@ -74151,7 +72785,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
             string="%second",
             index=1,
             extent={{3,1},{3,1}}));
-
           connect(busConnector.skeletalMuscle_GlucoseToCellStorageFlow,YGLS. u2)
                      annotation (Line(
               points={{-88,94},{-96,94},{-96,71},{-85,71}},
@@ -74183,7 +72816,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
               points={{-73.5,71},{-72,71},{-72,64},{-82,64},{-82,60},{-80.4,60}},
               color={0,0,127},
               smooth=Smooth.None));
-
           connect(KEffect.y, busConnector. CD_K_Outflow) annotation (Line(
               points={{34,30},{98,30},{98,94},{-88,94}},
               color={0,0,127},
@@ -74445,7 +73077,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
               1.0,-0.04},{50,0.0,0}})
           annotation (Placement(transformation(extent={{-66,-30},{-46,-10}})));
         equation
-
         connect(KPool.solutionVolume, busConnector.ECFV_Vol) annotation (Line(
             points={{-32,30},{-95,30},{-95,94},{-88,94}},
             color={0,0,127},
@@ -74592,7 +73223,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
             points={{-0.6,-45},{-8,-45},{-8,-33.8}},
             color={0,0,127},
             smooth=Smooth.None));
-
           connect(KFluxToCell.q_out, KCell.q_out) annotation (Line(
               points={{-30,64},{-30,80},{-20,80}},
               color={200,0,0},
@@ -74825,7 +73455,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
             string="%second",
             index=1,
             extent={{3,1},{3,1}}));
-
           connect(busConnector.skeletalMuscle_GlucoseToCellStorageFlow,YGLS. u2)
                      annotation (Line(
               points={{-88,94},{-96,94},{-96,71},{-85,71}},
@@ -74857,7 +73486,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
               points={{-73.5,71},{-72,71},{-72,64},{-82,64},{-82,60},{-80.4,60}},
               color={0,0,127},
               smooth=Smooth.None));
-
           connect(KEffect.y, busConnector. CD_K_Outflow) annotation (Line(
               points={{34,30},{98,30},{98,94},{-88,94}},
               color={0,0,127},
@@ -75069,7 +73697,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
 
       package setup
         model ConstInputsFromOtherElectrolytes
-
         Physiolibrary.Types.BusConnector busConnector annotation (Placement(
               transformation(extent={{44,58},{64,78}}), iconTransformation(
                 extent={{-40,-20},{0,20}})));
@@ -75077,7 +73704,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
              0.48247099389415)
           annotation (Placement(transformation(extent={{-20,42},{-14,48}})));
         equation
-
           connect(DT_Na_Outflow.y, busConnector.DT_Na_Outflow) annotation (Line(
          points={{-13.7,45},{54,45},{54,68}},
               color={0,0,127},
@@ -75135,7 +73761,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
           annotation (Placement(transformation(extent={{-32,68},{-12,88}})));
       equation
         ECF_conc=concentrationMeasure2.concentration;
-
       connect(KPool.solutionVolume, busConnector.ECFV_Vol) annotation (Line(
           points={{-28,28},{-95,28},{-95,94},{-88,94}},
           color={0,0,127},
@@ -75194,13 +73819,11 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
           string="%second",
           index=1,
           extent={{3,1},{3,1}}));
-
         connect(concentrationMeasure2.q_in, KPool.q_out) annotation (Line(
             points={{-80,40},{-64,40},{-64,24},{-24,24}},
             color={200,0,0},
             thickness=1,
             smooth=Smooth.None));
-
       connect(concentrationMeasure2.concentration, busConnector.KPool)
         annotation (Line(
           points={{-80,46},{-64,46},{-64,94},{-88,94}},
@@ -75357,7 +73980,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
           Placement(transformation(extent={{-14,-60},{2,-46}}),
             iconTransformation(extent={{10,-90},{30,-70}})));
       equation
-
         connect(AldoEffect.y, NaEffect.yBase)     annotation (Line(
             points={{34,44},{34,42}},
             color={0,0,127},
@@ -75373,7 +73995,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
        string="%second",
        index=1,
        extent={{3,1},{3,1}}));
-
         connect(NaEffect.u, busConnector. DT_Na_Outflow) annotation (Line(
             points={{42,40},{98,40},{98,94},{-88,94}},
             color={0,0,127},
@@ -75405,7 +74026,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
        string="%second",
        index=1,
        extent={{3,1},{3,1}}));
-
         connect(KEffect.y, busConnector. CD_K_Outflow) annotation (Line(
             points={{34,28},{98,28},{98,94},{-88,94}},
             color={0,0,127},
@@ -75513,7 +74133,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
           Placement(transformation(extent={{56,-24},{72,-10}}),
             iconTransformation(extent={{-10,-10},{10,10}})));
       equation
-
       connect(GILumen.solutionVolume, busConnector.GILumenVolume_Mass)
         annotation (Line(
           points={{-12,-22},{-24,-22},{-24,-4},{-96,-4},{-96,94},{-88,94}},
@@ -75553,7 +74172,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
           points={{-0.6,-45},{-8,-45},{-8,-36}},
           color={0,0,127},
           smooth=Smooth.None));
-
       connect(GILumen.solute, busConnector.GILumenPotasium_Mass) annotation (
           Line(
           points={{-8,-36},{-8,-54},{-96,-54},{-96,94},{-88,94}},
@@ -75562,7 +74180,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
           string="%second",
           index=1,
           extent={{3,1},{3,1}}));
-
       connect(GILumen.solute, busConnector.GILumenPotassium_Mass) annotation (
           Line(
           points={{-8,-36},{-8,-54},{-96,-54},{-96,94},{-88,94}},
@@ -75714,7 +74331,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
         "sodium concentration in blood incomming to glomerulus capillaries; sodium mass flow is filtration - reabsorbtion"
         annotation (Placement(transformation(extent={{-4,-94},{14,-76}}),
             iconTransformation(extent={{-10,-10},{10,10}})));
-
       equation
       connect(KCell.solutionVolume, busConnector.CellH2O_Vol) annotation (Line(
           points={{8,60},{-1,60},{-1,94},{-88,94}},
@@ -75723,7 +74339,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
           string="%second",
           index=1,
           extent={{3,1},{3,1}}));
-
         connect(KFluxToCell.q_out, KCell.q_out) annotation (Line(
             points={{6,-4},{6,56},{12,56}},
             color={200,0,0},
@@ -75818,7 +74433,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
        string="%second",
        index=1,
        extent={{3,1},{3,1}}));
-
         connect(busConnector.skeletalMuscle_GlucoseToCellStorageFlow,YGLS. u2)
                    annotation (Line(
             points={{-88,94},{-100,94},{-100,-33},{-45,-33}},
@@ -75850,7 +74464,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
             points={{-33.5,-33},{-32,-33},{-32,-40},{-42,-40},{-42,-44},{-40.4,-44}},
             color={0,0,127},
             smooth=Smooth.None));
-
         connect(electrolytesFlowConstant1.y, KFluxToCellWithGlucose.soluteFlow)
           annotation (Line(
             points={{-38.75,-53},{-34,-53},{-34,-41.6},{-30.4,-41.6}},
@@ -75869,7 +74482,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
             string="%first",
             index=-1,
             extent={{-6,3},{-6,3}}));
-
       connect(splineDelayByDay.u, busConnector.Aldosterone) annotation (Line(
           points={{-60,18},{-36,18},{-36,94},{-88,94}},
           color={0,0,127},
@@ -75941,7 +74553,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
           varName="KCell.Mass")
         annotation (Placement(transformation(extent={{-50,-4},{-20,26}})));
       equation
-
         q_in.q=0
         annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
                   -100},{100,100}}),       graphics), Icon(coordinateSystem(
@@ -75982,7 +74593,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
 </html>", info="<html>
 <p>TODO: Ikeda - Potassium glucose flow from ECF to ICF with insulin affects potassium flow to cells.</p>
 </html>"));
-
         connect(KCell_Mass.y, busConnector.KCell_Mass) annotation (Line(
             points={{-16.25,11},{-16.25,94},{-88,94}},
             color={0,0,127},
@@ -75996,7 +74606,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
       model CellsK_
       import Physiomodel;
         extends Physiolibrary.Icons.Cell;
-
         parameter String stateName;
         parameter Real initialSoluteMass;
       Physiolibrary.Chemical.Components.Substance KCell(
@@ -76065,7 +74674,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
         "sodium concentration in blood incomming to glomerulus capillaries; sodium mass flow is filtration - reabsorbtion"
         annotation (Placement(transformation(extent={{-4,-94},{14,-76}}),
             iconTransformation(extent={{-10,-10},{10,10}})));
-
         Modelica.Blocks.Interfaces.RealInput
                                            additionalInflow annotation (
             Placement(transformation(extent={{-122,-74},{-82,-34}}),
@@ -76079,7 +74687,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
         Modelica.Blocks.Interfaces.RealOutput KCell_conc
           annotation (Placement(transformation(extent={{44,72},{64,92}})));
       equation
-
         connect(KFluxToCell.q_out, KCell.q_out) annotation (Line(
             points={{6,-4},{6,56},{12,56}},
             color={200,0,0},
@@ -76158,7 +74765,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
        string="%second",
        index=1,
        extent={{3,1},{3,1}}));
-
         connect(busConnector.KPool_per_liter, IkedaIntoICF.PotasiumECF_conc)
           annotation (Line(
             points={{-88,94},{-100,94},{-100,0},{-78,0},{-78,-1}},
@@ -76181,7 +74787,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
             string="%first",
             index=-1,
             extent={{-6,3},{-6,3}}));
-
         connect(KFluxToCellWithGlucose.soluteFlow, additionalInflow)
           annotation (Line(
             points={{-30.4,-41.6},{-60,-41.6},{-60,-54},{-102,-54}},
@@ -76246,7 +74851,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
 
       model IntracellularPotassium
         extends Physiolibrary.Icons.Cell;
-
       Physiolibrary.Types.BusConnector busConnector annotation (Placement(
             transformation(extent={{-86,58},{-74,70}}), iconTransformation(
               extent={{60,60},{100,100}})));
@@ -76470,7 +75074,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
 
       model IntracellularPotassium_const
         extends Physiolibrary.Icons.Cell;
-
       Physiolibrary.Types.BusConnector busConnector annotation (Placement(
             transformation(extent={{-86,58},{-74,70}}), iconTransformation(
               extent={{60,60},{100,100}})));
@@ -76533,7 +75136,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
     end Potassium;
 
     package Chloride "Body Chloride Distribution"
-
       package test
         model T_
         import QHP = Physiomodel;
@@ -76828,7 +75430,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
             points={{-64.6,-45},{-72,-45},{-72,-33.8}},
             color={0,0,127},
             smooth=Smooth.None));
-
           connect(KEffect1.u, BloodPh_ArtysPh) annotation (Line(
               points={{16.2,46},{6,46}},
               color={0,0,127},
@@ -76887,7 +75488,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
 
       package setup
         model ConstInputsFromOtherElectrolytes
-
         Physiolibrary.Types.BusConnector busConnector annotation (Placement(
               transformation(extent={{44,58},{64,78}}), iconTransformation(
                 extent={{-40,-20},{0,20}})));
@@ -76895,7 +75495,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
           CollectingDuct_NetSumCats(k=0.138798773009742)
           annotation (Placement(transformation(extent={{-20,42},{-14,48}})));
         equation
-
           connect(CollectingDuct_NetSumCats.y, busConnector.CollectingDuct_NetSumCats) annotation (Line(
          points={{-13.7,45},{54,45},{54,68}},
               color={0,0,127},
@@ -76926,7 +75525,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
         Physiolibrary.Types.BusConnector busConnector annotation (Placement(
               transformation(extent={{-92,-4},{-80,8}}), iconTransformation(
                 extent={{62,62},{100,100}})));
-
         Real ECF_conc;
           SweatGlandSalt sweatGlandSalt
             annotation (Placement(transformation(extent={{-34,76},{-18,92}})));
@@ -76992,7 +75590,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
             string="%second",
             index=1,
             extent={{3,1},{3,1}}));
-
           connect(ClPool.q_out, sweatGlandSalt.salt) annotation (Line(
               points={{-58,24},{-62,24},{-62,79.2},{-34,79.2}},
               color={200,0,0},
@@ -77128,7 +75725,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
         model ChloridePool
         import Physiomodel;
          extends Physiolibrary.Icons.Chloride;
-
         Real ECF_conc(displayUnit="mEq/l");
           Modelica.Blocks.Interfaces.RealInput EFCV_Vol(displayUnit="ml")
             annotation (Placement(transformation(extent={{-100,60},{-60,100}})));
@@ -77152,12 +75748,9 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
           "bicarbonate concentration"
             annotation (Placement(transformation(extent={{-100,-100},{-60,-60}})));
         equation
-
           ClPool_conc_per_liter = Cations - (NBB+HCO3+StrongAnionsLessCl);
-
           ECF_conc = ClPool_conc_per_liter;
           q_out.conc =  ECF_conc/1000.;
-
           ClPool_mass=ClPool_conc_per_liter*EFCV_Vol/1000.;
           annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
                     -100},{100,100}}),       graphics), Icon(coordinateSystem(
@@ -77225,13 +75818,11 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
       Physiolibrary.Blocks.Factors.Spline LeptinEffect2(data={{0,3.0,0},{8,1.0,
             -0.04},{50,0.0,0}}, Xscale=1e-6/Substances.Leptin.mw)
         annotation (Placement(transformation(extent={{-82,-38},{-62,-18}})));
-
       Physiolibrary.Chemical.Interfaces.ChemicalPort_b q_out
         "sodium mass outflow to urine from collecting ducts" annotation (
           Placement(transformation(extent={{14,-28},{30,-14}}),
             iconTransformation(extent={{-10,-10},{10,10}})));
       equation
-
       connect(GILumen.solutionVolume, busConnector.GILumenVolume_Mass)
         annotation (Line(
           points={{-38,-22},{-49,-22},{-49,2},{-86,2}},
@@ -77271,7 +75862,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
           points={{-26.6,-45},{-34,-45},{-34,-36}},
           color={0,0,127},
           smooth=Smooth.None));
-
         connect(busConnector.Leptin, LeptinEffect2.u) annotation (Line(
             points={{-86,2},{-90,2},{-90,-28},{-80,-28}},
             color={0,0,255},
@@ -77348,7 +75938,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
           annotation (Placement(transformation(extent={{42,-52},{52,-42}})));
         Modelica.Blocks.Math.Feedback CD_Cl_Outflow
           annotation (Placement(transformation(extent={{60,-42},{78,-24}})));
-
       Physiolibrary.Chemical.Interfaces.ChemicalPort_a q_in
         "sodium concentration in blood incomming to glomerulus capillaries; sodium mass flow is filtration - reabsorbtion"
         annotation (Placement(transformation(extent={{-44,8},{-26,26}}),
@@ -77367,7 +75956,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
         "electroneutrality does not allow to extract cation without anion"
         annotation (Placement(transformation(extent={{16,30},{36,50}})));
       equation
-
         connect(busConnector.Artys_pH,PhEffect. u) annotation (Line(
             points={{-86,2},{-90,2},{-90,52},{18,52}},
             color={0,0,255},
@@ -77567,7 +76155,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
       Physiolibrary.Types.BusConnector busConnector annotation (Placement(
             transformation(extent={{-92,-4},{-80,8}}), iconTransformation(
               extent={{62,62},{100,100}})));
-
       Physiolibrary.Types.Concentration ECF_conc;
         SweatGlandSalt sweatGlandSalt
           annotation (Placement(transformation(extent={{-34,76},{-18,92}})));
@@ -77640,7 +76227,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
           string="%second",
           index=1,
           extent={{3,1},{3,1}}));
-
         connect(ClPool.q_out, sweatGlandSalt.salt) annotation (Line(
             points={{18,56},{-62,56},{-62,79.2},{-34,79.2}},
             color={200,0,0},
@@ -77771,7 +76357,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
           annotation (Placement(transformation(extent={{42,-52},{52,-42}})));
         Modelica.Blocks.Math.Feedback CD_Cl_Outflow
           annotation (Placement(transformation(extent={{60,-42},{78,-24}})));
-
       Physiolibrary.Chemical.Interfaces.ChemicalPort_a q_in
         "sodium concentration in blood incomming to glomerulus capillaries; sodium mass flow is filtration - reabsorbtion"
         annotation (Placement(transformation(extent={{-44,8},{-26,26}}),
@@ -77790,7 +76375,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
         "electroneutrality does not allow to extract cation without anion"
         annotation (Placement(transformation(extent={{16,30},{36,50}})));
       equation
-
         connect(busConnector.Artys_pH,PhEffect. u) annotation (Line(
             points={{-86,2},{-90,2},{-90,52},{18,52}},
             color={0,0,255},
@@ -77974,7 +76558,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
     end Chloride;
 
     package Phosphate "Body Phosphate Distribution"
-
       model Phosphate
       Physiolibrary.Chemical.Components.Substance PO4Pool(
         stateName="PO4Pool.Mass",
@@ -78092,7 +76675,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
           points={{-70,10},{-70,12},{-80,12}},
           color={0,0,127},
           smooth=Smooth.None));
-
         connect(Diet.q_out, PO4Pool.q_out) annotation (Line(
             points={{-64,6},{-60,6},{-60,24},{-54,24}},
             color={200,0,0},
@@ -78188,15 +76770,12 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
       end Phosphate;
 
       model GlomerulusStrongAnionFiltration
-
       Physiolibrary.Chemical.Interfaces.ChemicalPort_b q_out annotation (extent=
            [-10,-110; 10,-90], Placement(transformation(extent={{90,-10},{110,
                 10}})));
-
       Physiolibrary.Chemical.Interfaces.ChemicalPort_a q_in annotation (
           Placement(transformation(extent={{-120,-20},{-80,20}}),
             iconTransformation(extent={{-110,-10},{-90,10}})));
-
         Physiolibrary.Types.RealIO.VolumeDensityOfChargeInput Cations
                                                 annotation (Placement(
               transformation(extent={{-80,30},{-40,70}}), iconTransformation(
@@ -78227,7 +76806,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
       //  ProteinAnions = Anions - otherStrongAnions - q_in.conc*1000 - HCO3;
         KAdjustment = (Cations-(Anions-ProteinAnions))/(Cations+(Anions-ProteinAnions));
         q_out.conc = (1+KAdjustment)*q_in.conc;
-
        annotation (
           Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{
                   100,100}}), graphics={
@@ -78322,7 +76900,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
           string="%second",
           index=1,
           extent={{3,1},{3,1}}));
-
         connect(Diet.q_out, PO4Pool.q_out) annotation (Line(
             points={{-64,6},{-60,6},{-60,24},{-54,24}},
             color={200,0,0},
@@ -78408,7 +76985,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
             color={200,0,0},
             thickness=1,
             smooth=Smooth.None));
-
         connect(busConnector.Leptin, LeptinEffect2.u) annotation (Line(
             points={{-84,82},{-92,82},{-92,20},{-82,20}},
             color={0,0,255},
@@ -78475,7 +77051,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
       end Phosphate2;
 
       model AcidDissociation
-
         Modelica.Blocks.Interfaces.RealInput
                                            CD_tPO4(
                                              displayUnit="mmol/min")
@@ -78492,7 +77067,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
                                                  displayUnit="mEq/min") annotation (
             Placement(transformation(extent={{80,-80},{120,-40}}), iconTransformation(
                 extent={{80,-80},{120,-40}})));
-
         Real H2PO4;
         Real HPO4;
       equation
@@ -78553,7 +77127,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
           string="%second",
           index=1,
           extent={{3,1},{3,1}}));
-
         connect(Diet.q_out, PO4Pool.q_out) annotation (Line(
             points={{-64,6},{-60,6},{-60,24},{-54,24}},
             color={200,0,0},
@@ -78628,7 +77201,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
             color={200,0,0},
             thickness=1,
             smooth=Smooth.None));
-
         connect(busConnector.Leptin, LeptinEffect2.u) annotation (Line(
             points={{-84,82},{-92,82},{-92,20},{-82,20}},
             color={0,0,255},
@@ -78699,9 +77271,7 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
     end Phosphate;
 
     package Sulphate "Body Sulphate Distribution"
-
       model Sulphate
-
         Modelica.Blocks.Interfaces.RealInput ECFV_Vol(final quantity="Volume",
             final displayUnit="ml")
           annotation (Placement(transformation(extent={{-76,28},{-68,36}}),
@@ -78757,7 +77327,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
               extent={{-6,-6},{6,6}},
               rotation=0,
               origin={-94,-106})));
-
       Physiolibrary.Chemical.Components.Substance SO4Pool(
         stateName="SO4Pool.Mass",
         useNormalizedVolume=false,
@@ -78803,7 +77372,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
           points={{-70,10},{-70,12},{-80,12}},
           color={0,0,127},
           smooth=Smooth.None));
-
         connect(Diet.q_out,SO4Pool. q_out) annotation (Line(
             points={{-64,6},{-60,6},{-60,24},{-54,24}},
             color={200,0,0},
@@ -78883,7 +77451,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
           points={{72,-9.6},{72,-2},{62,-2}},
           color={0,0,127},
           smooth=Smooth.None));
-
         annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
                   -100},{100,100}}),       graphics), Icon(coordinateSystem(
                 preserveAspectRatio=true, extent={{-100,-100},{100,100}}),
@@ -78891,15 +77458,12 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
       end Sulphate;
 
       model GlomerulusStrongAnionFiltration
-
       Physiolibrary.Chemical.Interfaces.ChemicalPort_b q_out annotation (extent=
            [-10,-110; 10,-90], Placement(transformation(extent={{90,-10},{110,
                 10}})));
-
       Physiolibrary.Chemical.Interfaces.ChemicalPort_a q_in annotation (
           Placement(transformation(extent={{-120,-20},{-80,20}}),
             iconTransformation(extent={{-110,-10},{-90,10}})));
-
         Physiolibrary.Types.RealIO.VolumeDensityOfChargeInput Cations annotation (Placement(
               transformation(extent={{-80,30},{-40,70}}), iconTransformation(
               extent={{-20,-20},{20,20}},
@@ -78928,7 +77492,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
        // ProteinAnions = Anions - otherStrongAnions - q_in.conc*1000 - HCO3;
         KAdjustment = (Cations-(Anions-ProteinAnions))/(Cations+(Anions-ProteinAnions));
         q_out.conc = (1+KAdjustment)*q_in.conc;
-
        annotation (
           Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{
                   100,100}}), graphics={
@@ -79017,7 +77580,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
           string="%second",
           index=1,
           extent={{3,1},{3,1}}));
-
         connect(Diet.q_out,SO4Pool. q_out) annotation (Line(
             points={{-68,6},{-60,6},{-60,24},{-54,24}},
             color={200,0,0},
@@ -79071,7 +77633,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
           points={{-52.4,-4},{-54,-4},{-54,14}},
           color={0,0,127},
           smooth=Smooth.None));
-
         connect(busConnector.Leptin, LeptinEffect2.u) annotation (Line(
             points={{-90,82},{-96,82},{-96,16},{-86,16}},
             color={0,0,255},
@@ -79145,7 +77706,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
     end Sulphate;
 
     package NH4 "Body Amonium Distribution"
-
       model Ammonium
          extends Physiolibrary.Icons.Amonium;
       Physiolibrary.Blocks.Factors.Spline PT_NH3_AcuteEffect(data={{7.00,2.0,0},
@@ -79173,7 +77733,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
         "electroneutrality does not allow to extract cation without anion"
         annotation (Placement(transformation(extent={{-60,-2},{-40,18}})));
       equation
-
       connect(PT_NH3_AcuteEffect.y, PT_NH3_ChronicEffect.yBase) annotation (
           Line(
           points={{-50,58},{-50,52}},
@@ -79307,7 +77866,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
                     {-36,18}}),        iconTransformation(extent={{100,80},{120,
                     100}})));
         equation
-
           connect(AcuteEffect.y, ChronicEffect.yBase) annotation (Line(
               points={{-50,60},{-50,54}},
               color={0,0,127},
@@ -79367,7 +77925,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
         "electroneutrality does not allow to extract cation without anion"
         annotation (Placement(transformation(extent={{-60,-2},{-40,18}})));
       equation
-
       connect(PT_NH3_AcuteEffect.y, PT_NH3_ChronicEffect.yBase) annotation (
           Line(
           points={{-50,58},{-50,52}},
@@ -79466,7 +78023,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
     package Calcium
       model Calcium
       import Physiomodel;
-
       Physiolibrary.Molar.ConcentrationCompartment_knownConc          CaPool(
             concentration=2.4)
           annotation (Placement(transformation(extent={{-42,-12},{-22,8}})));
@@ -79719,7 +78275,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
       end Calcium;
 
       package Factors "Multiplication Effect Types"
-
         model Y1
          extends Physiolibrary.Icons.BaseFactorIcon3;
          Modelica.Blocks.Interfaces.RealInput u
@@ -79909,7 +78464,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
                     84}}),
                 iconTransformation(extent={{-108,-10},{-88,10}})));
          parameter Real k;
-
           Modelica.Blocks.Math.Product product annotation (Placement(transformation(
                 extent={{-10,-10},{10,10}},
                 rotation=270,
@@ -79949,7 +78503,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
                       annotation (Placement(transformation(extent={{-118,44},{-78,
                     84}}),
                 iconTransformation(extent={{-108,-10},{-88,10}})));
-
           Modelica.Blocks.Math.Product product annotation (Placement(transformation(
                 extent={{-10,-10},{10,10}},
                 rotation=270,
@@ -80093,7 +78646,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
       end CaGILumen;
 
       block CaTransportPool
-
         Modelica.Blocks.Interfaces.RealInput Calcitriol
                                                  annotation (Placement(transformation(
                 extent={{-100,40},{-60,80}}), iconTransformation(extent={{-100,40},{-60,
@@ -80108,7 +78660,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
                   80,-20},{120,20}})));
         parameter Real Q_TCai_initial = 0;
         parameter Real Y2_Cai_Max = 1;
-
         Real Q_TCai;
         Real change;
         Real k1D;
@@ -80122,10 +78673,8 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
         change = ( 1-Q_TCai)  * k1D - Q_TCai * k2D;
         Y2_Cai.yBase = change*Y2_Cai_Max;
         J_ipCa_activeAbsorbtion = Y2_Cai.y;
-
         k1D = 0.02;
         k2D = 0.02;
-
         connect(CaIntestinal, Y2_Cai.u) annotation (Line(
             points={{-84,-6},{-33.8,-6}},
             color={0,0,127},
@@ -80139,8 +78688,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
         extends Physiolibrary.Chemical.Components.Substance(useNormalizedVolume=
            false);
         extends Physiolibrary.Icons.Bladder(useNormalizedVolume=false);
-      equation
-
       end Bladder;
 
       package test
@@ -80178,7 +78725,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
 
       package setup
         model CaInputs
-
         Physiolibrary.Types.BusConnector busConnector
           annotation (Placement(transformation(extent={{-88,78},{-68,98}})));
         Physiolibrary.Types.Constants.DeprecatedUntypedConstant ECFV_Vol(units=
@@ -80252,7 +78798,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
         end CaInputs;
 
         model CalcitriolInputs
-
         Physiolibrary.Types.BusConnector busConnector
           annotation (Placement(transformation(extent={{-88,78},{-68,98}})));
         Physiolibrary.Types.Constants.DeprecatedUntypedConstant ECFV_Vol(units=
@@ -80383,7 +78928,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
             points={{20,-65.8},{20,-78},{38,-78},{38,-34},{58,-34},{58,-39.2}},
             color={0,0,127},
             smooth=Smooth.None));
-
       connect(gain1.y, outputPump1.soluteFlow) annotation (Line(
           points={{-8.08267e-016,-6.4},{-8.08267e-016,-10},{0,-10},{0,-12}},
           color={0,0,127},
@@ -80460,15 +79004,12 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
 
     package Calcium2
       model Calcium
-
       parameter Real D[:] = {1};
       parameter Real GFR(displayUnit="l/h")=6;
-
       Real A[11];
       Real v_intake;
       Real v1_4;
       Real v4_u;
-
       function H
         input Real x;
         input Real alpha;
@@ -80500,7 +79041,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
       algorithm
         value:=ro+(alpha-ro)*x^gamma/(delta^gamma+x^gamma);
       end H_plus;
-
       Real H62p;
       Real H62m;
       Real v1_4a;
@@ -80510,11 +79050,9 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
       Real a;
       Real b;
       Real c;
-
       parameter Real ECFV(displayUnit="l") = 32.9/2.4;
       parameter Real ECFV2(displayUnit="l") = 1260/90;
       parameter Real GILumenVolume(displayUnit="l") = 1.3;
-
       initial equation
         A[1] = 1.3;  //Ca gut
         A[2] = 0.5;   //Ca transporters
@@ -80534,41 +79072,33 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
       v1_4 = v1_4a + v1_4p;
       v1_4a = (H(A[1]/GILumenVolume,0.9,1,1) * (A[2]/0.5) / (A[1] + 0.75)) * A[1];
       v1_4p = (0.0495) * A[1];
-
       //transporters
       H62p = H_plus(A[6]/ECFV2,0.037,90,1,0.003);
       H62m = H_minus(A[6]/ECFV2,0.037,90,1,0.003);
       der( A[2])  = H62p*(1-A[2])- H62m*A[2];
-
       //Ca pool
       der(A[4]) = 0; //v1_4 - v4_u;
-
       //to urine
       v4_u = (2-H(A[6]/ECFV2,2,90,1)) * (0.3*GFR*A[4] - H(A[4]/ECFV2,(-0.38+59.22)/0.317936,1.573,1)*H(A[7]/ECFV2,1.0615,53.9/ECFV2,1));
       //!!it's used concentration of ecf Ca, not the mass such as in the article!!, H_4-u:alpha was calculated, H7,4-u:delta was assumed as normal ecf PTH concentration
       //a = (2-H(A[6]/ECFV2,2,90,1)) * (0.3*GFR*A[4]);
       //b = (2-H(A[6]/ECFV2,2,90,1)) * (H(A[4]/ECFV2,1,1.573,1)*H(A[7]/ECFV2,1.0615,53.9/ECFV2,1));
       //v4_u = v1_4;
-
       //calcitriol
       der( A[6])  = A[9] -0.1 *A[6];
       der( A[9])  = 6.3*H(A[7]/ECFV2, 1.90371, 1.549,0.1112)*( if A[5]<=16.8 then 1 else H_minus(A[5]/ECFV2,1.525,1.302,8.252,-1.78249))  -0.05 *A[9]; //H7,9:alpha was calculated,
       //a = 6.3*H(A[7]/ECFV2, 1.90371 ,1.549,0.1112);
       //c =  if A[5]<16.8 then 1 else H_minus(A[5]/ECFV2,1.525,1.302,8.252,1.181);
       //b = 0.05 *A[9];
-
       //PTH
       der( A[7])  =  H_minus(A[4]/ECFV2,96.25, 3.037, 11.74,6249)*(A[10]/0.5)*A[11] - 7.143*A[7];
       a= H_minus(A[4]/ECFV2,96.25, 3.037, 11.74,6249)*(A[10]/0.5)*A[11];
       b=7.143*A[7];
       c=b/((A[10]/0.5)*A[11]);
-
       der( A[10])  = (1-A[10])*0.01*(0.85*T64m+0.15) - A[10]*0.01*(0.85*T64p+0.15);
       T64m = 1-(exp(0.03*(A[6]/14 - 90*(32.9/A[4]))) - exp(-0.03*(A[6]/14 - 90*(32.9/A[4])))) / (exp(0.03*(A[6]/14 - 90*(32.9/A[4]))) + exp(-0.03*(A[6]/14 - 90*(32.9/A[4]))));
       T64p = 1+(exp(0.03*(A[6]/14 - 90*(32.9/A[4]))) - exp(-0.03*(A[6]/14 - 90*(32.9/A[4])))) / (exp(0.03*(A[6]/14 - 90*(32.9/A[4]))) + exp(-0.03*(A[6]/14 - 90*(32.9/A[4]))));
-
       der( A[11])  =0.0001604  *H_minus(A[6]/ECFV2,4.103,69,12.5,0.9) -0.0001604*A[11];
-
       //phosphate
       der(A[3])=0;
       der(A[5])=0;
@@ -80577,7 +79107,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
 
       package Factors
         model H
-
          extends Physiolibrary.Icons.BaseFactorIcon3;
          Modelica.Blocks.Interfaces.RealInput u
                       annotation (Placement(transformation(extent={{-118,44},{-78,
@@ -80587,7 +79116,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
          parameter Real delta "affinity";
          parameter Real gamma=1 "exponent";
           Real effect;
-
         equation
           effect = alpha*u^gamma/(delta^gamma+u^gamma);
           y = effect * yBase;
@@ -80609,7 +79137,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
          parameter Real gamma=1 "exponent";
          parameter Real ro "minimum responce";
           Real effect;
-
         equation
           effect = ro+(alpha-ro)*u^gamma/(delta^gamma+u^gamma);
           y = effect * yBase;
@@ -80631,7 +79158,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
          parameter Real gamma=1 "exponent";
          parameter Real ro "minimum responce";
           Real effect;
-
         equation
           effect = alpha-(alpha-ro)*u^gamma/(delta^gamma+u^gamma);
           y = effect * yBase;
@@ -81024,7 +79550,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
               rotation=0,
               origin={18,-42})));
       equation
-
         connect(busConnector.Calcitriol, H64_minus.u) annotation (Line(
             points={{-90,90},{-10,90},{-10,-64},{14.2,-64}},
             color={0,0,255},
@@ -81169,9 +79694,7 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
       Physiolibrary.Chemical.Components.SolutePump v_12to4(useSoluteFlowInput=
             true)
         annotation (Placement(transformation(extent={{-14,-8},{-34,-28}})));
-
         model CalciumToBone
-
           Modelica.Blocks.Interfaces.RealInput Ca
                                            annotation (Placement(transformation(extent={
                     {-100,20},{-60,60}}), iconTransformation(extent={{-100,20},{-60,60}})));
@@ -81191,7 +79714,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
         end CalciumToBone;
 
         model CalciumFromBone
-
           Modelica.Blocks.Interfaces.RealInput RANK_RANKL
                                            annotation (Placement(transformation(extent={{-98,20},
                     {-58,60}}),           iconTransformation(extent={{-100,20},{-60,60}})));
@@ -81203,13 +79725,10 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
                                                     annotation (Placement(
                 transformation(extent={{62,-20},{102,20}}), iconTransformation(extent={{60,-20},
                     {100,20}})));
-        equation
-
           annotation (Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,
                     -100},{100,100}}),
                                  graphics));
         end CalciumFromBone;
-
         CalciumToBone calciumToBone
           annotation (Placement(transformation(extent={{-34,40},{-14,20}})));
         CalciumFromBone calciumFromBone annotation (Placement(transformation(
@@ -81373,7 +79892,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
 
       package setup
         model CaInputs
-
         Physiolibrary.Types.BusConnector busConnector
           annotation (Placement(transformation(extent={{-88,78},{-68,98}})));
         Physiolibrary.Types.Constants.DeprecatedUntypedConstant ECFV_Vol(units=
@@ -81484,7 +80002,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
       end test;
 
       model Osteoblast
-
         Modelica.Blocks.Interfaces.RealInput active_TGF_beta
                                          annotation (Placement(transformation(extent={{-100,
                   -60},{-60,-20}}),     iconTransformation(extent={{-100,-60},{-60,-20}})));
@@ -81496,7 +80013,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
         Modelica.Blocks.Interfaces.RealInput BCL2
                                          annotation (Placement(transformation(extent={{-100,
                   -60},{-60,-20}}),     iconTransformation(extent={{-100,20},{-60,60}})));
-
       Physiolibrary.Types.Constants.DeprecatedUntypedConstant Constant(k=
             0.00501324)
         annotation (Placement(transformation(extent={{10,-8},{26,8}})));
@@ -81575,10 +80091,8 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
 
     model SweatGlandSalt
       extends Physiolibrary.Icons.SweatGland;
-
       parameter Real FractReabBasic=0.8;
       parameter Real FractReabK=log( FractReabBasic)  / 15.0;
-
     Physiolibrary.Blocks.Factors.Spline AldoEffect(data={{0,0.5,0.0},{12,1.0,
           0.03},{100,2.0,0.0}}, Xscale=1e-9/0.036)
       annotation (Placement(transformation(extent={{-40,32},{-20,52}})));
@@ -81704,9 +80218,7 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
 
     model Bladder
       extends Physiolibrary.Icons.Bladder;
-
       parameter String stateVarName;
-
       Physiolibrary.Chemical.Components.Substance                Bladder(
                                stateName=stateVarName, useNormalizedVolume=
           false)
@@ -81854,17 +80366,14 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
           points={{-97,97},{-96,97},{-96,12},{-66,12},{-66,2.75}},
           color={0,0,127},
           smooth=Smooth.None));
-
       connect(busConnector.ClPool_mass, ECF.u[3])  annotation (Line(
           points={{-97,97},{-97,12},{-66,12},{-66,3.25}},
           color={0,0,127},
           smooth=Smooth.None));
-
       connect(OsmECFV_OtherAnions.y, ECF.u[8])  annotation (Line(
           points={{-72.75,-5},{-66,-5},{-66,5.75}},
           color={0,0,127},
           smooth=Smooth.None));
-
       connect(busConnector.NaPool, BloodCations.u[1]) annotation (Line(
           points={{-97,97},{-97,64},{-78,64},{-78,47}},
           color={0,0,127},
@@ -81873,7 +80382,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
           points={{-97,97},{-96,97},{-96,66},{-78,66},{-78,49}},
           color={0,0,127},
           smooth=Smooth.None));
-
       connect(lessSO4.y, busConnector.BloodIons_StrongAnionsLessSO4)   annotation (Line(
           points={{95,82},{100,82},{100,97},{-97,97}},
           color={0,0,127},
@@ -81883,7 +80391,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
           points={{-97,97},{100,97},{100,64},{95,64}},
           color={0,0,127},
           smooth=Smooth.None));
-
       connect(CollectingDuct_NetSumCats.y, busConnector.CollectingDuct_NetSumCats)
         annotation (Line(
           points={{-25,-34},{100,-34},{100,96},{-96,96},{-96,97},{-97,97}},
@@ -81905,17 +80412,14 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
           points={{-97,97},{-96,97},{-96,-26},{-82,-26}},
           color={0,0,127},
           smooth=Smooth.None));
-
       connect(busConnector.CD_PO4_Outflow, AnFlow.u2) annotation (Line(
           points={{-97,97},{-96,97},{-96,-62},{-82,-62}},
           color={0,0,127},
           smooth=Smooth.None));
-
       connect(busConnector.CD_SO4_Outflow, AnFlow.u3) annotation (Line(
           points={{-97,97},{-96,97},{-96,-70},{-82,-70}},
           color={0,0,127},
           smooth=Smooth.None));
-
       connect(BloodCations.y, ECF_SID.u1) annotation (Line(
           points={{-55,48},{-16,48},{-16,64},{-8,64}},
           color={0,0,127},
@@ -81925,7 +80429,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
           points={{-97,97},{-96,97},{-96,79.2},{-84,79.2}},
           color={0,0,127},
           smooth=Smooth.None));
-
       connect(busConnector.SO4Pool, StrongAnions.u[3])
         annotation (Line(
           points={{-97,97},{-97,80},{-84,80}},
@@ -81936,12 +80439,10 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
           points={{-97,97},{-94,97},{-94,80},{-84,80},{-84,81.6}},
           color={0,0,127},
           smooth=Smooth.None));
-
       connect(busConnector.PO4Pool_Osmoles, ECF.u[4]) annotation (Line(
           points={{-97,97},{-96,97},{-96,3.75},{-66,3.75}},
           color={0,0,127},
           smooth=Smooth.None));
-
       connect(busConnector.SO4Pool_Osmoles, ECF.u[5]) annotation (Line(
           points={{-97,97},{-96,97},{-96,12},{-66,12},{-66,4.25}},
           color={0,0,127},
@@ -81952,7 +80453,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
           color={0,0,255},
           thickness=0.5,
           smooth=Smooth.None));
-
       connect(busConnector.LacPool, StrongAnions.u[4])
             annotation (Line(
           points={{-97,97},{-97,80.8},{-84,80.8}},
@@ -82004,7 +80504,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
           string="%second",
           index=1,
           extent={{6,3},{6,3}}));
-
       connect(busConnector.CD_Na_Outflow, CatFlow.u2) annotation (Line(
           points={{-97,97},{-97,-34},{-82,-34}},
           color={0,0,255},
@@ -82103,7 +80602,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
           string="%second",
           index=1,
           extent={{6,3},{6,3}}));
-
       connect(const.y, Pct.u1) annotation (Line(
           points={{35.25,17},{43,17}},
           color={0,0,127},
@@ -82215,7 +80713,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
     Physiolibrary.Types.Constants.MolarFlowRateConst CD_Mg_Outflow(k=5e-08)
       "magnesium outflow to urine needed for urine acid-base"
       annotation (Placement(transformation(extent={{-54,-44},{-34,-24}})));
-
     AcidBase.AcidBase acidBase
       annotation (Placement(transformation(extent={{42,72},{62,92}})));
     equation
@@ -82255,7 +80752,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
         color={0,0,255},
         thickness=0.5,
         smooth=Smooth.None));
-
       connect(CD_Ca_Outflow.y, busConnector.CD_Ca_Outflow) annotation (Line(
           points={{-31.5,-12},{94,-12},{94,48}},
           color={0,0,127},
@@ -82270,7 +80766,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
           string="%second",
           index=1,
           extent={{6,3},{6,3}}));
-
     connect(busConnector, acidBase.busConnector) annotation (Line(
         points={{94,48},{74,48},{74,82.2},{52,82.2}},
         color={255,204,51},
@@ -82317,13 +80812,10 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
 
     package IO_Bus
         extends Physiolibrary.Types.IO_Bus;
-
       redeclare model extends Variables
-
       AcidBase.AcidBase_variables acidBase_variables(T(redeclare block Variable
             =                                                                     T.Variable))
           annotation (Placement(transformation(extent={{4,-88},{24,-68}})));
-
       T.VolumeDensityOfCharge BloodCations(varName="BloodIons.Cations")
         "Sum of all cations concentrations in blood."
       annotation (Placement(transformation(extent={{-36,10},{-30,16}})));
@@ -82363,7 +80855,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
       T.Fraction LH_Na_FractReab(varName="LH_Na.FractReab")
         "Sodium reabsorbtion fraction (=reabsorbed/inflowed) in loop of Henle."
       annotation (Placement(transformation(extent={{-36,170},{-30,176}})));
-
       T.MolarFlowRate LH_Na_Reab(varName="LH_Na.Reab")
         "Sodium reabsorbtion in loop of Henle."
       annotation (Placement(transformation(extent={{-36,180},{-30,186}})));
@@ -82388,7 +80879,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
       T.Fraction PT_Na_FractReab(varName="PT_Na.FractReab")
         "Proximal tubule sodium reabsorbtion fraction (=reabsorbed/inflowed)."
       annotation (Placement(transformation(extent={{-36,250},{-30,256}})));
-
       T.MolarFlowRate PT_Na_Reab(varName="PT_Na.Reab")
         "Proximal tubule sodium reabsorbtion."
       annotation (Placement(transformation(extent={{-36,260},{-30,266}})));
@@ -82410,7 +80900,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
       T.MolarFlowRate CD_SO4_Outflow(varName="CD_SO4_Outflow")
         "Collecting duct sulfate outflow to urine."
       annotation (Placement(transformation(extent={{-66,-54},{-60,-48}})));
-
       equation
       connect(BloodCations.y, busConnector.BloodCations) annotation (Line(
        points={{-29.7,13},{90,13},{90,-2}},
@@ -82552,7 +81041,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
             string="%second",
             index=1,
             extent={{6,3},{6,3}}));
-
         connect(KPool_per_liter.y, busConnector.KPool) annotation (
            Line(
             points={{-29.7,163},{90,163},{90,-2}},
@@ -82901,7 +81389,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
         annotation (Diagram(graphics));
       end ElectrolytesAndProteins_test_SI;
     end IO_Bus;
-
     annotation (Documentation(revisions="<html>
 
 <table cellspacing=\"2\" cellpadding=\"0\" border=\"0\"><tr>
@@ -82947,46 +81434,32 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
               {100,100}}), graphics));
   end Electrolytes;
 
-
   package Heat "Body Temperature Balance"
     extends Physiolibrary.Icons.HeatLib;
-
     model TissuesHeat
      extends Physiolibrary.Icons.Tissues;
-
       Tissues.Bone Bone
         annotation (Placement(transformation(extent={{64,30},{44,50}})));
-
       Tissues.Fat Fat
         annotation (Placement(transformation(extent={{64,-62},{44,-42}})));
-
       Tissues.Brain Brain
         annotation (Placement(transformation(extent={{-58,-2},{-38,18}})));
-
       Tissues.RightHeart RightHeart
         annotation (Placement(transformation(extent={{-58,30},{-38,50}})));
-
       Tissues.RespiratoryMuscle RespiratoryMuscle
         annotation (Placement(transformation(extent={{-58,-30},{-38,-10}})));
-
       Tissues.OtherTissue OtherTissue
         annotation (Placement(transformation(extent={{64,-88},{44,-68}})));
-
       Tissues.Liver Liver
         annotation (Placement(transformation(extent={{64,58},{44,78}})));
-
       Tissues.LeftHeart LeftHeart
         annotation (Placement(transformation(extent={{-58,-62},{-38,-42}})));
-
       Tissues.Kidney Kidney
         annotation (Placement(transformation(extent={{64,-32},{44,-12}})));
-
       Tissues.GITract GITract
         annotation (Placement(transformation(extent={{64,-2},{44,18}})));
-
     Physiolibrary.Types.BusConnector busConnector
       annotation (Placement(transformation(extent={{-108,72},{-68,112}})));
-
     equation
       connect(busConnector.core_T, Brain.BaseT)
         annotation (Line(
@@ -83072,7 +81545,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
           string="%second",
           index=1,
           extent={{5,0},{5,0}}));
-
       connect(RightHeart.T, busConnector.rightHeart_T) annotation (Line(
           points={{-38,40},{-34,40},{-34,92},{-88,92}},
           color={0,0,127},
@@ -83101,7 +81573,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
           string="%second",
           index=1,
           extent={{6,3},{6,3}}));
-
       connect(busConnector.liver_T, Liver.T) annotation (Line(
           points={{-88,92},{40,92},{40,68},{44,68}},
           color={0,0,255},
@@ -83118,7 +81589,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
           string="%first",
           index=-1,
           extent={{-6,3},{-6,3}}));
-
       connect(busConnector.GITract_T, GITract.T) annotation (Line(
           points={{-88,92},{40,92},{40,8},{44,8}},
           color={0,0,255},
@@ -83127,7 +81597,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
           string="%first",
           index=-1,
           extent={{-6,3},{-6,3}}));
-
       connect(busConnector.kidney_T, Kidney.T) annotation (Line(
           points={{-88,92},{40,92},{40,-22},{44,-22}},
           color={0,0,255},
@@ -83136,7 +81605,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
           string="%first",
           index=-1,
           extent={{-6,3},{-6,3}}));
-
       connect(busConnector.fat_T, Fat.T) annotation (Line(
           points={{-88,92},{40,92},{40,-52},{44,-52}},
           color={0,0,255},
@@ -83145,7 +81613,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
           string="%first",
           index=-1,
           extent={{-6,3},{-6,3}}));
-
       connect(busConnector.otherTissue_T, OtherTissue.T) annotation (Line(
           points={{-88,92},{40,92},{40,-78},{44,-78}},
           color={0,0,255},
@@ -83154,7 +81621,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
           string="%first",
           index=-1,
           extent={{-6,3},{-6,3}}));
-
       annotation (Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,
                 -100},{100,100}}),
                        graphics),
@@ -83169,7 +81635,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
 
     package Tissues
       model TissueTemperature
-
         Physiolibrary.Types.RealIO.TemperatureInput BaseT(
                                             displayUnit="degC")
           annotation (Placement(transformation(extent={{-120,-20},{-80,20}})));
@@ -83237,12 +81702,10 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
         extends TissueTemperature;
           extends Physiolibrary.Icons.OtherTissue;
       end OtherTissue;
-
     end Tissues;
 
     model BladderHeat
       extends Physiolibrary.Icons.Bladder;
-
       parameter Physiolibrary.Types.Density urineDensity = 1000; // kg/m3
     Physiolibrary.Thermal.Components.HeatAccumulation Bladder(
       stateName="BladderTemperature.Mass",
@@ -83307,16 +81770,13 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
 
     model GILumenHeat
       extends Physiolibrary.Icons.GILumen;
-
       parameter Physiolibrary.Types.Density ChymusDensity=1000;
-
     Physiolibrary.Thermal.Components.HeatAccumulation GILumen(
       stateName="GILumenTemperature.Mass",
       useMassInput=true,
       relativeHeat_start=0)
       annotation (Placement(transformation(extent={{-50,-82},{-30,-62}})));
                            //(1293302.52) - 310.15*weight*(4186.8))
-
     //  initialTemperature(displayUnit="degC") = 310,
     Physiolibrary.Thermal.Components.Conductor resistorWithCondParam(
         Conductance(displayUnit="kcal/(min.degC)") =            0.6978)
@@ -83454,7 +81914,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
       relativeHeat_start=0)
       annotation (Placement(transformation(extent={{-8,-8},{12,12}})));
                            //(29579490.792) - 310.15*weight*(3475.044))
-
          // initialTemperature=310.166,
     Physiolibrary.Thermal.Components.IdealRadiator muscleFlux(SpecificHeat=
           3851.856, useMassFlowInput=true)
@@ -83590,7 +82049,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
       relativeHeat_start=-75362.4)
       annotation (Placement(transformation(extent={{30,-72},{50,-52}})));
                             //(2363163.8976) - 310.15*weight*(3475.044))
-
           //initialTemperature=300.731,
     Physiolibrary.Thermal.Components.IdealRadiator skinFlux(
       useMassFlowInput=true, SpecificHeat(displayUnit="kcal/(kg.K)") = 3851.856)
@@ -84088,7 +82546,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
           color={255,128,0},
           thickness=1,
           smooth=Smooth.None));
-
       connect(core1.positiveHeatFlow, gILumenHeat.q_out) annotation (Line(
           points={{-25.8,-1.4},{-26,-1.4},{-26,-12},{-76,-12}},
           color={255,128,0},
@@ -84372,7 +82829,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
 
       model SweatGland
         extends Physiolibrary.Icons.SweatGland;
-
       Physiolibrary.Types.BusConnector busConnector annotation (Placement(
             transformation(extent={{-100,81},{-80,101}}), iconTransformation(
               extent={{60,60},{80,80}})));
@@ -84384,7 +82840,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
           data={{60 + 459.67,0.5,0.0},{85 + 459.67,1.0,0.05},{100 + 459.67,2.0,0.0}},
           Xscale=5/9)
           annotation (Placement(transformation(extent={{62,22},{82,42}})));
-
       Physiolibrary.Blocks.Factors.Normalization SkinFunctionEffect
         annotation (Placement(transformation(extent={{62,2},{82,22}})));
         Physiolibrary.Chemical.Components.Substance             SweatFuel(
@@ -84820,7 +83275,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
             rotation=270,
             origin={73,17})));
     equation
-
       connect(positiveHeatFlow, lungsVapor.q_in) annotation (Line(
           points={{10,-4},{62,-4}},
           color={255,128,0},
@@ -84947,7 +83401,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
       relativeHeat_start=0)
       annotation (Placement(transformation(extent={{-6,-54},{14,-34}})));
                            //(45005587.92) - 310.15*weight*(3475.044))
-
       Physiolibrary.Types.RealIO.TemperatureOutput
                                             core_T
                                             annotation (Placement(
@@ -84957,7 +83410,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
       Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor temperatureSensor
         annotation (Placement(transformation(extent={{20,-54},{40,-34}})));
     equation
-
     connect(CoreMetabolism.port, core.q_in) annotation (Line(
         points={{-12,-18},{-2,-18},{-2,-44},{4,-44}},
         color={255,128,0},
@@ -85018,7 +83470,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
     package IO_Bus
         extends Physiolibrary.Types.IO_Bus;
       redeclare model extends Variables
-
       T.Temperature GITract_T(varName="HeatCore.Temp(C)")
         "Body core temperature."
       annotation (Placement(transformation(extent={{-36,10},{-30,16}})));
@@ -85413,7 +83864,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
                             graphics));
       end Heat_test_SI;
     end IO_Bus;
-
     annotation (Documentation(revisions="<html>
 
 <table cellspacing=\"2\" cellpadding=\"0\" border=\"0\"><tr>
@@ -85448,7 +83898,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
 </html>"), Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
               {100,100}}), graphics));
   end Heat;
-
 
   annotation (uses(Modelica(version="3.2.1"), Physiolibrary(version=
           "2.3.0-beta")),                                                                                Documentation(revisions="<html>
