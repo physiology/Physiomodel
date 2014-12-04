@@ -2,6 +2,7 @@
 package Physiomodel "Mammalian physiology model"
   extends Physiolibrary.Icons.GolemLib;
 
+
   package CardioVascular "Blood and Cardio-Vascular System"
     extends Physiolibrary.Icons.CardioVascularLib;
     class References "References"
@@ -12161,6 +12162,7 @@ Blood resistance in gastro interstitial tract.
                       graphics));
   end CardioVascular;
 
+
   package Gases "Body O2 and CO2"
     extends Physiolibrary.Icons.GasesLib;
     package O2 "Body O2 Transport"
@@ -15265,7 +15267,7 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
           boneCO2(vein(q(start=-7.3))),
           brainCO2(vein(q(start=-18.5364)), tissueVeinsCO2(tCO2_P(start=27.1283))),
           otherTissueCO2(vein(q(start=-8.149))),
-          GITractCO2(vein(q(start=-24.8656))),
+          gitractCO2(vein(q(start=-24.8656))),
           respiratoryMuscleCO2(vein(q(start=-2.26257))),
           kidneyCO2(vein(q(start=-26.7849))),
           fatCO2(vein(q(start=-5.277))),
@@ -15344,7 +15346,7 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
             smooth=Smooth.None));
       connect(pulmShortCircuit.solutionFlow, pulmShortCircuitFlow.y)
         annotation (Line(
-          points={{-12,0},{-12,0},{-12,-1},{-12,-1}},
+          points={{-12,-3},{-12,-3},{-12,-1},{-12,-1}},
           color={0,0,127},
           smooth=Smooth.None));
         connect(pulmShortCircuitFlow.u1, busConnector.CardiacOutput)
@@ -15884,7 +15886,7 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
           QHP.Gases.CO2.TissuesWithInterstitium.KidneyCO2 kidneyCO2(
                                             initialMass=4.1)
             annotation (Placement(transformation(extent={{52,-40},{72,-20}})));
-          QHP.Gases.CO2.TissuesWithInterstitium.GITractCO2 GITractCO2(
+          QHP.Gases.CO2.TissuesWithInterstitium.GITractCO2 gitractCO2(
                                              initialMass=17.6)
             annotation (Placement(transformation(extent={{52,-10},{72,10}})));
         Physiolibrary.Types.BusConnector busConnector
@@ -15954,7 +15956,7 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
               color={200,0,0},
               thickness=1,
               smooth=Smooth.None));
-          connect(GITractCO2.arty, q_in) annotation (Line(
+          connect(gitractCO2.arty, q_in) annotation (Line(
               points={{72,1},{72,0},{100,0}},
               color={200,0,0},
               thickness=1,
@@ -16028,7 +16030,7 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
               string="%first",
               index=-1,
               extent={{-5,2},{-5,2}}));
-          connect(busConnector.GITract_pH_plasma, GITractCO2.pH_plasma)
+          connect(busConnector.GITract_pH_plasma,gitractCO2. pH_plasma)
             annotation (Line(
               points={{-88,92},{6,92},{6,-2},{53,-2}},
               color={0,127,0},
@@ -16125,7 +16127,7 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
               string="%first",
               index=-1,
               extent={{-5,2},{-5,2}}));
-          connect(busConnector.GITract_pH_ery, GITractCO2.pH_ery)
+          connect(busConnector.GITract_pH_ery,gitractCO2. pH_ery)
             annotation (Line(
               points={{-88,92},{6,92},{6,10},{53,10}},
               color={0,127,0},
@@ -16221,7 +16223,7 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
               string="%first",
               index=-1,
               extent={{-5,2},{-5,2}}));
-          connect(busConnector.GITract_sO2, GITractCO2.sO2)
+          connect(busConnector.GITract_sO2,gitractCO2. sO2)
             annotation (Line(
               points={{-88,92},{6,92},{6,6},{53,6}},
               color={0,127,0},
@@ -16317,7 +16319,7 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
               string="%first",
               index=-1,
               extent={{-5,2},{-5,2}}));
-          connect(busConnector.BloodVol_Hct, GITractCO2.Hct)
+          connect(busConnector.BloodVol_Hct,gitractCO2. Hct)
             annotation (Line(
               points={{-88,92},{6,92},{6,-6},{53,-6}},
               color={0,127,0},
@@ -16413,7 +16415,7 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
               string="%second",
               index=1,
               extent={{5,2},{5,2}}));
-          connect(GITractCO2.Tissue_CO2FromMetabolism, busConnector.GITract_CO2FromMetabolism)
+          connect(gitractCO2.Tissue_CO2FromMetabolism, busConnector.GITract_CO2FromMetabolism)
             annotation (Line(
               points={{71,-2},{98,-2},{98,92},{-88,92}},
               color={0,127,0},
@@ -16509,7 +16511,7 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
               string="%second",
               index=1,
               extent={{5,2},{5,2}}));
-          connect(GITractCO2.BloodFlow, busConnector.GITract_BloodFlow)
+          connect(gitractCO2.BloodFlow, busConnector.GITract_BloodFlow)
             annotation (Line(
               points={{71,5.4},{98,5.4},{98,92},{-88,92}},
               color={0,127,0},
@@ -16597,7 +16599,7 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
               string="%second",
               index=1,
               extent={{5,2},{5,2}}));
-          connect(GITractCO2.T, busConnector.GITract_T)
+          connect(gitractCO2.T, busConnector.GITract_T)
             annotation (Line(
               points={{71,-6},{98,-6},{98,92},{-88,92}},
               color={0,127,0},
@@ -16684,7 +16686,7 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
               points={{-44,-55},{6,-55},{6,92},{-88,92}},
               color={0,127,0},
               smooth=Smooth.None));
-          connect(GITractCO2.pCO2, busConnector.GITract_pCO2)
+          connect(gitractCO2.pCO2, busConnector.GITract_pCO2)
             annotation (Line(
               points={{62,-11},{98,-11},{98,92},{-88,92}},
               color={0,127,0},
@@ -16744,7 +16746,7 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
               points={{-44,-55},{6,-55},{6,92},{-88,92}},
               color={0,127,0},
               smooth=Smooth.None));
-          connect(GITractCO2.pCO2, busConnector.GITract_PCO2)
+          connect(gitractCO2.pCO2, busConnector.GITract_PCO2)
             annotation (Line(
               points={{62,-11},{98,-11},{98,92},{-88,92}},
               color={0,127,0},
@@ -16804,7 +16806,7 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
               points={{-46,-55},{6,-55},{6,92},{-88,92}},
               color={0,127,0},
               smooth=Smooth.None));
-          connect(GITractCO2.cHCO3, busConnector.GITract_cHCO3)
+          connect(gitractCO2.cHCO3, busConnector.GITract_cHCO3)
             annotation (Line(
               points={{60,-11},{98,-11},{98,92},{-88,92}},
               color={0,127,0},
@@ -16864,7 +16866,7 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
               points={{-42,-55},{6,-55},{6,92},{-88,92}},
               color={0,127,0},
               smooth=Smooth.None));
-          connect(GITractCO2.cHCO3_interstitial, busConnector.GITract_cHCO3_interstitial)
+          connect(gitractCO2.cHCO3_interstitial, busConnector.GITract_cHCO3_interstitial)
             annotation (Line(
               points={{64,-11},{98,-11},{98,92},{-88,92}},
               color={0,127,0},
@@ -16926,7 +16928,7 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
               string="%first",
               index=-1,
               extent={{-3,13},{-3,13}}));
-          connect(GITractCO2.vein, liverCO2.portalVein) annotation (Line(
+          connect(gitractCO2.vein, liverCO2.portalVein) annotation (Line(
               points={{52,1},{38,1},{38,80},{64,80},{64,70}},
               color={200,0,0},
               thickness=1,
@@ -20123,6 +20125,7 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
 </html>"), Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
               {100,100}}), graphics));
   end Gases;
+
 
   package Metabolism "Body Nutrients, Metabolism and Heat Systems"
     extends Physiolibrary.Icons.NutrientsMetabolismLib;
@@ -30232,6 +30235,7 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
               {100,100}}), graphics));
   end Metabolism;
 
+
   package Hormones "Hormones"
     extends Physiolibrary.Icons.HormonesLib;
     package Insulin_Physiolibrary = Physiolibrary(Types(
@@ -35545,6 +35549,7 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
               {100,100}}), graphics));
   end Hormones;
 
+
   package Nerves "Autonimic Nerves"
     extends Physiolibrary.Icons.NervesLib;
     model BaroReceptorAdaptation
@@ -37008,6 +37013,7 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
 </html>"), Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
               {100,100}}), graphics));
   end Nerves;
+
 
   package Setup "Environment Influences"
     extends Physiolibrary.Icons.SetupLib;
@@ -38585,6 +38591,7 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
 </html>"), Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
               {100,100}}), graphics));
   end Setup;
+
 
   package Status "Fitness Status of Tissue Structures and Functionality"
    extends Physiolibrary.Icons.StatusLib;
@@ -40509,6 +40516,7 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
 </html>"), Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
               {100,100}}), graphics));
   end Status;
+
 
   package Water "Body Water"
     extends Physiolibrary.Icons.WaterLib;
@@ -48233,6 +48241,7 @@ Total         = 43000
           graphics));
   end Water;
 
+
   package Proteins "Body Proteins"
     extends Physiolibrary.Icons.ProteinsLib;
     model Synthesis
@@ -49052,6 +49061,7 @@ annotation (Placement(transformation(extent={{-42,64},{-24,82}})));*/
               {100,100}}),
                       graphics));
   end Proteins;
+
 
   package Electrolytes "Body Electrolytes"
     extends Physiolibrary.Icons.ElectrolytesLib;
@@ -81434,6 +81444,7 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
               {100,100}}), graphics));
   end Electrolytes;
 
+
   package Heat "Body Temperature Balance"
     extends Physiolibrary.Icons.HeatLib;
     model TissuesHeat
@@ -83898,6 +83909,7 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
 </html>"), Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
               {100,100}}), graphics));
   end Heat;
+
 
   annotation (uses(Modelica(version="3.2.1"), Physiolibrary(version=
           "2.3.0-beta")),                                                                                Documentation(revisions="<html>
