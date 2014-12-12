@@ -3056,7 +3056,7 @@ SYSTOLE
             smooth=Smooth.None));
       connect(busConnector.BloodVolume_change, volumeCorrections.solutionFlow)
         annotation (Line(
-          points={{46,50},{-35,50},{-35,33.8}},
+          points={{46,50},{-35,50},{-35,35.9}},
           color={0,0,255},
           thickness=0.5,
           smooth=Smooth.None));
@@ -3317,7 +3317,7 @@ SYSTOLE
             smooth=Smooth.None));
       connect(systemicArtys.volume, busConnector.SystemicArtys_OxygenatedBloodVolume)
         annotation (Line(
-          points={{75.5,-10},{72,-10},{72,-28},{46,-28},{46,50}},
+          points={{81.8,-10},{72,-10},{72,-28},{46,-28},{46,50}},
           color={0,0,127},
           smooth=Smooth.None), Text(
           string="%second",
@@ -13939,7 +13939,7 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
                                           gasSolubility(useHeatPort=true,
         C=1700,
         kH_T0(displayUnit="(mmol/l)/kPa at 37degC") = 0.02707666941329,
-        solubilityRateCoef(displayUnit="m3/s") = 0.01,
+        solubilityRateCoef(displayUnit="l/min") = 0.0005,
         T0=310.15)
           annotation (Placement(transformation(extent={{-18,12},{2,32}})));
       Physiolibrary.Thermal.Sources.UnlimitedHeat alveolus(T=310.15)
@@ -14685,7 +14685,7 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
         useHeatPort=true,
           C=2400,
         kH_T0(displayUnit="(mmol/l)/(mmol/l)") = 0.604,
-        solubilityRateCoef(displayUnit="m3/s") = 0.1,
+        solubilityRateCoef(displayUnit="m3/s") = 0.01,
         T0=310.15)
         annotation (Placement(transformation(extent={{-10,44},{10,64}})));
       Physiolibrary.Thermal.Sources.UnlimitedHeat environment(T=298.15)
@@ -14710,7 +14710,7 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
             smooth=Smooth.None));
       connect(pulmShortCircuit.solutionFlow, pulmShortCircuitFlow.y)
         annotation (Line(
-          points={{-12,0},{-12,0},{-12,-1},{-12,-1}},
+          points={{-12,-3},{-12,-3},{-12,-1},{-12,-1}},
           color={0,0,127},
           smooth=Smooth.None));
         connect(pulmShortCircuitFlow.u1, busConnector.CardiacOutput)
@@ -42003,18 +42003,18 @@ To get heat from temperature
             index=-1,
             extent={{-6,3},{-6,3}}));
         connect(GILumen.volume, busConnector.GILumenVolume_Mass) annotation (Line(
-            points={{-24,12},{-10,12},{-10,90},{-88,90}},
+            points={{-18,12},{-10,12},{-10,90},{-88,90}},
             color={0,0,127},
             smooth=Smooth.None), Text(
             string="%second",
             index=1,
             extent={{6,3},{6,3}}));
         connect(GILumen.volume, vomitus.H2OVolume) annotation (Line(
-            points={{-24,12},{-10,12},{-10,76.2},{-29.8,76.2}},
+            points={{-18,12},{-10,12},{-10,76.2},{-29.8,76.2}},
             color={0,0,127},
             smooth=Smooth.None));
         connect(GILumen.volume, diarrhea.H2OVolume) annotation (Line(
-            points={{-24,12},{-10,12},{-10,69.8},{-29.8,69.8}},
+            points={{-18,12},{-10,12},{-10,69.8},{-29.8,69.8}},
             color={0,0,127},
             smooth=Smooth.None));
         connect(diarrhea.H2OLoss, GILumen.q_in[1]) annotation (Line(
@@ -42037,7 +42037,7 @@ To get heat from temperature
             thickness=1,
             smooth=Smooth.None));
         connect(DietThirst.y, Diet.solutionFlow) annotation (Line(
-            points={{-54,-26},{-54,-45}},
+            points={{-54,-26},{-54,-43.5}},
             color={0,0,127},
             smooth=Smooth.None));
         connect(vascularH2O, flowMeasure.q_out) annotation (Line(
@@ -42549,7 +42549,7 @@ QHP 2008 / Peritoneum
         fromMetabolism = metabolicH2O.q_out.q;
 
         connect(calsFract.y, metabolicH2O.solutionFlow) annotation (Line(
-            points={{54.6,-82},{78,-82},{78,-84}},
+            points={{54.6,-82},{78,-82},{78,-81}},
             color={0,0,127},
             smooth=Smooth.None));
       //  volume = extravascularH2O.WaterVolume;
@@ -42561,7 +42561,7 @@ QHP 2008 / Peritoneum
             thickness=1,
             smooth=Smooth.None));
         connect(InterstitialPressureEffect.y, lymph.solutionFlow) annotation (Line(
-            points={{-58,-62},{-58,-66}},
+            points={{-58,-62},{-58,-63}},
             color={0,0,127},
             smooth=Smooth.None));
         connect(flowConstant.y,InterstitialPressureEffect. yBase) annotation (
@@ -42580,7 +42580,7 @@ QHP 2008 / Peritoneum
             thickness=1,
             smooth=Smooth.None));
         connect(pressureOnVolume.u, Interstitium.volume) annotation (Line(
-            points={{4,-40},{8,-40},{8,-10}},
+            points={{4,-40},{2,-40},{2,-10}},
             color={0,0,127},
             smooth=Smooth.None));
         connect(pressureOnVolume.val, capyMembrane.hydraulicPressureOut) annotation (
@@ -42630,7 +42630,7 @@ QHP 2008 / Peritoneum
           extent={{6,3},{6,3}}));
         connect(Interstitium.volume, torsoSpecific.InterstitialWater_Vol) annotation (
            Line(
-            points={{8,-10},{54,-10},{54,35.5},{71,35.5}},
+            points={{2,-10},{54,-10},{54,35.5},{71,35.5}},
             color={215,215,215},
             smooth=Smooth.None), Text(
             string="%second",
@@ -42673,7 +42673,7 @@ QHP 2008 / Peritoneum
             index=-1,
             extent={{-6,3},{-6,3}}));
       connect(lungFract.y, insensibleLungVapor.solutionFlow) annotation (Line(
-          points={{-15.6,26},{-10,26}},
+          points={{-15.6,26},{-13,26}},
           color={0,0,127},
           smooth=Smooth.None));
         connect(insensibleLungVapor.q_in, Interstitium.q_in[1]) annotation (Line(
@@ -42686,11 +42686,11 @@ QHP 2008 / Peritoneum
           color={0,0,127},
           smooth=Smooth.None));
       connect(insensibleSkinVapor.solutionFlow, skinFract.y) annotation (Line(
-          points={{4,44},{-1.6,44}},
+          points={{1,44},{-1.6,44}},
           color={0,0,127},
           smooth=Smooth.None));
       connect(sweat.solutionFlow, sweatFract.y) annotation (Line(
-          points={{20,64},{14.4,64}},
+          points={{17,64},{14.4,64}},
           color={0,0,127},
           smooth=Smooth.None));
       connect(busConnector.SweatDuct_H2OOutflow, sweatFract.u) annotation (Line(
@@ -42709,7 +42709,7 @@ QHP 2008 / Peritoneum
           index=-1,
           extent={{-6,3},{-6,3}}));
       connect(torsoSpecific.Cell_H2O, ICF.volume) annotation (Line(
-          points={{71,35.5},{54,35.5},{54,-66},{84,-66}},
+          points={{71,35.5},{54,35.5},{54,-66},{78,-66}},
           color={215,215,215},
           smooth=Smooth.None), Text(
           string="%first",
@@ -47462,6 +47462,91 @@ Total         = 43000
         experiment(StopTime=864000),
         __Dymola_experimentSetupOutput);
       end Water_test_SI;
+
+      model WPC_test_SI
+        import Physiomodel;
+
+      Physiomodel.CardioVascular.IO_Bus.InputFromFile_SI cardioVascularSystem
+          annotation (Placement(transformation(extent={{40,72},{60,94}})));
+        Physiomodel.Metabolism.IO_Bus.InputFromFile_SI nutrientsAndMetabolism
+          annotation (Placement(transformation(extent={{-88,60},{-68,80}})));
+        Physiomodel.Electrolytes.IO_Bus.InputFromFile_SI electrolytes
+          annotation (Placement(transformation(extent={{74,-34},{94,-14}})));
+        Physiomodel.Hormones.IO_Bus.InputFromFile_SI hormones
+          annotation (Placement(transformation(extent={{40,6},{60,26}})));
+        Physiomodel.Nerves.IO_Bus.InputFromFile_SI nerves
+          annotation (Placement(transformation(extent={{74,38},{94,58}})));
+        Physiomodel.Setup.IO_Bus.InputFromFile_SI     setup
+          annotation (Placement(transformation(extent={{-16,-106},{4,-86}})));
+      Physiomodel.Water.Water water
+        annotation (Placement(transformation(extent={{-98,-8},{-78,12}})));
+        Physiomodel.Proteins.Proteins                proteins
+          annotation (Placement(transformation(extent={{-48,-28},{-28,-8}})));
+        Physiomodel.Status.IO_Bus.InputFromFile_SI status
+          annotation (Placement(transformation(extent={{42,-80},{62,-60}})));
+        Physiomodel.Gases.IO_Bus.InputFromFile_SI gases
+          annotation (Placement(transformation(extent={{-76,-64},{-56,-44}})));
+        Physiomodel.Heat.IO_Bus.InputFromFile_SI heat
+          annotation (Placement(transformation(extent={{-30,36},{-50,56}})));
+      equation
+        connect(setup.busConnector,hormones. busConnector) annotation (Line(
+            points={{-6,-96},{-6,16},{50,16}},
+            color={0,0,255},
+            thickness=0.5,
+            smooth=Smooth.None));
+        connect(setup.busConnector,proteins. busConnector) annotation (Line(
+            points={{-6,-96},{-6,-9.7},{-31.7,-9.7}},
+            color={0,0,255},
+            thickness=0.5,
+            smooth=Smooth.None));
+        connect(setup.busConnector,cardioVascularSystem. busConnector)
+                                                      annotation (Line(
+            points={{-6,-96},{-6,83},{50,83}},
+            color={0,0,255},
+            thickness=0.5,
+            smooth=Smooth.None));
+        connect(setup.busConnector,nutrientsAndMetabolism. busConnector)
+          annotation (Line(
+            points={{-6,-96},{-6,70},{-78,70}},
+            color={0,0,255},
+            thickness=0.5,
+            smooth=Smooth.None));
+        connect(setup.busConnector,water. busConnector) annotation (Line(
+            points={{-6,-96},{-6,9},{-81,9}},
+            color={0,0,255},
+            thickness=0.5,
+            smooth=Smooth.None));
+        connect(setup.busConnector,nerves. busConnector) annotation (Line(
+            points={{-6,-96},{-6,48},{84,48}},
+            color={0,0,255},
+            thickness=0.5,
+            smooth=Smooth.None));
+        connect(status.busConnector,setup. busConnector)         annotation (Line(
+            points={{52,-70},{-6,-70},{-6,-96}},
+            color={0,0,255},
+            thickness=0.5,
+            smooth=Smooth.None));
+        connect(electrolytes.busConnector,setup. busConnector) annotation (Line(
+            points={{84,-24},{-6,-24},{-6,-96}},
+            color={0,0,255},
+            thickness=0.5,
+            smooth=Smooth.None));
+        connect(gases.busConnector,setup. busConnector) annotation (Line(
+            points={{-66,-54},{-6,-54},{-6,-96}},
+            color={0,0,255},
+            thickness=0.5,
+            smooth=Smooth.None));
+        connect(heat.busConnector,setup. busConnector) annotation (Line(
+            points={{-40,46},{-6,46},{-6,-96}},
+            color={0,0,255},
+            thickness=0.5,
+            smooth=Smooth.None));
+        annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent=
+                {{-100,-100},{100,100}}),
+                            graphics),
+        experiment(StopTime=864000),
+        __Dymola_experimentSetupOutput);
+      end WPC_test_SI;
     end IO_Bus;
 
     annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
@@ -47661,17 +47746,18 @@ Total         = 43000
 
     model Proteins
         extends Physiolibrary.Icons.Proteins;
+        parameter Physiolibrary.Types.Fraction capilaryPermeabilityEffect=1;
     Physiolibrary.Types.BusConnector busConnector annotation (Placement(
           transformation(extent={{82,4},{102,24}}), iconTransformation(extent={
               {46,66},{80,100}})));
     Physiolibrary.Chemical.Components.Diffusion UT_Capillary(Conductance(
-          displayUnit="l/day") = 3.9351851851852e-09)
+            displayUnit="l/day") = 3.9351851851852e-09*capilaryPermeabilityEffect)
       annotation (Placement(transformation(extent={{-2,78},{10,90}})));
     Physiolibrary.Chemical.Components.Diffusion MT_Capillary(Conductance(
-          displayUnit="l/day") = 7.4074074074074e-09)
+            displayUnit="l/day") = 7.4074074074074e-09*capilaryPermeabilityEffect)
       annotation (Placement(transformation(extent={{-2,32},{10,44}})));
     Physiolibrary.Chemical.Components.Diffusion LT_Capillary(Conductance(
-          displayUnit="l/day") = 1.1805555555556e-08)
+          displayUnit="l/day") = 1.1805555555556e-08*capilaryPermeabilityEffect)
       annotation (Placement(transformation(extent={{0,-8},{12,4}})));
       Physiolibrary.Chemical.Sources.UnlimitedSolutePumpOut
                                                   Hemorrhage(useSoluteFlowInput=
@@ -47927,7 +48013,7 @@ Total         = 43000
         smooth=Smooth.None));
     connect(Change.solutionFlow, busConnector.PeritoneumSpace_Change)
       annotation (Line(
-        points={{-34,-27.6},{-34,14},{92,14}},
+        points={{-34,-25.8},{-34,14},{92,14}},
         color={0,0,127},
         smooth=Smooth.None));
     connect(UpperTorso.solutionVolume, busConnector.UT.InterstitialWater_Vol)
@@ -47979,21 +48065,21 @@ Total         = 43000
      index=-1,
      extent={{-6,3},{-6,3}}));
     connect(busConnector.UT.LymphFlow, UT_Lymph.solutionFlow) annotation (Line(
-        points={{92,14},{18,14},{18,54},{6,54},{6,67},{5,67}},
+        points={{92,14},{18,14},{18,54},{6,54},{6,65.5},{5,65.5}},
         color={0,0,127},
         smooth=Smooth.None), Text(
         string="%first",
         index=-1,
         extent={{-6,3},{-6,3}}));
     connect(busConnector.MT.LymphFlow, MT_Lymph.solutionFlow) annotation (Line(
-        points={{92,14},{6,14},{6,21},{5,21}},
+        points={{92,14},{6,14},{6,19.5},{5,19.5}},
         color={0,0,127},
         smooth=Smooth.None), Text(
         string="%first",
         index=-1,
         extent={{-6,3},{-6,3}}));
     connect(busConnector.LT.LymphFlow, LT_Lymph.solutionFlow) annotation (Line(
-        points={{92,14},{14,14},{14,-26},{6,-26},{6,-19},{5,-19}},
+        points={{92,14},{14,14},{14,-26},{6,-26},{6,-20.5},{5,-20.5}},
         color={0,0,127},
         smooth=Smooth.None), Text(
         string="%first",

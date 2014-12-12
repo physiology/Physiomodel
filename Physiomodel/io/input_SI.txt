@@ -615,7 +615,7 @@ SympsCNS.PituitaryNA
 AirSupply-InspiredAir.Pressure
 101325
 Anesthesia.VascularConductance
-1
+3
 Anesthesia.TidalVolume
 1
 Barometer.Pressure

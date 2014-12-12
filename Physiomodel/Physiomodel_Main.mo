@@ -21,7 +21,7 @@ Physiomodel.CardioVascular.CVS_Dynamic
   Physiomodel.Water.Water water
     annotation (Placement(transformation(extent={{-86,0},{-66,20}})));
   Physiomodel.Proteins.Proteins
-                    proteins
+                    proteins(capilaryPermeabilityEffect=5)
     annotation (Placement(transformation(extent={{-48,-22},{-28,-2}})));
   Physiomodel.Status.TissuesFitness status
     annotation (Placement(transformation(extent={{42,-74},{62,-54}})));
