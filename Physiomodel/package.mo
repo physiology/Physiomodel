@@ -20348,7 +20348,7 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
           smooth=Smooth.None));
     connect(busConnector.Glomerulus_GFR, Glomerulus.solutionFlow) annotation (
         Line(
-        points={{-90,10},{-100,10},{-100,80},{-24,80}},
+        points={{-90,10},{-100,10},{-100,83},{-24,83}},
         color={0,0,255},
         thickness=0.5,
         smooth=Smooth.None), Text(
@@ -20425,7 +20425,7 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
         index=-1,
         extent={{-6,3},{-6,3}}));
     connect(GlucosePool.solute, K.u) annotation (Line(
-        points={{-66,46},{-66,40.6},{-71,40.6}},
+        points={{-60,46},{-60,40.6},{-71,40.6}},
         color={0,0,127},
         smooth=Smooth.None));
     connect(Decomposition.soluteFlow, K.y) annotation (Line(
@@ -20443,7 +20443,7 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
         extent={{-6,3},{-6,3}}));
     connect(GlucosePool.solute, busConnector.GlucoseECF_Osmoles) annotation (
         Line(
-        points={{-66,46},{-66,10},{-90,10}},
+        points={{-60,46},{-60,10},{-90,10}},
         color={0,0,127},
         smooth=Smooth.None), Text(
         string="%second",
@@ -43448,7 +43448,8 @@ QHP 2008 / Peritoneum
           annotation (Placement(transformation(extent={{-68,90},{-60,98}})));
         Physiolibrary.Blocks.Factors.Normalization NephronCountEffect
           annotation (Placement(transformation(extent={{-66,68},{-46,88}})));
-          Physiolibrary.Osmotic.Components.IdealFlowFiltration glomerulusFlow(
+          Physiolibrary.Osmotic.Components.IdealOverflowFiltration
+                                                               glomerulusFlow(
               useSolutionFlowInput=true) annotation (Placement(transformation(
                 extent={{-10,-10},{10,10}},
                 rotation=90,
@@ -70701,7 +70702,7 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
 
       connect(glomerulusSudiumRate.solutionFlow, busConnector.GlomerulusFiltrate_GFR)
         annotation (Line(
-          points={{-6,28},{-6,38},{-32,38},{-32,92},{-92,92}},
+          points={{-6,31},{-6,38},{-32,38},{-32,92},{-92,92}},
           color={0,0,127},
           smooth=Smooth.None), Text(
           string="%second",
@@ -70903,7 +70904,7 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
             smooth=Smooth.None,
             thickness=1));
       connect(gain.y, VasaRectaOutflow.solutionFlow) annotation (Line(
-          points={{-19.6,-84},{-12,-84},{-12,-88.8}},
+          points={{-19.6,-84},{-12,-84},{-12,-86.4}},
           color={0,0,127},
           smooth=Smooth.None));
         connect(busConnector.VasaRecta_Outflow, gain.u) annotation (Line(
