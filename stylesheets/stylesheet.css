@@ -323,6 +323,7 @@ Full-Width Styles
   background: url('../images/icon_download.png') no-repeat 0% 90%;
 }
 
+
 .zip_download_link {
   display: block;
   float: right;
@@ -352,6 +353,30 @@ Full-Width Styles
   background: url(../images/sprite_download.png) no-repeat top right;
 }
 
+
+#downloads2 {
+  position: absolute;
+  width: 210px;
+  z-index: 10;
+  bottom: -40px;
+  left: 0;
+  height: 70px;
+  background: url('../images/icon_download.png') no-repeat 50% 90%;
+}
+
+.zip_download_link2 {
+  display: block;
+  float: left;
+  width: 90px;
+  height:70px;
+  text-indent: -5000px;
+  overflow: hidden;
+  background: url(../images/sprite_download.png) no-repeat bottom left;
+}
+
+.zip_download_link2:hover {
+  background: url(../images/sprite_download.png) no-repeat top left;
+}
 #main_content_wrap {
   background: #f2f2f2;
   border-top: 1px solid #111;
