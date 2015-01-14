@@ -3,8 +3,7 @@ model Physiomodel_Main "Main model"
   import Physiomodel;
   extends Physiolibrary.Icons.Golem;
 
-Physiomodel.CardioVascular.CVS_Dynamic
-                          cardioVascularSystem
+  Physiomodel.CardioVascular.CardioVascularSystem cardioVascularSystem
     annotation (Placement(transformation(extent={{58,74},{78,96}})));
   Physiomodel.Metabolism.NutrientsAndMetabolism nutrientsAndMetabolism
     annotation (Placement(transformation(extent={{-90,66},{-70,86}})));
