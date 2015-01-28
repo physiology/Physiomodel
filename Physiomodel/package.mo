@@ -973,7 +973,7 @@ package Physiomodel "Mammalian physiology model"
             color={0,0,127},
             smooth=Smooth.None));
       connect(RightAtrium.volume, sum3.u[1]) annotation (Line(
-          points={{-65,-1},{-65,-74.4},{-60.8,-74.4}},
+          points={{-59,-1},{-59,-74.4},{-60.8,-74.4}},
           color={0,0,127},
           smooth=Smooth.None));
         connect(rightVentricle.Vol, sum3.u[2]) annotation (Line(
@@ -981,7 +981,7 @@ package Physiomodel "Mammalian physiology model"
             color={0,0,127},
             smooth=Smooth.None));
       connect(LeftAtrium.volume, sum2.u[1]) annotation (Line(
-          points={{78,-8},{78,-73.6},{70.8,-73.6}},
+          points={{84,-8},{84,-73.6},{70.8,-73.6}},
           color={0,0,127},
           smooth=Smooth.None));
         connect(leftVentricle.Vol, sum2.u[2]) annotation (Line(
@@ -1099,7 +1099,7 @@ package Physiomodel "Mammalian physiology model"
           smooth=Smooth.None));
       connect(flowMeasure.volumeFlow, busConnector.CardiacOutput) annotation (
           Line(
-          points={{30,4},{30,2},{6,2},{6,42}},
+          points={{30,22},{30,2},{6,2},{6,42}},
           color={0,0,127},
           smooth=Smooth.None), Text(
           string="%second",
@@ -4154,7 +4154,6 @@ Blood resistance in peripheral organs except hepatic artery, gastro interstition
 </html>"));
       end SplanchnicCirculation;
 
-
       model LungBloodFlow
           extends Physiolibrary.Icons.LungShunt;
         Physiolibrary.Types.RealIO.VolumeFlowRateInput CardiacOutput
@@ -4713,7 +4712,6 @@ Blood resistance in peripheral organs except hepatic artery, gastro interstition
                 lineColor={0,0,255},
                 textString="%name")}));
       end SystemicVeins;
-
 
       package develop
         extends Modelica.Icons.UnderConstruction;
@@ -7061,12 +7059,6 @@ Blood resistance in gastro interstitial tract.
                 textString="%name")}));
       end TissueBloodFlow;
 
-
-
-
-
-
-
       model Liver
         extends Interfaces.BaseDO;
         extends Physiolibrary.Icons.Liver;
@@ -8249,14 +8241,6 @@ Schema : 2008.0
         Zmena tlaku aktivuje receptory, ktorych stimulacia ma vplyv na vasokonstrikciu danej arterioly.</pre> </html>"));
     end VariableResistorWithMyogenicResponse;
 
-
-
-
-
-
-
-
-
       model AfferentArteryMyogenicReceptors
         extends Physiolibrary.SteadyStates.Interfaces.SteadyState(
                                                       stateName="Kidney-Myogenic.AdaptedPressure",
@@ -8287,10 +8271,6 @@ Schema : 2008.0
                 preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
               graphics));
       end AfferentArteryMyogenicReceptors;
-
-
-
-
 
       package Interfaces
         partial model BaseOD
@@ -9548,11 +9528,12 @@ Schema : 2008.0
       T.VolumeFlowRate Liver_BloodFlow(varName=
               "Liver-O2.BloodFlow") "Liver blood flow."
       annotation (Placement(transformation(extent={{-30,-26},{-24,-20}})));
-      T.Concentration cDPG(varName="cDPG")
+      T.Concentration cDPG(varName="cDPG") "2,3-DPG concentration"
       annotation (Placement(transformation(extent={{18,-84},{24,-78}})));
       T.Fraction FMetHb(varName="FMetHb")
+        "Fraction of methemoglobin with Fe^3+ instead of Fe^2+"
       annotation (Placement(transformation(extent={{18,-74},{24,-68}})));
-      T.Fraction FHbF(varName="FHbF")
+      T.Fraction FHbF(varName="FHbF") "Fraction of foetal hemoglobin"
       annotation (Placement(transformation(extent={{18,-64},{24,-58}})));
       T.Pressure SystemicVeins_Pressure(varName="SystemicVeins.Pressure")
         "Systemic veins pressure."
@@ -9563,8 +9544,7 @@ Schema : 2008.0
         "Skin conductance without termoregulation effect."
       annotation (Placement(transformation(extent={{-34,-54},{-28,-48}})));
       T.Concentration ANPPool_ANP(varName="ANPPool.[ANP]", storeUnit="pmol/l",
-        y(nominal=1e-8))
-        "Decimal logarithm of atrial natriuretic peptide concentration."
+        y(nominal=1e-8)) "Atrial natriuretic peptide concentration."
           annotation (Placement(transformation(extent={{-82,-78},{-76,-72}})));
       T.Volume BloodVol_Vol(varName="BloodVol.Vol") "Blood volume"
       annotation (Placement(transformation(extent={{-84,4},{-78,10}})));
@@ -21246,10 +21226,10 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
       end TissueMetabolism;
 
       model SkeletalMuscleMetabolism
-        extends TissueMetabolismBase(TotalCaloriesUse(nin=3),
+        extends TissueMetabolismBase(TotalCaloriesUse(nin=1),
             HeatMetabolism_Skin(data={{10.0+273.15,0.0,0},{37.1+273.15,1.0,0.12},{40.0+273.15,1.5,0},
                 {46.0+273.15,0.0,0}}),
-          PartCaloriesUse(nin=3));
+          PartCaloriesUse(nin=4));
        //   Lactate(stateName="SkeletalMuscle-Lactate.Mass"),
         extends Physiolibrary.Icons.SkeletalMuscle;
 
@@ -21264,14 +21244,10 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
           annotation (Placement(transformation(extent={{60,-76},{92,-44}})));
       Physiolibrary.Types.Constants.HeatFlowRateConst Posture_Cals(k(
             displayUnit="cal/min") = 0)
-        annotation (Placement(transformation(extent={{-65,78},{-55,88}})));
-      Physiolibrary.Types.Constants.FractionConst fractConstant(k=0.3)
-        annotation (Placement(transformation(extent={{-40,57},{-30,67}})));
-        Modelica.Blocks.Math.Division TotalCals
-          annotation (Placement(transformation(extent={{-13,57},{-5,65}})));
+        annotation (Placement(transformation(extent={{99,64},{89,74}})));
         Physiolibrary.Types.RealIO.PowerInput ExerciseMetabolism_MotionCals(
                                                                     final displayUnit="cal/min")
-          annotation (Placement(transformation(extent={{-32,62},{-22,72}}),
+          annotation (Placement(transformation(extent={{-50,46},{-40,56}}),
               iconTransformation(extent={{-100,-70},{-80,-50}})));
         Physiolibrary.Chemical.Components.Substance             glycogen(
           stateName="SkeletalMuscle-Glycogen.Mass", solute_start=500e-3/
@@ -21322,31 +21298,26 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
       Physiolibrary.Chemical.Sources.UnlimitedSolutionStorage unlimitedStorage1(
          concentration=0)
         annotation (Placement(transformation(extent={{64,-26},{84,-6}})));
-        Physiolibrary.Types.RealIO.PowerOutput skeletalMuscle_HeatWithoutTermoregulation(
-                                                                                       displayUnit="kcal/min")
-        "Skeletal muscle termal energy flow without shivering effect. (Used in termoragulation to calculate whole thermal energy flow from muscle connected with hypothalamus shivering drive.) [Cal/min]"
-                                                              annotation (
-            Placement(transformation(extent={{88,48},{100,60}}),
-                                                               iconTransformation(
+        Physiolibrary.Types.RealIO.PowerOutput skeletalMuscle_producedHeat(
+            displayUnit="kcal/min")
+        "Termal energy produced by skeletal muscle. "
+          annotation (Placement(transformation(extent={{28,40},{40,52}}),
+              iconTransformation(
               extent={{-10,-10},{10,10}},
               rotation=270,
               origin={90,-100})));
         Modelica.Blocks.Math.Feedback HeatCals
-          annotation (Placement(transformation(extent={{0,54},{12,66}})));
-        Physiolibrary.Types.RealIO.PowerInput ShiveringCals
-          annotation (Placement(transformation(extent={{-86,46},{-76,56}}),
+          annotation (Placement(transformation(extent={{-4,52},{8,40}})));
+      Physiolibrary.Blocks.Factors.Spline HeatShivering(data={{0.0,0.0,0},{4.0,
+            70.0,0}}, Yscale=4.1868/60)
+        annotation (Placement(transformation(extent={{-8,64},{12,84}})));
+        Physiolibrary.Types.RealIO.FrequencyInput
+                                             HypothalamusShivering_NerveActivity
+          annotation (Placement(transformation(extent={{-48,70},{-38,80}}),
               iconTransformation(extent={{-100,110},{-80,130}})));
       equation
         connect(TotalCaloriesUse.y,cellularMetabolism. CalsUse) annotation (Line(
             points={{71,41.6},{71,38},{94,38},{94,-44},{82.4,-44}},
-            color={0,0,127},
-            smooth=Smooth.None));
-        connect(ExerciseMetabolism_MotionCals,TotalCals. u1) annotation (Line(
-            points={{-27,67},{-16,67},{-16,63.4},{-13.8,63.4}},
-            color={0,0,127},
-            smooth=Smooth.None));
-        connect(fractConstant.y,TotalCals. u2) annotation (Line(
-            points={{-28.75,62},{-28,62},{-28,58.6},{-13.8,58.6}},
             color={0,0,127},
             smooth=Smooth.None));
         connect(synthesis.q_out, glycogen.q_out) annotation (Line(
@@ -21466,33 +21437,11 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
             thickness=1,
             smooth=Smooth.None));
         connect(Posture_Cals.y, PartCaloriesUse.u[3]) annotation (Line(
-            points={{-53.75,83},{18,83},{18,66},{60,66},{60,72},{71,72},{71,64.8}},
-            color={0,0,127},
-            smooth=Smooth.None));
-        connect(ExerciseMetabolism_MotionCals, TotalCaloriesUse.u[3]) annotation (
-            Line(
-            points={{-27,67},{-20,67},{-20,52},{71,52},{71,50.8}},
-            color={0,0,127},
-            smooth=Smooth.None));
-        connect(TotalCals.y, HeatCals.u1) annotation (Line(
-            points={{-4.6,61},{-1.3,61},{-1.3,60},{1.2,60}},
-            color={0,0,127},
-            smooth=Smooth.None));
-        connect(HeatCals.y, PartCaloriesUse.u[2]) annotation (Line(
-            points={{11.4,60},{62,60},{62,70},{71,70},{71,64.8}},
+            points={{87.75,69},{72,69},{72,68},{72,68},{72,66},{71,66},{71,64.8}},
             color={0,0,127},
             smooth=Smooth.None));
         connect(ExerciseMetabolism_MotionCals, HeatCals.u2) annotation (Line(
-            points={{-27,67},{-20,67},{-20,52},{6,52},{6,55.2}},
-            color={0,0,127},
-            smooth=Smooth.None));
-        connect(PartCaloriesUse.y, skeletalMuscle_HeatWithoutTermoregulation)
-          annotation (Line(
-            points={{71,55.6},{83.5,55.6},{83.5,54},{94,54}},
-            color={0,0,127},
-            smooth=Smooth.None));
-        connect(ShiveringCals, TotalCaloriesUse.u[2]) annotation (Line(
-            points={{-81,51},{-3.5,51},{-3.5,50.8},{71,50.8}},
+            points={{-45,51},{2,51},{2,50},{2,50},{2,50},{2,50.8}},
             color={0,0,127},
             smooth=Smooth.None));
         connect(cellularMetabolism.Tissue_MetabolicH2ORate, H2OFromMetabolism)
@@ -21513,14 +21462,36 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
             points={{6,-26},{20,-26},{20,-10},{38,-10}},
             color={0,0,127},
             smooth=Smooth.None));
+        connect(HeatShivering.u,HypothalamusShivering_NerveActivity)  annotation (
+            Line(
+            points={{-6,74},{-32,74},{-32,75},{-43,75}},
+            color={0,0,127},
+            smooth=Smooth.None));
+        connect(skeletalMuscle_producedHeat, HeatCals.y) annotation (Line(
+            points={{34,46},{7.4,46}},
+            color={0,0,127},
+            smooth=Smooth.None));
+        connect(TotalCaloriesUse.y, HeatCals.u1) annotation (Line(
+            points={{71,41.6},{71,38},{-14,38},{-14,46},{-2.8,46}},
+            color={0,0,127},
+            smooth=Smooth.None));
+        connect(Structure_Effect, HeatShivering.yBase) annotation (Line(
+            points={{37,69},{54,69},{54,64},{14,64},{14,84},{2,84},{2,76}},
+            color={0,0,127},
+            smooth=Smooth.None));
+        connect(HeatShivering.y, PartCaloriesUse.u[2]) annotation (Line(
+            points={{2,70},{2,62},{60,62},{60,66},{70,66},{70,64},{70,64},{70,64.8},{71,
+                64.8}},
+            color={0,0,127},
+            smooth=Smooth.None));
+        connect(ExerciseMetabolism_MotionCals, PartCaloriesUse.u[4]) annotation (Line(
+            points={{-45,51},{-10,51},{-10,60},{62,60},{62,68},{71,68},{71,64.8}},
+            color={0,0,127},
+            smooth=Smooth.None));
         annotation (Diagram(coordinateSystem(
               preserveAspectRatio=false,
               extent={{-100,-100},{100,100}},
-              grid={2,2}), graphics={Text(
-                extent={{-46,80},{-24,82}},
-                lineColor={0,0,255},
-                textString="Posture_Cals")}),
-                                      Icon(coordinateSystem(
+              grid={2,2}), graphics), Icon(coordinateSystem(
               preserveAspectRatio=true,
               extent={{-100,-100},{100,100}},
               grid={2,2}), graphics));
@@ -26706,10 +26677,10 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
       /*T.Concentration KAPool_mg_per_dl(varName="KAPool.[KA(mG/dL)]", storeUnit="mg/dl", unitConversions = Substances.KetoAcids.unitConversions) 
     ";Keto-acids extracellular concentration."
 annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
-      T.HeatFlowRate skeletalMuscle_HeatWithoutTermoregulation(varName=
-              "skeletalMuscle_HeatWithoutTermoregulation", storeUnit="cal/min")
-        "Skeletal muscle termal energy flow without shivering effect. (Used in termoragulation to calculate whole thermal energy flow from muscle connected with hypothalamus shivering drive.)"
-      annotation (Placement(transformation(extent={{-36,-2},{-30,4}})));
+      T.HeatFlowRate skeletalMuscle_producedHeat(storeUnit="cal/min", varName=
+            "Metabolism-CaloriesUsed.SkeletalMuscleHeat")
+        "Skeletal muscle termal energy flow."
+        annotation (Placement(transformation(extent={{-36,-2},{-30,4}})));
       T.Concentration Leptin(varName="LeptinPool.[Leptin(nG/mL)]", storeUnit="ng/ml", unitConversions = Substances.Leptin.unitConversions)
         "Leptin extracellular concentration."
       annotation (Placement(transformation(extent={{-82,-26},{-76,-20}})));
@@ -27399,14 +27370,6 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));*/
-        connect(skeletalMuscle_HeatWithoutTermoregulation.y, busConnector.skeletalMuscle_HeatWithoutTermoregulation)
-          annotation (Line(
-            points={{-29.7,1},{79.15,1},{79.15,-2},{90,-2}},
-            color={0,0,127},
-            smooth=Smooth.None), Text(
-            string="%second",
-            index=1,
-            extent={{6,3},{6,3}}));
       connect(Leptin.y, busConnector.Leptin) annotation (Line(
        points={{-75.7,-23},{90,-23},{90,-2}},
             color={0,0,127},
@@ -27576,6 +27539,14 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
             string="%second",
             index=1,
             extent={{6,3},{6,3}}));
+      connect(skeletalMuscle_producedHeat.y, busConnector.skeletalMuscle_heatProduction)
+        annotation (Line(
+          points={{-29.7,1},{30.15,1},{30.15,-2},{90,-2}},
+          color={0,0,127},
+          smooth=Smooth.None), Text(
+          string="%second",
+          index=1,
+          extent={{6,3},{6,3}}));
         annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
                   -100},{100,100}}), graphics={
                                     Text(
@@ -28821,7 +28792,7 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
             origin={90,56})));
     equation
     connect(InsulinPool.solute, gain.u) annotation (Line(
-        points={{-76,-26},{-76,-39},{-64.6,-39}},
+        points={{-70,-26},{-70,-39},{-64.6,-39}},
         color={0,0,127},
         smooth=Smooth.None));
     connect(gain.y, clearance.soluteFlow) annotation (Line(
@@ -28884,7 +28855,7 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
 
       connect(busConnector.PortalVein_PlasmaFlow, PortalVeinConcentration.solutionFlow)
         annotation (Line(
-          points={{-98,40},{-56,40},{-56,16}},
+          points={{-98,40},{-56,40},{-56,19}},
           color={0,0,255},
           thickness=0.5,
           smooth=Smooth.None), Text(
@@ -28945,11 +28916,11 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
           color={0,0,127},
           smooth=Smooth.None));
       connect(InsulinStorage.solute, MassEffect.u) annotation (Line(
-          points={{52,-14},{52,-20},{40,-20},{40,72},{58,72}},
+          points={{46,-14},{46,-20},{40,-20},{40,72},{58,72}},
           color={0,0,127},
           smooth=Smooth.None));
       connect(InsulinStorage.solute, BasicFraction.yBase) annotation (Line(
-          points={{52,-14},{52,-20},{40,-20},{40,30},{22,30},{22,20}},
+          points={{46,-14},{46,-20},{40,-20},{40,30},{22,30},{22,20}},
           color={0,0,127},
           smooth=Smooth.None));
     connect(busConnector.KAPool, KAEffect.u) annotation (Line(
@@ -29022,7 +28993,7 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
     equation
 
     connect(GlucagonPool.solute, gain.u) annotation (Line(
-        points={{-56,-16},{-56,-29},{-44.6,-29}},
+        points={{-50,-16},{-50,-29},{-44.6,-29}},
         color={0,0,127},
         smooth=Smooth.None));
     connect(gain.y, clearance.soluteFlow) annotation (Line(
@@ -29112,7 +29083,7 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
           smooth=Smooth.None));
       connect(busConnector.PortalVein_PlasmaFlow, PortalVeinConcentration.solutionFlow)
         annotation (Line(
-          points={{-88,78},{-44,78},{-44,22}},
+          points={{-88,78},{-44,78},{-44,25}},
           color={0,0,255},
           thickness=0.5,
           smooth=Smooth.None), Text(
@@ -29286,13 +29257,13 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
           color={0,0,127},
           smooth=Smooth.None));
       connect(SlowMass.solute, Feedback.u) annotation (Line(
-          points={{66,-14},{66,-16},{70,-16},{70,12},{76,12}},
+          points={{60,-14},{60,-16},{70,-16},{70,12},{76,12}},
           color={0,0,127},
           smooth=Smooth.None));
 
     connect(busConnector.Kidney_BloodFlow, Kidney_clearance.solutionFlow)
       annotation (Line(
-        points={{-90,28},{-96,28},{-96,-56},{-24,-56}},
+        points={{-90,28},{-96,28},{-96,-53},{-24,-53}},
         color={0,0,255},
         thickness=0.5,
         smooth=Smooth.None), Text(
@@ -29301,7 +29272,7 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
         extent={{-6,3},{-6,3}}));
     connect(busConnector.OtherTissue_BloodFlow, Other_clearance.solutionFlow)
       annotation (Line(
-        points={{-90,28},{-96,28},{-96,-86},{-24,-86}},
+        points={{-90,28},{-96,28},{-96,-83},{-24,-83}},
         color={0,0,255},
         thickness=0.5,
         smooth=Smooth.None), Text(
@@ -29313,7 +29284,7 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
           color={0,0,127},
           smooth=Smooth.None));
       connect(FastMass.solute, gain1.u) annotation (Line(
-          points={{6,-14},{6,38},{35,38},{35,31}},
+          points={{-8.88178e-016,-14},{-8.88178e-016,38},{35,38},{35,31}},
           color={0,0,127},
           smooth=Smooth.None));
       connect(gain3.y, fluxUp.soluteFlow) annotation (Line(
@@ -29321,7 +29292,7 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
           color={0,0,127},
           smooth=Smooth.None));
       connect(gain3.u, SlowMass.solute) annotation (Line(
-          points={{31,-41},{31,-46},{66,-46},{66,-14}},
+          points={{31,-41},{31,-46},{60,-46},{60,-14}},
           color={0,0,127},
           smooth=Smooth.None));
       connect(fluxDown.q_out, SlowMass.q_out) annotation (Line(
@@ -29346,7 +29317,7 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
           smooth=Smooth.None));
     connect(busConnector.GITract_BloodFlow, Liver_clearance.solutionFlow)
       annotation (Line(
-        points={{-90,28},{-96,28},{-96,-28},{-24,-28}},
+        points={{-90,28},{-96,28},{-96,-25},{-24,-25}},
         color={0,0,255},
         thickness=0.5,
         smooth=Smooth.None), Text(
@@ -29365,7 +29336,8 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
           color={0,0,127},
           smooth=Smooth.None));
       connect(BasicFraction.u, FastMass.solute) annotation (Line(
-          points={{-30,34},{-12,34},{-12,-18},{6,-18},{6,-14}},
+          points={{-30,34},{-12,34},{-12,-18},{-8.88178e-016,-18},{
+            -8.88178e-016,-14}},
           color={0,0,127},
           smooth=Smooth.None));
       connect(ADHPool.q_out, concentrationMeasure1.q_in) annotation (Line(
@@ -29479,14 +29451,14 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
         extent={{-6,3},{-6,3}}));
     connect(busConnector.Liver_BloodFlow, Clearance.solutionFlow) annotation (
         Line(
-        points={{-90,90},{12,90},{12,-28}},
+        points={{-90,90},{12,90},{12,-25}},
         color={0,0,127},
         smooth=Smooth.None), Text(
         string="%first",
         index=-1,
         extent={{-6,3},{-6,3}}));
     connect(AldoPool.solute, DegradeK.u) annotation (Line(
-        points={{-40,-26},{-40,-49},{-6.6,-49}},
+        points={{-34,-26},{-34,-49},{-6.6,-49}},
         color={0,0,127},
         smooth=Smooth.None));
       connect(FunctionEffect.u, busConnector. OtherTissueFunctionEffect) annotation (Line(
@@ -29643,7 +29615,7 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
           thickness=1,
           smooth=Smooth.None));
     connect(ANPPool.solute, DegradeK.u) annotation (Line(
-        points={{-20,-42},{-20,-65},{3.4,-65}},
+        points={{-14,-42},{-14,-65},{3.4,-65}},
         color={0,0,127},
         smooth=Smooth.None));
     connect(Degradation.soluteFlow, DegradeK.y) annotation (Line(
@@ -30003,7 +29975,7 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
           thickness=1,
           smooth=Smooth.None));
     connect(ThyroidPool.solute, K.u) annotation (Line(
-        points={{-72,-54},{-72,-77},{-38.6,-77}},
+        points={{-66,-54},{-66,-77},{-38.6,-77}},
         color={0,0,127},
         smooth=Smooth.None));
     connect(Clearance.soluteFlow, K.y) annotation (Line(
@@ -30300,7 +30272,7 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
           thickness=1,
           smooth=Smooth.None));
     connect(ReninPool.solute, K.u) annotation (Line(
-        points={{-72,-54},{-72,-59},{-38.6,-59}},
+        points={{-66,-54},{-66,-59},{-38.6,-59}},
         color={0,0,127},
         smooth=Smooth.None));
     connect(Clearance.soluteFlow, K.y) annotation (Line(
@@ -30345,7 +30317,7 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
           color={0,0,127},
           smooth=Smooth.None));
     connect(ReninFree.solute, BaseFraction.yBase) annotation (Line(
-        points={{36,-54},{36,-58},{18,-58},{18,0},{2,0},{2,-4}},
+        points={{30,-54},{30,-58},{18,-58},{18,0},{2,0},{2,-4}},
         color={0,0,127},
         smooth=Smooth.None));
       connect(feedback.y,integrator. u) annotation (Line(
@@ -30513,11 +30485,11 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
           thickness=1,
           smooth=Smooth.None));
     connect(ReninGranules.solute, gain3.u) annotation (Line(
-        points={{86,-54},{86,-72},{64,-72},{64,-69},{65,-69}},
+        points={{80,-54},{80,-72},{64,-72},{64,-69},{65,-69}},
         color={0,0,127},
         smooth=Smooth.None));
     connect(ReninFree.solute, gain1.u) annotation (Line(
-        points={{36,-54},{36,-58},{58,-58},{58,-16},{65,-16},{65,-21}},
+        points={{30,-54},{30,-58},{58,-58},{58,-16},{65,-16},{65,-21}},
         color={0,0,127},
         smooth=Smooth.None));
       connect(ANPEffect.u, busConnector.ANP) annotation (Line(
@@ -30659,7 +30631,7 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
   equation
 
     connect(LeptinPool.solute, gain.u) annotation (Line(
-        points={{-56,-18},{-56,-29},{-44.6,-29}},
+        points={{-50,-18},{-50,-29},{-44.6,-29}},
         color={0,0,127},
         smooth=Smooth.None));
     connect(gain.y, clearance.soluteFlow) annotation (Line(
@@ -30833,29 +30805,29 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
           index=-1,
           extent={{-6,3},{-6,3}}));
     connect(mlTOlitre.y, PTH_Pool.solutionVolume) annotation (Line(
-        points={{2.4,-40},{9.2,-40},{9.2,-42},{16,-42}},
+        points={{2.4,-40},{9.2,-40},{9.2,-44},{20,-44}},
         color={0,0,127},
         smooth=Smooth.None));
     connect(gain.y, clearance.soluteFlow) annotation (Line(
-        points={{48.3,-69},{62,-69},{62,-60}},
+        points={{48.3,-69},{66,-69},{66,-60}},
         color={0,0,127},
         smooth=Smooth.None));
       connect(PTH_Pool.q_out, clearance.q_in) annotation (Line(
-          points={{24,-48},{46,-48},{46,-56},{56,-56}},
+          points={{24,-48},{46,-48},{46,-56},{52,-56}},
           color={200,0,0},
           thickness=1,
           smooth=Smooth.None));
     connect(PTH_Pool.solute, gain.u) annotation (Line(
-        points={{24,-55.8},{24,-69},{41.4,-69}},
+        points={{30,-58},{30,-69},{41.4,-69}},
         color={0,0,127},
         smooth=Smooth.None));
       connect(secretion.q_out, PTH_Pool.q_out) annotation (Line(
-          points={{56,-28},{46,-28},{46,-48},{24,-48}},
+          points={{52,-28},{46,-28},{46,-48},{24,-48}},
           color={200,0,0},
           thickness=1,
           smooth=Smooth.None));
     connect(H4_10to7_minus.y, secretion.soluteFlow) annotation (Line(
-        points={{62,-22},{62,-24}},
+        points={{62,-24},{58,-24}},
         color={0,0,127},
         smooth=Smooth.None));
       connect(busConnector.CaPool_conc_per_liter, H4_10to7_minus.u) annotation (
@@ -30868,19 +30840,19 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
           index=-1,
           extent={{-6,3},{-6,3}}));
       connect(simpleMultiply1.y, H4_10to7_minus.yBase) annotation (Line(
-          points={{62,-12},{62,-18}},
+          points={{62,-14},{62,-18}},
           color={0,0,127},
           smooth=Smooth.None));
       connect(simpleMultiply.y, simpleMultiply1.yBase) annotation (Line(
-          points={{62,-2},{62,-8}},
+          points={{62,-4},{62,-8}},
           color={0,0,127},
           smooth=Smooth.None));
       connect(Constant.y, simpleMultiply.u) annotation (Line(
-          points={{44.4,0},{52.2,0}},
+          points={{45,0},{54,0}},
           color={0,0,127},
           smooth=Smooth.None));
     connect(gain1.y, clearance1.soluteFlow) annotation (Line(
-        points={{-11.7,3},{-2,3},{-2,14}},
+        points={{-11.7,3},{2,3},{2,14}},
         color={0,0,127},
         smooth=Smooth.None));
       connect(PT_max_capacity.q_out, clearance1.q_in) annotation (Line(
@@ -30898,7 +30870,7 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
           thickness=1,
           smooth=Smooth.None));
     connect(H6_11_minus1.y, secretion1.soluteFlow) annotation (Line(
-        points={{-52,26},{-52,22}},
+        points={{-52,24},{-52,24},{-52,22},{-48,22}},
         color={0,0,127},
         smooth=Smooth.None));
       connect(busConnector.Calcitriol, H6_11_minus1.u) annotation (Line(
@@ -30914,7 +30886,7 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
           color={0,0,127},
           smooth=Smooth.None));
       connect(Constant1.y, H6_11_minus1.yBase) annotation (Line(
-          points={{-55.6,40},{-52,40},{-52,30}},
+          points={{-55,40},{-52,40},{-52,30}},
           color={0,0,127},
           smooth=Smooth.None));
       connect(PT_pool.PT_pool, simpleMultiply.yBase) annotation (Line(
@@ -30938,7 +30910,7 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
           index=-1,
           extent={{-6,3},{-6,3}}));
       connect(PTH_Pool.q_out, concentrationMeasure.q_in) annotation (Line(
-          points={{24,-48},{28,-48},{28,-36},{34,-36}},
+          points={{24,-48},{28,-48},{28,-38},{34,-38}},
           color={200,0,0},
           thickness=1,
           smooth=Smooth.None));
@@ -31037,7 +31009,7 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
         color={0,0,127},
         smooth=Smooth.None));
     connect(Calcitriol_pool.solute, gain1.u) annotation (Line(
-        points={{20,-32},{20,-37},{53.4,-37}},
+        points={{26,-32},{26,-37},{53.4,-37}},
         color={0,0,127},
         smooth=Smooth.None));
       connect(busConnector.ECFV_Vol,mlTOlitre. u) annotation (Line(
@@ -31195,7 +31167,7 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
             thickness=1,
             smooth=Smooth.None));
       connect(flowConstant.y, Clearance.solutionFlow) annotation (Line(
-          points={{-21,-72},{-18,-72},{-18,-82}},
+          points={{-21,-72},{-18,-72},{-18,-79}},
           color={0,0,127},
           smooth=Smooth.None));
         connect(OtherTissueFunctionEffect, FunctionEffect.u) annotation (Line(
@@ -41853,7 +41825,6 @@ QHP 2008 / Peritoneum
                 extent={{-100,-100},{100,100}}), graphics));
       end Bladder;
 
-
       package Kidney "Kidney Water Excretion"
          extends Physiolibrary.Icons.Kidney;
 
@@ -42349,7 +42320,6 @@ QHP 2008 / Peritoneum
         end Kidney;
 
       end Kidney;
-
 
     model Peritoneum_const
     extends Physiolibrary.Icons.Peritoneum;
@@ -80199,15 +80169,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
     Physiolibrary.Thermal.Interfaces.HeatPort_b q_out annotation (Placement(
           transformation(extent={{10,-70},{50,-30}}), iconTransformation(extent=
              {{-10,-10},{10,10}})));
-      Physiolibrary.Types.RealIO.FrequencyInput
-                                           HypothalamusShivering_NerveActivity
-        annotation (Placement(transformation(extent={{-74,56},{-64,66}}),
-            iconTransformation(extent={{-100,110},{-80,130}})));
-    Physiolibrary.Blocks.Factors.Spline HeatShivering(data={{0.0,0.0,0},{4.0,
-          70.0,0}}, Yscale=4.1868/60)
-      annotation (Placement(transformation(extent={{-40,60},{-20,80}})));
-      Modelica.Blocks.Math.Add heat
-        annotation (Placement(transformation(extent={{-6,50},{6,62}})));
       Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor temperatureSensor
         annotation (Placement(transformation(extent={{-50,-72},{-70,-52}})));
     equation
@@ -80225,41 +80186,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
         color={255,128,0},
         thickness=1,
         smooth=Smooth.None));
-      connect(HeatShivering.u,HypothalamusShivering_NerveActivity)  annotation (
-          Line(
-          points={{-38,70},{-50,70},{-50,61},{-69,61}},
-          color={0,0,127},
-          smooth=Smooth.None));
-      connect(HeatShivering.y, busConnector.skeletalMuscle_shiveringCals)
-        annotation (Line(
-          points={{-30,66},{-30,42},{-92,42}},
-          color={0,0,127},
-          smooth=Smooth.None), Text(
-          string="%second",
-          index=1,
-          extent={{6,3},{6,3}}));
-      connect(HeatShivering.y, heat.u1) annotation (Line(
-          points={{-30,66},{-30,59.6},{-7.2,59.6}},
-          color={0,0,127},
-          smooth=Smooth.None));
-      connect(busConnector.skeletalMuscle_HeatWithoutTermoregulation,
-        heat.u2) annotation (Line(
-          points={{-92,42},{-52,42},{-52,52.4},{-7.2,52.4}},
-          color={0,0,255},
-          thickness=0.5,
-          smooth=Smooth.None), Text(
-          string="%first",
-          index=-1,
-          extent={{-6,3},{-6,3}}));
-      connect(busConnector.SkeletalMuscle_StructureEffect, HeatShivering.yBase)
-        annotation (Line(
-          points={{-92,42},{-92,94},{-30,94},{-30,72}},
-          color={0,0,255},
-          thickness=0.5,
-          smooth=Smooth.None), Text(
-          string="%first",
-          index=-1,
-          extent={{-6,3},{-6,3}}));
       connect(bloodDensity.y, muscleFlux.massFlow) annotation (Line(
           points={{38,19.6},{38,9}},
           color={0,0,127},
@@ -80274,10 +80200,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
         color={255,128,0},
         thickness=1,
         smooth=Smooth.None));
-      connect(heat.y, Metabolism2.Q_flow) annotation (Line(
-          points={{6.6,56},{14,56},{14,36},{-70,36},{-70,-14},{-38,-14}},
-          color={0,0,127},
-          smooth=Smooth.None));
       connect(busConnector.skeletalMuscle_SizeMass, skeletalMuscle.weight)
         annotation (Line(
           points={{-92,42},{-92,10},{-8,10}},
@@ -80300,8 +80222,18 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
           color={191,0,0},
           thickness=1,
           smooth=Smooth.None));
-      annotation (Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,-100},
-                {100,100}}), graphics), Icon(coordinateSystem(preserveAspectRatio=false,
+    connect(busConnector.skeletalMuscle_heatProduction, Metabolism2.Q_flow)
+      annotation (Line(
+        points={{-92,42},{-66,42},{-66,-14},{-38,-14}},
+        color={0,0,255},
+        thickness=0.5,
+        smooth=Smooth.None), Text(
+        string="%first",
+        index=-1,
+        extent={{-6,3},{-6,3}}));
+      annotation (Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,
+              -100},{100,100}}),
+                             graphics), Icon(coordinateSystem(preserveAspectRatio=false,
               extent={{-100,-100},{100,100}}), graphics));
     end MuscleHeat;
 
