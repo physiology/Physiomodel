@@ -1,3 +1,5 @@
+HypothalamusShivering.NerveActivity
+0.
 GITract-Metabolism.O2Need
 18.8294556028143 ml_STP/min
 Fat-Metabolism.O2Need
