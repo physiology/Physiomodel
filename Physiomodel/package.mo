@@ -20195,7 +20195,6 @@ To get heat from temperature
             transformation(extent={{-104,61},{-84,81}}), iconTransformation(
               extent={{60,60},{80,80}})));
 
-
       Physiolibrary.Osmotic.Components.Membrane pulmCapys(
           useHydraulicPressureInputs=true, cond=3.7503078792283e-10)
         annotation (Placement(transformation(extent={{-44,28},{-24,48}})));
@@ -21786,7 +21785,6 @@ QHP 2008 / Peritoneum
       Physiolibrary.Types.BusConnector busConnector annotation (Placement(
             transformation(extent={{-104,61},{-84,81}}), iconTransformation(
               extent={{60,60},{80,80}})));
-
 
       Physiolibrary.Types.Constants.VolumeConst volume(k=0)
         annotation (Placement(transformation(extent={{-66,42},{-58,50}})));
@@ -48304,8 +48302,8 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
         q_out.conc = (1-KAdjustment)*q_in.conc;
 
        annotation (
-          Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{
-                  100,100}}), graphics={
+          Icon(coordinateSystem(preserveAspectRatio=false,extent={{-100,-100},{
+                100,100}}),   graphics={
               Rectangle(
                 extent={{-100,-50},{100,50}},
                 lineColor={0,0,127},
@@ -50816,14 +50814,14 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
           index=1,
           extent={{6,3},{6,3}}));
         connect(concentrationMeasure1.q_in, NaPool.q_out) annotation (Line(
-            points={{-60,24},{-42,24},{-42,16},{0,16}},
+            points={{-60,26},{-42,26},{-42,16},{0,16}},
             color={200,0,0},
             smooth=Smooth.None,
             thickness=1));
 
       connect(concentrationMeasure1.concentration, busConnector.NaPool_conc_per_liter)
         annotation (Line(
-          points={{-60,30},{-60,90},{-68,90}},
+          points={{-60,18},{-60,90},{-68,90}},
           color={0,0,127},
           smooth=Smooth.None), Text(
           string="%second",
@@ -50887,7 +50885,7 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
           extent={{6,3},{6,3}}));
       connect(concentrationMeasure1.concentration, busConnector.NaPool)
         annotation (Line(
-          points={{-60,30},{-66,30},{-66,90},{-68,90}},
+          points={{-60,18},{-66,18},{-66,90},{-68,90}},
           color={0,0,127},
           smooth=Smooth.None), Text(
           string="%second",
@@ -51042,21 +51040,21 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
         extends Physiolibrary.Icons.Kidney;
       Physiolibrary.Chemical.Interfaces.ChemicalPort_a q_in
         "sodium concentration in blood incomming to glomerulus capillaries; sodium mass flow is filtration - reabsorbtion"
-        annotation (Placement(transformation(extent={{-64,-4},{-46,14}}),
+        annotation (Placement(transformation(extent={{-92,-20},{-72,0}}),
             iconTransformation(extent={{10,-10},{30,10}})));
       Physiolibrary.Chemical.Components.Stream glomerulusSudiumRate(
           useSolutionFlowInput=true)
-        annotation (Placement(transformation(extent={{-16,14},{4,34}})));
+        annotation (Placement(transformation(extent={{-84,42},{-64,62}})));
       Physiolibrary.Chemical.Components.Reabsorption PT(
         useBaseReabsorption=true,
         useEffect=true,
         useMaxReabInput=true)
-        annotation (Placement(transformation(extent={{8,14},{28,34}})));
-      Physiolibrary.Types.Constants.FractionConst const1(k=0.58)
-        annotation (Placement(transformation(extent={{2,34},{8,40}})));
+        annotation (Placement(transformation(extent={{-56,38},{-36,58}})));
+      Physiolibrary.Types.Constants.FractionConst baseReabPT(k=0.58)
+        annotation (Placement(transformation(extent={{-28,60},{-34,66}})));
       Physiolibrary.Blocks.Factors.Spline IFPEffect(data={{1.0,1.4,0},{4.0,1.0,
             -0.2},{7.0,0.3,0}}, Xscale=101325/760)
-        annotation (Placement(transformation(extent={{14,32},{34,52}})));
+        annotation (Placement(transformation(extent={{-56,56},{-36,76}})));
       Physiolibrary.Blocks.Factors.LagSpline
                                           ANPEffect(data={{0.0,1.2,0},{1.3,1.0,
             -0.2},{2.7,0.6,0}},
@@ -51065,40 +51063,40 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
         HalfTime=Modelica.Math.log(2)*20*60,
         initialValue=20)
         "1 pmol/l = 1e-9 mmol/l, NephronAnp.Tau = 20 min, initial: 20 pmol/l"
-        annotation (Placement(transformation(extent={{14,40},{34,60}})));
+        annotation (Placement(transformation(extent={{-56,62},{-36,82}})));
       Physiolibrary.Blocks.Factors.Spline SympsEffect(data={{0.6,0.6,0},{1.0,
             1.0,0.5},{4.0,1.5,0}})
-        annotation (Placement(transformation(extent={{14,48},{34,68}})));
+        annotation (Placement(transformation(extent={{-56,68},{-36,88}})));
       Physiolibrary.Blocks.Factors.Spline A2Effect(
         data={{0.7,0.8,0},{1.3,1.0,0.8},{1.6,1.2,0}},
         UsePositiveLog10=true,
         Xscale=1e-9/Physiomodel.Substances.AngiotensinII.mw)
         "1 pg/ml =  0.956 pmol/l = 0.956e-9 mmol/l"
-        annotation (Placement(transformation(extent={{14,56},{34,76}})));
+        annotation (Placement(transformation(extent={{-56,74},{-36,94}})));
       Physiolibrary.Chemical.Components.Reabsorption LH(
         useBaseReabsorption=true,
         useEffect=true,
         useMaxReabInput=true)
-        annotation (Placement(transformation(extent={{68,14},{88,34}})));
-      Physiolibrary.Types.Constants.FractionConst const2(k=0.75)
-        annotation (Placement(transformation(extent={{64,30},{70,36}})));
+        annotation (Placement(transformation(extent={{0,-42},{20,-22}})));
+      Physiolibrary.Types.Constants.FractionConst baseReabHL(k=0.75)
+        annotation (Placement(transformation(extent={{30,-24},{24,-18}})));
       Physiolibrary.Chemical.Components.Reabsorption DT(
         useBaseReabsorption=true,
         useEffect=true,
         useMaxReabInput=true)
-        annotation (Placement(transformation(extent={{80,-74},{60,-54}})));
+        annotation (Placement(transformation(extent={{36,34},{56,54}})));
       Physiolibrary.Chemical.Components.Reabsorption CD(
         useBaseReabsorption=true,
         useEffect=true,
         useMaxReabInput=true)
-        annotation (Placement(transformation(extent={{30,-74},{10,-54}})));
-      Physiolibrary.Types.Constants.FractionConst const3(k=0.75)
-        annotation (Placement(transformation(extent={{38,-56},{32,-50}})));
-      Physiolibrary.Types.Constants.FractionConst const4(k=0.75)
-        annotation (Placement(transformation(extent={{82,-54},{76,-48}})));
+        annotation (Placement(transformation(extent={{82,-50},{62,-30}})));
+      Physiolibrary.Types.Constants.FractionConst baseReabCD(k=0.75)
+        annotation (Placement(transformation(extent={{56,-26},{62,-32}})));
+      Physiolibrary.Types.Constants.FractionConst baseReabDT(k=0.75)
+        annotation (Placement(transformation(extent={{62,56},{56,62}})));
       Physiolibrary.Blocks.Factors.Spline Furosemide(data={{0.0,1.0,-1},{0.1,
             0.0,0}}, Xscale=1e-3/Physiomodel.Substances.Furosemide.mw)
-        annotation (Placement(transformation(extent={{64,62},{84,82}})));
+        annotation (Placement(transformation(extent={{4,-2},{-16,18}})));
       Physiolibrary.Blocks.Factors.LagSpline
                                           AldoEffect(data={{0.0,0.7,0},{10.0,
             1.0,0}},
@@ -51106,29 +51104,33 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
         Xscale=1e-8/Physiomodel.Substances.Aldosterone.mw,
         initialValue=12)
         "1 ng/dl = 1e-8 kg/m3, 0.036 ng/dl = 1 pmol/l, NephronAldo.Tau = 3 h, initial: 11 ng/dl"
-        annotation (Placement(transformation(extent={{76,40},{96,60}})));
+        annotation (Placement(transformation(extent={{0,-22},{20,-2}})));
       Physiolibrary.Blocks.Factors.Spline LoadEffect(data={{0.0,3.0,0},{7.2,1.0,
             -0.2},{20.0,0.5,0}}, Xscale=1e-3/60)
-        annotation (Placement(transformation(extent={{76,32},{96,52}})));
+        annotation (Placement(transformation(extent={{0,-28},{20,-8}})));
       Physiolibrary.Blocks.Factors.Normalization FurosemideEffect
-        annotation (Placement(transformation(extent={{76,48},{96,68}})));
+        annotation (Placement(transformation(extent={{0,-16},{20,4}})));
       Physiolibrary.Blocks.Factors.Normalization Filtering_xNormal
-        annotation (Placement(transformation(extent={{64,54},{84,74}})));
+        annotation (Placement(transformation(extent={{4,-8},{-16,12}})));
       Physiolibrary.Chemical.Sensors.MolarFlowMeasure flowMeasure
-        annotation (Placement(transformation(extent={{38,18},{58,38}})));
+        annotation (Placement(transformation(extent={{-24,62},{-4,42}})));
       Physiolibrary.Chemical.Sensors.MolarFlowMeasure flowMeasure1
-        annotation (Placement(transformation(extent={{98,-74},{78,-54}})));
+        annotation (Placement(transformation(extent={{10,-10},{-10,10}},
+            rotation=270,
+            origin={34,6})));
       Physiolibrary.Blocks.Factors.Spline LoadEffect1(data={{0.0,2.0,0},{1.6,
             1.0,0}}, Xscale=1e-3/60)
-        annotation (Placement(transformation(extent={{72,-56},{52,-36}})));
+        annotation (Placement(transformation(extent={{28,52},{48,72}})));
       Physiolibrary.Blocks.Factors.Spline ThiazideEffect(data={{0.0,1.0,-2.0},{
             0.6,0.2,0.0}})
-        annotation (Placement(transformation(extent={{72,-48},{52,-28}})));
+        annotation (Placement(transformation(extent={{48,60},{28,80}})));
       Physiolibrary.Chemical.Sensors.MolarFlowMeasure flowMeasure2
-        annotation (Placement(transformation(extent={{58,-74},{38,-54}})));
+        annotation (Placement(transformation(extent={{10,10},{-10,-10}},
+            rotation=90,
+            origin={92,-20})));
       Physiolibrary.Blocks.Factors.Spline LoadEffect2(data={{0.0,2.0,0},{0.4,
             1.0,0}}, Xscale=1e-3/60)
-        annotation (Placement(transformation(extent={{22,-58},{2,-38}})));
+        annotation (Placement(transformation(extent={{82,-30},{62,-10}})));
       Physiolibrary.Blocks.Factors.LagSpline
                                           ANPEffect2(data={{0.0,1.2,0},{1.3,1.0,
             -0.4},{2.7,0.2,0}},
@@ -51136,512 +51138,224 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
           UsePositiveLog10=true,
         HalfTime=Modelica.Math.log(2)*20*60,
         initialValue=20)
-        annotation (Placement(transformation(extent={{22,-50},{2,-30}})));
+        annotation (Placement(transformation(extent={{62,-22},{82,-2}})));
       Physiolibrary.Blocks.Factors.Normalization AldoEffect2 annotation (
           Placement(transformation(
             extent={{10,-10},{-10,10}},
-            rotation=270,
-            origin={84,-78})));
-      Physiolibrary.Types.Constants.FractionConst             const5(k=2)
-        annotation (Placement(transformation(extent={{94,-80},{90,-76}})));
-      Physiolibrary.Chemical.Sensors.MolarFlowMeasure flowMeasure3
-        annotation (Placement(transformation(extent={{10,-54},{-10,-74}})));
+            rotation=90,
+            origin={24,38})));
+      Physiolibrary.Types.Constants.FractionConst maxReabDT(k=2) annotation (
+          Placement(transformation(
+            extent={{2,-2},{-2,2}},
+            rotation=180,
+            origin={16,38})));
       Physiolibrary.Chemical.Components.Substance Medulla(
         stateName="MedullaNa.Mass",
         useNormalizedVolume=false,
         solute_start=(13)/1000)
-        annotation (Placement(transformation(extent={{28,-102},{48,-82}})));
+        annotation (Placement(transformation(extent={{62,-96},{82,-76}})));
       Physiolibrary.Chemical.Components.Stream VasaRectaOutflow(
           useSolutionFlowInput=true)
-        annotation (Placement(transformation(extent={{-4,-100},{-20,-84}})));
+        annotation (Placement(transformation(extent={{-2,-94},{-18,-78}})));
         Modelica.Blocks.Math.Gain gain(k=0.03)
-          annotation (Placement(transformation(extent={{-28,-88},{-20,-80}})));
-      Physiolibrary.Chemical.Sensors.MolarFlowMeasure flowMeasure4
-        annotation (Placement(transformation(extent={{64,-68},{44,-88}})));
-      Physiolibrary.Chemical.Sensors.MolarFlowMeasure flowMeasure5
-        annotation (Placement(transformation(extent={{68,8},{48,-12}})));
-      Physiolibrary.Chemical.Sensors.MolarFlowMeasure flowMeasure6 annotation (
-          Placement(transformation(
-            extent={{10,10},{-10,-10}},
-            rotation=90,
-            origin={18,-4})));
+          annotation (Placement(transformation(extent={{-32,-80},{-24,-72}})));
       Physiolibrary.Types.BusConnector busConnector annotation (Placement(
             transformation(extent={{-98,86},{-86,98}}), iconTransformation(
               extent={{60,60},{100,100}})));
-        Modelica.Blocks.Math.Gain Osm(k=2)
-          annotation (Placement(transformation(extent={{68,-104},{74,-98}})));
       Physiolibrary.Blocks.Factors.LagSpline
                                           AldoEffect1(data={{0.0,0.5,0},{12.0,
             1.0,0.08},{50.0,3.0,0}},
         HalfTime=Modelica.Math.log(2)*3*60*60,
         Xscale=1e-8/Physiomodel.Substances.Aldosterone.mw,
         initialValue=12) "12 ng/dl = 12e-8 kg/m3"
-        annotation (Placement(transformation(extent={{54,-38},{74,-18}})));
-        Modelica.Blocks.Math.Division division(y(unit="mol/m3"))
-          annotation (Placement(transformation(extent={{80,-16},{86,-10}})));
+        annotation (Placement(transformation(extent={{28,68},{48,88}})));
 
         Physiolibrary.Chemical.Sensors.ConcentrationMeasure concentrationMeasure2 annotation (Placement(
               transformation(
-              extent={{-9,-9},{9,9}},
+              extent={{-9,9},{9,-9}},
               rotation=270,
-              origin={57,-95})));
+              origin={87,-63})));
         GlomerulusCationFiltration glomerulus
-          annotation (Placement(transformation(extent={{-40,14},{-20,34}})));
+          annotation (Placement(transformation(extent={{-10,-10},{10,10}},
+            rotation=90,
+            origin={-82,30})));
       Physiolibrary.Chemical.Interfaces.ChemicalPort_b q_out
         "sodium mass outflow to urine from collecting ducts" annotation (
           Placement(transformation(extent={{-24,-70},{-8,-56}}),
             iconTransformation(extent={{10,-90},{30,-70}})));
-      Physiolibrary.Types.Constants.MolarFlowRateConst const6(k=14)
-        annotation (Placement(transformation(extent={{4,10},{8,6}})));
-      Physiolibrary.Types.Constants.MolarFlowRateConst const7(k=7)
-        annotation (Placement(transformation(extent={{60,12},{66,18}})));
+      Physiolibrary.Types.Constants.MolarFlowRateConst maxReabPT(k=14)
+        annotation (Placement(transformation(extent={{-66,36},{-60,30}})));
+      Physiolibrary.Types.Constants.MolarFlowRateConst maxReabHL(k=7)
+        annotation (Placement(transformation(extent={{-10,-42},{-2,-34}})));
       Physiolibrary.Types.Constants.MolarFlowRateConst const8(k=0.7)
         annotation (Placement(transformation(
             extent={{-3,-3},{3,3}},
             rotation=180,
-            origin={35,-73})));
-      Modelica.Blocks.Math.Gain gain1(k=Modelica.Constants.F)
-        annotation (Placement(transformation(extent={{-62,48},{-52,58}})));
+            origin={89,-51})));
       equation
 
-      connect(glomerulusSudiumRate.solutionFlow, busConnector.GlomerulusFiltrate_GFR)
-        annotation (Line(
-          points={{-6,31},{-6,38},{-32,38},{-32,92},{-92,92}},
-          color={0,0,127},
-          smooth=Smooth.None), Text(
-          string="%second",
-          index=1,
-          extent={{6,3},{6,3}}));
-        connect(glomerulusSudiumRate.q_out, PT.Inflow) annotation (Line(
-            points={{4,24},{6,24},{6,28},{8,28}},
-            color={200,0,0},
-            smooth=Smooth.None,
-            thickness=1));
-      connect(const1.y, PT.baseReabsorption) annotation (Line(
-          points={{8.75,37},{22,37},{22,34}},
+      connect(baseReabPT.y, PT.baseReabsorption) annotation (Line(
+          points={{-34.75,63},{-42,63},{-42,58}},
           color={0,0,127},
           smooth=Smooth.None));
         connect(A2Effect.yBase, busConnector. KidneyFunctionEffect) annotation (Line(
-            points={{24,68},{24,92},{-92,92}},
+            points={{-46,86},{-46,92},{-92,92}},
             color={0,0,127},
             smooth=Smooth.None), Text(
        string="%second",
        index=1,
        extent={{6,3},{6,3}}));
         connect(A2Effect.y, SympsEffect.yBase) annotation (Line(
-            points={{24,62},{24,60}},
+            points={{-46,80},{-46,80}},
             color={0,0,127},
             smooth=Smooth.None));
         connect(SympsEffect.y, ANPEffect.yBase) annotation (Line(
-            points={{24,54},{24,52}},
+            points={{-46,74},{-46,74}},
             color={0,0,127},
             smooth=Smooth.None));
         connect(ANPEffect.y, IFPEffect.yBase) annotation (Line(
-            points={{24,46},{24,44}},
+            points={{-46,68},{-46,68}},
             color={0,0,127},
             smooth=Smooth.None));
         connect(IFPEffect.y, PT.Effect) annotation (Line(
-            points={{24,38},{24,34},{18,34}},
+            points={{-46,62},{-46,58}},
             color={0,0,127},
             smooth=Smooth.None));
-        connect(SympsEffect.u, busConnector. KidneyAlpha_PT_NA) annotation (Line(
-            points={{16,58},{-22.9,58},{-22.9,92},{-92,92}},
-            color={0,0,127},
-            smooth=Smooth.None), Text(
-       string="%second",
-       index=1,
-       extent={{6,3},{6,3}}));
         connect(busConnector.NephronIFP_Pressure, IFPEffect.u) annotation (Line(
-            points={{-92,92},{-22.9,92},{-22.9,42},{16,42}},
+            points={{-92,92},{-92,66},{-54,66}},
             color={0,0,127},
             smooth=Smooth.None), Text(
        string="%first",
        index=-1,
        extent={{-6,3},{-6,3}}));
-      connect(const2.y, LH.baseReabsorption) annotation (Line(
-          points={{70.75,33},{82,33},{82,34}},
+      connect(baseReabHL.y, LH.baseReabsorption) annotation (Line(
+          points={{23.25,-21},{14,-21},{14,-22}},
           color={0,0,127},
           smooth=Smooth.None));
-      connect(const3.y, CD.baseReabsorption) annotation (Line(
-          points={{31.25,-53},{16,-53},{16,-54}},
+      connect(baseReabCD.y, CD.baseReabsorption) annotation (Line(
+          points={{62.75,-29},{68,-29},{68,-30}},
           color={0,0,127},
           smooth=Smooth.None));
-      connect(const4.y, DT.baseReabsorption) annotation (Line(
-          points={{75.25,-51},{66,-51},{66,-54}},
+      connect(baseReabDT.y, DT.baseReabsorption) annotation (Line(
+          points={{55.25,59},{50,59},{50,54}},
           color={0,0,127},
           smooth=Smooth.None));
-        connect(Furosemide.u, busConnector. FurosemidePool_Furosemide_conc)
-                                                  annotation (Line(
-            points={{66,72},{48,72},{48,92},{-92,92}},
-            color={255,0,0},
-            smooth=Smooth.None), Text(
-       string="%second",
-       index=1,
-       extent={{6,3},{6,3}}));
         connect(AldoEffect.y, LoadEffect.yBase) annotation (Line(
-            points={{86,46},{86,44}},
+            points={{10,-16},{10,-16}},
             color={0,0,127},
             smooth=Smooth.None));
         connect(LoadEffect.y, LH.Effect) annotation (Line(
-            points={{86,38},{86,34},{78,34}},
+            points={{10,-22},{10,-22}},
             color={0,0,127},
             smooth=Smooth.None));
         connect(FurosemideEffect.y, AldoEffect.yBase) annotation (Line(
-            points={{86,54},{86,52}},
+            points={{10,-10},{10,-10}},
             color={0,0,127},
             smooth=Smooth.None));
-        connect(Filtering_xNormal.u, busConnector. Kidney_NephronCount_Filtering_xNormal)
-          annotation (Line(
-            points={{66,64},{48,64},{48,92},{-92,92}},
-            color={0,0,127},
-            smooth=Smooth.None), Text(
-       string="%second",
-       index=1,
-       extent={{6,3},{6,3}}));
         connect(Filtering_xNormal.y, FurosemideEffect.u) annotation (Line(
-            points={{74,60},{74,58},{78,58}},
+            points={{-6,-2},{-6,-6},{2,-6}},
             color={0,0,127},
             smooth=Smooth.None));
         connect(Furosemide.y, Filtering_xNormal.yBase) annotation (Line(
-            points={{74,68},{74,66}},
+            points={{-6,4},{-6,4}},
             color={0,0,127},
             smooth=Smooth.None));
         connect(busConnector.KidneyFunctionEffect, Furosemide.yBase) annotation (Line(
-            points={{-92,92},{74,92},{74,74}},
+            points={{-92,92},{10,92},{10,14},{-6,14},{-6,10}},
             color={0,0,127},
             smooth=Smooth.None), Text(
        string="%first",
        index=-1,
        extent={{-6,3},{-6,3}}));
-        connect(FurosemideEffect.yBase, busConnector. KidneyFunctionEffect) annotation (Line(
-            points={{86,60},{86,92},{-92,92}},
-            color={0,0,127},
-            smooth=Smooth.None), Text(
-       string="%second",
-       index=1,
-       extent={{6,3},{6,3}}));
-        connect(PT.Outflow, flowMeasure.q_in) annotation (Line(
-            points={{28,28},{38,28}},
-            color={200,0,0},
-            smooth=Smooth.None,
-            thickness=1));
-        connect(flowMeasure.q_out, LH.Inflow) annotation (Line(
-            points={{58,28},{68,28}},
-            color={200,0,0},
-            smooth=Smooth.None,
-            thickness=1));
-      connect(flowMeasure.molarFlowRate, LoadEffect.u) annotation (Line(
-          points={{48,22},{48,42},{78,42}},
-          color={0,0,127},
-          smooth=Smooth.None));
-        connect(DT.Inflow, flowMeasure1.q_out) annotation (Line(
-            points={{80,-60},{80,-64},{80,-64},{78,-64}},
-            color={200,0,0},
-            smooth=Smooth.None,
-            thickness=1));
-        connect(flowMeasure1.q_in, LH.Outflow) annotation (Line(
-            points={{98,-64},{98,28},{88,28}},
-            color={200,0,0},
-            smooth=Smooth.None,
-            thickness=1));
         connect(LoadEffect1.y, DT.Effect) annotation (Line(
-            points={{62,-50},{62,-54},{70,-54}},
+            points={{38,58},{38,54},{46,54}},
             color={0,0,127},
             smooth=Smooth.None));
       connect(LoadEffect1.u, flowMeasure1.molarFlowRate) annotation (Line(
-          points={{70,-46},{88,-46},{88,-70}},
+          points={{30,62},{30,62},{12,62},{12,32},{12,6},{26,6}},
           color={0,0,127},
-          smooth=Smooth.None));
+          smooth=Smooth.Bezier));
         connect(ThiazideEffect.u, busConnector. ThiazidePool_Thiazide_conc) annotation (Line(
-            points={{70,-38},{99.9,-38},{99.9,92},{-92,92}},
+            points={{46,70},{97.9,70},{97.9,92},{-92,92}},
             color={0,0,127},
             smooth=Smooth.None), Text(
        string="%second",
        index=1,
        extent={{6,3},{6,3}}));
-        connect(CD.Inflow, flowMeasure2.q_out) annotation (Line(
-            points={{30,-60},{34,-60},{34,-64},{38,-64}},
-            color={200,0,0},
-            smooth=Smooth.None,
-            thickness=1));
-        connect(flowMeasure2.q_in, DT.Outflow) annotation (Line(
-            points={{58,-64},{60,-64},{60,-60},{60,-60}},
-            color={200,0,0},
-            smooth=Smooth.None,
-            thickness=1));
         connect(LoadEffect2.y, CD.Effect) annotation (Line(
-            points={{12,-52},{12,-54},{20,-54}},
+            points={{72,-24},{72,-30}},
             color={0,0,127},
             smooth=Smooth.None));
         connect(ANPEffect2.y, LoadEffect2.yBase) annotation (Line(
-            points={{12,-44},{12,-46}},
+            points={{72,-16},{72,-18}},
             color={0,0,127},
             smooth=Smooth.None));
-        connect(ANPEffect2.yBase, busConnector. KidneyFunctionEffect) annotation (Line(
-            points={{12,-38},{12,-36},{48,-36},{48,92},{-92,92}},
-            color={0,0,127},
-            smooth=Smooth.None), Text(
-       string="%second",
-       index=1,
-       extent={{6,3},{6,3}}));
-        connect(const5.y, AldoEffect2.yBase) annotation (Line(
-            points={{89.5,-78},{86,-78}},
-            color={0,0,127},
-            smooth=Smooth.None));
+      connect(maxReabDT.y, AldoEffect2.yBase) annotation (Line(
+          points={{18.5,38},{22,38}},
+          color={0,0,127},
+          smooth=Smooth.None));
         connect(AldoEffect2.y, DT.MaxReab) annotation (Line(
-            points={{80,-78},{78,-78},{78,-70}},
+            points={{28,38},{38,38}},
             color={0,0,127},
             smooth=Smooth.None));
-        connect(CD.Outflow, flowMeasure3.q_in) annotation (Line(
-            points={{10,-60},{10,-64}},
-            color={200,0,0},
-            smooth=Smooth.None,
-            thickness=1));
-        connect(CD.Reabsorption, Medulla.q_out) annotation (Line(
-            points={{20,-74},{20,-92},{38,-92}},
-            color={200,0,0},
-            smooth=Smooth.None,
-            thickness=1));
-        connect(Medulla.q_out, VasaRectaOutflow.q_in) annotation (Line(
-            points={{38,-92},{-4,-92}},
-            color={200,0,0},
-            smooth=Smooth.None,
-            thickness=1));
       connect(gain.y, VasaRectaOutflow.solutionFlow) annotation (Line(
-          points={{-19.6,-84},{-12,-84},{-12,-86.4}},
+          points={{-23.6,-76},{-10,-76},{-10,-80.4}},
           color={0,0,127},
           smooth=Smooth.None));
         connect(busConnector.VasaRecta_Outflow, gain.u) annotation (Line(
-            points={{-92,92},{-98.4,92},{-98.4,-84},{-28.8,-84}},
+            points={{-92,92},{-98.4,92},{-98.4,-76},{-32.8,-76}},
             color={0,0,127},
             smooth=Smooth.None), Text(
        string="%first",
        index=-1,
        extent={{-6,3},{-6,3}}));
-      connect(Medulla.solutionVolume, busConnector.Medulla_Volume) annotation (
-          Line(
-          points={{34,-88},{26,-88},{26,-78},{-98,-78},{-98,92},{-92,92}},
-          color={0,0,127},
-          smooth=Smooth.None), Text(
-          string="%second",
-          index=1,
-          extent={{6,3},{6,3}}));
         connect(AldoEffect1.y, busConnector. DT_AldosteroneEffect) annotation (Line(
-            points={{64,-32},{102,-32},{102,92},{-92,92}},
+            points={{38,74},{52,74},{52,92},{-92,92}},
             color={0,0,127},
             smooth=Smooth.None), Text(
        string="%second",
        index=1,
        extent={{6,3},{6,3}}));
-        connect(DT.Reabsorption, flowMeasure4.q_in) annotation (Line(
-            points={{70,-74},{70,-78},{64,-78}},
-            color={200,0,0},
-            thickness=1,
-            smooth=Smooth.None));
-      connect(flowMeasure5.molarFlowRate, busConnector.LH_Na_Reab) annotation (
-          Line(
-          points={{58,4},{100,4},{100,92},{-92,92}},
-          color={0,0,127},
-          smooth=Smooth.None), Text(
-          string="%second",
-          index=1,
-          extent={{6,3},{6,3}}));
-        connect(LH.Reabsorption, flowMeasure5.q_in) annotation (Line(
-            points={{78,14},{78,-2},{68,-2}},
-            color={200,0,0},
-            thickness=1,
-            smooth=Smooth.None));
-      connect(flowMeasure6.molarFlowRate, busConnector.PT_Na_Reab) annotation (
-          Line(
-          points={{12,-4},{47.5,-4},{47.5,92},{-92,92}},
-          color={0,0,127},
-          smooth=Smooth.None), Text(
-          string="%second",
-          index=1,
-          extent={{6,3},{6,3}}));
-        connect(PT.Reabsorption, flowMeasure6.q_in) annotation (Line(
-            points={{18,14},{18,6}},
-            color={200,0,0},
-            thickness=1,
-            smooth=Smooth.None));
 
-        connect(Osm.y, busConnector.MedullaNa_Osmolarity) annotation (Line(
-            points={{74.3,-101},{100,-101},{100,92},{-92,92}},
-            color={0,0,127},
-            smooth=Smooth.None), Text(
-            string="%second",
-            index=1,
-            extent={{6,3},{6,3}}));
-        connect(busConnector.KidneyFunctionEffect, AldoEffect1.yBase) annotation (
-            Line(
-            points={{-92,92},{48,92},{48,-26},{64,-26}},
-            color={0,0,255},
-            thickness=0.5,
-            smooth=Smooth.None), Text(
-            string="%first",
-            index=-1,
-            extent={{-6,3},{-6,3}}));
         connect(AldoEffect1.y, ThiazideEffect.yBase) annotation (Line(
-            points={{64,-32},{64,-34},{62,-34},{62,-36}},
+            points={{38,74},{38,72}},
             color={0,0,127},
             smooth=Smooth.None));
         connect(ThiazideEffect.y, LoadEffect1.yBase) annotation (Line(
-            points={{62,-42},{62,-44}},
+            points={{38,66},{38,64}},
             color={0,0,127},
             smooth=Smooth.None));
         connect(AldoEffect1.y, AldoEffect2.u) annotation (Line(
-            points={{64,-32},{96,-32},{96,-90},{84,-90},{84,-86}},
+            points={{38,74},{24,74},{24,46}},
             color={0,0,127},
             smooth=Smooth.None));
-        connect(LH.ReabFract, busConnector. LH_Na_FractReab) annotation (Line(
-            points={{88,16},{100,16},{100,92},{-92,92}},
-            color={0,0,127},
-            smooth=Smooth.None), Text(
-       string="%second",
-       index=1,
-       extent={{6,3},{6,3}}));
-        connect(PT.ReabFract, busConnector. PT_Na_FractReab) annotation (Line(
-            points={{28,16},{48,16},{48,92},{-92,92}},
-            color={0,0,127},
-            smooth=Smooth.None), Text(
-       string="%second",
-       index=1,
-       extent={{6,3},{6,3}}));
-      connect(flowMeasure2.molarFlowRate, busConnector.DT_Na_Outflow)
-        annotation (Line(
-          points={{48,-70},{48,92},{-92,92}},
-          color={0,0,127},
-          smooth=Smooth.None), Text(
-          string="%second",
-          index=1,
-          extent={{6,3},{6,3}}));
-      connect(flowMeasure3.molarFlowRate, busConnector.CD_Na_Outflow)
-        annotation (Line(
-          points={{0,-58},{0,-54},{-98,-54},{-98,92},{-92,92}},
-          color={0,0,127},
-          smooth=Smooth.None), Text(
-          string="%second",
-          index=1,
-          extent={{6,3},{6,3}}));
-      connect(flowMeasure4.molarFlowRate, busConnector.DT_Na_Reab) annotation (
-          Line(
-          points={{54,-72},{54,-90},{100,-90},{100,92},{-92,92}},
-          color={0,0,127},
-          smooth=Smooth.None), Text(
-          string="%second",
-          index=1,
-          extent={{6,3},{6,3}}));
-      connect(flowMeasure1.molarFlowRate, division.u1) annotation (Line(
-          points={{88,-70},{88,-24},{74,-24},{74,-11.2},{79.4,-11.2}},
-          color={0,0,127},
-          smooth=Smooth.None));
-        connect(busConnector.LH_H2O_Outflow, division.u2) annotation (Line(
-            points={{-92,92},{-98,92},{-98,-6},{56,-6},{56,-14.8},{79.4,-14.8}},
-            color={0,0,255},
-            thickness=0.5,
-            smooth=Smooth.None), Text(
-            string="%first",
-            index=-1,
-            extent={{-6,3},{-6,3}}));
 
-        connect(Medulla.q_out, concentrationMeasure2.q_in) annotation (Line(
-            points={{38,-92},{52,-92},{52,-95},{55.2,-95}},
-            color={200,0,0},
-            thickness=1,
-            smooth=Smooth.None));
       connect(concentrationMeasure2.concentration, busConnector.MedullaNa_conc)
         annotation (Line(
-          points={{60.6,-95},{100,-95},{100,92},{-92,92}},
+          points={{94.2,-63},{98,-63},{98,92},{-92,92}},
           color={0,0,127},
           smooth=Smooth.None), Text(
           string="%second",
           index=1,
           extent={{6,3},{6,3}}));
-        connect(glomerulus.ProteinAnions, busConnector. BloodIons_ProteinAnions) annotation (
-            Line(
-            points={{-32,29},{-32,92},{-92,92}},
-            color={0,0,127},
-            smooth=Smooth.None), Text(
-       string="%second",
-       index=1,
-       extent={{6,3},{6,3}}));
-        connect(glomerulusSudiumRate.q_in, glomerulus.q_out) annotation (Line(
-            points={{-16,24},{-20,24}},
-            color={200,0,0},
-            thickness=1,
-            smooth=Smooth.None));
-        connect(glomerulus.q_in, q_in) annotation (Line(
-            points={{-40,24},{-54,24},{-54,5},{-55,5}},
-            color={200,0,0},
-            thickness=1,
-            smooth=Smooth.None));
-        connect(flowMeasure6.q_out, q_in) annotation (Line(
-            points={{18,-14},{18,-18},{-8,-18},{-54,-18},{-54,2},{-54,6},{-54,5},{-55,
-                5}},
-            color={200,0,0},
-            thickness=1,
-            smooth=Smooth.None));
-        connect(flowMeasure5.q_out, q_in) annotation (Line(
-            points={{48,-2},{40,-2},{40,-18},{-54,-18},{-54,5},{-55,5}},
-            color={200,0,0},
-            thickness=1,
-            smooth=Smooth.None));
-        connect(flowMeasure4.q_out, q_in) annotation (Line(
-            points={{44,-78},{-55,-78},{-55,5}},
-            color={200,0,0},
-            thickness=1,
-            smooth=Smooth.None));
-        connect(VasaRectaOutflow.q_out, q_in) annotation (Line(
-            points={{-20,-92},{-55,-92},{-55,5}},
-            color={200,0,0},
-            thickness=1,
-            smooth=Smooth.None));
-        connect(flowMeasure3.q_out, q_out) annotation (Line(
-            points={{-10,-64},{-16,-64},{-16,-63}},
-            color={200,0,0},
-            thickness=1,
-            smooth=Smooth.None));
-        connect(const6.y, PT.MaxReab) annotation (Line(
-            points={{8.5,8},{8.5,9.5},{10,9.5},{10,18}},
-            color={0,0,127},
-            smooth=Smooth.None));
-        connect(const7.y, LH.MaxReab) annotation (Line(
-            points={{66.75,15},{70,15},{70,18}},
-            color={0,0,127},
-            smooth=Smooth.None));
+      connect(maxReabPT.y, PT.MaxReab) annotation (Line(
+          points={{-59.25,33},{-59.25,41.5},{-54,41.5},{-54,42}},
+          color={0,0,127},
+          smooth=Smooth.None));
+      connect(maxReabHL.y, LH.MaxReab) annotation (Line(
+          points={{-1,-38},{2,-38}},
+          color={0,0,127},
+          smooth=Smooth.None));
         connect(CD.MaxReab, const8.y) annotation (Line(
-            points={{28,-70},{28,-73},{31.25,-73}},
+            points={{80,-46},{80,-51},{85.25,-51}},
             color={0,0,127},
             smooth=Smooth.None));
-        connect(division.y, busConnector.MD_Na) annotation (Line(
-            points={{86.3,-13},{100,-13},{100,92},{-92,92}},
-            color={0,0,127},
-            smooth=Smooth.None), Text(
-            string="%second",
-            index=1,
-            extent={{6,3},{6,3}}));
-      connect(concentrationMeasure2.concentration, Osm.u) annotation (Line(
-          points={{60.6,-95},{64.3,-95},{64.3,-101},{67.4,-101}},
-          color={0,0,127},
-          smooth=Smooth.None));
       connect(flowMeasure2.molarFlowRate, LoadEffect2.u) annotation (Line(
-          points={{48,-70},{48,-48},{20,-48}},
+          points={{84,-20},{80,-20}},
           color={0,0,127},
           smooth=Smooth.None));
-      connect(gain1.y, glomerulus.otherCations) annotation (Line(
-          points={{-51.5,53},{-36,52},{-36,29}},
-          color={0,0,127},
-          smooth=Smooth.None));
-      connect(busConnector.KPool, gain1.u) annotation (Line(
-          points={{-92,92},{-94,92},{-94,53},{-63,53}},
-          color={0,0,255},
-          thickness=0.5,
-          smooth=Smooth.None), Text(
-          string="%first",
-          index=-1,
-          extent={{-6,3},{-6,3}}));
       connect(busConnector.Angiotensin2, A2Effect.u) annotation (Line(
-          points={{-92,92},{-22,92},{-22,66},{16,66}},
+          points={{-92,92},{-92,84},{-54,84}},
           color={0,0,255},
           thickness=0.5,
           smooth=Smooth.None), Text(
@@ -51649,7 +51363,7 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
           index=-1,
           extent={{-6,3},{-6,3}}));
       connect(busConnector.ANP, ANPEffect.u) annotation (Line(
-          points={{-92,92},{-22,92},{-22,50},{16,50}},
+          points={{-92,92},{-92,72},{-54,72}},
           color={0,0,255},
           thickness=0.5,
           smooth=Smooth.None), Text(
@@ -51657,28 +51371,171 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
           index=-1,
           extent={{-6,3},{-6,3}}));
       connect(busConnector.Aldosterone, AldoEffect.u) annotation (Line(
-          points={{-92,92},{48,92},{48,50},{78,50}},
+          points={{-92,92},{10,92},{10,26},{-22,26},{-22,-12},{2,-12}},
           color={0,0,255},
           thickness=0.5,
           smooth=Smooth.None), Text(
           string="%first",
           index=-1,
           extent={{-6,3},{-6,3}}));
-      connect(ANPEffect2.u, busConnector.ANP) annotation (Line(
-          points={{20,-40},{48,-40},{48,92},{-92,92}},
-          color={0,0,127},
-          smooth=Smooth.None), Text(
-          string="%second",
-          index=1,
-          extent={{6,3},{6,3}}));
       connect(busConnector.Aldosterone, AldoEffect1.u) annotation (Line(
-          points={{-92,92},{48,92},{48,-28},{56,-28}},
+          points={{-92,92},{28,92},{28,78},{30,78}},
           color={0,0,255},
           thickness=0.5,
           smooth=Smooth.None), Text(
           string="%first",
           index=-1,
           extent={{-6,3},{-6,3}}));
+      connect(busConnector.KidneyAlpha_PT_NA, SympsEffect.u) annotation (Line(
+          points={{-92,92},{-92,78},{-54,78}},
+          color={0,0,255},
+          thickness=0.5,
+          smooth=Smooth.None), Text(
+          string="%first",
+          index=-1,
+          extent={{-6,3},{-6,3}}));
+      connect(glomerulus.ProteinAnions, busConnector) annotation (Line(
+          points={{-87,28},{-92,28},{-92,92}},
+          color={0,0,127},
+          smooth=Smooth.None));
+      connect(glomerulus.otherCations, busConnector.KPoolCharge) annotation (
+          Line(
+          points={{-87,24},{-92,24},{-92,92}},
+          color={0,0,127},
+          smooth=Smooth.None));
+      connect(busConnector.GFR, glomerulusSudiumRate.solutionFlow) annotation (
+          Line(
+          points={{-92,92},{-92,59},{-74,59}},
+          color={0,0,255},
+          thickness=0.5,
+          smooth=Smooth.None), Text(
+          string="%first",
+          index=-1,
+          extent={{-6,3},{-6,3}}));
+      connect(VasaRectaOutflow.q_in, Medulla.q_out) annotation (Line(
+          points={{-2,-86},{72,-86}},
+          color={107,45,134},
+          thickness=1,
+          smooth=Smooth.None));
+      connect(CD.Reabsorption, Medulla.q_out) annotation (Line(
+          points={{72,-50},{72,-86}},
+          color={107,45,134},
+          thickness=1,
+          smooth=Smooth.None));
+      connect(concentrationMeasure2.q_in, Medulla.q_out) annotation (Line(
+          points={{87,-63},{72,-63},{72,-86}},
+          color={107,45,134},
+          thickness=1,
+          smooth=Smooth.None));
+      connect(PT.Reabsorption, q_in) annotation (Line(
+          points={{-46,38},{-46,-10},{-82,-10}},
+          color={107,45,134},
+          thickness=1,
+          smooth=Smooth.None));
+      connect(LH.Reabsorption, q_in) annotation (Line(
+          points={{10,-42},{10,-52},{-82,-52},{-82,-10}},
+          color={107,45,134},
+          thickness=1,
+          smooth=Smooth.None));
+      connect(DT.Reabsorption, q_in) annotation (Line(
+          points={{46,34},{46,-52},{-82,-52},{-82,-10}},
+          color={107,45,134},
+          thickness=1,
+          smooth=Smooth.None));
+      connect(glomerulus.q_in, q_in) annotation (Line(
+          points={{-82,20},{-82,-10}},
+          color={107,45,134},
+          thickness=1,
+          smooth=Smooth.None));
+      connect(q_in, VasaRectaOutflow.q_out) annotation (Line(
+          points={{-82,-10},{-82,-86},{-18,-86}},
+          color={107,45,134},
+          thickness=1,
+          smooth=Smooth.None));
+      connect(FurosemideEffect.yBase, busConnector.KidneyFunctionEffect)
+        annotation (Line(
+          points={{10,-4},{10,92},{-92,92}},
+          color={0,0,127},
+          smooth=Smooth.None));
+      connect(Furosemide.u, busConnector.FurosemidePool_Furosemide_conc)
+        annotation (Line(
+          points={{2,8},{10,8},{10,92},{-92,92}},
+          color={0,0,127},
+          smooth=Smooth.None));
+      connect(Filtering_xNormal.u, busConnector.Kidney_NephronCount_Filtering_xNormal)
+        annotation (Line(
+          points={{2,2},{10,2},{10,92},{-92,92}},
+          color={0,0,127},
+          smooth=Smooth.None));
+      connect(flowMeasure.molarFlowRate, LoadEffect.u) annotation (Line(
+          points={{-14,60},{-14,60},{-14,66},{6,66},{6,42},{6,30},{-30,30},{-30,
+              -18},{2,-18},{2,-18}},
+          color={0,0,127},
+          smooth=Smooth.Bezier));
+      connect(glomerulus.q_out, glomerulusSudiumRate.q_in) annotation (Line(
+          points={{-82,40},{-88,40},{-88,52},{-84,52}},
+          color={107,45,134},
+          thickness=1,
+          smooth=Smooth.None));
+      connect(glomerulusSudiumRate.q_out, PT.Inflow) annotation (Line(
+          points={{-64,52},{-56,52}},
+          color={107,45,134},
+          thickness=1,
+          smooth=Smooth.None));
+      connect(PT.Outflow, flowMeasure.q_in) annotation (Line(
+          points={{-36,52},{-24,52}},
+          color={107,45,134},
+          thickness=1,
+          smooth=Smooth.None));
+      connect(flowMeasure.q_out, LH.Inflow) annotation (Line(
+          points={{-4,52},{2,52},{2,36},{-34,36},{-34,-28},{0,-28}},
+          color={107,45,134},
+          thickness=1,
+          smooth=Smooth.None));
+      connect(LH.Outflow, flowMeasure1.q_in) annotation (Line(
+          points={{20,-28},{34,-28},{34,-4}},
+          color={107,45,134},
+          thickness=1,
+          smooth=Smooth.None));
+      connect(flowMeasure1.q_out, DT.Inflow) annotation (Line(
+          points={{34,16},{34,48},{36,48}},
+          color={107,45,134},
+          thickness=1,
+          smooth=Smooth.None));
+      connect(DT.Outflow, flowMeasure2.q_in) annotation (Line(
+          points={{56,48},{92,48},{92,-10}},
+          color={107,45,134},
+          thickness=1,
+          smooth=Smooth.None));
+      connect(flowMeasure2.q_out, CD.Inflow) annotation (Line(
+          points={{92,-30},{92,-36},{82,-36}},
+          color={107,45,134},
+          thickness=1,
+          smooth=Smooth.None));
+      connect(CD.Outflow, q_out) annotation (Line(
+          points={{62,-36},{54,-36},{54,-63},{-16,-63}},
+          color={107,45,134},
+          thickness=1,
+          smooth=Smooth.None));
+      connect(AldoEffect1.yBase, busConnector.KidneyFunctionEffect) annotation
+        (Line(
+          points={{38,80},{38,92},{-92,92}},
+          color={0,0,127},
+          smooth=Smooth.None));
+      connect(ANPEffect2.yBase, busConnector.KidneyFunctionEffect) annotation (
+          Line(
+          points={{72,-10},{72,6},{98,6},{98,92},{-92,92}},
+          color={0,0,127},
+          smooth=Smooth.None));
+      connect(ANPEffect2.u, busConnector.ANP) annotation (Line(
+          points={{64,-12},{60,-12},{60,6},{98,6},{98,92},{-92,92}},
+          color={0,0,127},
+          smooth=Smooth.None));
+      connect(Medulla.solutionVolume, busConnector.MedullaVolume) annotation (
+          Line(
+          points={{68,-82},{98,-82},{98,92},{-92,92}},
+          color={0,0,127},
+          smooth=Smooth.None));
         annotation (Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,
                 -100},{100,100}}),         graphics), Icon(coordinateSystem(
                 preserveAspectRatio=true, extent={{-100,-100},{100,100}}),
@@ -54476,7 +54333,7 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
         Modelica.Blocks.Math.Gain Perm1(k=0.002/60)
           annotation (Placement(transformation(extent={{-4,-4},{4,4}},
               rotation=270,
-              origin={-68,32})));
+              origin={-62,32})));
       Physiolibrary.Chemical.Components.SolutePump KFluxToPool(
           useSoluteFlowInput=true)                             annotation (
           Placement(transformation(
@@ -54501,7 +54358,7 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
             Placement(transformation(
               extent={{10,-10},{-10,10}},
               rotation=0,
-              origin={-68,18})));
+              origin={-62,18})));
       Physiolibrary.Chemical.Sensors.ConcentrationMeasure concentrationMeasure1 annotation (Placement(
             transformation(
             extent={{-10,-10},{10,10}},
@@ -54517,25 +54374,18 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
         annotation (Placement(transformation(
             extent={{-6,-6},{6,6}},
             rotation=90,
-            origin={-28,-44})));
-        Modelica.Blocks.Math.Gain CGL3(k=0.03/60)
-        "glucose flow into cells to potassium flow into cells"
-          annotation (Placement(transformation(extent={{-2,-2},{2,2}},
-              rotation=0,
-              origin={-38,-44})));
+            origin={-20,-44})));
         IkedaPotasiumIntoICFFactor IkedaIntoICF annotation (Placement(
               transformation(
               extent={{-10,-10},{10,10}},
               rotation=0,
-              origin={-68,2})));
+              origin={-62,2})));
       Physiolibrary.Types.BusConnector busConnector annotation (Placement(
             transformation(extent={{-94,88},{-82,100}}), iconTransformation(
               extent={{60,60},{100,100}})));
-        Modelica.Blocks.Math.Add3 YGLS "Ikeda glucose to cells flow"
-          annotation (Placement(transformation(extent={{-44,-38},{-34,-28}})));
       Physiolibrary.Types.Constants.MolarFlowRateConst
         electrolytesFlowConstant1(k=0)
-        annotation (Placement(transformation(extent={{-50,-58},{-40,-48}})));
+        annotation (Placement(transformation(extent={{-48,-46},{-38,-36}})));
       Physiolibrary.Chemical.Interfaces.ChemicalPort_a q_in
         "sodium concentration in blood incomming to glomerulus capillaries; sodium mass flow is filtration - reabsorbtion"
         annotation (Placement(transformation(extent={{-4,-94},{14,-76}}),
@@ -54543,7 +54393,7 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
 
       equation
       connect(KCell.solutionVolume, busConnector.CellH2O_Vol) annotation (Line(
-          points={{8,60},{-1,60},{-1,94},{-88,94}},
+          points={{8,60},{7,60},{7,94},{-88,94}},
           color={0,0,127},
           smooth=Smooth.None), Text(
           string="%second",
@@ -54577,14 +54427,14 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
             color={0,0,127},
             smooth=Smooth.None));
       connect(busConnector.KCell_Mass, KCell.solute) annotation (Line(
-          points={{-88,94},{-4,94},{-4,46},{18,46}},
+          points={{-88,94},{40,94},{40,46},{18,46}},
           color={0,0,127},
           smooth=Smooth.None), Text(
           string="%first",
           index=-1,
           extent={{-3,1},{-3,1}}));
         connect(Perm1.y, splineDelayByDay.yBase) annotation (Line(
-            points={{-68,27.6},{-68,20}},
+            points={{-62,27.6},{-62,20}},
             color={0,0,127},
             smooth=Smooth.None));
         connect(KCell.q_out, concentrationMeasure1.q_in) annotation (Line(
@@ -54620,66 +54470,35 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
           extent={{3,1},{3,1}}));
         connect(flowMeasure.q_out, KFluxToCellWithGlucose.q_in) annotation (
             Line(
-            points={{6,-68},{6,-66},{-28,-66},{-28,-50}},
+            points={{6,-68},{6,-62},{-20,-62},{-20,-50}},
             color={200,0,0},
             thickness=1,
             smooth=Smooth.None));
         connect(KFluxToCellWithGlucose.q_out, KCell.q_out) annotation (Line(
-            points={{-28,-38},{-28,56},{12,56}},
+            points={{-20,-38},{-20,56},{12,56}},
             color={200,0,0},
             thickness=1,
             smooth=Smooth.None));
         connect(IkedaIntoICF.y, KFluxToCell.soluteFlow) annotation (Line(
-            points={{-68,-3.2},{-68,-7.6},{3.6,-7.6}},
+            points={{-62,-3.2},{-62,-7.6},{3.6,-7.6}},
             color={0,0,127},
             smooth=Smooth.None));
         connect(splineDelayByDay.y, IkedaIntoICF.yBase) annotation (Line(
-            points={{-68,14},{-68,7}},
+            points={{-62,14},{-62,7}},
             color={0,0,127},
             smooth=Smooth.None));
         connect(IkedaIntoICF.Artys_pH, busConnector. Artys_pH) annotation (Line(
-            points={{-78,5},{-86,6},{-100,6},{-100,94},{-88,94}},
+            points={{-72,5},{-98,5},{-98,94},{-88,94}},
             color={0,0,127},
             smooth=Smooth.None), Text(
        string="%second",
        index=1,
        extent={{3,1},{3,1}}));
 
-        connect(busConnector.skeletalMuscle_GlucoseToCellStorageFlow,YGLS. u2)
-                   annotation (Line(
-            points={{-88,94},{-100,94},{-100,-33},{-45,-33}},
-            color={0,0,255},
-            thickness=0.5,
-            smooth=Smooth.None), Text(
-            string="%first",
-            index=-1,
-            extent={{-6,3},{-6,3}}));
-        connect(busConnector.liver_GlucoseToCellStorageFlow,YGLS. u1)
-          annotation (Line(
-            points={{-88,94},{-100,94},{-100,-29},{-45,-29}},
-            color={0,0,255},
-            thickness=0.5,
-            smooth=Smooth.None), Text(
-            string="%first",
-            index=-1,
-            extent={{-6,3},{-6,3}}));
-        connect(busConnector.respiratoryMuscle_GlucoseToCellStorageFlow,YGLS. u3)
-          annotation (Line(
-            points={{-88,94},{-100,94},{-100,-37},{-45,-37}},
-            color={0,0,255},
-            thickness=0.5,
-            smooth=Smooth.None), Text(
-            string="%first",
-            index=-1,
-            extent={{-6,3},{-6,3}}));
-        connect(YGLS.y, CGL3.u) annotation (Line(
-            points={{-33.5,-33},{-32,-33},{-32,-40},{-42,-40},{-42,-44},{-40.4,-44}},
-            color={0,0,127},
-            smooth=Smooth.None));
 
         connect(electrolytesFlowConstant1.y, KFluxToCellWithGlucose.soluteFlow)
           annotation (Line(
-            points={{-38.75,-53},{-34,-53},{-34,-41.6},{-30.4,-41.6}},
+            points={{-36.75,-41},{-34,-41},{-34,-41.6},{-22.4,-41.6}},
             color={0,0,127},
             smooth=Smooth.None));
         connect(flowMeasure.q_in, q_in) annotation (Line(
@@ -54688,7 +54507,7 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
             thickness=1,
             smooth=Smooth.None));
         connect(busConnector.KPool_mass, Perm1.u) annotation (Line(
-            points={{-88,94},{-68,94},{-68,36.8}},
+            points={{-88,94},{-62,94},{-62,36.8}},
             color={0,0,255},
             thickness=0.5,
             smooth=Smooth.None), Text(
@@ -54697,7 +54516,7 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
             extent={{-6,3},{-6,3}}));
 
       connect(splineDelayByDay.u, busConnector.Aldosterone) annotation (Line(
-          points={{-60,18},{-36,18},{-36,94},{-88,94}},
+          points={{-54,18},{-30,18},{-30,94},{-88,94}},
           color={0,0,127},
           smooth=Smooth.None), Text(
           string="%second",
@@ -54705,7 +54524,7 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
           extent={{6,3},{6,3}}));
       connect(busConnector.KPool, IkedaIntoICF.PotasiumECF_conc) annotation (
           Line(
-          points={{-88,94},{-96,94},{-96,-1},{-78,-1}},
+          points={{-88,94},{-98,94},{-98,-1},{-72,-1}},
           color={255,204,51},
           thickness=0.5,
           smooth=Smooth.None), Text(
