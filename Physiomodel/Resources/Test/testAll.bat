@@ -1,6 +1,6 @@
 rm -f *.txt
 cd ..\..
-"c:\Program Files (x86)\Dymola 2015 FD01\bin\Dymola.exe" /nowindow Resources\Test\submodels.mos
+"c:\Program Files (x86)\Dymola 2015\bin\Dymola.exe" /nowindow Resources\Test\submodels.mos
 cd Resources\Test
 grep failed *.txt > allFailed.txt
 

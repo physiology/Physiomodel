@@ -3,7 +3,8 @@ model Physiomodel_Main "Main model"
   import Physiomodel;
   extends Physiolibrary.Icons.Golem;
 
-  Physiomodel.CardioVascular.CardioVascularSystem cardioVascularSystem
+Physiomodel.CardioVascular.CVS_Dynamic
+                          cardioVascularSystem
     annotation (Placement(transformation(extent={{58,74},{78,96}})));
   Physiomodel.Metabolism.NutrientsAndMetabolism nutrientsAndMetabolism
     annotation (Placement(transformation(extent={{-90,66},{-70,86}})));
@@ -17,7 +18,7 @@ model Physiomodel_Main "Main model"
   Physiomodel.Setup.IO_Bus.InputFromFile
                                     setup
     annotation (Placement(transformation(extent={{-10,-92},{10,-72}})));
-  Physiomodel.Water.Water water
+  Physiomodel.Water.Water3 water
     annotation (Placement(transformation(extent={{-86,0},{-66,20}})));
   Physiomodel.Proteins.Proteins
                     proteins
@@ -144,5 +145,7 @@ equation
     Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
             100}}),
         graphics),
-    experiment(StopTime=1e+008, Tolerance=1e-005));
+    experiment(StopTime=3.1536e+007, Tolerance=0.001),
+    experimentSetupOutput,
+    Commands(file="view.mos" "view"));
 end Physiomodel_Main;
