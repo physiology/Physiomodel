@@ -20195,7 +20195,6 @@ To get heat from temperature
             transformation(extent={{-104,61},{-84,81}}), iconTransformation(
               extent={{60,60},{80,80}})));
 
-
       Physiolibrary.Osmotic.Components.Membrane pulmCapys(
           useHydraulicPressureInputs=true, cond=3.7503078792283e-10)
         annotation (Placement(transformation(extent={{-44,28},{-24,48}})));
@@ -21786,7 +21785,6 @@ QHP 2008 / Peritoneum
       Physiolibrary.Types.BusConnector busConnector annotation (Placement(
             transformation(extent={{-104,61},{-84,81}}), iconTransformation(
               extent={{60,60},{80,80}})));
-
 
       Physiolibrary.Types.Constants.VolumeConst volume(k=0)
         annotation (Placement(transformation(extent={{-66,42},{-58,50}})));
