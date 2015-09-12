@@ -746,6 +746,10 @@ package Physiomodel "Mammalian physiology model"
                                                       // = 1
         parameter Physiolibrary.Types.HydraulicCompliance BasicCompliance; //(final quantity="Compliance", final displayUnit="ml/mmHg") = 1;
 
+        parameter Physiolibrary.Types.Pressure NormalExternalPressure = -446
+          "Typical value of pericardium cavity pressure (relative to environment ambient pressure)";
+                                                                                 //-446 Pa = -3.34522 mmHg
+
         //parameter Physiolibrary.Types.HydraulicCompliance MaxContractionCompliance; //=1;
         //parameter Physiolibrary.Types.HydraulicConductance Cond1;//=1;
         //parameter Physiolibrary.Types.HydraulicConductance Cond2;//=1;
@@ -803,14 +807,14 @@ package Physiomodel "Mammalian physiology model"
         n_Diastole=2.0,
         n_Systole=0.5,
         stateName="RightVentricle.Vol",
-        additionalPressure_Systolic(displayUnit="mmHg") = 1199.901486735,
         BasicCompliance(displayUnit="ml/mmHg") = 2.1901798014693e-07,
+        additionalPressure_Systolic(displayUnit="mmHg") = 1199.901486735,
         initialVol=8.75e-05,
         NormalEndDiastolicVolume=0.000125,
-        NormalFillingPressure=533.28954966,
+        NormalFillingPressure=95.9921189388,
         stiffnes=1,
-        NormalSystolicPressure=2933.09252313,
-        NormalEndSystolicVolume=5e-05,
+        NormalSystolicPressure=1666.5298426875,
+        NormalEndSystolicVolume=5.122e-05,
         contractilityBasic=1,
         K=1) annotation (Placement(transformation(extent={{-6,-46},{-50,-2}})));
       //    Abasic_Diastole=0.00026,
@@ -835,10 +839,10 @@ package Physiomodel "Mammalian physiology model"
         BasicCompliance(displayUnit="ml/mmHg") = 1.0950899007347e-07,
         initialVol=8.75e-05,
         NormalEndDiastolicVolume=0.000125,
-        NormalFillingPressure=1066.57909932,
+        NormalFillingPressure=615.9494298573,
         stiffnes=1,
-        NormalSystolicPressure=16398.653652045,
-        NormalEndSystolicVolume=5e-05,
+        NormalSystolicPressure=12665.626804425,
+        NormalEndSystolicVolume=5.087e-05,
         additionalPressure_Systolic=3199.73729796,
         contractilityBasic=1,
         K=0.016666666666667)
@@ -1237,7 +1241,8 @@ package Physiomodel "Mammalian physiology model"
         stiffnes=stiffnes,
         n_Diastole=n_Diastole,
         NormalFillingPressure=NormalFillingPressure,
-        NormalEndDiastolicVolume=NormalEndDiastolicVolume)
+        NormalEndDiastolicVolume=NormalEndDiastolicVolume,
+        NormalExternalPressure(displayUnit="Pa") = NormalExternalPressure)
         annotation (Placement(transformation(extent={{-76,-44},{-56,-24}})));
       //    ,Abasic_Diastole=Abasic_Diastole
 
@@ -1245,7 +1250,8 @@ package Physiomodel "Mammalian physiology model"
           n_Systole=n_Systole,
           additionalPressure_Systolic=additionalPressure_Systolic,
           NormalSystolicPressure=NormalSystolicPressure,
-          NormalEndSystolicVolume=NormalEndSystolicVolume)
+          NormalEndSystolicVolume=NormalEndSystolicVolume,
+        NormalExternalPressure=NormalExternalPressure)
           annotation (Placement(transformation(extent={{52,-44},{72,-24}})));
        //   Abasic_Systole=Abasic_Systole,
 
@@ -1491,7 +1497,10 @@ SYSTOLE
         "parametrization of end diastolic volume curve";
       //parameter Real Abasic_Systole "parametrization of end systolic volume curve";
       parameter Physiolibrary.Types.Pressure NormalSystolicPressure
-        "parametrization of end systolic volume curve";
+        "Typical value of mean arterial pressure (relative to environment ambient pressure)";
+          parameter Physiolibrary.Types.Pressure NormalExternalPressure = -446
+        "Typical value of pericardium cavity pressure (relative to environment ambient pressure)";
+                                                                               //-446 Pa = -3.34522 mmHg
       parameter Physiolibrary.Types.Volume NormalEndSystolicVolume
         "= 2.64 ml for left ventricle, parametrization of end systolic volume curve";
       parameter Physiolibrary.Types.Pressure additionalPressure_Systolic
@@ -1512,7 +1521,7 @@ SYSTOLE
         outflow.q = 0;
       //  P=outflow.pressure;
       //  ESV = ((outflow.pressure+additionalPressure_Systolic-externalPressure)/(contractility*Abasic_Systole))^(1/n_Systole);
-        ESV = NormalEndSystolicVolume*((outflow.pressure+additionalPressure_Systolic-externalPressure)/(contractility*NormalSystolicPressure))^(1/n_Systole);
+        ESV = NormalEndSystolicVolume*((outflow.pressure+additionalPressure_Systolic-externalPressure)/(contractility*(NormalSystolicPressure+additionalPressure_Systolic-NormalExternalPressure)))^(1/n_Systole);
 
       // drawing icon
       /*  for i in 1:size(iconPoint,1) loop
@@ -1569,7 +1578,9 @@ SYSTOLE
         "parametrization of end systolic volume curve";
       //parameter Real Abasic_Diastole "parametrization of end diastolic volume curve";
       parameter Physiolibrary.Types.Pressure NormalFillingPressure
-        "parametrization of end diastolic volume curve";
+        "Typicall value of mean arterial filling pressure (relative to environment ambient pressure)";
+      parameter Physiolibrary.Types.Pressure NormalExternalPressure = -446
+        "Typical value of pericardium cavity pressure (relative to environment ambient pressure)";
       parameter Physiolibrary.Types.Volume NormalEndDiastolicVolume
         "= (NormalDiastolicPressure/Abasic_Diastole)^n_Diastole";
       //Abasic_Diastole "parametrization of end diastolic volume curve";
@@ -1585,7 +1596,7 @@ SYSTOLE
         inflow.q = 0;
       //  P = inflow.pressure;
       //  EDV = ((inflow.pressure-externalPressure)/(stiffnes*Abasic_Diastole))^(1/n_Diastole);
-        EDV = NormalEndDiastolicVolume*((inflow.pressure-externalPressure)/(stiffnes*NormalFillingPressure))^(1/n_Diastole);
+        EDV = NormalEndDiastolicVolume*((inflow.pressure-externalPressure)/(stiffnes*(NormalFillingPressure-NormalExternalPressure)))^(1/n_Diastole);
 
         //  Stiffness = stiffnes;
 
@@ -3072,7 +3083,7 @@ SYSTOLE
           color={0,0,127},
           smooth=Smooth.None));
       connect(pulmVeins.volume, sum2.u[2]) annotation (Line(
-          points={{54,-10},{54,-20},{54,-20},{54,-33.6},{50.8,-33.6}},
+          points={{54,-10},{54,-33.6},{50.8,-33.6}},
           color={0,0,127},
           smooth=Smooth.None));
         connect(sum1.y, busConnector.PulmonaryCirculation_V0) annotation (Line(
@@ -3208,8 +3219,8 @@ SYSTOLE
       Physiolibrary.Hydraulic.Sources.UnlimitedPump volumeCorrections(
           useSolutionFlowInput=true)
         annotation (Placement(transformation(extent={{-28,24},{-42,38}})));
-      SystemicVeins veins(BaseConductance(displayUnit="ml/(mmHg.min)")=
-          1.0700878482065e-07) "scaled to coronary vessels reorganisation"
+      SystemicVeins veins(BaseConductance(displayUnit="ml/(mmHg.min)") =
+          1.2000985213531e-07) "scaled to coronary vessels reorganisation"
         annotation (Placement(transformation(extent={{-72,-8},{-56,8}})));
         SystemicVeinsElacticBloodCompartment
           systemicVeinsElacticBloodCompartment
@@ -3242,18 +3253,18 @@ SYSTOLE
               origin={34,26})));
       Microcirculation.LeftHeart leftCororaryCirculation(
           BasicLargeVeselsConductance(displayUnit="ml/(mmHg.min)")=
-          6.2505131320471e-09, BasicSmallVeselsConductance(displayUnit=
-              "ml/(mmHg.min)") = 2.7502257781007e-10)
+          5.0004105056377e-09, BasicSmallVeselsConductance(displayUnit=
+              "ml/(mmHg.min)") = 3.1252565660236e-10)
         "scaled to normal pressure gradient 94 mmHg"
         annotation (Placement(transformation(extent={{-10,76},{10,96}})));
       Microcirculation.RightHeart rightCororaryCirculation(
           BasicLargeVeselsConductance(displayUnit="ml/(mmHg.min)")=
           1.2501026264094e-09, BasicSmallVeselsConductance(displayUnit=
-              "ml/(mmHg.min)") = 5.0004105056377e-11)
+              "ml/(mmHg.min)") = 6.2505131320471e-11)
         "scaled to normal pressure gradient 94 mmHg"
         annotation (Placement(transformation(extent={{-42,62},{-22,82}})));
       SplanchnicCirculation splanchnicCirculation
-        annotation (Placement(transformation(extent={{-8,-44},{30,-6}})));
+        annotation (Placement(transformation(extent={{-6,-44},{32,-6}})));
       Physiolibrary.Hydraulic.Components.Conductor legsArtys(Conductance=
             5.0004105056377e-09)
         annotation (Placement(transformation(extent={{80,-86},{64,-70}})));
@@ -3449,21 +3460,15 @@ SYSTOLE
             smooth=Smooth.None));
         connect(splanchnicCirculation.busConnector, busConnector) annotation (
             Line(
-            points={{-8,-15.5},{-8,50},{46,50}},
+            points={{-6,-15.5},{-6,50},{46,50}},
             color={0,0,255},
             thickness=0.5,
             smooth=Smooth.None));
       connect(splanchnicCirculation.q_in, systemicArtys.q_in) annotation (Line(
-          points={{30,-25},{62,-25},{62,0.5},{75.5,0.5}},
+          points={{32,-25},{62,-25},{62,0.5},{75.5,0.5}},
           color={0,0,0},
           thickness=1,
           smooth=Smooth.None));
-        connect(splanchnicCirculation.q_out,
-          systemicVeinsElacticBloodCompartment.referencePoint) annotation (Line(
-            points={{-8,-25},{-22,-25},{-22,0},{-44,0}},
-            color={0,0,0},
-            thickness=1,
-            smooth=Smooth.None));
       connect(peripheral.q_in, systemicArtys.q_in) annotation (Line(
           points={{26,14},{52,14},{52,0.5},{75.5,0.5}},
           color={0,0,0},
@@ -3617,6 +3622,11 @@ SYSTOLE
           string="%second",
           index=1,
           extent={{6,3},{6,3}}));
+      connect(splanchnicCirculation.q_out, veins.q_out) annotation (Line(
+          points={{-6,-25},{-72,-25},{-72,0}},
+          color={0,0,0},
+          thickness=1,
+          smooth=Smooth.None));
        annotation (Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,
                 -100},{100,100}}),   graphics={Text(
                 extent={{42,46},{74,46}},
@@ -3695,7 +3705,7 @@ SYSTOLE
         onOxygenAndCarbonDioxide=true,
           VasculatureConductanceOnPO2={{27,1.2,0},{37,1.0,-0.03},{47,0.8,0}},
           onOxygenOnly=false,
-          Cond=1.1375933900326e-09)
+        Cond=1.1375933900326e-09)
           annotation (Placement(transformation(extent={{12,44},{38,70}})));
         QHP.CardioVascular.Microcirculation.TissueBloodFlow
                                                         fat(Cond=
@@ -4002,16 +4012,18 @@ Blood resistance in peripheral organs except hepatic artery, gastro interstition
 
       Physiolibrary.Hydraulic.Components.ElasticVessel portalVein(
         stateName="SplanchnicVeins.Vol",
-        useComplianceInput=true,
         useExternalPressureInput=true,
         useV0Input=true,
-        volume_start=0.00100999)
+        useComplianceInput=false,
+        volume_start=0.00100999,
+        Compliance=4.6878848490354e-07)
         annotation (Placement(transformation(extent={{-16,-10},{5,11}})));
       Microcirculation.TissueBloodFlow GITract(Cond=1.4001149415786e-09)
         annotation (Placement(transformation(extent={{34,-12},{58,12}})));
       Physiolibrary.Types.Constants.PressureConst ExternalPressure(k=0)
         annotation (Placement(transformation(extent={{24,20},{16,28}})));
-      Physiolibrary.Types.Constants.HydraulicComplianceConst Compliance(k=4.6878848490354e-07)
+      Physiolibrary.Types.Constants.HydraulicComplianceConst Compliance(k=
+            4.6878848490354e-07)
         annotation (Placement(transformation(extent={{10,32},{2,40}})));
       Physiolibrary.Types.Constants.VolumeConst               V0(k(displayUnit=
               "ml") = 0.0005)
@@ -4030,10 +4042,6 @@ Blood resistance in peripheral organs except hepatic artery, gastro interstition
         connect(portalVein.externalPressure, ExternalPressure.y)
                                                            annotation (Line(
             points={{2.9,8.9},{2.9,24},{15,24}},
-            color={0,0,127},
-            smooth=Smooth.None));
-        connect(portalVein.compliance, Compliance.y)  annotation (Line(
-            points={{-5.5,8.9},{-5.5,36},{1,36}},
             color={0,0,127},
             smooth=Smooth.None));
       connect(portalVein.zeroPressureVolume, V0.y) annotation (Line(
@@ -6763,9 +6771,11 @@ Blood resistance in peripheral organs except hepatic artery, gastro interstition
             0.02},{60,1.2,0}}, Xscale=101325/760,
         enabled=onOxygenAndCarbonDioxide)
         annotation (Placement(transformation(extent={{-28,-48},{-8,-28}})));
-      Physiolibrary.Blocks.Factors.Spline PCO2OnTension(data={{20,1.8,0},{45,
-            1.0,-0.05},{75,0.0,0}}, Xscale=101325/760,
-        enabled=onOxygenAndCarbonDioxide)
+      Physiolibrary.Blocks.Factors.Spline PCO2OnTension(
+                                    Xscale=101325/760,
+        enabled=onOxygenAndCarbonDioxide,
+        data={{20,1.8,0},{55,1.0,-0.05},{75,0.0,0}})
+        "FIX: normal venous pCO2 in brain to 55mmHg (because of RQ close to 1)"
         annotation (Placement(transformation(extent={{-28,-56},{-8,-36}})));
         Physiolibrary.Types.Constants.OneConst one
           annotation (Placement(transformation(extent={{-30,-30},{-22,-22}})));
@@ -7065,21 +7075,22 @@ Blood resistance in gastro interstitial tract.
       Physiolibrary.Hydraulic.Interfaces.HydraulicPort_a portalVein annotation (
          extent=[-10,-110; 10,-90], Placement(transformation(extent={{-14,-22},
                 {6,-2}}), iconTransformation(extent={{12,-58},{32,-38}})));
-      Physiolibrary.Hydraulic.Components.Conductor splachnicVeinsConductance(
-          Conductance=1.56262828301175e-007)
+      Physiolibrary.Hydraulic.Components.Conductor liverPortalConductance(
+          Conductance=2.2251826750088e-08)
         "corrected to flow 1250ml/min in pressure gradient 1 mmHg"
         annotation (Placement(transformation(extent={{-52,-8},{-68,8}})));
       Physiolibrary.Hydraulic.Sensors.FlowMeasure flowMeasure1 annotation (
           Placement(transformation(
             extent={{-10,10},{10,-10}},
             rotation=180,
-            origin={-80,0})));
+            origin={-84,0})));
       Physiolibrary.Hydraulic.Sensors.FlowMeasure flowMeasure2 annotation (
           Placement(transformation(
             extent={{-10,10},{10,-10}},
             rotation=180,
             origin={-24,-16})));
-      Physiolibrary.Hydraulic.Components.Conductor HepaticArtyConductance(Conductance=3.5002873539464e-10)
+      Physiolibrary.Hydraulic.Components.Conductor HepaticArtyConductance(
+          Conductance=3.5002873539464e-10)
         annotation (Placement(transformation(extent={{0,36},{-20,56}})));
       Physiolibrary.Hydraulic.Sensors.FlowMeasure flowMeasure3 annotation (
           Placement(transformation(
@@ -7089,7 +7100,7 @@ Blood resistance in gastro interstitial tract.
       equation
         connect(flowMeasure1.volumeFlow, busConnector.Liver_BloodFlow)
           annotation (Line(
-            points={{-80,12},{-80,90},{-90,90}},
+            points={{-84,12},{-84,90},{-90,90}},
             color={0,0,127},
             smooth=Smooth.None));
         connect(flowMeasure2.volumeFlow, busConnector.PortalVein_BloodFlow)
@@ -7121,32 +7132,32 @@ Blood resistance in gastro interstitial tract.
             color={0,0,0},
             thickness=1,
             smooth=Smooth.None));
-        connect(splachnicVeinsConductance.q_out, flowMeasure1.q_in) annotation (
-           Line(
-            points={{-68,0},{-67,0},{-67,-7.34788e-016},{-70,-7.34788e-016}},
-            color={0,0,0},
-            thickness=1,
-            smooth=Smooth.None));
+      connect(liverPortalConductance.q_out, flowMeasure1.q_in) annotation (Line(
+          points={{-68,0},{-67,0},{-67,-7.34788e-016},{-74,-7.34788e-016}},
+          color={0,0,0},
+          thickness=1,
+          smooth=Smooth.None));
         connect(flowMeasure1.q_out, q_out) annotation (Line(
-            points={{-90,7.34788e-016},{-90,0},{-100,0}},
+            points={{-94,7.34788e-016},{-94,0},{-100,0}},
             color={0,0,0},
             thickness=1,
             smooth=Smooth.None));
-        connect(flowMeasure2.q_out, splachnicVeinsConductance.q_in) annotation (
-           Line(
-            points={{-34,-16},{-50,-16},{-50,0},{-52,0}},
-            color={0,0,0},
-            thickness=1,
-            smooth=Smooth.None));
-        connect(HepaticArtyConductance.q_out, splachnicVeinsConductance.q_in)
-          annotation (Line(
-            points={{-20,46},{-50,46},{-50,0},{-52,0}},
-            color={0,0,0},
-            thickness=1,
-            smooth=Smooth.None));
+      connect(flowMeasure2.q_out, liverPortalConductance.q_in) annotation (Line(
+          points={{-34,-16},{-50,-16},{-50,0},{-52,0}},
+          color={0,0,0},
+          thickness=1,
+          smooth=Smooth.None));
+      connect(liverPortalConductance.q_in, HepaticArtyConductance.q_out)
+        annotation (Line(
+          points={{-52,2.22045e-016},{-50,2.22045e-016},{-50,46},{-20,46}},
+          color={0,0,0},
+          thickness=1,
+          smooth=Smooth.None));
         annotation (Icon(coordinateSystem(preserveAspectRatio=true,  extent={{-100,
                   -100},{100,100}}),
-                               graphics), Diagram(graphics));
+                               graphics), Diagram(coordinateSystem(
+              preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
+                                                  graphics));
       end Liver;
 
       model Kidney
@@ -10138,7 +10149,7 @@ Schema : 2008.0
         annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
                   -100},{100,100}}),
                             graphics),
-        experiment(StopTime=3.1536e+007),
+        experiment(StopTime=864000),
         __Dymola_experimentSetupOutput);
       end CardioVascular_test_SI;
     end IO_Bus;
@@ -16770,6 +16781,8 @@ annotation (Placement(transformation(extent={{16,-70},{22,-64}})));
       Physiolibrary.Blocks.Math.HomotopyStrongComponentBreaker homotopy(
           defaultValue=1, defaultSlope=0.1)
         annotation (Placement(transformation(extent={{82,32},{90,40}})));
+      Physiolibrary.Types.Constants.OneConst one
+        annotation (Placement(transformation(extent={{8,-34},{16,-26}})));
       equation
        // efferentPath.TotalDrive=homotopy(actual=afferentPath.TotalDrive, simplified=1.045922);
 
@@ -16873,8 +16886,8 @@ annotation (Placement(transformation(extent={{16,-70},{22,-64}})));
           points={{75.4,36},{81.2,36}},
           color={0,0,127},
           smooth=Smooth.None));
-      connect(homotopy.y, efferentPath.TotalDrive) annotation (Line(
-          points={{90.4,36},{94,36},{94,10},{34,10},{34,-10},{50.2,-10}},
+      connect(one.y, efferentPath.TotalDrive) annotation (Line(
+          points={{17,-30},{34,-30},{34,-10},{50.2,-10}},
           color={0,0,127},
           smooth=Smooth.None));
         annotation (Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,
@@ -18592,7 +18605,7 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
         annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent=
                 {{-100,-100},{100,100}}),
                             graphics),
-          experiment(StopTime=3600, Tolerance=1e-005),
+          experiment(StopTime=864000, Tolerance=1e-005),
           __Dymola_experimentSetupOutput);
       end Gases_test_SI;
 
@@ -19970,7 +19983,7 @@ To get heat from temperature
 
       connect(flowMeasure.volumeFlowRate, busConnector.GILumenVolume_Absorption)
         annotation (Line(
-          points={{45.6,33},{98,33},{98,90},{-88,90}},
+          points={{46.8,33},{98,33},{98,90},{-88,90}},
           color={0,0,127},
           smooth=Smooth.None), Text(
           string="%second",
@@ -19996,7 +20009,7 @@ To get heat from temperature
             extent={{-6,3},{-6,3}}));
       connect(busConnector.GILumenVolume_Intake, flowMeasure1.volumeFlowRate)
         annotation (Line(
-          points={{-88,90},{-88,-1},{-35.2,-1}},
+          points={{-88,90},{-88,-1},{-36.6,-1}},
           color={0,0,255},
           thickness=0.5,
           smooth=Smooth.None), Text(
@@ -21789,6 +21802,7 @@ QHP 2008 / Peritoneum
       Physiolibrary.Types.Constants.VolumeConst volume(k=0)
         annotation (Placement(transformation(extent={{-66,42},{-58,50}})));
       equation
+        q_in.q=0;
       connect(volume.y, busConnector.ExcessLungWater_Volume) annotation (Line(
           points={{-57,46},{-8,46},{-8,71},{-94,71}},
           color={0,0,127},
@@ -24029,8 +24043,6 @@ skeletalMuscle.FractOrganH2O <> 1, "Water.TissuesVolume.Tissues: Sum of FractOrg
       annotation (Placement(transformation(extent={{73,-16},{93,4}})));
     QHP.Hormones.ADH aDH
       annotation (Placement(transformation(extent={{-11,59},{9,79}})));
-    QHP.Water.WaterCompartments.LungEdema lungEdema
-      annotation (Placement(transformation(extent={{73,18},{93,38}})));
     Physiolibrary.Osmotic.Components.OsmoticCell erythrocytes(
       useImpermeableSolutesInput=true,
       NumberOfMembraneTypes=1,
@@ -24039,6 +24051,8 @@ skeletalMuscle.FractOrganH2O <> 1, "Water.TissuesVolume.Tissues: Sum of FractOrg
     Physiolibrary.Osmotic.Components.Membrane RBCmembrane(cond(displayUnit=
             "ml/(kPa.min)") = 1.6666666666667e-08)
       annotation (Placement(transformation(extent={{-52,20},{-32,40}})));
+    QHP.Water.WaterCompartments.LungEdema_const lungEdema_const
+      annotation (Placement(transformation(extent={{72,14},{92,34}})));
     equation
     //   changePerMin = waterProperties.BodyH2O_Change.y;
     //   stateValue = bodyH2O;
@@ -24210,16 +24224,6 @@ skeletalMuscle.FractOrganH2O <> 1, "Water.TissuesVolume.Tissues: Sum of FractOrg
         color={0,0,255},
         thickness=0.5,
         smooth=Smooth.None));
-    connect(plasma.q_in[1], lungEdema.q_in) annotation (Line(
-        points={{-17,4.5},{68,4.5},{68,32},{83,32}},
-        color={127,127,0},
-        thickness=1,
-        smooth=Smooth.None));
-    connect(lungEdema.busConnector, busConnector) annotation (Line(
-        points={{90,35},{96,35},{96,88},{-89,88},{-89,90}},
-        color={0,0,255},
-        thickness=0.5,
-        smooth=Smooth.None));
     connect(busConnector.ErythrocytesOsmoles, erythrocytes.impermeableSolutes[1])
       annotation (Line(
         points={{-89,90},{-89,35},{-76,35}},
@@ -24238,6 +24242,16 @@ skeletalMuscle.FractOrganH2O <> 1, "Water.TissuesVolume.Tissues: Sum of FractOrg
         points={{-32,30},{-20,30},{-20,64},{-36,64}},
         color={127,127,0},
         thickness=1,
+        smooth=Smooth.None));
+    connect(plasma.q_in[1], lungEdema_const.q_in) annotation (Line(
+        points={{-17,4.5},{68,4.5},{68,25},{82,25},{82,28}},
+        color={127,127,0},
+        thickness=1,
+        smooth=Smooth.None));
+    connect(lungEdema_const.busConnector, busConnector) annotation (Line(
+        points={{89,31},{96,31},{96,90},{-89,90}},
+        color={0,0,255},
+        thickness=0.5,
         smooth=Smooth.None));
       annotation (
     Documentation(info="<HTML>
@@ -25146,8 +25160,8 @@ Total         = 43000
             color={0,0,255},
             thickness=0.5,
             smooth=Smooth.None));
-        annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent=
-                {{-100,-100},{100,100}}),
+        annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
+                -100},{100,100}}),
                             graphics),
         experiment(StopTime=864000),
         __Dymola_experimentSetupOutput);
@@ -26764,7 +26778,7 @@ annotation (Placement(transformation(extent={{-42,64},{-24,82}})));*/
     Physiolibrary.Chemical.Sensors.MolarFlowMeasure flowMeasure
       annotation (Placement(transformation(extent={{50,66},{70,86}})));
     Physiolibrary.Chemical.Sensors.ConcentrationMeasure concentrationMeasure
-      annotation (Placement(transformation(extent={{-76,58},{-56,78}})));
+      annotation (Placement(transformation(extent={{-82,74},{-62,94}})));
       Modelica.Blocks.Math.Add3 YGLS "Ikeda glucose to cells flow"
         annotation (Placement(transformation(extent={{-4,-26},{14,-8}})));
       Electrolytes.Bladder bladder(                      stateVarName=
@@ -26813,7 +26827,7 @@ annotation (Placement(transformation(extent={{-42,64},{-24,82}})));*/
           smooth=Smooth.None));
     connect(busConnector.CD_Glucose_Outflow, flowMeasure.molarFlowRate)
       annotation (Line(
-        points={{-90,10},{60,10},{60,70}},
+        points={{-90,10},{60,10},{60,68}},
         color={0,0,255},
         thickness=0.5,
         smooth=Smooth.None), Text(
@@ -26821,7 +26835,7 @@ annotation (Placement(transformation(extent={{-42,64},{-24,82}})));*/
         index=-1,
         extent={{-6,3},{-6,3}}));
       connect(GlucosePool.q_out, concentrationMeasure.q_in) annotation (Line(
-          points={{-66,56},{-60,56},{-60,66},{-66,66}},
+          points={{-66,56},{-60,56},{-60,84},{-72,84}},
           color={200,0,0},
           thickness=1,
           smooth=Smooth.None));
@@ -26885,7 +26899,7 @@ annotation (Placement(transformation(extent={{-42,64},{-24,82}})));*/
         smooth=Smooth.None));
     connect(busConnector.Glucose, concentrationMeasure.concentration)
       annotation (Line(
-        points={{-90,10},{-100,10},{-100,72},{-66,72}},
+        points={{-90,10},{-100,10},{-100,76},{-72,76}},
         color={0,0,255},
         thickness=0.5,
         smooth=Smooth.None), Text(
@@ -28724,7 +28738,7 @@ annotation (Placement(transformation(extent={{-42,64},{-24,82}})));*/
             color={0,0,127},
             smooth=Smooth.None));
         connect(flowMeasure.molarFlowRate, LactateFromMetabolism) annotation (Line(
-            points={{36,18.8},{36,24},{52,24}},
+            points={{36,20.4},{36,24},{52,24}},
             color={0,0,127},
             smooth=Smooth.None));
         connect(min.y, Fuel_FractUseDelay) annotation (Line(
@@ -28760,7 +28774,7 @@ annotation (Placement(transformation(extent={{-42,64},{-24,82}})));*/
             smooth=Smooth.None));
         connect(lactateDelivery.neededFlow, concentrationMeasure.q_in) annotation (
             Line(
-            points={{-70,37},{-20,37},{-20,14},{20,14}},
+            points={{-70,37},{-20,37},{-20,16},{20,16}},
             color={200,0,0},
             thickness=1,
             smooth=Smooth.None));
@@ -28770,7 +28784,7 @@ annotation (Placement(transformation(extent={{-42,64},{-24,82}})));*/
             thickness=1,
             smooth=Smooth.None));
         connect(concentrationMeasure.concentration, cLactate) annotation (Line(
-            points={{20,20},{20,34},{38,34}},
+            points={{20,8},{20,34},{38,34}},
             color={0,0,127},
             smooth=Smooth.None));
         connect(caloriesConstant.y, Thyroid.yBase) annotation (Line(
@@ -29054,7 +29068,7 @@ annotation (Placement(transformation(extent={{-42,64},{-24,82}})));*/
             smooth=Smooth.None));
         connect(glucoseDelivery.neededFlow, concentrationMeasure3.q_in)
           annotation (Line(
-            points={{-62,-39},{-62,-54},{-8,-54},{-8,-34},{-14,-34}},
+            points={{-62,-39},{-62,-54},{-8,-54},{-8,-32},{-14,-32}},
             color={200,0,0},
             thickness=1,
             smooth=Smooth.None));
@@ -29140,7 +29154,7 @@ annotation (Placement(transformation(extent={{-42,64},{-24,82}})));*/
             smooth=Smooth.None));
         connect(concentrationMeasure3.concentration, GlucoseEffect.u) annotation (
             Line(
-            points={{-14,-28},{-14,-22},{-2,-22}},
+            points={{-14,-40},{-14,-22},{-2,-22}},
             color={0,0,127},
             smooth=Smooth.None));
         connect(GlucoseEffect.y, GlucoseToCellsStorageFlow) annotation (Line(
@@ -29934,7 +29948,7 @@ annotation (Placement(transformation(extent={{-42,64},{-24,82}})));*/
             smooth=Smooth.None));
         connect(glucoseDelivery.neededFlow, concentrationMeasure1.q_in)
           annotation (Line(
-            points={{-62,-39},{-62,-46},{-54,-46}},
+            points={{-62,-39},{-62,-46},{-52,-46}},
             color={200,0,0},
             thickness=1,
             smooth=Smooth.None));
@@ -29950,7 +29964,7 @@ annotation (Placement(transformation(extent={{-42,64},{-24,82}})));*/
             smooth=Smooth.None));
         connect(fattyAcidsDelivery.neededFlow, concentrationMeasure2.q_in)
           annotation (Line(
-            points={{-64,-75},{-64,-82},{-56,-82}},
+            points={{-64,-75},{-64,-82},{-54,-82}},
             color={200,0,0},
             thickness=1,
             smooth=Smooth.None));
@@ -30017,11 +30031,11 @@ annotation (Placement(transformation(extent={{-42,64},{-24,82}})));*/
             smooth=Smooth.None));
         connect(concentrationMeasure1.concentration, PortalVeinGlucose) annotation (
             Line(
-            points={{-48,-46},{-22,-46}},
+            points={{-60,-46},{-22,-46}},
             color={0,0,127},
             smooth=Smooth.None));
         connect(concentrationMeasure2.concentration, PortalVeinFat) annotation (Line(
-            points={{-50,-82},{-20,-82}},
+            points={{-62,-82},{-20,-82}},
             color={0,0,127},
             smooth=Smooth.None));
         annotation (Diagram(coordinateSystem(
@@ -34075,11 +34089,11 @@ annotation (Placement(transformation(extent={{-42,64},{-24,82}})));*/
         thickness=1,
         smooth=Smooth.None));
     connect(molarFlowMeasure.molarFlowRate, add.u2) annotation (Line(
-        points={{34,4},{34,-38.4},{47.2,-38.4}},
+        points={{34,2},{34,-38.4},{47.2,-38.4}},
         color={0,0,127},
         smooth=Smooth.None));
     connect(molarFlowMeasure1.molarFlowRate, add.u1) annotation (Line(
-        points={{84,-30},{42,-30},{42,-33.6},{47.2,-33.6}},
+        points={{82,-30},{42,-30},{42,-33.6},{47.2,-33.6}},
         color={0,0,127},
         smooth=Smooth.None));
     connect(add.y, busConnector.Glucose_TotalBurn) annotation (Line(
@@ -36570,17 +36584,17 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
         index=-1,
         extent={{-6,3},{-6,3}}));
       connect(concentrationMeasure1.concentration, Insulin) annotation (Line(
-          points={{-84,6},{-84,10},{-90,10},{-90,-60},{-78,-60}},
+          points={{-84,-6},{-84,10},{-90,10},{-90,-60},{-78,-60}},
           color={0,0,127},
           smooth=Smooth.None));
       connect(InsulinPool.q_out, concentrationMeasure1.q_in) annotation (Line(
-          points={{-76,-16},{-80,-16},{-80,0},{-84,0}},
+          points={{-76,-16},{-80,-16},{-80,2},{-84,2}},
           color={200,0,0},
           thickness=1,
           smooth=Smooth.None));
       connect(concentrationMeasure1.concentration, busConnector.Insulin)
         annotation (Line(
-          points={{-84,6},{-84,40},{-98,40}},
+          points={{-84,-6},{-84,40},{-98,40}},
           color={0,0,127},
           smooth=Smooth.None), Text(
           string="%second",
@@ -36759,17 +36773,17 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
           color={0,0,127},
           smooth=Smooth.None));
       connect(GlucagonPool.q_out, concentrationMeasure.q_in) annotation (Line(
-          points={{-56,-6},{-54,-6},{-54,6},{-60,6}},
+          points={{-56,-6},{-54,-6},{-54,8},{-60,8}},
           color={200,0,0},
           thickness=1,
           smooth=Smooth.None));
       connect(concentrationMeasure.concentration, Glucagon) annotation (Line(
-          points={{-60,12},{-80,12},{-80,-50},{-68,-50}},
+          points={{-60,0},{-80,0},{-80,-50},{-68,-50}},
           color={0,0,127},
           smooth=Smooth.None));
       connect(busConnector.Glucagon_conc, concentrationMeasure.concentration)
         annotation (Line(
-          points={{-88,78},{-88,12},{-60,12}},
+          points={{-88,78},{-88,0},{-60,0}},
           color={0,0,255},
           thickness=0.5,
           smooth=Smooth.None), Text(
@@ -69989,7 +70003,7 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
   end Status;
 
 
-  annotation (uses(Modelica(version="3.2.1"), Physiolibrary(version="2.3.0")),                           Documentation(revisions="<html>
+  annotation (uses(Modelica(version="3.2.1"), Physiolibrary(version="2.3.1alpha")),                           Documentation(revisions="<html>
 <table cellspacing=\"2\" cellpadding=\"0\" border=\"0\"><tr>
 <td><p>Author:</p></td>
 <td><p>Marek Matejak</p></td>
