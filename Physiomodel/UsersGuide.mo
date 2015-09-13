@@ -3578,9 +3578,9 @@ Czech Republic
     <tr>
       <td valign=\"top\">1.0.0</td>
       <td valign=\"top\"></td>
-      <td valign=\"top\">2014-10-31</td>
+      <td valign=\"top\">2015-09-15</td>
       <td valign=\"top\">M. Matejak</td>
-      <td valign=\"top\">Initial version based on <a href=\"htp://www.physiolibrary.org\">Physiolibrary 2.2.1</a></td>
+      <td valign=\"top\">Initial version based on <a href=\"htp://www.physiolibrary.org\">Physiolibrary 2.3.1</a></td>
     </tr>
     
 </table>
