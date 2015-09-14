@@ -1,0 +1,351 @@
+A2Pool.Log10Conc;Decimal logarithm of angiotensin 2 extracelular concentration.
+ADHPool.[ADH];Vasopressin extracellular concentration.
+ADHPool.Log10Conc;Decimal logarithm of vasopressin concentration.
+AdrenalNerve.NA;Nerve activity of adrenal nerve.
+AirSupply-InspiredAir.Pressure;Air pressure.
+AldoPool.[Aldo(nG/dL)];Body aldosterone concentration.
+AldoPool.[Aldo(pMol/L)];Body aldosterone concentration.
+AlphaBlockade.Effect;Effect of alpha blocators.
+AlphaPool.Effect;Humoral and neural effect on alpha receptor stimulation.
+Anesthesia.TidalVolume;Anesthesia gas tidal volume.
+Anesthesia.VascularConductance;Anesthesia tension effect on vascular conductance in some tissues.
+ANPPool.Log10Conc;Decimal logarithm of atrial natriuretic peptide concentration.
+ArtysVol.Vol;Volume of oxygenated blood in body.
+Barometer.Pressure;Ambient environment pressure.
+BetaBlockade.Effect;Effect of beta blocators.
+BetaPool.Effect;Humoral and neural effect on beta receptor stimulation.
+BladderVolume.Mass;Urine volume in bladder.
+BladderVoidFlow;Urination flow.
+BloodIons.Cations;Sum of all cations concentrations in blood.
+BloodIons.Protein;concentration of nonbicarbonate buffers in anion forms.
+BloodPh.ArtysPh;Acidity (pH) of arterial blood.
+BloodPh.ArtysPh;Acidity (pH) of arterial blood.
+BloodVol.Hct;Heamatocrit = red cells / blood.
+BloodVol.PVCrit;Plasma volume fraction = plasma / blood.
+BodyH2O.Vol;Body water volume.
+Bone-CO2.OutflowBase;Bone carbondioxyde outflow from cells metabolism.
+Bone-Flow.BloodFlow;Bone blood flow.
+Bone-Flow.O2Use;Bone oxygen consumption.
+Bone-Flow.PO2;Partial oxygen pressure in bone blood venules.
+Bone-Fuel.FractUseDelay;Bone deficiency of nutrients needed by cells metabolism.
+Bone-Lactate.[Lac-(mEq/L)];Bone intracellular lactate concentration.
+Bone-Lactate.Outflux;Lactate flow from bone cells.
+Bone-Ph.Ph;Acidity (pH) in bone cells.
+Bone-Size.IFV;Bone interstitial water volume.
+Bone-Size.LiquidVol;Bone water volume = sum of bone interstitial and bone intracellular water.
+Bone-Structure.Effect;Bone tissue structural damage effect.
+Brain-CO2.OutflowBase;Brain carbondioxyde outflow from cells metabolism.
+Brain-CO2.PCO2;Partial carbondioxyde pressure in brain venules.
+Brain-Flow.BloodFlow;Brain blood flow.
+Brain-Flow.O2Use;Brain oxygen consumption.
+Brain-Flow.PO2;Partial oxygen pressure in brain blood venules.
+Brain-Fuel.FractUseDelay;Brain deficiency of nutrients needed by cells metabolism.
+Brain-Function.Effect;Brain tissue function effect.
+Brain-Lactate.[Lac-(mEq/L)];Brain intracellular lactate concentration.
+Brain-Lactate.Outflux;Lactate flow from brain cells.
+Brain-Ph.Ph;Acidity (pH) in brain cells.
+Brain-Size.IFV;Brain interstitial water volume.
+Brain-Size.LiquidVol;Brain water volume = sum of brain interstitial and brain intracellular water.
+Brain-Structure.Effect;Brain tissue structural damage effect.
+Breathing.TotalVentilation;Gas exchange rate through perfused alveoli.
+CardiacOutput.Flow;Cardiac output.
+Hydrostatics.CarotidCM;Height of carotid sinus above heart level.
+CarotidSinus.Pressure;Mean blood pressure in carotid sinus artery.
+CD_Glucose.Outflow;Collecting duct glucose outflow to urine.
+CD_H2O.Outflow;Collecting duct water outflow to urine.
+CD_H2O.Reab;Collecting duct water reabsorbtion.
+CD_K.Outflow;Collecting duct potassium outflow to urine.
+CD_KA.Outflow;Collecting duct keto-acids outflow to urine.
+CD_Na.Outflow;Collecting duct sodium outflow to urine.
+CD_NH4.Outflow;Collecting duct amonia ions outflow to urine.
+CD_PO4.Outflow;Collecting duct phosphates outflow to urine.
+cDPG;Blood 2,3-diphosphoglycerate concentration.
+CellH2O.Vol;Intracellular water volume.
+CellProtein.Mass;Weight of all cellular proteins.
+CO2Total.Inflow;Sum of carbondioxyde inflows from all tissues metabolism.
+CO2Total.Outflow;Actual total carbondioxyde outflow through lungs.
+CO2Veins.[HCO3(mEq/L)];Bicarbonate concentration in mixed venous blood.
+ctAlb;Blood molar albumin concentration.
+ctGlb;Blood globolins concentration.
+ctHb;Hemoglobin concentration in blood.
+ctHb_ery;Hemoglobin concentration in erythrocytes.
+DialyzerActivity.Cl-Flux;Outflow of chloride ions through dialyzer.
+DialyzerActivity.K+Flux;Outflow of potassium ions through dialyzer.
+DialyzerActivity.Na+Flux;Outflow of sodium ions through dialyzer.
+DietGoalH2O.DegK;Temperature of water in diet (consumed oraly).
+DietIntakeElectrolytes.Cl-_mEq/Min;Intake of chlorides through GIT.
+DietIntakeElectrolytes.K+_mEq/Min;Intake of potassium through GIT.
+DietIntakeElectrolytes.Na+_mEq/Min;Intake of sodium through GIT.
+DietIntakeElectrolytes.PO4--mEq/Min;Intake of phosphates through GIT.
+DietIntakeElectrolytes.SO4--mEq/Min;Intake of sulphates through GIT.
+DT_AldosteroneEffect;Aldosterone effect to distal tubule reabsorbtion.
+DT_Na.Outflow;Distal tubule sodium outflow.
+DT_Na.Reab;Distal tubule sodium reabsorbtion.
+ECFV.Vol;Extracellular fluid volume.
+EpiPool.[Epi(pG/mL)];Epinephrine extracelular concentration.
+EPOPool.Log10Conc;Dacimal logarithm of erythropoetin concentration.
+ExcessLungWater.Volume;Pulmonary edema water.
+Exercise-Metabolism.ContractionRate;Rate of muscle contraction through excercise.
+Exercise-Metabolism.MotionCals;Calories consumed with exercise.
+Exercise-Metabolism.MotionWatts;Mechanical performance of excercise.
+Exercise-Metabolism.TotalWatts;Termodynamical performance of excercise.
+Exercise-MusclePump.Effect;Excercise effect to blood flow through veins with valves.
+Fat-CO2.OutflowBase;Fat carbondioxyde outflow from cells metabolism.
+Fat-Flow.BloodFlow;Fat blood flow.
+Fat-Flow.O2Use;Fat oxygen consumption.
+Fat-Flow.PO2;Partial oxygen pressure in fat blood venules.
+Fat-Fuel.FractUseDelay;Fat deficiency of nutrients needed by cells metabolism.
+Fat-Function.Effect;Fat tissue function effect.
+Fat-Lactate.[Lac-(mEq/L)];Fat intracellular lactate concentration.
+Fat-Lactate.Outflux;Lactate flow from fat cells.
+Fat-Ph.Ph;Acidity (pH) in fat cells.
+Fat-Size.IFV;Fat interstitial water volume.
+Fat-Size.LiquidVol;Fat water volume = sum of fat interstitial and fat intracellular water.
+Fat-Structure.Effect;Fat tissue structural damage effect.
+FHbF;Fetal heamoglobin fraction.
+FMetHb;Methemoglobin fraction.
+FurosemidePool.[Furosemide];Furosemide extracellular concentration.
+FurosemidePool.Loss;Furosemide outflow from body.
+GangliaGeneral.NA(Hz);Neural activity of autonomous sympathetic nervous system.
+GangliaKidney.NA(Hz);Sympathetis kidney ganglia neural activity.
+GILumenDiarrhea.K+Loss;Outflow of potassium by diarrhea.
+GILumenDiarrhea.Na+Loss;Outflow of sodium by diarrhea.
+GILumenPotassium.Mass;Potasium mass in intestines.
+GILumenSodium.Mass;Sodium mass in intestines.
+GILumenVolume.Absorption;Water absorbtion through intestines.
+GILumenVolume.Intake;Water intake to intestines.
+GILumenVolume.Mass;Water in intestines.
+GILumenVomitus.Cl-Loss;Chloride outflow by vomitus.
+GITract-CO2.OutflowBase;GITract carbondioxyde outflow from cells metabolism.
+GITract-Flow.BloodFlow;GITract blood flow.
+GITract-Flow.O2Use;GITract oxygen consumption.
+GITract-Flow.PO2;Partial oxygen pressure in gITract blood venules.
+GITract-Fuel.FractUseDelay;GITract deficiency of nutrients needed by cells metabolism.
+GITract-Function.Effect;GITract tissue function effect.
+GITract-Lactate.[Lac-(mEq/L)];GITract intracellular lactate concentration.
+GITract-Lactate.Outflux;Lactate flow from gITract cells.
+GITract-Ph.Ph;Acidity (pH) in gITract cells.
+GITract-Size.IFV;GITract interstitial water volume.
+GITract-Size.LiquidVol;GITract water volume = sum of gITract interstitial and gITract intracellular water.
+GITract-Structure.Effect;GITract tissue structural damage effect.
+GlomerulusFiltrate.GFR;Glomerulus filtration rate.
+GlomerulusFiltrate.Pressure;Blood pressure in glomerulus capilaries.
+GlucagonPool.[Glucagon];Extracellular glucagon concentration.
+GlucosePool.[Glucose(mG/dL)];Extracellular glucose concentration.
+GlucosePool.Osmoles;Extracellular glucose osmolarity.
+Gravity.Gz;Earth gravity fraction.
+Heart-Ventricles.Rate;Heart rate.
+HeatCore.Temp(C);Core body temperature.
+HeatInsensibleLung.H2O;Vaporized water outflow by breathing.
+HeatInsensibleSkin.H2O;Vaporized water outflow from skin.
+HeatSkeletalMuscle.Temp(C);Skeletal muscle temperature.
+HeatSkin.Temp(C);Skin temperature.
+Hemorrhage.ClRate;Chloride outflow by hemorrhage.
+Hemorrhage.KRate;Potassium outflow by hemorrhage.
+Hemorrhage.NaRate;Sodium outflow by hemorrhage.
+Hemorrhage.PlasmaRate;Plasma outflow by hemorrhage.
+Hemorrhage.ProteinRate;Protein outflow by hemorrhage.
+Hemorrhage.RBCRate;Erythrocytes outflow by hemorrhage.
+HepaticArty.Flow;Hepatic artery blood flow.
+Hydrostatics.LowerTorsoCM;Mean height of lower torso arteries below heart.
+Hydrostatics.LowerTorsoCM;Mean height of lower torso veins below heart.
+HypothalamusShivering.NerveActivity;Hypothalamus shivering nerve activity.
+HypothalamusSkinFlow.NerveActivity;Hypothalamus nerve activity affecting skin blood flow.
+ICFV.Vol;Intracellular water volume.
+InsulinPool.[Insulin];Insulin extracellular concentration.
+IVDrip.ClRate;Intravenous chloride intake.
+IVDrip.H2ORate;Intravenous water intake.
+IVDrip.KRate;Intravenous potassium intake.
+IVDrip.NaRate;Intravenous sodium intake.
+KAPool.[KA];Extracellular keto-acids concentration.
+KAPool.Change;Change of keto-acids extracellular mass.
+KAPool.Osmoles;Keto-acids extracellular osmolarity.
+KCell.[K+(mEq/L)];Intracellular potassium concentration.
+Kidney-Alpha.NA;1
+Kidney-Alpha.PT_NA;1
+Kidney-CO2.OutflowBase;Kidney carbondioxyde outflow from cells metabolism.
+Kidney-Flow.BloodFlow;Kidney blood flow.
+Kidney-Flow.PlasmaFlow;Kidney plasma flow.
+Kidney-Fuel.FractUseDelay;Kidney deficiency of nutrients needed by cells metabolism.
+Kidney-Function.Effect;Kidney tissue function effect.
+Kidney-Lactate.[Lac-(mEq/L)];Kidney intracellular lactate concentration.
+Kidney-Lactate.Outflux;Lactate flow from kidney cells.
+Kidney-NephronCount.Filtering(xNormal);Fraction of nephron filtering.
+Kidney-NephronCount.Total(xNormal);Fraction of nephron count.
+Kidney-O2.O2Use;Kidney O2 consumption.
+Kidney-O2.TubulePO2;Kidney tubule partial O2 pressure. 
+Kidney-O2.VeinPO2;Kidney vein partial O2 pressure.
+Kidney-Ph.Ph;Acidity (pH) in kidney cells.
+Kidney-Size.IFV;Kidney interstitial water volume.
+Kidney-Size.LiquidVol;Kidney water volume = sum of kidney interstitial and kidney intracellular water.
+Kidney-Structure.Effect;Kidney tissue structural damage effect.
+KPool.[K+(mEq/L)];Potassium extracellular concentration.
+LacPool.[Lac-(mEq/L)];Lactate extracellular concentration.
+LacPool.Change;Change of extracellular lactate mass.
+LacPool.Mass;Extracellular lactate mass.
+LeftAtrium.TMP;Left atrium pressure gradient between inside and pericardium.
+LeftHeart-CO2.OutflowBase;LeftHeart carbondioxyde outflow from cells metabolism.
+LeftHeart-Flow.BloodFlow;LeftHeart blood flow.
+LeftHeart-Flow.O2Use;LeftHeart oxygen consumption.
+LeftHeart-Flow.PO2;Partial oxygen pressure in leftHeart blood venules.
+LeftHeart-Fuel.FractUseDelay;LeftHeart deficiency of nutrients needed by cells metabolism.
+LeftHeart-Lactate.[Lac-(mEq/L)];LeftHeart intracellular lactate concentration.
+LeftHeart-Lactate.Outflux;Lactate flow from leftHeart cells.
+LeftHeart-Metabolism.O2Need;Oxygen needed to be consumed by left heart cells if only aerobic metabolism is running.
+LeftHeart-Ph.Ph;Acidity (pH) in leftHeart cells.
+LeftHeart-Size.IFV;LeftHeart interstitial water volume.
+LeftHeart-Size.LiquidVol;LeftHeart water volume = sum of leftHeart interstitial and leftHeart intracellular water.
+LeftHeart-Structure.Effect;LeftHeart tissue structural damage effect.
+LegMusclePump.Effect;Effect to blood flow through veins with valves without exercise.
+LeptinPool.[Leptin(nG/mL)];Leptin extracellular concentration.
+LH_H2O.Outflow;Water outflow from loop of Henle to distal tubule.
+LH_Na.FractReab;Sodium reabsorbtion fraction (=reabsorbed/inflowed) in loop of Henle.
+LH_Na.Reab;Sodium reabsorbtion in loop of Henle.
+LipidDeposits.Mass;Mass of lipids in fat cells.
+Liver-CO2.OutflowBase;Liver carbondioxyde outflow from cells metabolism.
+Liver-Fuel.FractUseDelay;Liver deficiency of nutrients needed by cells metabolism.
+Liver-Fuel.GlucoseToCellStorageFlow;Rate of glucose storing in liver cells glycogen.
+Liver-Function.Effect;Liver tissue function effect.
+Liver-Lactate.[Lac-(mEq/L)];Liver intracellular lactate concentration.
+Liver-Lactate.Outflux;Lactate flow from liver cells.
+Liver-O2.O2Use;Oxygen comsuption by liver.
+Liver-O2.PO2;Partial oxygen pressure in hepatic vein.
+Liver-Ph.Ph;Acidity (pH) in liver cells.
+Liver-Size.IFV;Liver interstitial water volume.
+Liver-Size.LiquidVol;Liver water volume = sum of liver interstitial and liver intracellular water.
+Liver-Structure.Effect;Liver tissue structural damage effect.
+LM_Glycogen.Gain;Liver glycogen gain from glucose.
+LM_Insulin.[InsulinDelayed];Insulin concentration delayed in liver.
+LT_InterstitialProtein.Mass;Lower torso interstitial protein mass.
+LT_InterstitialWater.Vol;Lower torso interstitial water.
+LT_LymphWater.Rate;Flow of lymph water from lower torso.
+LungBloodFlow.AlveolarVentilated;Blood flow through ventilated alveoli.
+MD_Na.[Na+(mEq/L)];Kidney nephron - Maculla densa sodium concentration.
+Medulla.Volume;Kidney medulla interstitial water volume.
+MedullaNa.[Na+(mEq/L)];Kidney medulla interstitial sodium concentration.
+MedullaNa.Osmolarity;Kidney medulla interstitial sodium osmolarity.
+MedullaUrea.Osmolarity;Kidney medulla interstitial urea osmolarity.
+MetabolicH2O.Rate;Water synthesis in metabolism.
+MT_InterstitialProtein.Mass;Middle torso interstitional proteins.
+MT_InterstitialWater.Vol;Middle torso interstitional water.
+MT_LymphWater.Rate;Middle torso lymph flow.
+NephronADH.[ADH];Nephron vasopresine concentration.
+NephronAldo.[Aldo(nG/dL)];Nephrone aldosterone concentration.
+NephronANP.Log10Conc;Decimal logarithm of nephrone atrial natriuretic peptide concentration.
+O2Total.Inflow;Actual total oxygen inflow through lungs.
+O2Total.Outflow;Sum of oxygen outflows to all tissues metabolism.
+OrganFlow.HepaticVeinFlow;Hepatic vein flow.
+OsmBody.[Osm]-Osmoreceptors;Osmolarity in hypothalamic osmoreceptors.
+OsmCell.Electrolytes;Intracellular electrolites osmoles.
+OsmECFV.Electrolytes;Extracellular electrolites osmoles.
+OtherTissue-CO2.OutflowBase;OtherTissue carbondioxyde outflow from cells metabolism.
+OtherTissue-Flow.BloodFlow;OtherTissue blood flow.
+OtherTissue-Flow.O2Use;OtherTissue oxygen consumption.
+OtherTissue-Flow.PO2;Partial oxygen pressure in otherTissue blood venules.
+OtherTissue-Fuel.FractUseDelay;OtherTissue deficiency of nutrients needed by cells metabolism.
+OtherTissue-Function.Effect;OtherTissue tissue function effect.
+OtherTissue-Lactate.[Lac-(mEq/L)];OtherTissue intracellular lactate concentration.
+OtherTissue-Lactate.Outflux;Lactate flow from otherTissue cells.
+OtherTissue-Ph.Ph;Acidity (pH) in otherTissue cells.
+OtherTissue-Size.IFV;OtherTissue interstitial water volume.
+OtherTissue-Size.LiquidVol;OtherTissue water volume = sum of otherTissue interstitial and otherTissue intracellular water.
+OtherTissue-Structure.Effect;OtherTissue tissue structural damage effect.
+pCO;Partial pressure of carbonmonoxyde.
+Pericardium-Cavity.Pressure;Pericardium cavity pressure.
+PeritoneumSpace.Gain;Water inflow to pericardium interstitial space.
+PeritoneumSpace.Loss;Water outflow from pericardium interstitial space.
+PeritoneumSpace.Volume;Water in pericardium interstitial space.
+PlasmaProtein.Mass;Plasma proteins.
+PlasmaVol.Vol;Plasma volume.
+PO4Pool.[PO4--(mEq/L)];Extracellular phosphates concentration.
+PortalVein.BloodFlow;Portal vein blood flow.
+PortalVein.PlasmaFlow;Portal vein plasma flow.
+PortalVein-Glucagon.[Glucagon];Glucagon portal vein concentration.
+PortalVein-Insulin.[Insulin];Insulin portal vein concentration.
+PT_Na.FractReab;Proximal tubule sodium reabsorbtion fraction (=reabsorbed/inflowed).
+PT_Na.Reab;Proximal tubule sodium reabsorbtion.
+PulmCapys.Pressure;Blood pressure in pulmonary capylaries.
+RBCH2O.Vol;Intracellular water in erythrocytes.
+RespiratoryCenter-Output.MotorNerveActivity;Neural activity from respiratory center to respiratory muscle.
+RespiratoryCenter-Output.Rate;Respiration rate.
+RespiratoryMuscle-CO2.OutflowBase;RespiratoryMuscle carbondioxyde outflow from cells metabolism.
+RespiratoryMuscle-Flow.BloodFlow;RespiratoryMuscle blood flow.
+RespiratoryMuscle-Flow.O2Use;RespiratoryMuscle oxygen consumption.
+RespiratoryMuscle-Flow.PO2;Partial oxygen pressure in respiratoryMuscle blood venules.
+RespiratoryMuscle-Fuel.FractUseDelay;RespiratoryMuscle deficiency of nutrients needed by cells metabolism.
+RespiratoryMuscle-Function.Effect;RespiratoryMuscle tissue function effect.
+RespiratoryMuscle-Glycogen.Synthesis;Glycogen synthesis in skeletal muscle cells of respiratory muscles.
+RespiratoryMuscle-Lactate.[Lac-(mEq/L)];RespiratoryMuscle intracellular lactate concentration.
+RespiratoryMuscle-Lactate.Outflux;Lactate flow from respiratoryMuscle cells.
+RespiratoryMuscle-Metabolism.O2Need;Oxygen needed to be consumed by respiratory muscle cells if only aerobic metabolism is running.
+RespiratoryMuscle-Ph.Ph;Acidity (pH) in respiratoryMuscle cells.
+RespiratoryMuscle-Size.IFV;RespiratoryMuscle interstitial water volume.
+RespiratoryMuscle-Size.LiquidVol;RespiratoryMuscle water volume = sum of respiratoryMuscle interstitial and respiratoryMuscle intracellular water.
+RespiratoryMuscle-Structure.Effect;RespiratoryMuscle tissue structural damage effect.
+RightAtrium.Pressure;Blood pressure in right atrium.
+RightAtrium.TMP;Right atrium pressure gradient between inside and pericardium.
+RightHeart-CO2.OutflowBase;RightHeart carbondioxyde outflow from cells metabolism.
+RightHeart-Flow.BloodFlow;RightHeart blood flow.
+RightHeart-Flow.O2Use;RightHeart oxygen consumption.
+RightHeart-Flow.PO2;Partial oxygen pressure in rightHeart blood venules.
+RightHeart-Fuel.FractUseDelay;RightHeart deficiency of nutrients needed by cells metabolism.
+RightHeart-Lactate.[Lac-(mEq/L)];RightHeart intracellular lactate concentration.
+RightHeart-Lactate.Outflux;Lactate flow from rightHeart cells.
+RightHeart-Ph.Ph;Acidity (pH) in rightHeart cells.
+RightHeart-Size.IFV;RightHeart interstitial water volume.
+RightHeart-Size.LiquidVol;RightHeart water volume = sum of rightHeart interstitial and rightHeart intracellular water.
+RightHeart-Structure.Effect;RightHeart tissue structural damage effect.
+SkeletalMuscle-CO2.OutflowBase;SkeletalMuscle carbondioxyde outflow from cells metabolism.
+SkeletalMuscle-Flow.BloodFlow;SkeletalMuscle blood flow.
+SkeletalMuscle-Flow.O2Use;SkeletalMuscle oxygen consumption.
+SkeletalMuscle-Flow.PO2;Partial oxygen pressure in skeletalMuscle blood venules.
+SkeletalMuscle-Fuel.FractUseDelay;SkeletalMuscle deficiency of nutrients needed by cells metabolism.
+SkeletalMuscle-Glycogen.Synthesis;Skeletal muscle glycogen synthesis rate.
+SkeletalMuscle-Lactate.[Lac-(mEq/L)];SkeletalMuscle intracellular lactate concentration.
+SkeletalMuscle-Lactate.Outflux;Lactate flow from skeletalMuscle cells.
+SkeletalMuscle-Metabolism.O2Need;Oxygen needed to be consumed by skeletal muscle cells if only aerobic metabolism is running.
+SkeletalMuscle-Ph.Ph;Acidity (pH) in skeletalMuscle cells.
+SkeletalMuscle-Size.IFV;SkeletalMuscle interstitial water volume.
+SkeletalMuscle-Size.LiquidVol;SkeletalMuscle water volume = sum of skeletalMuscle interstitial and skeletalMuscle intracellular water.
+SkeletalMuscle-Size.Mass;Weight of skeletal muscle tissues.
+SkeletalMuscle-Structure.Effect;SkeletalMuscle tissue structural damage effect.
+Skin-CO2.OutflowBase;Skin carbondioxyde outflow from cells metabolism.
+Skin-Flow.BloodFlow;Skin blood flow.
+Skin-Flow.O2Use;Skin oxygen consumption.
+Skin-Flow.PO2;Partial oxygen pressure in skin blood venules.
+Skin-Fuel.FractUseDelay;Skin deficiency of nutrients needed by cells metabolism.
+Skin-Lactate.[Lac-(mEq/L)];Skin intracellular lactate concentration.
+Skin-Lactate.Outflux;Lactate flow from skin cells.
+Skin-Ph.Ph;Acidity (pH) in skin cells.
+Skin-Size.IFV;Skin interstitial water volume.
+Skin-Size.LiquidVol;Skin water volume = sum of skin interstitial and skin intracellular water.
+Skin-Size.Mass;Weight of skin.
+Skin-Structure.Effect;Skin tissue structural damage effect.
+SplanchnicVeins.Pressure;Splanchnic (=portal vein) veins blood pressure.
+SplanchnicVeins.Vol;Splanchnic (=portal vein and venules) veins blood volume.
+Status.Posture;Posture of body (0..NONE, 1..LYING, 2..SITTING, 3..STANDING, 4..TILTED).
+SweatDuct.ClOutflow;Chloride outflow through sweat ducts.
+SweatDuct.H2OOutflow;Water outflow through sweat ducts.
+SweatDuct.KOutflow;Potassium outflow through sweat ducts.
+SweatDuct.NaOutflow;Sodium outflow through sweat ducts.
+SympsCNS.PituitaryNA;Sympathetis pituitary nerve activity.
+SystemicArtys.Pressure;Mean systemic arteries blood pressure.
+ThiazidePool.[Thiazide];Tiazide extracellular conentration.
+Thorax.AvePressure;Intrathorax pressure.
+Thorax.LungInflation;Lungs inflation fraction.
+Thyroid.Effect;Triiodothyronine  and thyroxine effect to metabolism.
+Transfusion.ClRate;Chloride intake by transfusion.
+Transfusion.KRate;Potassium intake by transfusion.
+Transfusion.NaRate;Sodium intake by transfusion.
+Transfusion.PlasmaRate;Plasma intake by transfusion.
+Transfusion.ProteinRate;Protein intake by transfusion.
+Transfusion.RBCRate;Erythrocytes intake by transfusion.
+UreaCell.Osmoles;Intracellular urea osmoles.
+UreaPool.Osmoles;Extracellular urea osmoles.
+Urine_pH;Acidity (pH) of urine.
+UT_InterstitialProtein.Mass;Upper tissue interstitial protein.
+UT_InterstitialWater.Vol;Upper tissue interstitial water.
+UT_LymphWater.Rate;Upper tissue lypmh outflow.
+VasaRecta.Outflow;Kidney vasa recta blood outflow to kidney veins.
+VeinsVol.Vol;Volume of deoxygenated blood in body.
+Weight.Core;Weight of whole body.

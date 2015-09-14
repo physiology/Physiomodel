@@ -1,0 +1,9 @@
+HumMod.mo;Main model.
+signalNames.csv;Signal mapping from "HumMod Golem Edition" to "HumMod v1.5".
+signalDescription.csv;Short description of signals.
+signalDataType.csv;Non-Real signal data type: Boolean, Integer, Enumeration-"enumeration type name"
+signalInitialValues.csv;Initial values for Parameter and State signals. Could be calculated by identification.
+signalUnits.csv;Physical units of signals.
+signalCategory.csv;Signal category: State, Derivation, Input, Output, Parameter, Other
+signalClass.csv;Physiological class of signal: CVS, Water, Gases, Metabolism, Proteins, Electrolytes, Hormones, Nerves, Status, Setup
+enumerationTypes.csv;Values and its descriptions of enumeration types.

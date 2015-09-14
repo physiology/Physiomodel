@@ -14,9 +14,6 @@ model Physiomodel_Main "Main model"
     annotation (Placement(transformation(extent={{40,12},{60,32}})));
   Physiomodel.Nerves.Nerves       nerves
     annotation (Placement(transformation(extent={{74,44},{94,64}})));
-  Physiomodel.Setup.IO_Bus.InputFromFile
-                                    setup
-    annotation (Placement(transformation(extent={{-10,-92},{10,-72}})));
   Physiomodel.Water.Water water
     annotation (Placement(transformation(extent={{-86,0},{-66,20}})));
   Physiomodel.Proteins.Proteins
@@ -33,57 +30,60 @@ model Physiomodel_Main "Main model"
     annotation (Placement(transformation(extent={{-76,-60},{-56,-40}})));
   Physiomodel.Heat.Heat2 heat
     annotation (Placement(transformation(extent={{-28,36},{-48,56}})));
+  Physiolibrary.Types.BusConnector busConnector
+    annotation (Placement(transformation(extent={{-34,64},{6,104}})));
 equation
 
-  connect(setup.busConnector, hormones.busConnector) annotation (Line(
-      points={{0,-82},{0,27.9},{43.9,27.9}},
+  connect(status.busConnector, busConnector) annotation (Line(
+      points={{43.2,-54.8},{7.6,-54.8},{7.6,84},{-14,84}},
+      color={0,0,255},
+      thickness=0.5,
+      smooth=Smooth.None), Text(
+      string="%second",
+      index=1,
+      extent={{6,3},{6,3}}));
+  connect(busConnector, gases.busConnector) annotation (Line(
+      points={{-14,84},{8,84},{8,-42},{-58,-42}},
       color={0,0,255},
       thickness=0.5,
       smooth=Smooth.None));
-  connect(setup.busConnector, proteins.busConnector) annotation (Line(
-      points={{0,-82},{0,-3.7},{-31.7,-3.7}},
+  connect(nutrientsAndMetabolism.busConnector, busConnector) annotation (Line(
+      points={{-72,84},{-14,84}},
       color={0,0,255},
       thickness=0.5,
       smooth=Smooth.None));
-  connect(setup.busConnector, cardioVascularSystem.busConnector)
-                                                annotation (Line(
-      points={{0,-82},{0,93.8},{60,93.8}},
+  connect(cardioVascularSystem.busConnector, busConnector) annotation (Line(
+      points={{60,93.8},{8,93.8},{8,84},{-14,84}},
       color={0,0,255},
       thickness=0.5,
       smooth=Smooth.None));
-  connect(setup.busConnector, nutrientsAndMetabolism.busConnector)
-    annotation (Line(
-      points={{0,-82},{0,84},{-72,84}},
+  connect(heat.busConnector, busConnector) annotation (Line(
+      points={{-28.6,55.6},{8,55.6},{8,84},{-14,84}},
       color={0,0,255},
       thickness=0.5,
       smooth=Smooth.None));
-  connect(setup.busConnector, water.busConnector) annotation (Line(
-      points={{0,-82},{0,17},{-69,17}},
+  connect(nerves.busConnector, busConnector) annotation (Line(
+      points={{76.2,61.6},{8,61.6},{8,84},{-14,84}},
       color={0,0,255},
       thickness=0.5,
       smooth=Smooth.None));
-  connect(setup.busConnector, nerves.busConnector) annotation (Line(
-      points={{0,-82},{0,61.6},{76.2,61.6}},
+  connect(water.busConnector, busConnector) annotation (Line(
+      points={{-69,17},{8,17},{8,84},{-14,84}},
       color={0,0,255},
       thickness=0.5,
       smooth=Smooth.None));
-  connect(status.busConnector, setup.busConnector)         annotation (Line(
-      points={{43.2,-54.8},{0,-54.8},{0,-82}},
+  connect(hormones.busConnector, busConnector) annotation (Line(
+      points={{43.9,27.9},{8,27.9},{8,84},{-14,84}},
       color={0,0,255},
       thickness=0.5,
       smooth=Smooth.None));
-  connect(electrolytes.busConnector, setup.busConnector) annotation (Line(
-      points={{74,-14},{0,-14},{0,-82}},
+  connect(electrolytes.busConnector, gases.busConnector) annotation (Line(
+      points={{74,-14},{8,-14},{8,-42},{-58,-42}},
       color={0,0,255},
       thickness=0.5,
       smooth=Smooth.None));
-  connect(gases.busConnector, setup.busConnector) annotation (Line(
-      points={{-58,-42},{0,-42},{0,-82}},
-      color={0,0,255},
-      thickness=0.5,
-      smooth=Smooth.None));
-  connect(heat.busConnector, setup.busConnector) annotation (Line(
-      points={{-28.6,55.6},{0,55.6},{0,-82}},
+  connect(proteins.busConnector, gases.busConnector) annotation (Line(
+      points={{-31.7,-3.7},{8,-4},{8,-42},{-58,-42}},
       color={0,0,255},
       thickness=0.5,
       smooth=Smooth.None));
@@ -107,26 +107,23 @@ equation
 </tr>
 <tr>
 <td><p>Date of:</p></td>
-<td><p>2008-2014</p></td>
+<td><p>2008-2015</p></td>
 </tr>
 <tr>
 <td><p>References:</p></td>
-<td><p>Tom Coleman: QHP 2008 beta 3, University of Mississippi Medical Center</p></td>
+<td><p>Tom Coleman: HumMod 1.6.1, University of Mississippi Medical Center</p></td>
 </tr>
 <tr>
 <td></td>
-<td><p><br>Siggaard Andersen: OSA (2005), University of Copenhagen</p></td>
+<td><p><br><br>Siggaard Andersen: OSA (2005), University of Copenhagen</p></td>
 </tr>
 <tr>
 <td></td>
-<td><p><br>Noriaki Ikeda: A model of overall regulation of body fluids (1979), Kitasato University</p></td>
+<td><p><br><br>Noriaki Ikeda: A model of overall regulation of body fluids (1979), Kitasato University</p></td>
 </tr>
 </table>
-<br>
-<p>Copyright &copy; 2014 Marek Matejak </p>
-<br>
+<p>Copyright &copy; 2015 Marek Matejak </p>
 <pre>
-
     This file is part of Physiomodel.
 
     Physiomodel is free software: you can redistribute it and/or modify
@@ -139,7 +136,7 @@ equation
     GNU General Public License for more details.
 
     You should have received a copy of the GNU General Public License
-    along with Physiomodel.  If not, see <a href=\"http://www.gnu.org/licenses/\">http://www.gnu.org/licenses/</a>.</pre>
+<p><code>    along with Physiomodel.  If not, see <a href=\"http://www.gnu.org/licenses/\">http://www.gnu.org/licenses/</a>.</code></p>
 </html>"),
     Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
             100}}),

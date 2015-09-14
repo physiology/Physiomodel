@@ -1,0 +1,13 @@
+Status.Posture;Enumeration-Posture
+Bone-Function.Failed;Boolean
+Brain-Function.Failed;Boolean
+Fat-Function.Failed;Boolean
+GITract-Function.Failed;Boolean
+Kidney-Function.Failed;Boolean
+LeftHeart-Function.Failed;Boolean
+Liver-Function.Failed;Boolean
+OtherTissue-Function.Failed;Boolean
+RespiratoryMuscle-Function.Failed;Boolean
+RightHeart-Function.Failed;Boolean
+SkeletalMuscle-Function.Failed;Boolean
+Skin-Function.Failed;Boolean
