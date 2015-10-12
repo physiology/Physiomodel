@@ -467,7 +467,9 @@ package Physiomodel "Mammalian physiology model"
                 <td>[Stainsby1973]</td>
                 <td>W. N. Stainsby, \"Local Control of Regional Blood Flow,\" Annual Review of Physiology, vol. 35, pp. 151-168, 1973. </td>
         </tr>
-[StevensP. M. Stevens and L. E. Lamb, \"Effects of lower body negative pressure on the cardiovascular system,\" American Journal of Cardiology, vol. 16, pp. 506-515. 
+        <tr>
+		<td>[Stevens]</td>
+		<td>StevensP. M. Stevens and L. E. Lamb, \"Effects of lower body negative pressure on the cardiovascular system,\" American Journal of Cardiology, vol. 16, pp. 506-515. </td>
         <tr>
                 <td>[Stick1992]</td>
                 <td>C. Stick, H. Jaeger, and E. Witzleb, Measurements of volume changes and venous pressure in the human lower leg during walking and running vol. 72, 1992. </td>
@@ -500,7 +502,9 @@ package Physiomodel "Mammalian physiology model"
                 <td>[Sugimoto1966]</td>
                 <td>T. Sugimoto, K. Sagawa, and A. Guyton, Effect of tachycardia on cardiac output during normal and increased venous return vol. 211, 1966. </td>
         </tr>
-[SchumackerS. P. T. and C. S. M., \"The concept of a critical oxygen delivery,\" Intensive Care Medicine, vol. 13, pp. 223-229, January 1, 0001. 
+        <tr>
+		<td>[Schumacker]</td>   
+		<td>SchumackerS. P. T. and C. S. M., \"The concept of a critical oxygen delivery,\" Intensive Care Medicine, vol. 13, pp. 223-229, January 1, 0001.</td>
         <tr>
                 <td>[Takeshita1979]</td>
                 <td>A. Takeshita, A. L. Mark, D. L. Eckberg, and F. M. Abboud, Effect of central venous pressure on arterial baroreflex control of heart rate vol. 236, 1979. </td>
@@ -784,9 +788,7 @@ package Physiomodel "Mammalian physiology model"
                   {100,100}}),   graphics={Text(
                   extent={{-100,-126},{100,-92}},
                   textString="%name",
-                  lineColor={0,0,255})}), Diagram(coordinateSystem(preserveAspectRatio=false,
-                           extent={{-100,-100},{100,100}}), graphics),
-            DymolaStoredErrors);
+                  lineColor={0,0,255})}));
         end IVentricle;
       end Interfaces;
 
@@ -898,7 +900,6 @@ package Physiomodel "Mammalian physiology model"
         Tau(displayUnit="d") = 2592000)
           annotation (Placement(transformation(
               extent={{-10,-10},{10,10}},
-              rotation=0,
               origin={-40,54})));
         Modelica.Blocks.Math.Feedback rightAtrium_TMP
           annotation (Placement(transformation(extent={{-38,-100},{-22,-84}})));
@@ -1169,8 +1170,7 @@ package Physiomodel "Mammalian physiology model"
           string="%first",
           index=-1,
           extent={{-6,3},{-6,3}}));
-        annotation (Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,
-                -100},{100,100}}),         graphics), Icon(coordinateSystem(
+        annotation ( Icon(coordinateSystem(
                 preserveAspectRatio=true, extent={{-100,-100},{100,100}}),
               graphics={                Text(
                 extent={{-164,-60},{156,-88}},
@@ -1189,7 +1189,7 @@ package Physiomodel "Mammalian physiology model"
 
 <table cellspacing=\"2\" cellpadding=\"0\" border=\"0\"><tr>
 <td><p>Author:</p></td>
-<td><p>Marek Matejak, Jiri Kofranek</p></td>
+<td><p>Marek Matejak</p></td>
 </tr>
 <tr>
 <td><p>Design:</p></td>
@@ -1197,12 +1197,9 @@ package Physiomodel "Mammalian physiology model"
 </tr>
 <tr>
 <td><p>License:</p></td>
-<td><p>GPL 3.0</p></td>
+<td><p><a href=\"http://www.physiomodel.org/license.html\">Physiomodel License 1.0</a> </p></td>
 </tr>
-<tr>
-<td><p>By:</p></td>
-<td><p>Charles University, Prague</p></td>
-</tr>
+
 <tr>
 <td><p>Date of:</p></td>
 <td><p>january 2009, August 2010</p></td>
@@ -1212,7 +1209,7 @@ package Physiomodel "Mammalian physiology model"
 <td><p>Tom Coleman: QHP 2008 beta 3,, Physiomodel 2010, University of Mississippi Medical Center</p></td>
 </tr>
 </table>
-<br/><p>Copyright &copy; 2014 Marek Matejak</p><br/>
+<br/><p>Copyright &copy; 2014 Marek Matejak, Charles University in Prague.</p><br/>
 
 </html>"));
       end Heart;
@@ -1257,7 +1254,6 @@ package Physiomodel "Mammalian physiology model"
 
         Modelica.Blocks.Math.Feedback StrokeVolume
           annotation (Placement(transformation(extent={{-10,-10},{10,10}},
-              rotation=0,
               origin={-8,-6})));
 
         VentricleVolumeAndPumping2 ventricle(
@@ -1390,41 +1386,35 @@ package Physiomodel "Mammalian physiology model"
           Documentation(info="<HTML>
 <PRE>
 Heart ventricle.
- 
+
 like
 QHP 2008 / VascularCompartments/LeftVentricle/*
- 
-Created : 16-May-05
-Last Modified : 05-Aug-08
-Author : Tom Coleman
-Copyright : 2008-2008
-By : University of Mississippi Medical Center
-Solver : DES 2008
-Schema : 2008.0
- 
+
+
+
 The pressure-volume characteristics of both ventricles in diastole
 and systole will be described using a power function.
- 
+
   P = A * (V ^ n)
- 
+
 P = Pressure
 V = Volume
 A = Scale Factor
 n = curvature
- 
+
 The function is invertable.
- 
+
   V = (P/A) ^ (1/n)
- 
+
 Some typical values
- 
+
                                  Right                 Left
                            ---------------------- ------------------------
 Nominal Vol                     87.5                  87.5
 Nominal TMP                      3.0                   6.0
 Compliance                      29.2                  14.6
 Pericardial P                   -3.0                  -3.0
- 
+
 DIASTOLE
   EDP                            1.0                   5.0
   EDV                          125.0                 125.0
@@ -1432,7 +1422,7 @@ DIASTOLE
   n                              2.0                   2.0
   V^n                        15625.0               15625.0
   A                              0.00026               0.00051
- 
+
 SYSTOLE
   ESP                           22.0                 120.0
   ESV                           50.0                  50.0
@@ -1451,7 +1441,7 @@ SYSTOLE
 </tr>
 <tr>
 <td>License:</td>
-<td>GPL 3.0</td>
+<td><a href=\"http://www.physiomodel.org/license.html\">Physiomodel License 1.0</a> </td>
 </tr>
 <tr>
 <td>By:</td>
@@ -1466,19 +1456,16 @@ SYSTOLE
 <td>Tom Coleman: QHP 2008 beta 3, University of Mississippi Medical Center</td>
 </tr>
 </table>
-<br/><p>Copyright &copy; 2014 Marek Matejak</p><br/>
+<br/><p>Copyright &copy; 2014 Marek Matejak, Charles University in Prague. </p><br/>
 
-</html>"),Icon(coordinateSystem(preserveAspectRatio=false,extent={{-100,-100},{
-                100,100}}),    graphics),
-                                        Diagram(coordinateSystem(preserveAspectRatio=false,
+</html>"),                                        Diagram(coordinateSystem(preserveAspectRatio=false,
                          extent={{-100,-100},{100,100}}), graphics={Text(
                 extent={{-32,62},{-8,60}},
                 lineColor={0,0,0},
                 textString="Volume_SteadyState"), Text(
                 extent={{8,62},{32,60}},
                 lineColor={0,0,0},
-                textString="Blood_Inflow")}),
-          DymolaStoredErrors);
+                textString="Blood_Inflow")}));
       end Ventricle;
 
       model Systole
@@ -1552,8 +1539,7 @@ SYSTOLE
               Text(
                 extent={{-100,-60},{100,-100}},
                 lineColor={0,0,255},
-                textString="%name")}),                   Diagram(coordinateSystem(
-                preserveAspectRatio=false, extent={{-100,-100},{100,100}}), graphics));
+                textString="%name")}));
       end Systole;
 
       model Diastole
@@ -1589,7 +1575,6 @@ SYSTOLE
                                             EDV   annotation (Placement(transformation(extent={{-74,-74},
                   {-34,-34}}), iconTransformation(
               extent={{-10,-10},{10,10}},
-              rotation=0,
               origin={100,80})));
 
       equation
@@ -1629,8 +1614,7 @@ SYSTOLE
               Text(
                 extent={{-100,-60},{100,-100}},
                 lineColor={0,0,255},
-                textString="%name")}),      Diagram(coordinateSystem(
-                preserveAspectRatio=false, extent={{-100,-100},{100,100}}), graphics));
+                textString="%name")}));
       end Diastole;
 
         model VentricleVolumeAndPumping2
@@ -1639,12 +1623,11 @@ SYSTOLE
 
                     Physiolibrary.Types.RealIO.VolumeFlowRateInput BloodFlow( displayUnit=
                          "ml/min") "heart cardiac output"
-                      annotation (Placement(transformation(extent={{-140,-20},{-100,20}},
-                          rotation=0), iconTransformation(extent={{-20,-20},{20,20}},
+                      annotation (Placement(transformation(extent={{-140,-20},{-100,20}}), iconTransformation(extent={{-20,-20},{20,20}},
                         rotation=90,
                         origin={80,-100})));
                     Physiolibrary.Hydraulic.Interfaces.HydraulicPort_a q_in annotation (
-                    Placement(transformation(extent={{100,-20},{140,20}}, rotation=0),
+                    Placement(transformation(extent={{100,-20},{140,20}}),
                       iconTransformation(extent={{-110,-10},{-90,10}})));
 
                     parameter Physiolibrary.Types.Volume initialVolume(displayUnit="ml");
@@ -1658,8 +1641,7 @@ SYSTOLE
                      Physiolibrary.Types.RealIO.VolumeInput VentricleSteadyStateVolume(
                                                                              displayUnit="ml")
         "heart ventricle steady state volume"
-                      annotation (Placement(transformation(extent={{-140,-20},{-100,20}},
-                          rotation=0), iconTransformation(extent={{-20,-20},{20,20}},
+                      annotation (Placement(transformation(extent={{-140,-20},{-100,20}}), iconTransformation(extent={{-20,-20},{20,20}},
                         rotation=90,
                         origin={-80,-100})));
 
@@ -1709,8 +1691,7 @@ Model has a vector of continuous Real input signals as pressures for
 vector of pressure-flow connectors.
 </p>
 </HTML>
-"),                   Icon(coordinateSystem(preserveAspectRatio=true,  extent={{-100,
-                            -100},{100,100}})));
+"));
         end VentricleVolumeAndPumping2;
 
       package develop
@@ -1748,7 +1729,6 @@ vector of pressure-flow connectors.
 
           Modelica.Blocks.Math.Feedback StrokeVolume
             annotation (Placement(transformation(extent={{-10,-10},{10,10}},
-                rotation=0,
                 origin={-8,-6})));
 
           VentricleVolumeAndPumping2 ventricle(
@@ -1897,41 +1877,34 @@ vector of pressure-flow connectors.
             Documentation(info="<HTML>
 <PRE>
 Heart ventricle.
- 
+
 like
 QHP 2008 / VascularCompartments/LeftVentricle/*
- 
-Created : 16-May-05
-Last Modified : 05-Aug-08
-Author : Tom Coleman
-Copyright : 2008-2008
-By : University of Mississippi Medical Center
-Solver : DES 2008
-Schema : 2008.0
- 
+
+
 The pressure-volume characteristics of both ventricles in diastole
 and systole will be described using a power function.
- 
+
   P = A * (V ^ n)
- 
+
 P = Pressure
 V = Volume
 A = Scale Factor
 n = curvature
- 
+
 The function is invertable.
- 
+
   V = (P/A) ^ (1/n)
- 
+
 Some typical values
- 
+
                                  Right                 Left
                            ---------------------- ------------------------
 Nominal Vol                     87.5                  87.5
 Nominal TMP                      3.0                   6.0
 Compliance                      29.2                  14.6
 Pericardial P                   -3.0                  -3.0
- 
+
 DIASTOLE
   EDP                            1.0                   5.0
   EDV                          125.0                 125.0
@@ -1939,7 +1912,7 @@ DIASTOLE
   n                              2.0                   2.0
   V^n                        15625.0               15625.0
   A                              0.00026               0.00051
- 
+
 SYSTOLE
   ESP                           22.0                 120.0
   ESV                           50.0                  50.0
@@ -1958,7 +1931,7 @@ SYSTOLE
 </tr>
 <tr>
 <td>License:</td>
-<td>GPL 3.0</td>
+<td><a href=\"http://www.physiomodel.org/license.html\">Physiomodel License 1.0</a> </td>
 </tr>
 <tr>
 <td>By:</td>
@@ -1973,7 +1946,7 @@ SYSTOLE
 <td>Tom Coleman: QHP 2008 beta 3, University of Mississippi Medical Center</td>
 </tr>
 </table>
-<br/><p>Copyright &copy; 2014 Marek Matejak</p><br/>
+<br/><p>Copyright &copy; 2014 Marek Matejak, Charles University in Prague.</p><br/>
 
 </html>"),  Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},
                     {100,100}}), graphics={Text(
@@ -1987,8 +1960,7 @@ SYSTOLE
                   textString="Volume_SteadyState"), Text(
                   extent={{8,62},{32,60}},
                   lineColor={0,0,0},
-                  textString="Blood_Inflow")}),
-            DymolaStoredErrors);
+                  textString="Blood_Inflow")}));
         end Ventricle4;
 
         model Diastole4
@@ -2019,7 +1991,6 @@ SYSTOLE
               final displayUnit="ml")   annotation (Placement(transformation(extent={{-74,-74},
                     {-34,-34}}), iconTransformation(
                 extent={{-10,-10},{10,10}},
-                rotation=0,
                 origin={100,80})));
 
           Modelica.Blocks.Interfaces.RealOutput P(final quantity="Pressure",
@@ -2089,8 +2060,6 @@ SYSTOLE
                   lineColor={0,0,0},
                   fillColor={255,0,0},
                   fillPattern=FillPattern.Solid)}),
-                                              Diagram(coordinateSystem(
-                  preserveAspectRatio=true,  extent={{-100,-100},{100,100}}), graphics),
             Documentation(info="<html>
 <p>The relationship heart rate(HR)-end diastolic volume(EDV) is represented by linear function -0.00247654 HR + 1.18574.</p>
 <p>The coeficients was choosen to solve normal state and critical zero state: (Solve[{a*75 + b == 1, a*HR + b == 0, diastoleTime[HR] == 0}, {a, b}]).</p>
@@ -2197,7 +2166,6 @@ SYSTOLE
           CO=-q_out.q;
           Vol = V;
 
-          annotation (Icon(graphics));
         end Ventricle2;
 
         model Diastole3
@@ -2228,7 +2196,6 @@ SYSTOLE
                                               EDV   annotation (Placement(transformation(extent={{-74,-74},
                     {-34,-34}}), iconTransformation(
                 extent={{-10,-10},{10,10}},
-                rotation=0,
                 origin={100,80})));
 
           Physiolibrary.Types.RealIO.PressureOutput P annotation (Placement(transformation(extent={{-74,-74},
@@ -2290,9 +2257,7 @@ SYSTOLE
                 Text(
                   extent={{-100,-60},{100,-100}},
                   lineColor={0,0,255},
-                  textString="%name")}),      Diagram(coordinateSystem(
-                  preserveAspectRatio=true,  extent={{-100,-100},{100,100}}), graphics),
-            Documentation(info="<html>
+                  textString="%name")}),            Documentation(info="<html>
 <p>The relationship heart rate(HR)-end diastolic volume(EDV) is represented by linear function -0.00247654 HR + 1.18574.</p>
 <p>The coeficients was choosen to solve normal state and critical zero state: (Solve[{a*75 + b == 1, a*HR + b == 0, diastoleTime[HR] == 0}, {a, b}]).</p>
 <p>It means the next ventricle filling model:</p>
@@ -2342,7 +2307,6 @@ SYSTOLE
 
           Modelica.Blocks.Math.Feedback StrokeVolume
             annotation (Placement(transformation(extent={{-10,-10},{10,10}},
-                rotation=0,
                 origin={-8,-6})));
 
           VentricleVolumeAndPumping2 ventricle(
@@ -2487,41 +2451,35 @@ SYSTOLE
             Documentation(info="<HTML>
 <PRE>
 Heart ventricle.
- 
+
 like
 QHP 2008 / VascularCompartments/LeftVentricle/*
- 
-Created : 16-May-05
-Last Modified : 05-Aug-08
-Author : Tom Coleman
-Copyright : 2008-2008
-By : University of Mississippi Medical Center
-Solver : DES 2008
-Schema : 2008.0
- 
+
+
+
 The pressure-volume characteristics of both ventricles in diastole
 and systole will be described using a power function.
- 
+
   P = A * (V ^ n)
- 
+
 P = Pressure
 V = Volume
 A = Scale Factor
 n = curvature
- 
+
 The function is invertable.
- 
+
   V = (P/A) ^ (1/n)
- 
+
 Some typical values
- 
+
                                  Right                 Left
                            ---------------------- ------------------------
 Nominal Vol                     87.5                  87.5
 Nominal TMP                      3.0                   6.0
 Compliance                      29.2                  14.6
 Pericardial P                   -3.0                  -3.0
- 
+
 DIASTOLE
   EDP                            1.0                   5.0
   EDV                          125.0                 125.0
@@ -2529,7 +2487,7 @@ DIASTOLE
   n                              2.0                   2.0
   V^n                        15625.0               15625.0
   A                              0.00026               0.00051
- 
+
 SYSTOLE
   ESP                           22.0                 120.0
   ESV                           50.0                  50.0
@@ -2548,7 +2506,7 @@ SYSTOLE
 </tr>
 <tr>
 <td>License:</td>
-<td>GPL 3.0</td>
+<td><a href=\"http://www.physiomodel.org/license.html\">Physiomodel License 1.0</a> </td>
 </tr>
 <tr>
 <td>By:</td>
@@ -2563,7 +2521,7 @@ SYSTOLE
 <td>Tom Coleman: QHP 2008 beta 3, University of Mississippi Medical Center</td>
 </tr>
 </table>
-<br/><p>Copyright &copy; 2014 Marek Matejak</p><br/>
+<br/><p>Copyright &copy; 2014 Marek Matejak, Charles University in Prague.</p><br/>
 
 </html>"),  Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},
                     {100,100}}), graphics={Text(
@@ -2577,8 +2535,7 @@ SYSTOLE
                   textString="Volume_SteadyState"), Text(
                   extent={{8,62},{32,60}},
                   lineColor={0,0,0},
-                  textString="Blood_Inflow")}),
-            DymolaStoredErrors);
+                  textString="Blood_Inflow")}));
         end Ventricle3;
       end develop;
     end Heart;
@@ -2786,7 +2743,9 @@ SYSTOLE
 		<td>[Roach1957]</td>
 		<td>M. R. Roach and A. C. Burton, \"THE REASON FOR THE SHAPE OF THE DISTENSIBILITY CURVES OF ARTERIES,\" Canadian Journal of Biochemistry and Physiology, vol. 35, pp. 681-690, 1957/08/01 1957. </td>
 	</tr>
-[StevensP. M. Stevens and L. E. Lamb, \"Effects of lower body negative pressure on the cardiovascular system,\" American Journal of Cardiology, vol. 16, pp. 506-515. 
+	<tr>
+		<td>[Stevens]</td>
+		<td>StevensP. M. Stevens and L. E. Lamb, \"Effects of lower body negative pressure on the cardiovascular system,\" American Journal of Cardiology, vol. 16, pp. 506-515.</td>
 	<tr>
 		<td>[Stick1992]</td>
 		<td>C. Stick, H. Jaeger, and E. Witzleb, Measurements of volume changes and venous pressure in the human lower leg during walking and running vol. 72, 1992. </td>
@@ -2799,7 +2758,9 @@ SYSTOLE
 		<td>[Stothert1992]</td>
 		<td>J. C. Stothert, J. O. Basadre, G. B. Gbaanador, J. T. Flynn, L. Traber, and D. Traber, \"Bronchial blood flow during changes in inhaled oxygen and carbon dioxide concentrations in conscious sheep,\" Circulatory shock, vol. 36, pp. 120-126, 1992/02// 1992. </td>
 	</tr>
-[SchumackerS. P. T. and C. S. M., \"The concept of a critical oxygen delivery,\" Intensive Care Medicine, vol. 13, pp. 223-229, January 1, 0001. 
+	<tr>
+		<td>[Schumacker]</td>
+		<td>SchumackerS. P. T. and C. S. M., \"The concept of a critical oxygen delivery,\" Intensive Care Medicine, vol. 13, pp. 223-229, January 1, 0001.</td>
 	<tr>
 		<td>[Thompson1928]</td>
 		<td>W. O. Thompson, P. K. Thompson, and M. E. Dailey, \"THE EFFECT OF POSTURE UPON THE COMPOSITION AND VOLUME OF THE BLOOD IN MAN 1,\" The Journal of Clinical Investigation, vol. 5, pp. 573-604, 1928. </td>
@@ -2868,11 +2829,7 @@ SYSTOLE
             Documentation(info="<HTML>
 
 </HTML>
-"),          Icon(coordinateSystem(preserveAspectRatio=true,  extent={{-100,
-                    -100},{100,100}}), graphics),
-            Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-                    -100},{100,100}}),
-                                graphics));
+"));
         end IVascularElasticBloodCompartment;
 
         model ISequesteredBlood
@@ -2895,12 +2852,7 @@ SYSTOLE
          annotation (
             Documentation(info="<HTML>
 </HTML>
-"),          Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-                    -100},{100,100}}),
-                  graphics),
-            Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-                    -100},{100,100}}),
-                            graphics));
+"));
         end ISequesteredBlood;
 
       end Interfaces;
@@ -3133,8 +3085,7 @@ SYSTOLE
           string="%second",
           index=1,
           extent={{6,3},{6,3}}));
-        annotation (Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,
-                -100},{100,100}}),         graphics), Icon(coordinateSystem(
+        annotation ( Icon(coordinateSystem(
                 preserveAspectRatio=true, extent={{-100,-100},{100,100}}),
               graphics={
               Text(
@@ -3151,7 +3102,7 @@ SYSTOLE
 
 <tr>
 <td>License:</td>
-<td>GPL 3.0</td>
+<td><a href=\"http://www.physiomodel.org/license.html\">Physiomodel License 1.0</a> </td>
 </tr>
 <tr>
 <td>By:</td>
@@ -3166,7 +3117,7 @@ SYSTOLE
 <td>Tom Coleman: QHP 2008 beta 3, University of Mississippi Medical Center</td>
 </tr>
 </table>
-<br/><p>Copyright &copy; 2014 Marek Matejak</p><br/>
+<br/><p>Copyright &copy; 2014 Marek Matejak, Charles University in Prague.</p><br/>
 
 </html>", info="<html>
 <p>Blood volume (and pressures) distribution between </p>
@@ -3195,7 +3146,7 @@ SYSTOLE
   Library.PressureFlow.NegativePressureFlow fromSystemicVeins annotation (
       Placement(transformation(extent={{-110,-10},{-90,10}}),iconTransformation(
           extent={{-112,44},{-92,64}})));
-  Library.PressureFlow.PositivePressureFlow systemicArteries 
+  Library.PressureFlow.PositivePressureFlow systemicArteries
     annotation (Placement(transformation(extent={{88,-10},{108,10}}),
         iconTransformation(extent={{90,46},{110,66}})));
 */
@@ -3240,12 +3191,10 @@ SYSTOLE
         gravityHydrostaticDifference(useExternalG=true, useHeightInput=true)
         annotation (Placement(transformation(
             extent={{-10,-10},{10,10}},
-            rotation=0,
             origin={61,35})));
       Physiolibrary.Hydraulic.Sensors.PressureMeasure pressureMeasure
         annotation (Placement(transformation(
             extent={{8.5,-8.5},{-8.5,8.5}},
-            rotation=0,
             origin={78.5,45.5})));
         Modelica.Blocks.Math.Gain G(k=9.81) annotation (Placement(transformation(
               extent={{4,-4},{-4,4}},
@@ -3274,7 +3223,6 @@ SYSTOLE
         hydrostaticDifference(useExternalG=true, useHeightInput=true)
         annotation (Placement(transformation(
             extent={{-10,-10},{10,10}},
-            rotation=0,
             origin={54,-72})));
         SequesteredBlood sequesteredBlood(data={{0,0,10^(-10)},{50,97,1.0},{200,150,0.5}},
           pressureControledCompartment(stateName="BVSeqArtys.Vol"),
@@ -3648,7 +3596,7 @@ SYSTOLE
 </tr>
 <tr>
 <td>License:</td>
-<td>GPL 3.0</td>
+<td><a href=\"http://www.physiomodel.org/license.html\">Physiomodel License 1.0</a> </td>
 </tr>
 <tr>
 <td>By:</td>
@@ -3663,7 +3611,7 @@ SYSTOLE
 <td>Tom Coleman: QHP 2008 beta 3, University of Mississippi Medical Center</td>
 </tr>
 </table>
-<br/><p>Copyright &copy; 2014 Marek Matejak</p><br/>
+<br/><p>Copyright &copy; 2014 Marek Matejak, Charles University in Prague.</p><br/>
 
 </html>", info="<html>
 <p>Blood volume (and pressure) distributions between </p>
@@ -3979,17 +3927,15 @@ Blood resistance in peripheral organs except hepatic artery, gastro interstition
 <ul>
 <li><i>  </i>
        </li>
-<li><i> january 2009 </i><br> 
+<li><i> january 2009 </i><br>
        by Marek Matejak in Modelica initially implemented (consulted with Jiri Kofranek), Charles University, Prague<br>
        orginaly described by Tom Coleman in QHP 2008 beta 3, University of Mississippi Medical Center
        </li>
 </ul>
-</html>"),Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,-100},
-                {100,100}}),               graphics), Icon(graphics={Text(
+</html>"), Icon(graphics={Text(
                 extent={{-100,-128},{100,-100}},
                 lineColor={0,0,255},
-                textString="%name")}),
-                    Diagram(graphics));
+                textString="%name")}));
       end PeripheralCirculation;
 
       model SplanchnicCirculation
@@ -4117,8 +4063,7 @@ Blood resistance in peripheral organs except hepatic artery, gastro interstition
           string="%second",
           index=1,
           extent={{6,3},{6,3}}));
-        annotation (Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,
-                -100},{100,100}}),   graphics),       Icon(coordinateSystem(
+        annotation (       Icon(coordinateSystem(
                 preserveAspectRatio=true, extent={{-100,-100},{100,100}}),
               graphics={
               Text(
@@ -4134,7 +4079,7 @@ Blood resistance in peripheral organs except hepatic artery, gastro interstition
 </tr>
 <tr>
 <td>License:</td>
-<td>GPL 3.0</td>
+<td><a href=\"http://www.physiomodel.org/license.html\">Physiomodel License 1.0</a> </td>
 </tr>
 <tr>
 <td>By:</td>
@@ -4149,7 +4094,7 @@ Blood resistance in peripheral organs except hepatic artery, gastro interstition
 <td>Tom Coleman: QHP 2008 beta 3, University of Mississippi Medical Center</td>
 </tr>
 </table>
-<br/><p>Copyright &copy; 2014 Marek Matejak</p><br/>
+<br/><p>Copyright &copy; 2014 Marek Matejak, Charles University in Prague.</p><br/>
 
 </html>", info="<html>
 <p>Blood volume (and pressures) distribution between </p>
@@ -4252,8 +4197,7 @@ Blood resistance in peripheral organs except hepatic artery, gastro interstition
       //       AlveolarShunt  =  RightLungShunt + LeftLungShunt;
       //       TotalShunt  =  RightLeftShunt + AlveolarShunt;
              AlveolarVentilated  = Alveolar * ( Thorax_RightLungFlowFract * RightHemithorax_LungInflation + Thorax_LeftLungFlowFract * LeftHemithorax_LungInflation);
-        annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-                  -100},{100,100}}), graphics), Documentation(revisions="<html>
+        annotation ( Documentation(revisions="<html>
 
 <table>
 <tr>
@@ -4262,7 +4206,7 @@ Blood resistance in peripheral organs except hepatic artery, gastro interstition
 </tr>
 <tr>
 <td>License:</td>
-<td>GPL 3.0</td>
+<td><a href=\"http://www.physiomodel.org/license.html\">Physiomodel License 1.0</a> </td>
 </tr>
 <tr>
 <td>By:</td>
@@ -4277,7 +4221,7 @@ Blood resistance in peripheral organs except hepatic artery, gastro interstition
 <td>Tom Coleman: QHP 2008 beta 3, University of Mississippi Medical Center</td>
 </tr>
 </table>
-<br/><p>Copyright &copy; 2014 Marek Matejak</p><br/>
+<br/><p>Copyright &copy; 2014 Marek Matejak, Charles University in Prague.</p><br/>
 
 </html>", info="<html>
 <p>Calculation of blood flow fraction through ventilated alveoli.</p>
@@ -4294,9 +4238,7 @@ Blood resistance in peripheral organs except hepatic artery, gastro interstition
       Physiolibrary.Hydraulic.Interfaces.HydraulicPort_a referencePoint
         annotation (extent=[-10,-110; 10,-90], Placement(transformation(extent=
                 {{-110,-10},{-90,10}}), iconTransformation(
-            extent={{-10,-10},{10,10}},
-            rotation=0,
-            origin={0,0})));
+            extent={{-10,-10},{10,10}})));
         Physiolibrary.Types.RealIO.PressureInput ExternalPressure
         "external pressure around the compartment"                              annotation (extent = [-10,90;10,110], rotation = -90);
         Physiolibrary.Types.RealIO.HydraulicComplianceInput Compliance( displayUnit="ml/mmHg")
@@ -4428,8 +4370,8 @@ Blood resistance in peripheral organs except hepatic artery, gastro interstition
        annotation (
           Documentation(info="<HTML>
 <PRE>
-  Elastic blood flow compartment. 
- 
+  Elastic blood flow compartment.
+
 </PRE>
 </HTML>
 ",     revisions="<html>
@@ -4442,7 +4384,7 @@ Blood resistance in peripheral organs except hepatic artery, gastro interstition
 
 <tr>
 <td>License:</td>
-<td>GPL 3.0</td>
+<td><a href=\"http://www.physiomodel.org/license.html\">Physiomodel License 1.0</a> </td>
 </tr>
 <tr>
 <td>By:</td>
@@ -4457,16 +4399,9 @@ Blood resistance in peripheral organs except hepatic artery, gastro interstition
 <td>Tom Coleman: QHP 2008 beta 3, University of Mississippi Medical Center</td>
 </tr>
 </table>
-<br/><p>Copyright &copy; 2014 Marek Matejak</p><br/>
+<br/><p>Copyright &copy; 2014 Marek Matejak, Charles University in Prague.</p><br/>
 
-</html>"), Icon(coordinateSystem(
-              preserveAspectRatio=true,
-              extent={{-100,-100},{100,100}},
-              grid={2,2}), graphics),
-          Diagram(coordinateSystem(
-              preserveAspectRatio=false,
-              extent={{-100,-100},{100,100}},
-              grid={2,2}), graphics));
+</html>"));
       end SystemicVeinsElacticBloodCompartment;
 
       model SequesteredBlood
@@ -4529,8 +4464,8 @@ Blood resistance in peripheral organs except hepatic artery, gastro interstition
        annotation (
           Documentation(info="<HTML>
 <PRE>
-  Elastic blood flow compartment. 
- 
+  Elastic blood flow compartment.
+
 </PRE>
 </HTML>
 ",     revisions="<html>
@@ -4543,7 +4478,7 @@ Blood resistance in peripheral organs except hepatic artery, gastro interstition
 
 <tr>
 <td>License:</td>
-<td>GPL 3.0</td>
+<td><a href=\"http://www.physiomodel.org/license.html\">Physiomodel License 1.0</a> </td>
 </tr>
 <tr>
 <td>By:</td>
@@ -4558,16 +4493,13 @@ Blood resistance in peripheral organs except hepatic artery, gastro interstition
 <td>Tom Coleman: QHP 2008 beta 3, University of Mississippi Medical Center</td>
 </tr>
 </table>
-<br/><p>Copyright &copy; 2014 Marek Matejak</p><br/>
+<br/><p>Copyright &copy; 2014 Marek Matejak, Charles University in Prague.</p><br/>
 
 </html>"), Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
                   {100,100}}), graphics={Text(
                 extent={{-100,-16},{100,-32}},
                 lineColor={0,0,255},
-                textString="(initial %initialVol ml)")}),
-          Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,-100},
-                {100,100}}),
-                          graphics));
+                textString="(initial %initialVol ml)")}));
       end SequesteredBlood;
 
       model CollapsingVeins
@@ -4633,7 +4565,6 @@ Blood resistance in peripheral organs except hepatic artery, gastro interstition
       Physiolibrary.Hydraulic.Sensors.FlowMeasure flowMeasure annotation (
           Placement(transformation(
             extent={{10,-10},{-10,10}},
-            rotation=0,
             origin={80,0})));
         Modelica.Blocks.Interfaces.RealOutput BloodFlow
                                                  annotation (Placement(transformation(
@@ -4706,10 +4637,7 @@ Blood resistance in peripheral organs except hepatic artery, gastro interstition
             color={0,0,0},
             thickness=1,
             smooth=Smooth.None));
-        annotation (Diagram(coordinateSystem(
-              preserveAspectRatio=true,
-              extent={{-100,-100},{100,100}},
-              grid={1,1}), graphics), Icon(coordinateSystem(
+        annotation ( Icon(coordinateSystem(
               preserveAspectRatio=true,
               extent={{-100,-100},{100,100}},
               grid={1,1}), graphics={Text(
@@ -4734,7 +4662,6 @@ Blood resistance in peripheral organs except hepatic artery, gastro interstition
           hydrostaticDifference(useExternalG=true, useHeightInput=true)
           annotation (Placement(transformation(
               extent={{-10,-10},{10,10}},
-              rotation=0,
               origin={54,-66})));
           SequesteredBlood sequesteredBlood(data={{0,0,10^(-10)},{50,97,1.0},{200,150,0.5}},
               initialVol=50.0044,
@@ -4836,7 +4763,6 @@ Blood resistance in peripheral organs except hepatic artery, gastro interstition
               points={{34,21.6},{34,-84},{55.5,-84},{55.5,-74.5}},
               color={0,0,127},
               smooth=Smooth.None));
-        annotation (Diagram(graphics));
         end SystemicCirculation_Simplified;
 
         model SystemicCirculationBase2_Simplified
@@ -4857,7 +4783,7 @@ Blood resistance in peripheral organs except hepatic artery, gastro interstition
   Library.PressureFlow.NegativePressureFlow fromSystemicVeins annotation (
       Placement(transformation(extent={{-110,-10},{-90,10}}),iconTransformation(
           extent={{-112,44},{-92,64}})));
-  Library.PressureFlow.PositivePressureFlow systemicArteries 
+  Library.PressureFlow.PositivePressureFlow systemicArteries
     annotation (Placement(transformation(extent={{88,-10},{108,10}}),
         iconTransformation(extent={{90,46},{110,66}})));
 */
@@ -4904,12 +4830,10 @@ Blood resistance in peripheral organs except hepatic artery, gastro interstition
           gravityHydrostaticDifference(useExternalG=true, useHeightInput=true)
           annotation (Placement(transformation(
               extent={{-10,-10},{10,10}},
-              rotation=0,
               origin={61,35})));
         Physiolibrary.Hydraulic.Sensors.PressureMeasure pressureMeasure
           annotation (Placement(transformation(
               extent={{8.5,-8.5},{-8.5,8.5}},
-              rotation=0,
               origin={78.5,45.5})));
           Modelica.Blocks.Math.Gain G(k=9.81) annotation (Placement(transformation(
                 extent={{4,-4},{-4,4}},
@@ -5181,7 +5105,7 @@ Blood resistance in peripheral organs except hepatic artery, gastro interstition
 </tr>
 <tr>
 <td>License:</td>
-<td>GPL 3.0</td>
+<td><a href=\"http://www.physiomodel.org/license.html\">Physiomodel License 1.0</a> </td>
 </tr>
 <tr>
 <td>By:</td>
@@ -5196,7 +5120,7 @@ Blood resistance in peripheral organs except hepatic artery, gastro interstition
 <td>Tom Coleman: QHP 2008 beta 3, University of Mississippi Medical Center</td>
 </tr>
 </table>
-<br/><p>Copyright &copy; 2014 Marek Matejak</p><br/>
+<br/><p>Copyright &copy; 2014 Marek Matejak, Charles University in Prague.</p><br/>
 
 </html>",   info="<html>
 <p>Blood volume (and pressure) distributions between </p>
@@ -5238,7 +5162,7 @@ Blood resistance in peripheral organs except hepatic artery, gastro interstition
   Library.PressureFlow.NegativePressureFlow fromSystemicVeins annotation (
       Placement(transformation(extent={{-110,-10},{-90,10}}),iconTransformation(
           extent={{-112,44},{-92,64}})));
-  Library.PressureFlow.PositivePressureFlow systemicArteries 
+  Library.PressureFlow.PositivePressureFlow systemicArteries
     annotation (Placement(transformation(extent={{88,-10},{108,10}}),
         iconTransformation(extent={{90,46},{110,66}})));
 */
@@ -5282,12 +5206,10 @@ Blood resistance in peripheral organs except hepatic artery, gastro interstition
           gravityHydrostaticDifference(useExternalG=true, useHeightInput=true)
           annotation (Placement(transformation(
               extent={{-10,-10},{10,10}},
-              rotation=0,
               origin={61,35})));
         Physiolibrary.Hydraulic.Sensors.PressureMeasure pressureMeasure
           annotation (Placement(transformation(
               extent={{8.5,-8.5},{-8.5,8.5}},
-              rotation=0,
               origin={78.5,45.5})));
           Modelica.Blocks.Math.Gain G(k=9.81) annotation (Placement(transformation(
                 extent={{4,-4},{-4,4}},
@@ -5569,7 +5491,7 @@ Blood resistance in peripheral organs except hepatic artery, gastro interstition
 
 <tr>
 <td>License:</td>
-<td>GPL 3.0</td>
+<td><a href=\"http://www.physiomodel.org/license.html\">Physiomodel License 1.0</a> </td>
 </tr>
 <tr>
 <td>By:</td>
@@ -5584,7 +5506,7 @@ Blood resistance in peripheral organs except hepatic artery, gastro interstition
 <td>Tom Coleman: QHP 2008 beta 3, University of Mississippi Medical Center</td>
 </tr>
 </table>
-<br/><p>Copyright &copy; 2014 Marek Matejak</p><br/>
+<br/><p>Copyright &copy; 2014 Marek Matejak, Charles University in Prague.</p><br/>
 
 </html>",   info="<html>
 <p>Blood volume (and pressure) distributions between </p>
@@ -5616,7 +5538,6 @@ Blood resistance in peripheral organs except hepatic artery, gastro interstition
           hydrostaticDifference(useExternalG=true, useHeightInput=true)
           annotation (Placement(transformation(
               extent={{-10,-10},{10,10}},
-              rotation=0,
               origin={54,-66})));
           SequesteredBlood sequesteredBlood(data={{0,0,10^(-10)},{50,97,1.0},{200,150,0.5}},
               initialVol=50.0044,
@@ -5753,7 +5674,6 @@ Blood resistance in peripheral organs except hepatic artery, gastro interstition
               color={0,0,0},
               thickness=1,
               smooth=Smooth.None));
-          annotation (Diagram(graphics));
         end SystemicCirculation;
 
         model SystemicCirculationBase
@@ -5773,7 +5693,7 @@ Blood resistance in peripheral organs except hepatic artery, gastro interstition
   Library.PressureFlow.NegativePressureFlow fromSystemicVeins annotation (
       Placement(transformation(extent={{-110,-10},{-90,10}}),iconTransformation(
           extent={{-112,44},{-92,64}})));
-  Library.PressureFlow.PositivePressureFlow systemicArteries 
+  Library.PressureFlow.PositivePressureFlow systemicArteries
     annotation (Placement(transformation(extent={{88,-10},{108,10}}),
         iconTransformation(extent={{90,46},{110,66}})));
 */
@@ -5821,12 +5741,10 @@ Blood resistance in peripheral organs except hepatic artery, gastro interstition
           gravityHydrostaticDifference(useExternalG=true, useHeightInput=true)
           annotation (Placement(transformation(
               extent={{-10,-10},{10,10}},
-              rotation=0,
               origin={61,35})));
         Physiolibrary.Hydraulic.Sensors.PressureMeasure pressureMeasure
           annotation (Placement(transformation(
               extent={{8.5,-8.5},{-8.5,8.5}},
-              rotation=0,
               origin={78.5,45.5})));
           Modelica.Blocks.Math.Gain G(k=9.81) annotation (Placement(transformation(
                 extent={{4,-4},{-4,4}},
@@ -6120,7 +6038,7 @@ Blood resistance in peripheral organs except hepatic artery, gastro interstition
 
 <tr>
 <td>License:</td>
-<td>GPL 3.0</td>
+<td><a href=\"http://www.physiomodel.org/license.html\">Physiomodel License 1.0</a> </td>
 </tr>
 <tr>
 <td>By:</td>
@@ -6135,7 +6053,7 @@ Blood resistance in peripheral organs except hepatic artery, gastro interstition
 <td>Tom Coleman: QHP 2008 beta 3, University of Mississippi Medical Center</td>
 </tr>
 </table>
-<br/><p>Copyright &copy; 2014 Marek Matejak</p><br/>
+<br/><p>Copyright &copy; 2014 Marek Matejak, Charles University in Prague.</p><br/>
 
 </html>",   info="<html>
 <p>Blood volume (and pressure) distributions between </p>
@@ -6189,8 +6107,7 @@ Blood resistance in peripheral organs except hepatic artery, gastro interstition
                   points={{-80,25},{80,0},{-80,-25},{-80,25}},
                   lineColor={0,0,127},
                   fillColor={0,0,127},
-                  fillPattern=FillPattern.Solid)}), Diagram(coordinateSystem(
-                  preserveAspectRatio=false, extent={{-100,-100},{100,100}}), graphics));
+                  fillPattern=FillPattern.Solid)}));
         end GuytonOutputPump;
 
         model GuytonPump
@@ -6236,9 +6153,7 @@ Blood resistance in peripheral organs except hepatic artery, gastro interstition
         Physiolibrary.Hydraulic.Interfaces.HydraulicPort_a referencePoint
           annotation (extent=[-10,-110; 10,-90], Placement(transformation(extent=
                   {{-110,-10},{-90,10}}), iconTransformation(
-              extent={{-10,-10},{10,10}},
-              rotation=0,
-              origin={0,0})));
+              extent={{-10,-10},{10,10}})));
           Modelica.Blocks.Interfaces.RealInput ExternalPressure(
                                                               final quantity="Pressure", final displayUnit="mmHg")
           "external pressure around the compartment"                              annotation (extent = [-10,90;10,110], rotation = -90);
@@ -6276,8 +6191,7 @@ Blood resistance in peripheral organs except hepatic artery, gastro interstition
           Modelica.Blocks.Interfaces.RealOutput NormalizedVolume(final quantity=
                 "NormalizedVolume", final displayUnit="1")
           "maximal zero pressure blood volume in compartment"
-            annotation (Placement(transformation(extent={{-4.5,-4.5},{4.5,4.5}},rotation=0,
-                origin={22.5,9.5}),
+            annotation (Placement(transformation(extent={{-4.5,-4.5},{4.5,4.5}},origin={22.5,9.5}),
                 iconTransformation(
                 extent={{-10,-10},{10,10}},
                 rotation=180,
@@ -6351,7 +6265,7 @@ Blood resistance in peripheral organs except hepatic artery, gastro interstition
          annotation (
             Documentation(info="<HTML>
 <PRE>
-  Elastic blood flow compartment. 
+  Elastic blood flow compartment.
 </PRE>
 </HTML>
 ",       revisions="<html>
@@ -6364,7 +6278,7 @@ Blood resistance in peripheral organs except hepatic artery, gastro interstition
 
 <tr>
 <td>License:</td>
-<td>GPL 3.0</td>
+<td><a href=\"http://www.physiomodel.org/license.html\">Physiomodel License 1.0</a> </td>
 </tr>
 <tr>
 <td>By:</td>
@@ -6379,16 +6293,9 @@ Blood resistance in peripheral organs except hepatic artery, gastro interstition
 <td>Tom Coleman: QHP 2008 beta 3, University of Mississippi Medical Center</td>
 </tr>
 </table>
-<br/><p>Copyright &copy; 2014 Marek Matejak</p><br/>
+<br/><p>Copyright &copy; 2014 Marek Matejak, Charles University in Prague.</p><br/>
 
-</html>"),   Icon(coordinateSystem(
-                preserveAspectRatio=true,
-                extent={{-100,-100},{100,100}},
-                grid={2,2}), graphics),
-            Diagram(coordinateSystem(
-                preserveAspectRatio=true,
-                extent={{-100,-100},{100,100}},
-                grid={2,2}), graphics));
+</html>"));
         end SystemicVeinsElacticBloodCompartment2;
 
         model VascularElasticBloodCompartment
@@ -6405,7 +6312,6 @@ Blood resistance in peripheral organs except hepatic artery, gastro interstition
                 rotation=270,
                 origin={-40,-100}), iconTransformation(
                 extent={{-10,-10},{10,10}},
-                rotation=0,
                 origin={100,60})));
         //initial equation
         //  Vol = initialVol;
@@ -6425,7 +6331,7 @@ Blood resistance in peripheral organs except hepatic artery, gastro interstition
             preferredView = text,
             Documentation(info="<HTML>
 <PRE>
-  Elastic blood flow compartment. 
+  Elastic blood flow compartment.
 </PRE>
 </HTML>
 ",       revisions="<html>
@@ -6438,7 +6344,7 @@ Blood resistance in peripheral organs except hepatic artery, gastro interstition
 
 <tr>
 <td>License:</td>
-<td>GPL 3.0</td>
+<td><a href=\"http://www.physiomodel.org/license.html\">Physiomodel License 1.0</a> </td>
 </tr>
 <tr>
 <td>By:</td>
@@ -6453,15 +6359,13 @@ Blood resistance in peripheral organs except hepatic artery, gastro interstition
 <td>Tom Coleman: QHP 2008 beta 3, University of Mississippi Medical Center</td>
 </tr>
 </table>
-<br/><p>Copyright &copy; 2014 Marek Matejak</p><br/>
+<br/><p>Copyright &copy; 2014 Marek Matejak, Charles University in Prague.</p><br/>
 
 </html>"),   Icon(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},
                     {100,100}}), graphics={Text(
                   extent={{-100,-16},{100,-32}},
                   lineColor={0,0,255},
-                  textString="(initial %initialVol ml)")}),
-            Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},
-                    {100,100}}), graphics));
+                  textString="(initial %initialVol ml)")}));
         end VascularElasticBloodCompartment;
       end develop;
     annotation (Documentation(revisions="<html>
@@ -6692,7 +6596,7 @@ Blood resistance in peripheral organs except hepatic artery, gastro interstition
 		<td>[Stainsby1973]</td>
 		<td>W. N. Stainsby, \"Local Control of Regional Blood Flow,\" Annual Review of Physiology, vol. 35, pp. 151-168, 1973. </td>
 	</tr>
-[SchumackerS. P. T. and C. S. M., \"The concept of a critical oxygen delivery,\" Intensive Care Medicine, vol. 13, pp. 223-229, January 1, 0001. 
+[SchumackerS. P. T. and C. S. M., \"The concept of a critical oxygen delivery,\" Intensive Care Medicine, vol. 13, pp. 223-229, January 1, 0001.
 	<tr>
 		<td>[Weber2000]</td>
 		<td>D. S. Weber and J. H. Lombard, Elevated salt intake impairs dilation of rat skeletal muscle resistance arteries via ANG II suppression vol. 278, 2000. </td>
@@ -6810,7 +6714,6 @@ Blood resistance in peripheral organs except hepatic artery, gastro interstition
       Physiolibrary.Hydraulic.Sensors.FlowMeasure flowMeasure annotation (
           Placement(transformation(
             extent={{10,-10},{-10,10}},
-            rotation=0,
             origin={58,-90})));
       Physiolibrary.Hydraulic.Interfaces.HydraulicPort_b q_out "Blood outflow"
         annotation (extent=[-10,-110; 10,-90], Placement(transformation(extent={{-94,-100},
@@ -7048,20 +6951,19 @@ Blood resistance in peripheral organs except hepatic artery, gastro interstition
           Documentation(info="<HTML>
 <PRE>
 Blood resistance in gastro interstitial tract.
- 
+
 </PRE>
 </HTML>
 ",     revisions="<html>
 <ul>
 <li><i>  </i>
        </li>
-<li><i> january 2009 </i><br> 
+<li><i> january 2009 </i><br>
        by Marek Matejak in Modelica initially implemented (consulted with Jiri Kofranek), Charles University, Prague<br>
        orginaly described by Tom Coleman in QHP 2008 beta 3, University of Mississippi Medical Center
        </li>
 </ul>
-</html>"),Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,-100},
-                {100,100}}),               graphics), Icon(coordinateSystem(
+</html>"), Icon(coordinateSystem(
                 preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
               graphics={Text(
                 extent={{-120,-106},{80,-86}},
@@ -7153,11 +7055,6 @@ Blood resistance in gastro interstitial tract.
           color={0,0,0},
           thickness=1,
           smooth=Smooth.None));
-        annotation (Icon(coordinateSystem(preserveAspectRatio=true,  extent={{-100,
-                  -100},{100,100}}),
-                               graphics), Diagram(coordinateSystem(
-              preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
-                                                  graphics));
       end Liver;
 
       model Kidney
@@ -7205,7 +7102,6 @@ Blood resistance in gastro interstitial tract.
       Physiolibrary.Hydraulic.Sensors.PressureMeasure pressureMeasure
         annotation (Placement(transformation(
             extent={{-10,-10},{10,10}},
-            rotation=0,
             origin={-20,8})));
         Modelica.Blocks.Math.Product KidneyPlasmaFlow annotation (Placement(
               transformation(
@@ -7215,7 +7111,6 @@ Blood resistance in gastro interstitial tract.
       Physiolibrary.Hydraulic.Sensors.PressureMeasure pressureMeasure1
         annotation (Placement(transformation(
             extent={{10,-10},{-10,10}},
-            rotation=0,
             origin={52,-20})));
         Modelica.Blocks.Math.Gain IFP(k=0.042)
           annotation (Placement(transformation(extent={{42,-84},{34,-76}})));
@@ -7529,15 +7424,9 @@ Blood resistance in gastro interstitial tract.
           Documentation(info="<HTML>
 <PRE>
 Blood resistance in kidneys.
- 
+
 QHP 2008 / Kidney-Flow
- 
-Created : 09-Apr-05
-Last Modified : 09-Apr-05
-Author : Tom Coleman
-Copyright Status : In Public Domain
-Solver : QHP 2008
-Schema : 2008.0
+
 </PRE>
 </HTML>
 ",     revisions="<html>
@@ -7549,7 +7438,7 @@ Schema : 2008.0
 </tr>
 <tr>
 <td>License:</td>
-<td>GPL 3.0</td>
+<td><a href=\"http://www.physiomodel.org/license.html\">Physiomodel License 1.0</a> </td>
 </tr>
 <tr>
 <td>By:</td>
@@ -7564,7 +7453,7 @@ Schema : 2008.0
 <td>Tom Coleman: QHP 2008 beta 3, University of Mississippi Medical Center</td>
 </tr>
 </table>
-<br/><p>Copyright &copy; 2014 Marek Matejak</p><br/>
+<br/><p>Copyright &copy; 2014 Marek Matejak, Charles University in Prague.</p><br/>
 
 </html>"),Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,-100},
                 {100,100}}),   graphics={Rectangle(extent={{-18,-24},{18,-62}},
@@ -7576,8 +7465,7 @@ Schema : 2008.0
               graphics={Text(
                 extent={{-100,-100},{100,-80}},
                 lineColor={0,0,255},
-                textString="%name")}),
-                    Diagram(graphics));
+                textString="%name")}));
       end Kidney;
 
       model LeftHeart
@@ -7621,7 +7509,6 @@ Schema : 2008.0
             string="%first",
             index=-1,
             extent={{-6,3},{-6,3}}));
-        annotation (Diagram(graphics));
       end LeftHeart;
 
       model RightHeart
@@ -7665,7 +7552,6 @@ Schema : 2008.0
             string="%first",
             index=-1,
             extent={{-6,3},{-6,3}}));
-        annotation (Diagram(graphics));
       end RightHeart;
 
       model Skin
@@ -7809,28 +7695,21 @@ Schema : 2008.0
           Documentation(info="<HTML>
 <PRE>
 Blood resistance in skin.
- 
+
 QHP 2008 / Skin-Flow
- 
-Created : 23-May-05
-Last Modified : 01-Jul-06
-Author : Tom Coleman
-Copyright Status : In Public Domain
-Solver : QHP 2008
-Schema : 2008.0
+
 </PRE>
 </HTML>
 ",     revisions="<html>
 <ul>
 <li><i>  </i>
        </li>
-<li><i> january 2009 </i><br> 
+<li><i> january 2009 </i><br>
        by Marek Matejak in Modelica initially implemented (consulted with Jiri Kofranek), Charles University, Prague<br>
        orginaly described by Tom Coleman in QHP 2008 beta 3, University of Mississippi Medical Center
        </li>
 </ul>
-</html>"),Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,-100},{100,100}}),
-                                           graphics), Icon(graphics={Text(
+</html>"), Icon(graphics={Text(
                 extent={{-100,-100},{100,-80}},
                 lineColor={0,0,255},
                 textString="%name")}));
@@ -7964,9 +7843,6 @@ Schema : 2008.0
             points={{0,-14},{0,-40}},
             color={0,0,127},
             smooth=Smooth.None));
-        annotation (Icon(graphics), Diagram(coordinateSystem(preserveAspectRatio=false,
-                extent={{-100,-100},{100,100}}),
-                                            graphics));
       end MetabolicVasodilation;
 
       model VasaRecta
@@ -8134,12 +8010,7 @@ Schema : 2008.0
           string="%first",
           index=-1,
           extent={{-6,3},{-6,3}}));
-        annotation (Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,
-                -100},{100,100}}),
-                               graphics), Icon(coordinateSystem(
-                preserveAspectRatio=true, extent={{-100,-100},{100,100}}),
-              graphics),
-          Documentation(revisions="<html>
+        annotation (          Documentation(revisions="<html>
 
 <table>
 <tr>
@@ -8148,7 +8019,7 @@ Schema : 2008.0
 </tr>
 <tr>
 <td>License:</td>
-<td>GPL 3.0</td>
+<td><a href=\"http://www.physiomodel.org/license.html\">Physiomodel License 1.0</a> </td>
 </tr>
 <tr>
 <td>By:</td>
@@ -8163,7 +8034,7 @@ Schema : 2008.0
 <td>Tom Coleman: QHP 2008 beta 3, University of Mississippi Medical Center</td>
 </tr>
 </table>
-<br/><p>Copyright &copy; 2014 Marek Matejak</p><br/>
+<br/><p>Copyright &copy; 2014 Marek Matejak, Charles University in Prague.</p><br/>
 
 </html>"));
       end VasaRecta;
@@ -8225,9 +8096,7 @@ Schema : 2008.0
 
       PressureChangeOnCondEffect.u = pressureChange; //zmena tlaku aktivuje receptory
       myogenicEffect = PressureChangeOnCondEffect.val; //stimulacia receptorov ma vplyv na vodivost (odpor) krvi aferentnej arterie
-      annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-                -100},{100,100}}),
-      graphics), Icon(graphics={
+      annotation ( Icon(graphics={
               Text(
                 extent={{-110,-68},{106,-32}},
                 textString="%name",
@@ -8247,8 +8116,8 @@ Schema : 2008.0
                 fillPattern=FillPattern.Sphere,
                 fillColor={215,215,215},
                 textString="Myogenic")}),
-            Documentation(info="<html> <pre>Receptory sa adaptuju na priemerny tlak v arteriole - polcas adaptacie nastane za 2hod a 45min. 
-        Zmena tlaku sa taktiez adaptuje - neviem preco? =&GT; potom to vizera, ze stimulacia receptorov je postupny proces (polcas nabudenia stimulacie je 20 sekund). 
+            Documentation(info="<html> <pre>Receptory sa adaptuju na priemerny tlak v arteriole - polcas adaptacie nastane za 2hod a 45min.
+        Zmena tlaku sa taktiez adaptuje - neviem preco? =&GT; potom to vizera, ze stimulacia receptorov je postupny proces (polcas nabudenia stimulacie je 20 sekund).
         Zmena tlaku aktivuje receptory, ktorych stimulacia ma vplyv na vasokonstrikciu danej arterioly.</pre> </html>"));
     end VariableResistorWithMyogenicResponse;
 
@@ -8276,11 +8145,6 @@ Schema : 2008.0
         change = K  * ( InterlobarPressure  -  AdaptedPressure);
 
         PressureChange_SteadyState = InterlobarPressure - AdaptedPressure;
-        annotation (Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-                  -100},{100,100}}),
-                               graphics), Diagram(coordinateSystem(
-                preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
-              graphics));
       end AfferentArteryMyogenicReceptors;
 
       package Interfaces
@@ -8306,7 +8170,6 @@ Schema : 2008.0
         Physiolibrary.Hydraulic.Sensors.FlowMeasure flowMeasure annotation (
             Placement(transformation(
               extent={{-10,-10},{10,10}},
-              rotation=0,
               origin={-82,0})));
         equation
 
@@ -8333,7 +8196,7 @@ Blood flow variable resistor abstract model.
 </tr>
 <tr>
 <td>License:</td>
-<td>GPL 3.0</td>
+<td><a href=\"http://www.physiomodel.org/license.html\">Physiomodel License 1.0</a> </td>
 </tr>
 <tr>
 <td>By:</td>
@@ -8344,12 +8207,9 @@ Blood flow variable resistor abstract model.
 <td>2009</td>
 </tr>
 </table>
-<br/><p>Copyright &copy; 2014 Marek Matejak</p><br/>
+<br/><p>Copyright &copy; 2014 Marek Matejak, Charles University in Prague.</p><br/>
 
-</html>"),        Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,-100},
-                    {100,100}}),             graphics), Icon(coordinateSystem(
-                  preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
-                graphics));
+</html>"));
         end BaseOD;
 
         partial model BaseDO
@@ -8377,7 +8237,6 @@ Blood flow variable resistor abstract model.
         Physiolibrary.Hydraulic.Sensors.FlowMeasure flowMeasure annotation (
             Placement(transformation(
               extent={{10,-10},{-10,10}},
-              rotation=0,
               origin={88,0})));
         equation
 
@@ -8404,7 +8263,7 @@ Blood flow variable resistor abstract model.
 </tr>
 <tr>
 <td>License:</td>
-<td>GPL 3.0</td>
+<td><a href=\"http://www.physiomodel.org/license.html\">Physiomodel License 1.0</a> </td>
 </tr>
 <tr>
 <td>By:</td>
@@ -8415,12 +8274,9 @@ Blood flow variable resistor abstract model.
 <td>2009</td>
 </tr>
 </table>
-<br/><p>Copyright &copy; 2014 Marek Matejak</p><br/>
+<br/><p>Copyright &copy; 2014 Marek Matejak, Charles University in Prague.</p><br/>
 
-</html>"),        Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,
-                  -100},{100,100}}),         graphics), Icon(coordinateSystem(
-                  preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
-                                                             graphics));
+</html>"));
         end BaseDO;
 
         partial model Heart
@@ -8600,32 +8456,24 @@ Blood flow variable resistor abstract model.
             Documentation(info="<HTML>
 <PRE>
 Blood resistance in left heart.
- 
+
 QHP 2008 / LeftHeart-Flow
- 
-Created : 23-May-05
-Last Modified : 23-May-05
-Author : Tom Coleman
-Copyright Status : In Public Domain
-Solver : QHP 2008
-Schema : 2008.0
+
 </PRE>
 </HTML>
 ",       revisions="<html>
 <ul>
 <li><i>  </i>
        </li>
-<li><i> january 2009 </i><br> 
+<li><i> january 2009 </i><br>
        by Marek Matejak in Modelica initially implemented (consulted with Jiri Kofranek), Charles University, Prague<br>
        orginaly described by Tom Coleman in QHP 2008 beta 3, University of Mississippi Medical Center
        </li>
 </ul>
-</html>"),  Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,-100},{100,100}}),
-                                             graphics), Icon(graphics={Text(
+</html>"), Icon(graphics={Text(
                   extent={{-100,-100},{100,-80}},
                   lineColor={0,0,255},
-                  textString="%name")}),
-                      Diagram(graphics));
+                  textString="%name")}));
         end Heart;
       end Interfaces;
     end Microcirculation;
@@ -8685,7 +8533,6 @@ Schema : 2008.0
         Physiolibrary.Blocks.Math.FractionGain
                                   H2O(f=0.66)
           annotation (Placement(transformation(extent={{-4,-4},{4,4}},
-            rotation=0,
             origin={54,-84})));
       Hormones.EPO EPO
         annotation (Placement(transformation(extent={{-74,-16},{-54,4}})));
@@ -8708,7 +8555,6 @@ Schema : 2008.0
         Modelica.Blocks.Math.Gain RBCVol(k=2.4e-3/12e12) "12e12 cells == 2.4 L"
         annotation (Placement(transformation(
             extent={{-4,-4},{4,4}},
-            rotation=0,
             origin={30,-76})));
       Physiolibrary.Types.Constants.PopulationChangeConst RBCBaseSecretionRate(
           k=1.16e6) "13.7 ml/day (12e12 cells == 2.4 L)"
@@ -8716,7 +8562,6 @@ Schema : 2008.0
         Modelica.Blocks.Math.Gain RBCVolToCells(k=12e12/2.4e-3)
         "12e12 cells == 2.4 L" annotation (Placement(transformation(
             extent={{-4,-4},{4,4}},
-            rotation=0,
             origin={-58,-36})));
         Modelica.Blocks.Math.Gain RBCVol2(k=12e12/2.4e-3)
         "12e12 cells == 2.4 L" annotation (Placement(transformation(
@@ -8809,8 +8654,7 @@ Schema : 2008.0
           points={{68,-4.4},{68,-18}},
           color={0,0,127},
           smooth=Smooth.None));
-        annotation (Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,
-                -100},{100,100}}),         graphics), Icon(coordinateSystem(
+        annotation ( Icon(coordinateSystem(
                 preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
               graphics={                  Text(
                 extent={{-136,-46},{148,-68}},
@@ -8825,7 +8669,7 @@ Schema : 2008.0
 </tr>
 <tr>
 <td>License:</td>
-<td>GPL 3.0</td>
+<td><a href=\"http://www.physiomodel.org/license.html\">Physiomodel License 1.0</a> </td>
 </tr>
 <tr>
 <td>By:</td>
@@ -8840,7 +8684,7 @@ Schema : 2008.0
 <td>Tom Coleman: QHP 2008 beta 3, University of Mississippi Medical Center</td>
 </tr>
 </table>
-<br/><p>Copyright &copy; 2014 Marek Matejak</p><br/>
+<br/><p>Copyright &copy; 2014 Marek Matejak, Charles University in Prague.</p><br/>
 
 </html>"));
       end RedCells2;
@@ -8886,7 +8730,6 @@ Schema : 2008.0
         annotation (Placement(transformation(extent={{-104,58},{-84,78}})));
         Modelica.Blocks.Math.Division division3(y(displayUnit="mmol/l"))
           annotation (Placement(transformation(extent={{-4,-4},{4,4}},
-              rotation=0,
               origin={-4,2})));
         Modelica.Blocks.Math.Feedback feedback
           annotation (Placement(transformation(extent={{-20,32},{-40,52}})));
@@ -9224,9 +9067,7 @@ Schema : 2008.0
           points={{-21.6,-86},{8,-86},{8,-76.4},{37.2,-76.4}},
           color={0,0,127},
           smooth=Smooth.None));
-        annotation (Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,
-                -100},{100,100}}),
-                               graphics), Icon(coordinateSystem(
+        annotation ( Icon(coordinateSystem(
                 preserveAspectRatio=true, extent={{-100,-100},{100,100}}),
               graphics={                          Text(
                 extent={{-142,-108},{142,-130}},
@@ -9255,7 +9096,7 @@ Schema : 2008.0
 </tr>
 <tr>
 <td>License:</td>
-<td>GPL 3.0</td>
+<td><a href=\"http://www.physiomodel.org/license.html\">Physiomodel License 1.0</a> </td>
 </tr>
 <tr>
 <td>By:</td>
@@ -9270,7 +9111,7 @@ Schema : 2008.0
 <td>Tom Coleman: QHP 2008 beta 3, University of Mississippi Medical Center</td>
 </tr>
 </table>
-<br/><p>Copyright &copy; 2014 Marek Matejak</p><br/>
+<br/><p>Copyright &copy; 2014 Marek Matejak, Charles University in Prague.</p><br/>
 
 </html>"));
       end BloodPropertiesBase;
@@ -9296,7 +9137,7 @@ Schema : 2008.0
     Blood.BloodPropertiesBase bloodProperties
       annotation (Placement(transformation(extent={{-36,-34},{-56,-14}})));
 
-    /*initial equation 
+    /*initial equation
   if STEADY then
      bloodProperties.feedback.y = 0;
   end if;
@@ -9355,8 +9196,7 @@ Schema : 2008.0
 
     //  stateValue = bloodProperties.BloodVolume1.y;
 
-      annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-                -100},{100,100}}),       graphics), Documentation(info="<html>
+      annotation ( Documentation(info="<html>
 <p><h4><font color=\"#008000\">Cardiovascular system</font></h4></p>
 <p><font style=\"color: #008000; \">Connect heart with pulmonary and systemic part. This connection contains pressures and blood flows before and after heart.</font></p>
 <p><font style=\"color: #008000; \">Output signal variables about blood volume between lungs capilaries and systemic tissue capilaries are used in gass transport submodels like O2 or CO2.</font></p>
@@ -9372,7 +9212,7 @@ Schema : 2008.0
 </tr>
 <tr>
 <td>License:</td>
-<td>GPL 3.0</td>
+<td><a href=\"http://www.physiomodel.org/license.html\">Physiomodel License 1.0</a> </td>
 </tr>
 <tr>
 <td>By:</td>
@@ -9387,7 +9227,7 @@ Schema : 2008.0
 <td>Tom Coleman: QHP 2008 beta 3, University of Mississippi Medical Center</td>
 </tr>
 </table>
-<br/><p>Copyright &copy; 2014 Marek Matejak</p><br/>
+<br/><p>Copyright &copy; 2014 Marek Matejak, Charles University in Prague.</p><br/>
 
 </html>"),
         Icon(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},{
@@ -9942,9 +9782,7 @@ Schema : 2008.0
                 textString="vars"), Text(
                 extent={{-126,-98},{116,-132}},
                 lineColor={0,0,255},
-                textString="%name")}), Diagram(coordinateSystem(
-                preserveAspectRatio=false,extent={{-100,-100},{100,100}}),
-              graphics));
+                textString="%name")}));
       end Variables;
 
       model CardioVascular_test
@@ -10043,11 +9881,7 @@ Schema : 2008.0
             color={0,0,255},
             thickness=0.5,
             smooth=Smooth.None));
-        annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-                -100},{100,100}}),
-                            graphics),
-        experiment(StopTime=3.1536e+007),
-        __Dymola_experimentSetupOutput);
+        annotation (        experiment(StopTime=3.1536e+007));
       end CardioVascular_test;
 
       model CardioVascular_test_SI
@@ -10146,27 +9980,20 @@ Schema : 2008.0
             color={0,0,255},
             thickness=0.5,
             smooth=Smooth.None));
-        annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-                  -100},{100,100}}),
-                            graphics),
-        experiment(StopTime=864000),
-        __Dymola_experimentSetupOutput);
+        annotation (        experiment(StopTime=864000));
       end CardioVascular_test_SI;
     end IO_Bus;
 
   annotation (Documentation(revisions="<html>
 <table cellspacing=\"2\" cellpadding=\"0\" border=\"0\"><tr>
 <td><p>Author:</p></td>
-<td><p>Marek Matejak</p></td>
+<td>Marek Matejak</td>
 </tr>
 <tr>
 <td><p>License:</p></td>
-<td><p>GPL 3.0</p></td>
+<td><p><a href=\"http://www.physiomodel.org/license.html\">Physiomodel License 1.0</a> </p></td>
 </tr>
-<tr>
-<td><p>By:</p></td>
-<td><p>Charles University, Prague</p></td>
-</tr>
+
 <tr>
 <td><p>Date of:</p></td>
 <td><p>2008-2015</p></td>
@@ -10176,7 +10003,7 @@ Schema : 2008.0
 <td><p><br><a href=\"modelica://Physiomodel.UsersGuide.References\">User&apos;s Guide</a></p><p><br><a href=\"https://www.zotero.org/search/type/group/q/physiomodel\">zotero: Physiomodel</a></p><p><br><a href=\"http://www.hummod.org\">HumMod</a></p><p><br><a href=\"https://www.zotero.org/groups/hummod_references\">zotero: HumMod References</a></p></td>
 </tr>
 </table>
-<p><br>Copyright &copy; 2008-2015 Marek Matejak</p>
+<p><br>Copyright &copy; 2008-2015 Marek Matejak, Charles University in Prague.</p>
 </html>", info="<html>
 <p>Heart pump</p>
 <p>Cardiac output (CO) as a mean blood flow from heart ventricle is heart rate (HR) multiplied by stroke volume (SV), where stroke volume is difference of end diastolic volume (EDV) [Gaasch1975,Carter1998] and end systolic volume (ESV) [Noda1993]. The HR and heart contractility (in the meaning of ESV) [Suga1976] can be influenced by nervus vagus (main parasympathicus autonomic neural pathway) [Xenopoulos1994], epinephrine [Collins-Nakai1994] or angiotensin II [Kumagai1994]. The most comon descriptions are pressure-volume relations [Sawaga1988] as in famous A-V fistula experiments [Guyton1961] or filling pressure experiments [Suga1974] or less invasive exercise experiments [Little1993].</p>
@@ -10200,9 +10027,7 @@ Schema : 2008.0
 <p>- CO on CO2 [Davidson1986]</p>
 <p>-  ,Hogan1990,Lash1987,Malo1984,Marshall1995,Metting1989,Metting1988,Weber2000,Borgstr&ouml;m1975,Whalen1974,Frisbee2000,Berg1997,Burattini1994,POHOST1976,Archer1996,Goodman1978,Granger1976,Granger1969,Harder1996,Harder1996,Marshall1988,Frisbee2000,Kunert1996,Prewitt1976,Kuwahira1993]</p>
 <p><br>RAAS and other regulations .. see hormones, nerves and drugs</p>
-</html>"), Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
-              {100,100}}),
-                      graphics));
+</html>"));
   end CardioVascular;
 
 
@@ -10311,7 +10136,7 @@ Schema : 2008.0
             origin={40,-120})));
 
       Physiolibrary.Types.Concentration cdO2;
-    /*    
+    /*
   Real aa;
   Real xx;
   Real yy;
@@ -10437,9 +10262,7 @@ Schema : 2008.0
               fillPattern=FillPattern.Solid), Text(
               extent={{-74,-32},{74,-64}},
               lineColor={0,0,255},
-              textString="%name")}),            Diagram(coordinateSystem(
-              preserveAspectRatio=true, extent={{-100,-100},{100,100}}),
-            graphics));
+              textString="%name")}));
     end BloodO2Base;
 
       model MeassureBloodO2
@@ -10450,7 +10273,6 @@ Schema : 2008.0
       equation
          q_in.q = 0;  //flows: mmol/min
          tO2 = q_in.conc; //mmol/l
-        annotation (Diagram(graphics), Icon(graphics));
       end MeassureBloodO2;
 
       model BloodO2_Siggaard
@@ -10493,7 +10315,6 @@ Schema : 2008.0
 
       ceHb_ = ceHb;
 
-        annotation (Diagram(graphics), Icon(graphics));
       end BloodO2_Siggaard;
 
       model BloodO2_Siggaard_Liver
@@ -10548,9 +10369,7 @@ Schema : 2008.0
                 fillColor={255,255,255},
                 fillPattern=FillPattern.Solid,
                 origin={-2,-84},
-                rotation=360)}),                  Diagram(coordinateSystem(
-                preserveAspectRatio=true, extent={{-100,-100},{100,100}}),
-              graphics));
+                rotation=360)}));
       end BloodO2_Siggaard_Liver;
 
       model TissuesO2
@@ -11857,9 +11676,7 @@ Schema : 2008.0
             thickness=1,
             smooth=Smooth.None));
         annotation (Icon(graphics={Rectangle(extent={{-120,100},{120,-100}},
-                  lineColor={0,0,0})}),
-                                 Diagram(coordinateSystem(preserveAspectRatio=false,
-                        extent={{-100,-100},{100,100}}), graphics));
+                  lineColor={0,0,0})}));
       end TissuesO2;
 
       package Tissues
@@ -11895,13 +11712,11 @@ Schema : 2008.0
                                            annotation (Placement(transformation(extent={{38,-4},
                     {30,4}}),             iconTransformation(
                 extent={{-10,-10},{10,10}},
-                rotation=0,
                 origin={-90,60})));
           Physiolibrary.Types.RealIO.FractionInput FHbF
           "Foetal haemoglobin fraction"    annotation (Placement(transformation(extent={{46,-8},
                     {38,0}}),             iconTransformation(
                 extent={{-10,-10},{10,10}},
-                rotation=0,
                 origin={-90,-60})));
           Physiolibrary.Types.RealIO.FractionInput FMetHb
           "methaemoglobin fraction"                             annotation (Placement(transformation(extent={{56,-12},
@@ -11938,7 +11753,6 @@ Schema : 2008.0
           Physiolibrary.Types.RealIO.PressureInput pCO2
           "outgoing veins CO2 partial pressure"                  annotation (Placement(transformation(extent={{-46,-16},
                     {-38,-8}}),           iconTransformation(extent={{-10,-10},{10,10}},
-                rotation=0,
                 origin={-90,-100})));
           Physiolibrary.Types.RealIO.PressureOutput pO2       annotation (Placement(
                 transformation(extent={{10,8},{18,16}}),     iconTransformation(
@@ -12011,8 +11825,7 @@ Schema : 2008.0
             points={{-78,-60},{-46,-60},{-46,-88},{-12,-88}},
             color={0,0,127},
             smooth=Smooth.None));
-          annotation (Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,
-                  -100},{100,100}}),   graphics), Icon(coordinateSystem(
+          annotation ( Icon(coordinateSystem(
                   preserveAspectRatio=true, extent={{-100,-100},{100,100}}),
                 graphics={
                 Text(
@@ -12101,8 +11914,7 @@ Schema : 2008.0
             color={107,45,134},
             thickness=1,
             smooth=Smooth.None));
-          annotation (Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,
-                  -100},{100,100}}),   graphics), Icon(coordinateSystem(
+          annotation ( Icon(coordinateSystem(
                   preserveAspectRatio=true, extent={{-100,-100},{100,100}}),
                 graphics={
                 Text(
@@ -12129,16 +11941,11 @@ Schema : 2008.0
             color={107,45,134},
             thickness=1,
             smooth=Smooth.None));
-        annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent=
-                  {{-100,-100},{100,100}}), graphics));
         end TissueO2;
 
         model SkeletalMuscleO2
           extends Physiomodel.Gases.O2.Tissues.TissueO2(arty(q(start=5.048)));
           extends Physiolibrary.Icons.SkeletalMuscle;
-          annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-                    -100},{100,100}}),
-                              graphics));
         end SkeletalMuscleO2;
 
         model BoneO2
@@ -12474,11 +12281,6 @@ Schema : 2008.0
             string="%second",
             index=1,
             extent={{6,3},{6,3}}));
-          annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-                    -100},{100,100}}), graphics),
-                                         Diagram(coordinateSystem(
-                  preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
-                graphics));
         end Variables;
 
         model Oxygen_test_SI
@@ -12646,11 +12448,7 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
               color={255,204,51},
               thickness=0.5,
               smooth=Smooth.None));
-          annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-                    -100},{100,100}}),
-                              graphics),
-            experiment(StopTime=3600, Tolerance=1e-005),
-            __Dymola_experimentSetupOutput);
+          annotation (            experiment(StopTime=3600, Tolerance=1e-005));
         end Oxygen_test_SI;
       end IO_Bus;
 
@@ -12673,7 +12471,6 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
               conc(start=104/760)), useSolutionFlowInput=true)) annotation (
           Placement(transformation(
             extent={{-10,-10},{10,10}},
-            rotation=0,
             origin={-8,50})));
       Physiolibrary.Chemical.Components.Stream pulmShortCircuit(
           useSolutionFlowInput=true)
@@ -13080,8 +12877,7 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
           string="%second",
           index=1,
           extent={{6,3},{6,3}}));
-        annotation (Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,
-                -100},{100,100}}),         graphics), Icon(coordinateSystem(
+        annotation ( Icon(coordinateSystem(
                 preserveAspectRatio=true, extent={{-100,-100},{100,100}}),
               graphics={                 Text(
                 extent={{-120,-62},{122,-96}},
@@ -13091,16 +12887,13 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
 
 <table cellspacing=\"2\" cellpadding=\"0\" border=\"0\"><tr>
 <td><p>Author:</p></td>
-<td><p>Marek Matejak</p></td>
+<td>Marek Matejak</td>
 </tr>
 <tr>
 <td><p>License:</p></td>
-<td><p>GPL 3.0</p></td>
+<td><p><a href=\"http://www.physiomodel.org/license.html\">Physiomodel License 1.0</a> </p></td>
 </tr>
-<tr>
-<td><p>By:</p></td>
-<td><p>Charles University, Prague</p></td>
-</tr>
+
 <tr>
 <td><p>Date of:</p></td>
 <td><p>2009</p></td>
@@ -13114,7 +12907,7 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
 <td><p>Tom Coleman: QHP 2008 beta 3, University of Mississippi Medical Center</p></td>
 </tr>
 </table>
-<br/><p>Copyright &copy; 2014 Marek Matejak</p><br/>
+<br/><p>Copyright &copy; 2014 Marek Matejak, Charles University in Prague.</p><br/>
 
 </html>"));
       end O2;
@@ -13408,8 +13201,7 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
 <p>[1] Bauer C, Schr&ouml;der E. Carbamino compounds of haemoglobin in human adult and foetal blood. The Journal of physiology 1972;227:457-71.</p>
 <p>[2] Siggaard-Andersen O. Oxygen-Linked Hydrogen Ion Binding of Human Hemoglobin. Effects of Carbon Dioxide and 2, 3-Diphosphoglycerate I. Studies on Erythrolysate. Scandinavian Journal of Clinical &AMP; Laboratory Investigation 1971;27:351-60.</p>
 
-</html>"), Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-                -100},{100,100}}), graphics));
+</html>"));
       end Hemoglobin_MKM_Specie;
 
       model Hemoglobin_MKM_Adair "Matejak,Kulhanek,Matousek (2014)"
@@ -13742,9 +13534,7 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
 </html>", revisions="<html>
 <p><i>2014</i></p>
 <p>Marek Matejak, Charles University, Prague, Czech Republic </p>
-</html>"),Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-                -100},{100,100}}),
-                          graphics));
+</html>"));
       end Hemoglobin_MKM_Adair;
       annotation (Documentation(revisions="<html>
 
@@ -13755,7 +13545,7 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
 </tr>
 <tr>
 <td>License:</td>
-<td>GPL 3.0</td>
+<td><a href=\"http://www.physiomodel.org/license.html\">Physiomodel License 1.0</a> </td>
 </tr>
 <tr>
 <td>By:</td>
@@ -13773,7 +13563,7 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
 <td>Siggaard Andersen: OSA (2005), University of Copenhagen</td>
 </tr>
 </table>
-<br/><p>Copyright &copy; 2014 Marek Matejak</p><br/>
+<br/><p>Copyright &copy; 2014 Marek Matejak, Charles University in Prague.</p><br/>
 
 </html>"));
     end O2;
@@ -13822,9 +13612,7 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
        // pH = if ( cdCO2 > 1e-8) then  pK + log10(max(1e-15,cHCO3/cdCO2)) else pK;
         cdCO2 * 10^(pH-pK) = cHCO3;
 
-        annotation (Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-                  -100},{100,100}}),
-                               graphics), Documentation(revisions="<html>
+        annotation ( Documentation(revisions="<html>
 
 <table cellspacing=\"2\" cellpadding=\"0\" border=\"0\"><tr>
 <td><p>Author:</p></td>
@@ -13832,12 +13620,9 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
 </tr>
 <tr>
 <td><p>License:</p></td>
-<td><p>GPL 3.0</p></td>
+<td><p><a href=\"http://www.physiomodel.org/license.html\">Physiomodel License 1.0</a> </p></td>
 </tr>
-<tr>
-<td><p>By:</p></td>
-<td><p>Charles University, Prague</p></td>
-</tr>
+
 <tr>
 <td><p>Date of:</p></td>
 <td><p>2009</p></td>
@@ -13847,7 +13632,7 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
 <td>Siggaard Andersen: OSA (2005), University of Copenhagen</td>
 </tr>
 </table>
-<br/><p>Copyright &copy; 2014 Marek Matejak</p><br/>
+<br/><p>Copyright &copy; 2014 Marek Matejak, Charles University in Prague.</p><br/>
 
 </html>"));
       end HendersonHasselbach;
@@ -13906,10 +13691,7 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
                 fillPattern=FillPattern.Solid), Text(
                 extent={{-74,-26},{74,-58}},
                 lineColor={0,0,255},
-                textString="%name")}),            Diagram(coordinateSystem(
-                preserveAspectRatio=true,  extent={{-100,-100},{100,100}}),
-              graphics),
-        Documentation(revisions="<html>
+                textString="%name")}),        Documentation(revisions="<html>
 
 <table cellspacing=\"2\" cellpadding=\"0\" border=\"0\"><tr>
 <td><p>Author:</p></td>
@@ -13917,12 +13699,9 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
 </tr>
 <tr>
 <td><p>License:</p></td>
-<td><p>GPL 3.0</p></td>
+<td><p><a href=\"http://www.physiomodel.org/license.html\">Physiomodel License 1.0</a> </p></td>
 </tr>
-<tr>
-<td><p>By:</p></td>
-<td><p>Charles University, Prague</p></td>
-</tr>
+
 <tr>
 <td><p>Date of:</p></td>
 <td><p>2009</p></td>
@@ -13932,7 +13711,7 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
 <td>Siggaard Andersen: OSA (2005), University of Copenhagen</td>
 </tr>
 </table>
-<br/><p>Copyright &copy; 2014 Marek Matejak</p><br/>
+<br/><p>Copyright &copy; 2014 Marek Matejak, Charles University in Prague.</p><br/>
 
 </html>"));
       end BloodCO2Base;
@@ -13975,10 +13754,7 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
                 fillColor={255,255,255},
                 fillPattern=FillPattern.Solid,
                 origin={-2,-80},
-                rotation=360)}),                  Diagram(coordinateSystem(
-                preserveAspectRatio=true,  extent={{-100,-100},{100,100}}),
-              graphics),
-        Documentation(revisions="<html>
+                rotation=360)}),        Documentation(revisions="<html>
 
 <table cellspacing=\"2\" cellpadding=\"0\" border=\"0\"><tr>
 <td><p>Author:</p></td>
@@ -13986,12 +13762,9 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
 </tr>
 <tr>
 <td><p>License:</p></td>
-<td><p>GPL 3.0</p></td>
+<td><p><a href=\"http://www.physiomodel.org/license.html\">Physiomodel License 1.0</a> </p></td>
 </tr>
-<tr>
-<td><p>By:</p></td>
-<td><p>Charles University, Prague</p></td>
-</tr>
+
 <tr>
 <td><p>Date of:</p></td>
 <td><p>2009</p></td>
@@ -14001,7 +13774,7 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
 <td>Siggaard Andersen: OSA (2005), University of Copenhagen</td>
 </tr>
 </table>
-<br/><p>Copyright &copy; 2014 Marek Matejak</p><br/>
+<br/><p>Copyright &copy; 2014 Marek Matejak, Charles University in Prague.</p><br/>
 
 </html>"));
       end BloodCO2TransportBase;
@@ -14057,7 +13830,6 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
       Ventilation.AlveolarVentilation alveolarVentilation annotation (Placement(
             transformation(
             extent={{-10,-10},{10,10}},
-            rotation=0,
             origin={0,78})));                       /*(
     solventFlowPump(q_out(conc(start=0.05))))*/
       Physiolibrary.Chemical.Components.Stream pulmShortCircuit(
@@ -14384,9 +14156,7 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
           color={191,0,0},
           thickness=1,
           smooth=Smooth.None));
-        annotation (Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,
-                -100},{100,100}}),
-                               graphics), Icon(coordinateSystem(
+        annotation ( Icon(coordinateSystem(
                 preserveAspectRatio=true, extent={{-100,-100},{100,100}}),
               graphics={              Text(
                 extent={{-116,-60},{126,-94}},
@@ -14400,12 +14170,9 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
 </tr>
 <tr>
 <td><p>License:</p></td>
-<td><p>GPL 3.0</p></td>
+<td><p><a href=\"http://www.physiomodel.org/license.html\">Physiomodel License 1.0</a> </p></td>
 </tr>
-<tr>
-<td><p>By:</p></td>
-<td><p>Charles University, Prague</p></td>
-</tr>
+
 <tr>
 <td><p>Date of:</p></td>
 <td><p>2009</p></td>
@@ -14419,7 +14186,7 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
 <td><p>Tom Coleman: QHP 2008 beta 3, University of Mississippi Medical Center</p></td>
 </tr>
 </table>
-<br/><p>Copyright &copy; 2014 Marek Matejak</p><br/>
+<br/><p>Copyright &copy; 2014 Marek Matejak, Charles University in Prague.</p><br/>
 
 </html>"));
       end CO2;
@@ -14442,9 +14209,7 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
                 fillPattern=FillPattern.Solid), Text(
                 extent={{-74,-26},{74,-58}},
                 lineColor={0,0,255},
-                textString="%name")}),            Diagram(coordinateSystem(
-                preserveAspectRatio=true,  extent={{-100,-100},{100,100}}),
-              graphics));
+                textString="%name")}));
       end MeassureBloodCO2;
 
       model TissueHCO3
@@ -14459,8 +14224,8 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
 
   constant Real MiniliterPerLiter(final displayUnit="ml/l")=1000;
 
-  
-  Library.Interfaces.RealOutput_ cHCO3(final displayUnit="mmol/l") 
+
+  Library.Interfaces.RealOutput_ cHCO3(final displayUnit="mmol/l")
     "outgoing concentration of HCO3"                                                           annotation (Placement(
         transformation(extent={{20,-70},{60,-30}}), iconTransformation(
         extent={{-20,-20},{20,20}},
@@ -14481,16 +14246,15 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
                                           annotation (Placement(transformation(
                 extent={{20,-70},{60,-30}}), iconTransformation(
               extent={{-10,-10},{10,10}},
-              rotation=0,
               origin={-90,42})));               //start=45,
 
       equation
         pCO2 = pCO2_;
 
         /*
-  
-   
-   
+
+
+
 
   //Henderson-Hasselbalch equation:
   pK = 6.1 + (-0.0026)*(T-37);
@@ -14510,10 +14274,7 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
                 fillPattern=FillPattern.Solid), Text(
                 extent={{-96,-40},{98,-68}},
                 lineColor={0,0,255},
-                textString="%name")}),            Diagram(coordinateSystem(
-                preserveAspectRatio=true,  extent={{-100,-100},{100,100}}),
-              graphics),
-        Documentation(revisions="<html>
+                textString="%name")}),        Documentation(revisions="<html>
 
 <table cellspacing=\"2\" cellpadding=\"0\" border=\"0\"><tr>
 <td><p>Author:</p></td>
@@ -14521,12 +14282,9 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
 </tr>
 <tr>
 <td><p>License:</p></td>
-<td><p>GPL 3.0</p></td>
+<td><p><a href=\"http://www.physiomodel.org/license.html\">Physiomodel License 1.0</a> </p></td>
 </tr>
-<tr>
-<td><p>By:</p></td>
-<td><p>Charles University, Prague</p></td>
-</tr>
+
 <tr>
 <td><p>Date of:</p></td>
 <td><p>2009</p></td>
@@ -14536,7 +14294,7 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
 <td>Siggaard Andersen: OSA (2005), University of Copenhagen</td>
 </tr>
 </table>
-<br/><p>Copyright &copy; 2014 Marek Matejak</p><br/>
+<br/><p>Copyright &copy; 2014 Marek Matejak, Charles University in Prague.</p><br/>
 
 </html>"));
       end TissueHCO3;
@@ -14563,7 +14321,7 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
       /*  Library.Interfaces.RealInput_ pH_ery "outgoing intracellular erytrocytes pH"
                                   annotation (Placement(transformation(extent={{-120,10},
             {-80,50}}),           iconTransformation(extent={{-100,30},{-80,50}})));
-  Library.Interfaces.RealInput_ Hct 
+  Library.Interfaces.RealInput_ Hct
     "outgoing hematocrit (erytrocytes volume/blood volume)"
                                    annotation (Placement(transformation(extent={{60,60},
             {100,100}}),          iconTransformation(
@@ -14621,9 +14379,7 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
                 fillColor={255,255,255},
                 fillPattern=FillPattern.Solid,
                 origin={-2,-80},
-                rotation=360)}),                  Diagram(coordinateSystem(
-                preserveAspectRatio=true,  extent={{-100,-100},{100,100}}),
-              graphics));
+                rotation=360)}));
       end FlowMeasureCO2;
 
       package TissuesWithInterstitium
@@ -15727,9 +15483,7 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
               thickness=1,
               smooth=Smooth.None));
           annotation (Icon(graphics={Rectangle(extent={{-120,100},{120,-100}},
-                    lineColor={0,0,0})}),
-                                   Diagram(coordinateSystem(preserveAspectRatio=true,
-                          extent={{-100,-100},{100,100}}), graphics));
+                    lineColor={0,0,0})}));
         end TissuesCO2;
 
         model TissueCO2
@@ -15776,7 +15530,6 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
                 rotation=180,
                 origin={-35,-47}),        iconTransformation(
                 extent={{-10,-10},{10,10}},
-                rotation=0,
                 origin={-90,60})));
           Modelica.Blocks.Interfaces.RealInput Hct
           "outgoing hematocrit (erytrocytes volume/blood volume)"
@@ -15785,7 +15538,6 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
                 rotation=180,
                 origin={-35,-41}),        iconTransformation(
                 extent={{-10,-10},{10,10}},
-                rotation=0,
                 origin={-90,-60})));
 
           Modelica.Blocks.Interfaces.RealInput Tissue_CO2FromMetabolism
@@ -15897,8 +15649,7 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
               points={{-22,-60},{-22,-86},{26,-86},{26,40},{33.2,40}},
               color={0,0,127},
               smooth=Smooth.None));
-          annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-                    -100},{100,100}}), graphics), Icon(coordinateSystem(
+          annotation ( Icon(coordinateSystem(
                   preserveAspectRatio=true, extent={{-100,-100},{100,100}}),
                 graphics={
                 Text(
@@ -15952,7 +15703,6 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
                 rotation=180,
                 origin={-35,-47}),        iconTransformation(
                 extent={{-10,-10},{10,10}},
-                rotation=0,
                 origin={-90,60})));
           Modelica.Blocks.Interfaces.RealInput Hct
           "outgoing hematocrit (erytrocytes volume/blood volume)"
@@ -15961,7 +15711,6 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
                 rotation=180,
                 origin={-35,-41}),        iconTransformation(
                 extent={{-10,-10},{10,10}},
-                rotation=0,
                 origin={-90,-60})));
 
           Modelica.Blocks.Interfaces.RealOutput pCO2
@@ -16104,8 +15853,7 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
               points={{-22,-60},{-22,-86},{20,-86},{20,40},{31.2,40}},
               color={0,0,127},
               smooth=Smooth.None));
-          annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-                    -100},{100,100}}), graphics), Icon(coordinateSystem(
+          annotation ( Icon(coordinateSystem(
                   preserveAspectRatio=true, extent={{-100,-100},{100,100}}),
                 graphics={
                 Text(
@@ -16193,7 +15941,6 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
         q_in.q + q_out.q + alveolar_outflow.q = 0;
         alveolar_outflow.conc = cdCO2;
 
-        annotation (Icon(graphics));
       end BloodCO2;
 
       package IO_Bus
@@ -16591,11 +16338,6 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
             string="%second",
             index=1,
             extent={{6,3},{6,3}}));
-          annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-                    -100},{100,100}}), graphics),
-                                         Diagram(coordinateSystem(
-                  preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
-                graphics));
         end Variables;
 
         model CO2_test_SI
@@ -16690,8 +16432,6 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
             color={0,0,255},
             thickness=0.5,
             smooth=Smooth.None));
-        annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent=
-                  {{-100,-100},{100,100}}), graphics));
         end CO2_test_SI;
       end IO_Bus;
 
@@ -16704,7 +16444,7 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
 </tr>
 <tr>
 <td>License:</td>
-<td>GPL 3.0</td>
+<td><a href=\"http://www.physiomodel.org/license.html\">Physiomodel License 1.0</a> </td>
 </tr>
 <tr>
 <td>By:</td>
@@ -16722,7 +16462,7 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
 <td>Siggaard Andersen: OSA (2005), University of Copenhagen</td>
 </tr>
 </table>
-<br/><p>Copyright &copy; 2014 Marek Matejak</p><br/>
+<br/><p>Copyright &copy; 2014 Marek Matejak, Charles University in Prague.</p><br/>
 
 </html>"));
     end CO2;
@@ -16732,7 +16472,6 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
         extends Physiolibrary.Icons.RespiratoryCenter;
       AfferentPath afferentPath annotation (Placement(transformation(
             extent={{-10,-10},{10,10}},
-            rotation=0,
             origin={66,32})));
       Physiolibrary.Types.BusConnector busConnector annotation (Placement(
             transformation(extent={{-80,80},{-60,100}}), iconTransformation(
@@ -16754,16 +16493,16 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
     annotation (Placement(transformation(extent={{-10,-84},{70,-76}})));
 
 Physiolibrary.Utilities.ConstantFromFile RespiratoryCenter_RespRate(
-                                    varName="RespiratoryCenter-Output.Rate") 
+                                    varName="RespiratoryCenter-Output.Rate")
     "Respiration rate. [1/min]"
 annotation (Placement(transformation(extent={{-92,-78},{-86,-72}})));
 Physiolibrary.Utilities.ConstantFromFile
-    RespiratoryCenter_MotorNerveActivity(     varName="RespiratoryCenter-Output.MotorNerveActivity") 
+    RespiratoryCenter_MotorNerveActivity(     varName="RespiratoryCenter-Output.MotorNerveActivity")
     "Neural activity from respiratory center to respiratory muscle. []"
 annotation (Placement(transformation(extent={{-92,-88},{-86,-82}})));
 Physiolibrary.Utilities.ConstantFromFile
     RespiratoryCenterIntegration_TotalDrive(                                      varName=
-        "RespiratoryCenter-Integration.TotalDrive") 
+        "RespiratoryCenter-Integration.TotalDrive")
     "RespiratoryCenter-Integration.TotalDrive"
 annotation (Placement(transformation(extent={{16,-70},{22,-64}})));
   Physiolibrary.Blocks.Constant Constant(
@@ -16884,8 +16623,7 @@ annotation (Placement(transformation(extent={{16,-70},{22,-64}})));
           points={{17,-30},{34,-30},{34,-10},{50.2,-10}},
           color={0,0,127},
           smooth=Smooth.None));
-        annotation (Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,
-                -100},{100,100}}),        graphics), Icon(coordinateSystem(
+        annotation ( Icon(coordinateSystem(
                 preserveAspectRatio=true, extent={{-100,-100},{100,100}}),
               graphics={Text(
                 extent={{-142,-108},{142,-140}},
@@ -16971,8 +16709,7 @@ annotation (Placement(transformation(extent={{16,-70},{22,-64}})));
           string="%first",
           index=-1,
           extent={{-6,3},{-6,3}}));
-        annotation (Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,
-                -100},{100,100}}),   graphics), Icon(coordinateSystem(
+        annotation ( Icon(coordinateSystem(
                 preserveAspectRatio=true,  extent={{-100,-100},{100,100}}),
               graphics={
               Text(
@@ -17071,8 +16808,7 @@ annotation (Placement(transformation(extent={{16,-70},{22,-64}})));
             points={{-100,20},{-56,20},{-56,-22},{24,-22},{24,-36}},
             color={0,0,127},
             smooth=Smooth.None));
-        annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-                  -100},{100,100}}), graphics), Icon(coordinateSystem(
+        annotation ( Icon(coordinateSystem(
                 preserveAspectRatio=true,  extent={{-100,-100},{100,100}}),
               graphics={
               Text(
@@ -17112,8 +16848,7 @@ annotation (Placement(transformation(extent={{16,-70},{22,-64}})));
             points={{-80,60},{-32,60},{-32,0},{18,0}},
             color={0,0,127},
             smooth=Smooth.None));
-        annotation (Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,-100},
-                  {100,100}}),       graphics), Icon(coordinateSystem(
+        annotation ( Icon(coordinateSystem(
                 preserveAspectRatio=true,  extent={{-100,-100},{100,100}}),
               graphics={
               Text(
@@ -17285,8 +17020,7 @@ annotation (Placement(transformation(extent={{16,-70},{22,-64}})));
             color={0,0,127},
             smooth=Smooth.None));
 
-        annotation (Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,-100},
-                  {100,100}}),       graphics), Icon(coordinateSystem(
+        annotation ( Icon(coordinateSystem(
                 preserveAspectRatio=true, extent={{-100,-100},{100,100}}),
               graphics={Text(
                 extent={{-124,13},{124,-13}},
@@ -17320,8 +17054,7 @@ annotation (Placement(transformation(extent={{16,-70},{22,-64}})));
             points={{-100,0},{-10,0}},
             color={0,0,127},
             smooth=Smooth.None));
-        annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-                  -100},{100,100}}), graphics), Icon(coordinateSystem(
+        annotation ( Icon(coordinateSystem(
                 preserveAspectRatio=true, extent={{-100,-100},{100,100}}),
               graphics={
               Text(
@@ -17549,8 +17282,7 @@ annotation (Placement(transformation(extent={{16,-70},{22,-64}})));
                   -100},{100,100}}), graphics={Text(
                 extent={{-120,-108},{130,-126}},
                 lineColor={0,0,255},
-                textString="%name")}), Diagram(coordinateSystem(preserveAspectRatio=false,
-                extent={{-100,-100},{100,100}}), graphics));
+                textString="%name")}));
       end NaturalVentilation2;
 
       model AlveolarVentilation_STPD
@@ -17568,7 +17300,6 @@ annotation (Placement(transformation(extent={{16,-70},{22,-64}})));
                                                   annotation (Placement(
               transformation(
               extent={{-18,-18},{10,10}},
-              rotation=0,
               origin={-50,-32}), iconTransformation(
               extent={{-20,-20},{20,20}},
               rotation=180,
@@ -17583,7 +17314,6 @@ annotation (Placement(transformation(extent={{16,-70},{22,-64}})));
                                                annotation (Placement(
               transformation(
               extent={{-20,-20},{8,8}},
-              rotation=0,
               origin={-48,-80}), iconTransformation(
               extent={{-20,-20},{20,20}},
               rotation=180,
@@ -17614,7 +17344,6 @@ annotation (Placement(transformation(extent={{16,-70},{22,-64}})));
         VaporPressure vaporPressure1
                                     annotation (Placement(transformation(
               extent={{-10,-10},{10,10}},
-              rotation=0,
               origin={-56,64})));
         Modelica.Blocks.Math.Product air_pH2O
           annotation (Placement(transformation(extent={{-36,68},{-26,78}})));
@@ -17622,28 +17351,22 @@ annotation (Placement(transformation(extent={{16,-70},{22,-64}})));
                                                annotation (Placement(
               transformation(
               extent={{-20,-20},{8,8}},
-              rotation=0,
               origin={-78,70}),  iconTransformation(
               extent={{-20,-20},{20,20}},
-              rotation=0,
               origin={-80,100})));
         Physiolibrary.Types.RealIO.PressureInput EnvironmentPressure
                                                annotation (Placement(
               transformation(
               extent={{-20,-20},{8,8}},
-              rotation=0,
               origin={-78,-4}),  iconTransformation(
               extent={{-20,-20},{20,20}},
-              rotation=0,
               origin={-80,40})));
         Physiolibrary.Types.RealIO.FractionInput EnvironmentRelativeHumidity
                                                annotation (Placement(
               transformation(
               extent={{-20,-20},{8,8}},
-              rotation=0,
               origin={-58,90}),  iconTransformation(
               extent={{-20,-20},{20,20}},
-              rotation=0,
               origin={-80,-20})));
         Modelica.Blocks.Math.Feedback alveolarVolume
         annotation (Placement(transformation(extent={{58,-46},{78,-26}})));
@@ -17653,7 +17376,6 @@ annotation (Placement(transformation(extent={{16,-70},{22,-64}})));
         annotation (Placement(transformation(extent={{70,22},{84,36}}),
             iconTransformation(
             extent={{-20,-20},{20,20}},
-            rotation=0,
             origin={100,-60})));
         Modelica.Blocks.Math.Feedback dilution
           annotation (Placement(transformation(extent={{-30,20},{-10,0}})));
@@ -17663,7 +17385,6 @@ annotation (Placement(transformation(extent={{16,-70},{22,-64}})));
                                                annotation (Placement(transformation(
                 extent={{6,4},{18,16}}),      iconTransformation(
               extent={{-20,-20},{20,20}},
-              rotation=0,
               origin={100,-100})));
       equation
 
@@ -17787,10 +17508,7 @@ annotation (Placement(transformation(extent={{16,-70},{22,-64}})));
                   100,100}}), graphics={Text(
                 extent={{-100,-100},{76,-70}},
                 textString="%name",
-                lineColor={0,0,255})}), Diagram(coordinateSystem(preserveAspectRatio=false,
-                         extent={{-100,-100},{100,100}}), graphics),
-                    Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-                  -100},{100,100}}), graphics));
+                lineColor={0,0,255})}));
       end AlveolarVentilation_STPD;
 
       model AlveolarVentilation
@@ -17817,7 +17535,6 @@ annotation (Placement(transformation(extent={{16,-70},{22,-64}})));
                                                           annotation (Placement(
             transformation(
             extent={{-8,8},{12,-12}},
-            rotation=0,
             origin={-26,30})));
       Physiolibrary.Chemical.Components.Stream solventFlowPump1(
           useSolutionFlowInput=true)
@@ -17829,7 +17546,6 @@ annotation (Placement(transformation(extent={{16,-70},{22,-64}})));
                                                annotation (Placement(
               transformation(
               extent={{-10.0004,-10.0004},{4.00021,4.00021}},
-              rotation=0,
               origin={-78.0002,73.9998}),
                                  iconTransformation(
               extent={{-20,-20},{20,20}},
@@ -17886,10 +17602,7 @@ annotation (Placement(transformation(extent={{16,-70},{22,-64}})));
                 fillPattern=FillPattern.Solid), Text(
                 extent={{-92,-90},{84,-60}},
                 textString="%name",
-                lineColor={0,0,255})}), Diagram(coordinateSystem(preserveAspectRatio=false,
-                         extent={{-100,-100},{100,100}}), graphics),
-                    Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-                  -100},{100,100}}), graphics));
+                lineColor={0,0,255})}));
       end AlveolarVentilation;
 
       model GasEquation_Flow
@@ -17955,7 +17668,6 @@ annotation (Placement(transformation(extent={{16,-70},{22,-64}})));
       AlveolarVentilation_STPD alveolarVentilation annotation (Placement(
             transformation(
             extent={{-10,-10},{10,10}},
-            rotation=0,
             origin={-32,-38})));
         NaturalVentilation2 naturalVentilation(DriveOnTidalVolume={{0,0,0},{1,
             550,400},{10,2630,0}})
@@ -18098,8 +17810,7 @@ annotation (Placement(transformation(extent={{16,-70},{22,-64}})));
                   -100},{100,100}}), graphics={Text(
                 extent={{-120,-108},{130,-126}},
                 lineColor={0,0,255},
-                textString="%name")}), Diagram(coordinateSystem(preserveAspectRatio=false,
-                extent={{-100,-100},{100,100}}), graphics));
+                textString="%name")}));
       end Ventilation;
 
       package IO_Bus
@@ -18162,11 +17873,6 @@ annotation (Placement(transformation(extent={{16,-70},{22,-64}})));
             string="%second",
             index=1,
             extent={{6,3},{6,3}}));
-          annotation (Icon(coordinateSystem(preserveAspectRatio=true,  extent={{-100,
-                    -100},{100,100}}), graphics),
-                                         Diagram(coordinateSystem(
-                  preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
-                graphics));
         end Variables;
       end IO_Bus;
     end Ventilation;
@@ -18216,9 +17922,7 @@ annotation (Placement(transformation(extent={{16,-70},{22,-64}})));
             Text(
               extent={{-104,-70},{-30,-36}},
               lineColor={255,255,255},
-              textString="pH")}),    Diagram(coordinateSystem(
-              preserveAspectRatio=true, extent={{-100,-100},{100,100}}),
-            graphics));
+              textString="pH")}));
     end Gases;
 
     package IO_Bus
@@ -18250,11 +17954,6 @@ annotation (Placement(transformation(extent={{16,-70},{22,-64}})));
           color={0,0,255},
           thickness=0.5,
           smooth=Smooth.None));
-        annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-                  -100},{100,100}}), graphics),
-                                       Diagram(coordinateSystem(
-                preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
-              graphics));
       end Variables;
 
       model Gases_test
@@ -18423,11 +18122,7 @@ Streams.print("gases.oxygen.veinsO2.a|"+String(gases.oxygen.veinsO2.a),OUTPUT_FI
 Streams.print("gases.oxygen.veinsO2.FCOHb|"+String(gases.oxygen.veinsO2.FCOHb),OUTPUT_FILE);
 Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPUT_FILE);*/
       end if;
-        annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent=
-                {{-100,-100},{100,100}}),
-                            graphics),
-          experiment(StopTime=3600, Tolerance=1e-005),
-          __Dymola_experimentSetupOutput);
+        annotation (          experiment(StopTime=3600, Tolerance=1e-005));
       end Gases_test;
 
       model Gases_test_SI
@@ -18596,11 +18291,7 @@ Streams.print("gases.oxygen.veinsO2.a|"+String(gases.oxygen.veinsO2.a),OUTPUT_FI
 Streams.print("gases.oxygen.veinsO2.FCOHb|"+String(gases.oxygen.veinsO2.FCOHb),OUTPUT_FILE);
 Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPUT_FILE);*/
       //end if;
-        annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent=
-                {{-100,-100},{100,100}}),
-                            graphics),
-          experiment(StopTime=864000, Tolerance=1e-005),
-          __Dymola_experimentSetupOutput);
+        annotation (          experiment(StopTime=864000, Tolerance=1e-005));
       end Gases_test_SI;
 
       model WithoutProteins_test_SI
@@ -18770,11 +18461,7 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
           color={0,0,255},
           thickness=0.5,
           smooth=Smooth.None));
-        annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-                -100},{100,100}}),
-                            graphics),
-          experiment(StopTime=3600, Tolerance=1e-005),
-          __Dymola_experimentSetupOutput);
+        annotation (          experiment(StopTime=3600, Tolerance=1e-005));
       end WithoutProteins_test_SI;
 
       model GasesAndElectrolytes_test_SI
@@ -18943,11 +18630,7 @@ Streams.print("gases.oxygen.veinsO2.a|"+String(gases.oxygen.veinsO2.a),OUTPUT_FI
 Streams.print("gases.oxygen.veinsO2.FCOHb|"+String(gases.oxygen.veinsO2.FCOHb),OUTPUT_FILE);
 Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPUT_FILE);*/
       //end if;
-        annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent=
-                {{-100,-100},{100,100}}),
-                            graphics),
-          experiment(StopTime=1e+006, Tolerance=1e-005),
-          __Dymola_experimentSetupOutput);
+        annotation (          experiment(StopTime=1e+006, Tolerance=1e-005));
       end GasesAndElectrolytes_test_SI;
     end IO_Bus;
 
@@ -18958,12 +18641,9 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
 </tr>
 <tr>
 <td><p>License:</p></td>
-<td><p>GPL 3.0</p></td>
+<td><p><a href=\"http://www.physiomodel.org/license.html\">Physiomodel License 1.0</a> </p></td>
 </tr>
-<tr>
-<td><p>By:</p></td>
-<td><p>Charles University, Prague</p></td>
-</tr>
+
 <tr>
 <td><p>Date of:</p></td>
 <td><p>2008-2015</p></td>
@@ -18977,9 +18657,8 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
 <td><p><br><br>Siggaard Andersen: OSA (2005), University of Copenhagen</p><p>M. Matej&aacute;k, T. Kulh&aacute;nek, and S. Matou&scaron;ek, &QUOT;Adair-based hemoglobin equilibrium with oxygen, carbon dioxide and hydrogen ion activity,&QUOT; Scandinavian Journal of Clinical &AMP; Laboratory Investigation, pp. 1-8, 2015.</p></td>
 </tr>
 </table>
-<p><br><br>Copyright &copy; 2008-2015 Marek Matejak</p>
-</html>"), Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
-              {100,100}}), graphics));
+<p><br><br>Copyright &copy; 2008-2015 Marek Matejak, Charles University in Prague.</p>
+</html>"));
   end Gases;
 
 
@@ -18992,8 +18671,7 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
       parameter Posture k=Posture.Lying "Constant output value";
 
       PostureOutput y "Connector of Real output signal"
-        annotation (Placement(transformation(extent={{100,-10},{120,10}},
-            rotation=0)));
+        annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
     equation
       y = k;
@@ -19103,29 +18781,17 @@ The Real output y is a constant signal:
 
        annotation (
       Documentation(info="<HTML>
-<PRE>
-QHP 2008 / Hydrostatics
- 
-Created : 18-Jun-05
-Last Modified : 18-Jun-05
-Author : Tom Coleman
-Copyright Status : In Public Domain
-Solver : QHP 2008
-Schema : 2008.0
-</PRE>
 </HTML>
 ",     revisions="<html>
 <ul>
 <li><i>  </i>
        </li>
-<li><i> january 2009 </i><br> 
+<li><i> january 2009 </i><br>
        by Marek Matejak in Modelica initially implemented (consulted with Jiri Kofranek), Charles University, Prague<br>
        orginaly described by Tom Coleman in QHP 2008 beta 3, University of Mississippi Medical Center
        </li>
 </ul>
-</html>"),          Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-                  -100},{100,100}}), graphics), Diagram(coordinateSystem(
-                preserveAspectRatio=true, extent={{-100,-100},{100,100}}), graphics));
+</html>"));
       end TorsoHydrostatics;
 
       model Hydrostatics
@@ -19272,8 +18938,7 @@ Schema : 2008.0
           points={{-88,24},{-72.8,24}},
           color={0,0,127},
           smooth=Smooth.None));
-        annotation (Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,
-                -100},{100,100}}),   graphics), Icon(coordinateSystem(
+        annotation ( Icon(coordinateSystem(
                 preserveAspectRatio=true, extent={{-100,-100},{100,100}}),
               graphics={
               Text(
@@ -19345,8 +19010,7 @@ Connector with one input signal of type Posture.
       extends Physiolibrary.Icons.ConversionIcon;
 
       PostureOutput y "Connector of Real output signal"
-        annotation (Placement(transformation(extent={{60,-20},{80,0}},
-            rotation=0), iconTransformation(extent={{100,-20},{140,20}})));
+        annotation (Placement(transformation(extent={{60,-20},{80,0}}), iconTransformation(extent={{100,-20},{140,20}})));
 
       Modelica.Blocks.Interfaces.RealInput u
                                       annotation (Placement(transformation(extent={{-130,
@@ -19359,16 +19023,6 @@ Connector with one input signal of type Posture.
        elseif tmp == 2 then Posture.Standing
        elseif tmp == 3 then Posture.Tilting else Posture.SteadyState;
       annotation (
-        Icon(coordinateSystem(
-        preserveAspectRatio=true,
-        extent={{-100,-100},{100,100}},
-        grid={2,2},
-        initialScale=0.04), graphics),
-        Diagram(coordinateSystem(
-        preserveAspectRatio=true,
-        extent={{-100,-100},{100,100}},
-        grid={2,2},
-        initialScale=0.04), graphics),
     Documentation(info="<html>
 <p>
 The Real output y is a constant signal:
@@ -19464,7 +19118,7 @@ The Real output y is a constant signal:
       annotation (
       Documentation(info="<html>
 <pre>QHP 2008 / OsmBody
- 
+
 </pre>
 <p><br/><br/>Intracellular water calculation from cells osmotic pressure.</p>
 </html>",
@@ -19472,19 +19126,12 @@ The Real output y is a constant signal:
 <ul>
 <li><i>  </i>
        </li>
-<li><i> january 2009 </i><br> 
+<li><i> january 2009 </i><br>
        by Marek Matejak in Modelica initially implemented (consulted with Jiri Kofranek), Charles University, Prague<br>
        orginaly described by Tom Coleman in QHP 2008 beta 3, University of Mississippi Medical Center
        </li>
 </ul>
-</html>"),       Icon(coordinateSystem(preserveAspectRatio=false,extent={{-100,
-                -100},{100,100}}),
-                      graphics),
-          Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-                -100},{100,100}}),
-                          graphics),
-                    Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},
-                  {100,100}}),       graphics));
+</html>"));
       end OsmBody;
 
       model ActiveOsmolesFake
@@ -19620,8 +19267,6 @@ The Real output y is a constant signal:
           string="%first",
           index=-1,
           extent={{-6,3},{-6,3}}));
-        annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-                -100},{100,100}}),   graphics));
       end ActiveOsmolesFake;
 
       model ActiveOsmolesFake2
@@ -19680,8 +19325,6 @@ The Real output y is a constant signal:
             string="%second",
             index=1,
             extent={{6,3},{6,3}}));
-        annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-                  -100},{100,100}}), graphics));
       end ActiveOsmolesFake2;
     end Osmoles;
 
@@ -19713,7 +19356,6 @@ The Real output y is a constant signal:
                                                annotation (Placement(
               transformation(extent={{80,-60},{120,-20}}), iconTransformation(
               extent={{-20,-20},{20,20}},
-              rotation=0,
               origin={100,-40})));
         Physiolibrary.Types.RealIO.VolumeFlowRateInput
                                              H2OTarget(displayUnit="ml/min")
@@ -19765,8 +19407,7 @@ The Real output y is a constant signal:
                 lineColor={0,0,255},
                 fillColor={255,255,255},
                 fillPattern=FillPattern.Solid,
-                textString="%name")}), Diagram(coordinateSystem(preserveAspectRatio=false,
-                        extent={{-100,-100},{100,100}}), graphics));
+                textString="%name")}));
       end Outtake;
 
       model GILumenInternal
@@ -19834,49 +19475,43 @@ The Real output y is a constant signal:
       Documentation(info="<HTML>
 <PRE>
 QHP 2008 / GILumenH2O.REF
- 
-Created : 13-Mar-08
-Last Modified : 13-Mar-08
-Author : Tom Coleman
-Copyright : 2008-2008
-By : University of Mississippi Medical Center
-Solver : QHP 2008
-Schema : 2008.0
- 
+
+
+
 Volume ========================================
- 
+
 Typical lumen volume is 1000 mL on an intake of 1.4 mL/Min.
 This number is based on lumen volume being 1.4% body weight
 from
- 
+
    JCI 36:289-296, 1957.
- 
+
 Data suggests a 1L oral load is nearly all absorbed in
 1 Hr.  Average rate would be 17 mL/Hr with a peak rate
 of about 30.
- 
+
    Baldes & Smirk. J.Physiol. 82:62,1934.
- 
+
 Osmolar gradient is assumed to be 0.200 mOsm/mL.
- 
+
    Rate = Perm * Grad
    30 = Perm * 0.200
    Perm = 150
- 
+
 Temperature ===================================
- 
+
 Typical lumen heat content is 155 kCal.
- 
+
 Specific heat (SH) of H2O is 0.001 (kCal/G)/DegK.
- 
+
 To get temperature from heat
- 
+
    DegK = 1000.0 * kCal/G (or mL)
    DegC = DegK - 273.15
    DegF = ( 9 / 5 ) * DegC + 32
- 
+
 To get heat from temperature
- 
+
    kCal = 0.001 * DegK * mL
    kCal/Min = 0.001 * DegK * mL/Min
 </PRE>
@@ -19885,14 +19520,12 @@ To get heat from temperature
 <ul>
 <li><i>  </i>
        </li>
-<li><i> january 2009 </i><br> 
+<li><i> january 2009 </i><br>
        by Marek Matejak in Modelica initially implemented (consulted with Jiri Kofranek), Charles University, Prague<br>
        orginaly described by Tom Coleman in QHP 2008 beta 3, University of Mississippi Medical Center
        </li>
 </ul>
-</html>"),
-        Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
-                                     graphics), Icon(coordinateSystem(
+</html>"), Icon(coordinateSystem(
                 preserveAspectRatio=false,extent={{-100,-100},{100,100}}),
               graphics={
               Text(
@@ -19930,7 +19563,6 @@ To get heat from temperature
       Physiolibrary.Osmotic.Components.Membrane absorption(cond=0.15e-6/(8.314*310.15)
               /60) annotation (Placement(transformation(
               extent={{-8,-8},{8,8}},
-              rotation=0,
               origin={18,22})));
       Physiolibrary.Osmotic.Sources.SolventInflux   Diet(useSolutionFlowInput=
             true)
@@ -20115,49 +19747,43 @@ To get heat from temperature
       Documentation(info="<HTML>
 <PRE>
 QHP 2008 / GILumenH2O.REF
- 
-Created : 13-Mar-08
-Last Modified : 13-Mar-08
-Author : Tom Coleman
-Copyright : 2008-2008
-By : University of Mississippi Medical Center
-Solver : QHP 2008
-Schema : 2008.0
- 
+
+
+
 Volume ========================================
- 
+
 Typical lumen volume is 1000 mL on an intake of 1.4 mL/Min.
 This number is based on lumen volume being 1.4% body weight
 from
- 
+
    JCI 36:289-296, 1957.
- 
+
 Data suggests a 1L oral load is nearly all absorbed in
 1 Hr.  Average rate would be 17 mL/Hr with a peak rate
 of about 30.
- 
+
    Baldes & Smirk. J.Physiol. 82:62,1934.
- 
+
 Osmolar gradient is assumed to be 0.200 mOsm/mL.
- 
+
    Rate = Perm * Grad
    30 = Perm * 0.200
    Perm = 150
- 
+
 Temperature ===================================
- 
+
 Typical lumen heat content is 155 kCal.
- 
+
 Specific heat (SH) of H2O is 0.001 (kCal/G)/DegK.
- 
+
 To get temperature from heat
- 
+
    DegK = 1000.0 * kCal/G (or mL)
    DegC = DegK - 273.15
    DegF = ( 9 / 5 ) * DegC + 32
- 
+
 To get heat from temperature
- 
+
    kCal = 0.001 * DegK * mL
    kCal/Min = 0.001 * DegK * mL/Min
 </PRE>
@@ -20166,14 +19792,12 @@ To get heat from temperature
 <ul>
 <li><i>  </i>
        </li>
-<li><i> january 2009 </i><br> 
+<li><i> january 2009 </i><br>
        by Marek Matejak in Modelica initially implemented (consulted with Jiri Kofranek), Charles University, Prague<br>
        orginaly described by Tom Coleman in QHP 2008 beta 3, University of Mississippi Medical Center
        </li>
 </ul>
-</html>"),
-        Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
-                                     graphics), Icon(coordinateSystem(
+</html>"), Icon(coordinateSystem(
                 preserveAspectRatio=true, extent={{-100,-100},{100,100}}),
               graphics={Text(
                 extent={{-102,124},{98,108}},
@@ -20268,21 +19892,19 @@ To get heat from temperature
       Documentation(info="<HTML>
 <PRE>
 Torso water compartment.
- 
+
 </PRE>
 </HTML>
 ",     revisions="<html>
 <ul>
 <li><i>  </i>
        </li>
-<li><i> january 2009 </i><br> 
+<li><i> january 2009 </i><br>
        by Marek Matejak in Modelica initially implemented (consulted with Jiri Kofranek), Charles University, Prague<br>
        orginaly described by Tom Coleman in QHP 2008 beta 3, University of Mississippi Medical Center
        </li>
 </ul>
-</html>"),
-        Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
-                {100,100}}),         graphics), Icon(coordinateSystem(
+</html>"), Icon(coordinateSystem(
                 preserveAspectRatio=true, extent={{-100,-100},{100,100}}),
               graphics={                                   Text(
                 extent={{-100,88},{100,72}},
@@ -20458,7 +20080,7 @@ QHP 2008 / Peritoneum
 <ul>
 <li><i>  </i>
        </li>
-<li><i> january 2009 </i><br> 
+<li><i> january 2009 </i><br>
        by Marek Matejak in Modelica initially implemented (consulted with Jiri Kofranek), Charles University, Prague<br>
        orginaly described by Tom Coleman in QHP 2008 beta 3, University of Mississippi Medical Center
        </li>
@@ -20467,9 +20089,7 @@ QHP 2008 / Peritoneum
                   -100},{100,100}}), graphics={Text(
                 extent={{-100,120},{100,104}},
                 lineColor={0,0,255},
-                textString="%name")}),
-          Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-                -100},{100,100}}),   graphics));
+                textString="%name")}));
       end Peritoneum2;
 
       model Torso
@@ -20509,7 +20129,6 @@ QHP 2008 / Peritoneum
         Modelica.Blocks.Math.Gain calsFract(k=CalsFract) annotation (Placement(
               transformation(
               extent={{-6,-6},{6,6}},
-              rotation=0,
               origin={48,-82})));
 
       //  Physiolibrary.Types.Volume volume;
@@ -20594,12 +20213,10 @@ QHP 2008 / Peritoneum
       Modelica.Blocks.Math.Gain skinFract(k=SkinFract) annotation (Placement(
             transformation(
             extent={{-4,-4},{4,4}},
-            rotation=0,
             origin={-6,44})));
       Modelica.Blocks.Math.Gain sweatFract(k=SweatFract) annotation (Placement(
             transformation(
             extent={{-4,-4},{4,4}},
-            rotation=0,
             origin={10,64})));
 
         Physiolibrary.Types.VolumeFlowRate fromCapillaries, toLymph, evaporation, fromMetabolism;
@@ -20808,8 +20425,7 @@ QHP 2008 / Peritoneum
           color={127,127,0},
           thickness=1,
           smooth=Smooth.None));
-        annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-                  -100},{100,100}}), graphics), Icon(coordinateSystem(
+        annotation ( Icon(coordinateSystem(
                 preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
               graphics={                 Text(
                 extent={{-139,-101},{142,-126}},
@@ -21001,9 +20617,7 @@ QHP 2008 / Peritoneum
           color={0,0,0},
           thickness=1,
           smooth=Smooth.None));
-      annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{
-                -100,-100},{100,100}}), graphics),  Icon(graphics={
-                                         Text(
+      annotation (  Icon(graphics={      Text(
                 extent={{-145,87},{136,62}},
                 lineColor={0,0,255},
                 textString="%name")}));
@@ -21016,7 +20630,7 @@ QHP 2008 / Peritoneum
           stateName="BladderVolume.Mass", volume_start=0.0002)
           annotation (Placement(transformation(extent={{-18,0},{2,20}})));
       Physiolibrary.Hydraulic.Interfaces.HydraulicPort_a con annotation (
-          Placement(transformation(extent={{-84,18},{-44,58}}, rotation=0),
+          Placement(transformation(extent={{-84,18},{-44,58}}),
             iconTransformation(extent={{-120,-20},{-80,20}})));
       Physiolibrary.Hydraulic.Sources.UnlimitedOutflowPump
                                                     bladderVoidFlow(
@@ -21063,8 +20677,7 @@ QHP 2008 / Peritoneum
                   -100},{100,100}}), graphics={Text(
                 extent={{-100,96},{100,80}},
                 lineColor={0,0,255},
-                textString="%name")}), Diagram(coordinateSystem(preserveAspectRatio=false,
-                extent={{-100,-100},{100,100}}), graphics));
+                textString="%name")}));
       end Bladder;
 
       package Kidney "Kidney Water Excretion"
@@ -21111,9 +20724,7 @@ QHP 2008 / Peritoneum
                   lineColor={0,0,255},
                   smooth=Smooth.None,
                   fillColor={0,0,255},
-                  fillPattern=FillPattern.Solid)}),
-                                         Diagram(coordinateSystem(preserveAspectRatio=true,
-                          extent={{-100,-100},{100,100}}), graphics));
+                  fillPattern=FillPattern.Solid)}));
         end DistalTubule;
 
         model CD_H2OChannels
@@ -21154,8 +20765,7 @@ QHP 2008 / Peritoneum
                   fillPattern=FillPattern.Solid),Text(
                   extent={{-100,-22},{100,-38}},
                   lineColor={0,0,255},
-                  textString="(initial %initialActive)")}), Diagram(coordinateSystem(
-                  preserveAspectRatio=false, extent={{-100,-100},{100,100}}), graphics));
+                  textString="(initial %initialActive)")}));
         end CD_H2OChannels;
 
         model Kidney
@@ -21194,7 +20804,6 @@ QHP 2008 / Peritoneum
         Physiolibrary.Blocks.Math.Reciprocal inv1 annotation (Placement(
               transformation(
               extent={{2,-2},{-2,2}},
-              rotation=0,
               origin={38,60})));
         Physiolibrary.Blocks.Math.Reciprocal inv2 annotation (Placement(
               transformation(
@@ -21229,7 +20838,6 @@ QHP 2008 / Peritoneum
           Yscale=1e3) "initial: 2 pg/ml = 2e-9 kg/m3, NephronADH.Tau = 20 min"
           annotation (Placement(transformation(
               extent={{10,-10},{-10,10}},
-              rotation=0,
               origin={46,68})));
         Physiolibrary.Osmotic.Sensors.FlowMeasure   flowMeasure2 annotation (
             Placement(transformation(
@@ -21276,7 +20884,6 @@ QHP 2008 / Peritoneum
         Physiolibrary.Osmotic.Components.SolventFlux distalTubule(
             useSolutionFlowInput=true) annotation (Placement(transformation(
               extent={{-10,-10},{10,10}},
-              rotation=0,
               origin={24,46})));
         QHP.Water.WaterCompartments.Kidney.ZeroOsmol zeroOsmol annotation (
             Placement(transformation(
@@ -21565,10 +21172,6 @@ QHP 2008 / Peritoneum
             color={127,127,0},
             thickness=1,
             smooth=Smooth.None));
-          annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-                  -100},{100,100}}),   graphics), Icon(coordinateSystem(
-                preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
-              graphics));
         end Kidney;
 
         model ZeroOsmol "Prescripted zero osmolarity"
@@ -21652,7 +21255,7 @@ QHP 2008 / Peritoneum
 <ul>
 <li><i>  </i>
        </li>
-<li><i> january 2009 </i><br> 
+<li><i> january 2009 </i><br>
        by Marek Matejak in Modelica initially implemented (consulted with Jiri Kofranek), Charles University, Prague<br>
        orginaly described by Tom Coleman in QHP 2008 beta 3, University of Mississippi Medical Center
        </li>
@@ -21661,16 +21264,14 @@ QHP 2008 / Peritoneum
                 -100},{100,100}}), graphics={Text(
               extent={{-100,120},{100,104}},
               lineColor={0,0,255},
-              textString="%name")}),
-        Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-                100}}),            graphics));
+              textString="%name")}));
     end Peritoneum_const;
 
     model Bladder_steady
      // extends Library.PressureFlow.VolumeCompartement;
       extends Physiolibrary.Icons.Bladder;
     Physiolibrary.Hydraulic.Interfaces.HydraulicPort_a con annotation (
-        Placement(transformation(extent={{-84,18},{-44,58}}, rotation=0),
+        Placement(transformation(extent={{-84,18},{-44,58}}),
           iconTransformation(extent={{-120,-20},{-80,20}})));
     Physiolibrary.Hydraulic.Sources.UnlimitedOutflowPump
                                                   bladderVoidFlow(
@@ -21738,15 +21339,14 @@ QHP 2008 / Peritoneum
                 -100},{100,100}}), graphics={Text(
               extent={{-100,96},{100,80}},
               lineColor={0,0,255},
-              textString="%name")}), Diagram(coordinateSystem(preserveAspectRatio=false,
-              extent={{-100,-100},{100,100}}), graphics));
+              textString="%name")}));
     end Bladder_steady;
 
     model Bladder_steady2
      // extends Library.PressureFlow.VolumeCompartement;
       extends Physiolibrary.Icons.Bladder;
     Physiolibrary.Osmotic.Interfaces.OsmoticPort_a     con annotation (
-        Placement(transformation(extent={{-84,18},{-44,58}}, rotation=0),
+        Placement(transformation(extent={{-84,18},{-44,58}}),
           iconTransformation(extent={{-120,-20},{-80,20}})));
     Physiolibrary.Osmotic.Sources.SolventOutflux  bladderVoidFlow(
         useSolutionFlowInput=true)
@@ -21812,8 +21412,7 @@ QHP 2008 / Peritoneum
                 -100},{100,100}}), graphics={Text(
               extent={{-100,96},{100,80}},
               lineColor={0,0,255},
-              textString="%name")}), Diagram(coordinateSystem(preserveAspectRatio=false,
-              extent={{-100,-100},{100,100}}), graphics));
+              textString="%name")}));
     end Bladder_steady2;
 
       model LungEdema_const
@@ -21843,21 +21442,19 @@ QHP 2008 / Peritoneum
       Documentation(info="<HTML>
 <PRE>
 Torso water compartment.
- 
+
 </PRE>
 </HTML>
 ",     revisions="<html>
 <ul>
 <li><i>  </i>
        </li>
-<li><i> january 2009 </i><br> 
+<li><i> january 2009 </i><br>
        by Marek Matejak in Modelica initially implemented (consulted with Jiri Kofranek), Charles University, Prague<br>
        orginaly described by Tom Coleman in QHP 2008 beta 3, University of Mississippi Medical Center
        </li>
 </ul>
-</html>"),
-        Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
-                {100,100}}),         graphics), Icon(coordinateSystem(
+</html>"), Icon(coordinateSystem(
                 preserveAspectRatio=true, extent={{-100,-100},{100,100}}),
               graphics={                                   Text(
                 extent={{-100,88},{100,72}},
@@ -21897,9 +21494,7 @@ Torso water compartment.
         OrganH2O = FractOrganH2O * CellH2O_Vol;
         LiquidVol = FractIFV*InterstitialWater_Vol + OrganH2O;
         InterstitialWater = LiquidVol - OrganH2O;
-        annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-                  -100},{100,100}}),
-                               graphics), Icon(coordinateSystem(preserveAspectRatio=false,
+        annotation ( Icon(coordinateSystem(preserveAspectRatio=false,
                         extent={{-100,-100},{100,100}}), graphics={
               Text(
                 extent={{-72,64},{64,96}},
@@ -22565,9 +22160,7 @@ skeletalMuscle.FractOrganH2O <> 1, "Water.TissuesVolume.Tissues: Sum of FractOrg
         annotation (Icon(graphics={Text(
                 extent={{-100,-104},{100,-120}},
                 lineColor={0,0,255},
-                textString="%name")}),
-                                 Diagram(coordinateSystem(preserveAspectRatio=true,
-                        extent={{-100,-100},{100,100}}), graphics));
+                textString="%name")}));
       end Tissues;
 
       model SkeletalMuscle
@@ -22623,8 +22216,6 @@ skeletalMuscle.FractOrganH2O <> 1, "Water.TissuesVolume.Tissues: Sum of FractOrg
       model LeftHeart
         extends Physiolibrary.Icons.LeftHeart;
         extends Tissue;
-        annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent=
-                  {{-100,-100},{100,100}}), graphics));
       end LeftHeart;
 
       model RightHeart
@@ -22832,8 +22423,7 @@ skeletalMuscle.FractOrganH2O <> 1, "Water.TissuesVolume.Tissues: Sum of FractOrg
           points={{-17.2,-4},{-72,-4},{-72,-29}},
           color={0,0,127},
           smooth=Smooth.None));
-        annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-                  -100},{100,100}}),       graphics), Icon(coordinateSystem(
+        annotation ( Icon(coordinateSystem(
                 preserveAspectRatio=true,  extent={{-100,-100},{100,100}}),
               graphics={Text(
                 extent={{-155,-83},{126,-108}},
@@ -22881,8 +22471,7 @@ skeletalMuscle.FractOrganH2O <> 1, "Water.TissuesVolume.Tissues: Sum of FractOrg
           points={{-34,24},{-36,24},{-36,-20},{-72,-20},{-72,-29}},
           color={0,0,127},
           smooth=Smooth.None));
-        annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-                  -100},{100,100}}),       graphics), Icon(coordinateSystem(
+        annotation ( Icon(coordinateSystem(
                 preserveAspectRatio=true,  extent={{-100,-100},{100,100}}),
               graphics={Text(
                 extent={{-137,-103},{144,-128}},
@@ -22915,8 +22504,7 @@ skeletalMuscle.FractOrganH2O <> 1, "Water.TissuesVolume.Tissues: Sum of FractOrg
           points={{-39,-60},{16,-60},{16,-78}},
           color={0,0,127},
           smooth=Smooth.None));
-        annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-                  -100},{100,100}}),       graphics), Icon(coordinateSystem(
+        annotation ( Icon(coordinateSystem(
                 preserveAspectRatio=true,  extent={{-100,-100},{100,100}}),
               graphics={Text(
                 extent={{-155,-83},{126,-108}},
@@ -22980,8 +22568,7 @@ skeletalMuscle.FractOrganH2O <> 1, "Water.TissuesVolume.Tissues: Sum of FractOrg
           points={{-7,-72},{16,-72},{16,-78}},
           color={0,0,127},
           smooth=Smooth.None));
-        annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-                  -100},{100,100}}),       graphics), Icon(coordinateSystem(
+        annotation ( Icon(coordinateSystem(
                 preserveAspectRatio=true,  extent={{-100,-100},{100,100}}),
               graphics={Text(
                 extent={{-155,-83},{126,-108}},
@@ -23161,8 +22748,7 @@ skeletalMuscle.FractOrganH2O <> 1, "Water.TissuesVolume.Tissues: Sum of FractOrg
             points={{-34,26},{-36,26},{-36,-20},{-72,-20},{-72,-32}},
             color={0,0,127},
             smooth=Smooth.None));
-          annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-                    -100},{100,100}}),       graphics), Icon(coordinateSystem(
+          annotation ( Icon(coordinateSystem(
                   preserveAspectRatio=true,  extent={{-100,-100},{100,100}}),
                 graphics={Text(
                   extent={{-137,-103},{144,-128}},
@@ -23251,8 +22837,7 @@ skeletalMuscle.FractOrganH2O <> 1, "Water.TissuesVolume.Tissues: Sum of FractOrg
         points={{49,0},{74,0},{74,-19}},
         color={0,0,127},
         smooth=Smooth.None));
-      annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-                -100},{100,100}}),      graphics), Icon(coordinateSystem(
+      annotation ( Icon(coordinateSystem(
               preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
             graphics={Text(
               extent={{-153,-59},{128,-84}},
@@ -23932,9 +23517,7 @@ skeletalMuscle.FractOrganH2O <> 1, "Water.TissuesVolume.Tissues: Sum of FractOrg
         string="%second",
         index=1,
         extent={{6,3},{6,3}}));
-      annotation (Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,
-              -100},{100,100}},
-            grid={2,1}),                graphics), Icon(coordinateSystem(
+      annotation ( Icon(coordinateSystem(
               preserveAspectRatio=true, extent={{-100,-100},{100,100}},
             grid={2,1}), graphics={Text(
               extent={{-110,-103},{132,-137}},
@@ -23952,12 +23535,9 @@ skeletalMuscle.FractOrganH2O <> 1, "Water.TissuesVolume.Tissues: Sum of FractOrg
 </tr>
 <tr>
 <td><p>License:</p></td>
-<td><p>GPL 3.0</p></td>
+<td><p><a href=\"http://www.physiomodel.org/license.html\">Physiomodel License 1.0</a> </p></td>
 </tr>
-<tr>
-<td><p>By:</p></td>
-<td><p>Charles University, Prague</p></td>
-</tr>
+
 <tr>
 <td><p>Date of:</p></td>
 <td><p>2009</p></td>
@@ -23967,7 +23547,7 @@ skeletalMuscle.FractOrganH2O <> 1, "Water.TissuesVolume.Tissues: Sum of FractOrg
 <td><p>Tom Coleman: QHP 2008 beta 3, University of Mississippi Medical Center</p></td>
 </tr>
 </table>
-<br/><p>Copyright &copy; 2014 Marek Matejak</p><br/>
+<br/><p>Copyright &copy; 2014 Marek Matejak, Charles University in Prague.</p><br/>
 
 </html>",     info="<html>
 <p>Distribution of H2O in whole body:</p>
@@ -24030,7 +23610,7 @@ skeletalMuscle.FractOrganH2O <> 1, "Water.TissuesVolume.Tissues: Sum of FractOrg
         annotation (Placement(transformation(extent={{-80,-89},{-60,-69}})));
 
     //  Real bodyH2O;
-    /*initial equation 
+    /*initial equation
   if STEADY then
      waterProperties.BodyH2O_Change.y = 0;
   end if;
@@ -24292,89 +23872,83 @@ skeletalMuscle.FractOrganH2O <> 1, "Water.TissuesVolume.Tissues: Sum of FractOrg
     Documentation(info="<HTML>
 <PRE>
 QHP 2008 / H2O Reference
- 
-Created : 26-Jun-06
-Last Modified : 24-Mar-08
-Author : Tom Coleman
-Copyright : 2008-2008
-By : University of Mississippi Medical Center
-Solver : DES 2005
-Schema : 2005.0
- 
+
+
+
 There are several different ways to describe the body's
 water compartments while implementing mass balance.
- 
+
 Water compartments can initially be divided into two
 basic types: intracellular (ICFV) and extracellular (ECFV).
- 
+
 Intracellular compartments are red blood cells and
 (all other) cells.
- 
+
 Extracellular compartments are plasma and interstitium.
- 
+
 Red Cells     =  1.6
 Cells         = 26.4
                 -----
 ICFV          = 28.0
- 
+
 Interstitium  = 12.0
 Plasma        =  3.0
                 -----
 ECFV          = 15.0
- 
+
 Total         = 43.0
- 
+
 The problem with this scheme is that water cannot move
 freely between plasma and interstitium but it can move
 freely between interstitium and cell H2O.
- 
+
 So, we'll divide the body's water compartments into
 vascular and extravascular. The vascular compartment
 is futher subdivided into RBC water and plasma.
- 
+
 Red Cells     =  1.6
 Plasma        =  3.0
                  ---
 Vascular      =  4.6
- 
+
 Cells         = 26.4 (ICFV less RBC's H2O)
 Interstitium  = 12.0
                 ----
 Extravascular = 38.4
- 
+
 Total         = 43.0
- 
+
 To relax the nomenclature a bit, extravascular water
 is referred to as tissue H2O.
- 
+
 This scheme is implemented using three integrals: plasma,
 RBC and extravascular.
- 
+
 Exchanges are internal and external.
- 
+
 Internal exchanges are capillary
 filtration and lymph flow.
- 
+
 External exchanges are many: absorption
 from gut, urine, IV drip, transfusion,
 hemorrhage ...
- 
+
 External exchanges influence the derivative
 of either plasma or extravasular H2O.
- 
+
 Traditional compartments are also
 represented here.
- 
+
 Red Cell H2O  =  1584
 Organ H2O     = 26428
                 -----
 Cell H2O      = 28012
- 
+
 IFV           = 11988
 Plasma        =  3000
                 -----
 Extracellular = 14988
- 
+
 Total         = 43000
 </PRE>
 </HTML>
@@ -24382,15 +23956,12 @@ Total         = 43000
 <ul>
 <li><i>  </i>
        </li>
-<li><i> january 2009 </i><br> 
+<li><i> january 2009 </i><br>
        by Marek Matejak in Modelica initially implemented (consulted with Jiri Kofranek), Charles University, Prague<br>
        orginaly described by Tom Coleman in QHP 2008 beta 3, University of Mississippi Medical Center
        </li>
 </ul>
-</html>"),
-       Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,-100},{
-              100,100}},
-            grid={1,1}),                graphics), Icon(coordinateSystem(
+</html>"), Icon(coordinateSystem(
               preserveAspectRatio=true, extent={{-100,-100},{100,100}},
             grid={1,1}), graphics={Text(
               extent={{-139,-99},{142,-124}},
@@ -24999,9 +24570,7 @@ Total         = 43000
                 textString="vars"), Text(
                 extent={{-120,-100},{122,-134}},
                 lineColor={0,0,255},
-                textString="%name")}), Diagram(coordinateSystem(
-                preserveAspectRatio=false,extent={{-100,-100},{100,100}}),
-              graphics));
+                textString="%name")}));
       end Variables;
 
       model Water_test
@@ -25097,9 +24666,6 @@ Total         = 43000
             color={0,0,255},
             thickness=0.5,
             smooth=Smooth.None));
-        annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent=
-                {{-100,-100},{100,100}}),
-                            graphics));
       end Water_test;
 
       model Water_test_SI
@@ -25195,28 +24761,20 @@ Total         = 43000
             color={0,0,255},
             thickness=0.5,
             smooth=Smooth.None));
-        annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-                -100},{100,100}}),
-                            graphics),
-        experiment(StopTime=864000),
-        __Dymola_experimentSetupOutput);
+        annotation (        experiment(StopTime=864000));
       end Water_test_SI;
     end IO_Bus;
 
-    annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-              -100},{100,100}}), graphics),                   Documentation(revisions="<html>
+    annotation (                   Documentation(revisions="<html>
 <table cellspacing=\"2\" cellpadding=\"0\" border=\"0\"><tr>
 <td><p>Author:</p></td>
 <td><p>Marek Matejak</p></td>
 </tr>
 <tr>
 <td><p>License:</p></td>
-<td><p>GPL 3.0</p></td>
+<td><p><a href=\"http://www.physiomodel.org/license.html\">Physiomodel License 1.0</a> </p></td>
 </tr>
-<tr>
-<td><p>By:</p></td>
-<td><p>Charles University, Prague</p></td>
-</tr>
+
 <tr>
 <td><p>Date of:</p></td>
 <td><p>2008-2015</p></td>
@@ -25226,16 +24784,13 @@ Total         = 43000
 <td><p>Tom Coleman: HumMod 1.6, University of Mississippi Medical Center</p></td>
 </tr>
 </table>
-<p>Copyright &copy; 2008-2015 Marek Matejak</p>
+<p>Copyright &copy; 2008-2015 Marek Matejak, Charles University in Prague.</p>
 </html>", info="<html>
 <p>Sources of water in human body are from diet and base mitochondrial metabolism, where from each consumed oxygen molecule is creader two water molecules by adding hydrogen ions with electrons.</p>
 <p>The amount of plasma volume is regulated by kidney excretion to urine. This process is regulated through hormone Vasopressin(ADH) [Atherton1971,Khokhar1976] with efect on aquapirins - membrane chanels of nephrons in kidney [Gottschalk1959,Nielsen2000].</p>
 <p>The right amount of water in each compartment determines the osmolarities and all concentrations inside compartment. Water can cross the capillary wall to reach the same ospomarity of interstitium and plasma [Landis1933,Xie1995]. From interstitium is transported back to plasma together with proteins by lymphatic system [Guyton1965, Engeset1973,Olszewiski1980,Henriksen1985,Auckland1993].</p>
 <p>Water is also necessary for termoregulation in heat conditions, where evaporation takes heat from body to cool it down. Evaporation can be driven by sweating [Dodt1952,Wyndham1966,Piwonka1967,Benzinger1969,Sato1977,Sato1989a,b] or be spontaneus from lungs [Brebbia1957] and insensible tissues.</p>
-</html>"),
-      Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-              100}}),
-          graphics));
+</html>"));
   end Water;
 
 
@@ -25282,13 +24837,10 @@ Total         = 43000
               fillPattern=FillPattern.Solid), Text(
               extent={{-100,-50},{90,50}},
               lineColor={0,0,255},
-              textString="%name")}),  Diagram(coordinateSystem(preserveAspectRatio=true,
-                       extent={{-100,-100},{100,100}}), graphics),
-        Documentation(revisions="<html>
+              textString="%name")}),        Documentation(revisions="<html>
 <p><i>2009-2010</i></p>
 <p>Marek Matejak, Charles University, Prague, Czech Republic </p>
-</html>"),        Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-                -100},{100,100}}), graphics));
+</html>"));
     end Synthesis;
 
     model Degradation
@@ -25333,13 +24885,10 @@ Total         = 43000
               fillPattern=FillPattern.Solid), Text(
               extent={{-88,-50},{100,50}},
               lineColor={0,0,255},
-              textString="%name")}),  Diagram(coordinateSystem(preserveAspectRatio=true,
-                       extent={{-100,-100},{100,100}}), graphics),
-        Documentation(revisions="<html>
+              textString="%name")}),        Documentation(revisions="<html>
 <p><i>2009-2010</i></p>
 <p>Marek Matejak, Charles University, Prague, Czech Republic </p>
-</html>"),        Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-                -100},{100,100}}), graphics));
+</html>"));
     end Degradation;
 
     function ProteinsMass2AmountOfSubstance
@@ -25392,8 +24941,6 @@ Total         = 43000
     // linear aproximation at point totalProteins = 1.45 mmol/l :
       nonAlbuminMM = 34.16-10*(totalProteins-1.45);
 
-      annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
-                {100,100}}), graphics));
     end ProteinDivision;
 
     model Proteins
@@ -25748,9 +25295,7 @@ Total         = 43000
                 -100},{100,100}}), graphics={  Text(
               extent={{-114,-86},{128,-120}},
               lineColor={0,0,255},
-              textString="%name")}), Diagram(coordinateSystem(preserveAspectRatio=false,
-              extent={{-100,-100},{100,100}}), graphics),
-        Documentation(info="<html>
+              textString="%name")}),        Documentation(info="<html>
 <p>Proteins are converted from Mol/L to mg/L by average molecular weight 86 kDa.</p>
 </html>"));
     end Proteins;
@@ -25843,9 +25388,7 @@ annotation (Placement(transformation(extent={{-42,64},{-24,82}})));*/
               Text(
                 extent={{-122,-98},{120,-132}},
                 lineColor={0,0,255},
-                textString="%name")}), Diagram(coordinateSystem(
-              preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
-                                               graphics));
+                textString="%name")}));
       end Variables;
 
       model Proteins_test
@@ -25941,7 +25484,6 @@ annotation (Placement(transformation(extent={{-42,64},{-24,82}})));*/
             color={0,0,255},
             thickness=0.5,
             smooth=Smooth.None));
-        annotation (Diagram(graphics));
       end Proteins_test;
 
       model Proteins_test_SI
@@ -26037,9 +25579,7 @@ annotation (Placement(transformation(extent={{-42,64},{-24,82}})));*/
             color={0,0,255},
             thickness=0.5,
             smooth=Smooth.None));
-        annotation (Diagram(graphics),
-        experiment(StopTime=864000),
-        __Dymola_experimentSetupOutput);
+        annotation (        experiment(StopTime=864000));
       end Proteins_test_SI;
     end IO_Bus;
 
@@ -26050,12 +25590,9 @@ annotation (Placement(transformation(extent={{-42,64},{-24,82}})));*/
 </tr>
 <tr>
 <td><p>License:</p></td>
-<td><p>GPL 3.0</p></td>
+<td><p><a href=\"http://www.physiomodel.org/license.html\">Physiomodel License 1.0</a> </p></td>
 </tr>
-<tr>
-<td><p>By:</p></td>
-<td><p>Charles University, Prague</p></td>
-</tr>
+
 <tr>
 <td><p>Date of:</p></td>
 <td><p>2008-2015</p></td>
@@ -26065,16 +25602,14 @@ annotation (Placement(transformation(extent={{-42,64},{-24,82}})));*/
 <td><p>Tom Coleman: HumMod 1.6, University of Mississippi Medical Center</p></td>
 </tr>
 </table>
-<p>Copyright &copy; 2008-2015 Marek Matejak</p>
+<p>Copyright &copy; 2008-2015 Marek Matejak, Charles University in Prague.</p>
 </html>", info="<html>
 <p>Extracellular proteins determine the transfer of water between extracellular compartments such as plasma, tissue interstitia [Reed1993] or the glomerular filtration[Manning1987]. Proteins are also acid-base buffers, because side chains of some amino acids buffers the hydrogen ions [VanSlyke1928].</p>
 <p>Plasma proteins: Albumin(66.5kDa) is about 60&percnt; of all prasma protein mass. It is synthetised and degraded in liver and distributed through the body [Beeken1962]. The rest of plasma proteins are mostly globulins. They are almost half-time smaller (about 34kDa), so their plasma molar concentration is higer than albumin in contrast with their plasma mass concentration. Both generate the osmotic pressure on capillary walls [Ahlqvist2003]. </p>
 <p>Problems:</p>
 <p>hypoproteinanemia [Manning1983,1990]</p>
 <p>hypogammaglobulinamia [Wollheim1964]</p>
-</html>"), Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
-              {100,100}}),
-                      graphics));
+</html>"));
   end Proteins;
 
 
@@ -26208,7 +25743,6 @@ annotation (Placement(transformation(extent={{-42,64},{-24,82}})));*/
     Physiomodel.Metabolism.deprecated.ContinualReaction FA_TO_KA(a=1.02*(Substances.FattyAcids.mw
           /Substances.KetoAcids.mw)) annotation (Placement(transformation(
           extent={{-10,-10},{10,10}},
-          rotation=0,
           origin={-18,-82})));
     Physiolibrary.Blocks.Factors.Normalization LiverFunctionEffect_Ketogenesis
       annotation (Placement(transformation(extent={{-58,-84},{-38,-64}})));
@@ -26764,9 +26298,7 @@ annotation (Placement(transformation(extent={{-42,64},{-24,82}})));*/
         string="%second",
         index=1,
         extent={{6,3},{6,3}}));
-      annotation (Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,
-              -100},{100,100}},
-            grid={2,2}),                graphics), Icon(coordinateSystem(
+      annotation ( Icon(coordinateSystem(
               preserveAspectRatio=true, extent={{-100,-100},{100,100}},
             grid={2,2}), graphics={
             Text(
@@ -26952,8 +26484,7 @@ annotation (Placement(transformation(extent={{-42,64},{-24,82}})));*/
         string="%second",
         index=1,
         extent={{6,3},{6,3}}));
-      annotation (Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,
-              -100},{100,100}}),        graphics), Icon(coordinateSystem(
+      annotation ( Icon(coordinateSystem(
               preserveAspectRatio=true, extent={{-100,-100},{100,100}}),
             graphics={
             Text(
@@ -27188,8 +26719,7 @@ annotation (Placement(transformation(extent={{-42,64},{-24,82}})));*/
         color={107,45,134},
         thickness=1,
         smooth=Smooth.None));
-      annotation (Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,
-              -100},{100,100}}),        graphics), Icon(coordinateSystem(
+      annotation ( Icon(coordinateSystem(
               preserveAspectRatio=true,  extent={{-100,-100},{100,100}}),
             graphics={
             Text(
@@ -27248,7 +26778,6 @@ annotation (Placement(transformation(extent={{-42,64},{-24,82}})));*/
     Physiolibrary.Chemical.Sensors.ConcentrationMeasure concentrationMeasure1
       annotation (Placement(transformation(
           extent={{-10,-10},{10,10}},
-          rotation=0,
           origin={-8,44})));
     Physiolibrary.Chemical.Sensors.MolarFlowMeasure flowMeasure1
       annotation (Placement(transformation(extent={{-40,62},{-20,42}})));
@@ -27766,9 +27295,7 @@ annotation (Placement(transformation(extent={{-42,64},{-24,82}})));*/
         string="%second",
         index=1,
         extent={{6,3},{6,3}}));
-      annotation (Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,
-              -100},{100,100}},
-            grid={2,2}), graphics),                Icon(coordinateSystem(
+      annotation (                Icon(coordinateSystem(
               preserveAspectRatio=true, extent={{-100,-100},{100,100}},
             grid={2,2}), graphics={
             Text(
@@ -27857,9 +27384,7 @@ annotation (Placement(transformation(extent={{-42,64},{-24,82}})));*/
         string="%second",
         index=1,
         extent={{6,3},{6,3}}));
-      annotation (Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,
-              -100},{100,100}},
-            grid={2,2}), graphics),                Icon(coordinateSystem(
+      annotation (                Icon(coordinateSystem(
               preserveAspectRatio=true, extent={{-100,-100},{100,100}},
             grid={2,2}), graphics={
             Text(
@@ -27980,9 +27505,7 @@ annotation (Placement(transformation(extent={{-42,64},{-24,82}})));*/
         color={107,45,134},
         thickness=1,
         smooth=Smooth.None));
-      annotation (Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,
-              -100},{100,100}},
-            grid={2,2}), graphics),                Icon(coordinateSystem(
+      annotation (                Icon(coordinateSystem(
               preserveAspectRatio=true, extent={{-100,-100},{100,100}},
             grid={2,2}), graphics={
             Text(
@@ -28011,25 +27534,25 @@ annotation (Placement(transformation(extent={{-42,64},{-24,82}})));*/
 
       parameter Physiolibrary.Types.MolarEnergy glucoseAnaerobicEnergy = glucoseEnergy - lactateEnergy;
       parameter Physiolibrary.Types.MolarEnergy glycogenAnaerobicEnergy = glucoseAnaerobicEnergy;
-    /*  
-  parameter Real eTOglu_coef(displayUnit="g/kcal") = 0.2439 
+    /*
+  parameter Real eTOglu_coef(displayUnit="g/kcal") = 0.2439
     "how much carbohydrates will be produced with one kilocalorie";
-  parameter Real eTOlac_coef(displayUnit="g/kcal") = 0.2538 
+  parameter Real eTOlac_coef(displayUnit="g/kcal") = 0.2538
     "how much lactate will produce one kilocalorie";
-  parameter Real eTOfat_coef(displayUnit="g/kcal") = 0.1075 
+  parameter Real eTOfat_coef(displayUnit="g/kcal") = 0.1075
     "how much fatty acids will produce one kilocalorie";
-  parameter Real eTOketo_coef(displayUnit="g/kcal") = 0.1075 
+  parameter Real eTOketo_coef(displayUnit="g/kcal") = 0.1075
     "how much ketoacids will produce one kilocalorie";
-  
-  parameter Real eTOo2_coef(displayUnit="ml/kcal") = 0.2093 
+
+  parameter Real eTOo2_coef(displayUnit="ml/kcal") = 0.2093
   "how much oxygen will be produced with one kilocalorie";
-  
-  parameter Real anaerobic_glu2energy( displayUnit="kcal/g") = (1.0/eTOglu_coef) - (1.0/eTOlac_coef) 
+
+  parameter Real anaerobic_glu2energy( displayUnit="kcal/g") = (1.0/eTOglu_coef) - (1.0/eTOlac_coef)
     "how much energy in callories will produce one unit of reactant by anaerobic metabolism"; // 0.1577
-    
-  parameter Real gly2energy( displayUnit="kcal/g") = anaerobic_glu2energy 
-    "how much energy in callories is produced by one gram of glycogen";  
-      
+
+  parameter Real gly2energy( displayUnit="kcal/g") = anaerobic_glu2energy
+    "how much energy in callories is produced by one gram of glycogen";
+
 */
 
       parameter Real RQglu(displayUnit="1") = 1
@@ -28044,9 +27567,9 @@ annotation (Placement(transformation(extent={{-42,64},{-24,82}})));*/
         /*
   parameter Physiolibrary.Types.MolarMass lacDensity( displayUnit="g/mol") = 0.09008 "density of lactate";
 
-  parameter Real glu2lac( displayUnit="mEq/g") = 1.0 / lacDensity 
+  parameter Real glu2lac( displayUnit="mEq/g") = 1.0 / lacDensity
     "how much lactate will produce one gram of glucose";
-  parameter Real gly2lac( displayUnit="mEq/g") =  1.0 / lacDensity 
+  parameter Real gly2lac( displayUnit="mEq/g") =  1.0 / lacDensity
     "how much lactate is produced by one gram of glycogen";
   */
 
@@ -28064,7 +27587,6 @@ annotation (Placement(transformation(extent={{-42,64},{-24,82}})));*/
       slope=LacFractionData[:, 3],
         Xscale=10/90.08)           annotation (Placement(transformation(
           extent={{-10,-10},{10,10}},
-          rotation=0,
           origin={-10,52})));
     Physiolibrary.Chemical.Interfaces.ChemicalPort_a lactate(q(nominal=1e-6))
       annotation (Placement(transformation(extent={{46,47},{66,67}}),
@@ -28106,11 +27628,9 @@ annotation (Placement(transformation(extent={{-42,64},{-24,82}})));*/
                                                annotation (Placement(
             transformation(
             extent={{-4.57101,-4.57142},{11.4274,11.4284}},
-            rotation=0,
             origin={-93.427,6.5716}),
                                iconTransformation(
             extent={{-11.4284,-11.4285},{28.5715,28.5715}},
-            rotation=0,
             origin={-104.572,-48.5715})));
     //  Real O2Use;
       Physiolibrary.Types.MolarFlowRate O2UseByGlu,O2UseByLac,O2UseByFA, O2UseByKA;
@@ -28208,12 +27728,7 @@ annotation (Placement(transformation(extent={{-42,64},{-24,82}})));*/
        glucose.q*glucoseEnergy = O2UseByGlu*oxygenEnergy;
       end if;
 
-      annotation (Icon(coordinateSystem(preserveAspectRatio=false,extent={{-100,-100},
-                {100,100}}),       graphics),
-                                        Diagram(coordinateSystem(
-              preserveAspectRatio=true, extent={{-100,-100},{100,100}}),
-            graphics),
-        Documentation(revisions="<html>
+      annotation (        Documentation(revisions="<html>
 
 <table cellspacing=\"2\" cellpadding=\"0\" border=\"0\"><tr>
 <td><p>Author:</p></td>
@@ -28221,12 +27736,9 @@ annotation (Placement(transformation(extent={{-42,64},{-24,82}})));*/
 </tr>
 <tr>
 <td><p>License:</p></td>
-<td><p>GPL 3.0</p></td>
+<td><p><a href=\"http://www.physiomodel.org/license.html\">Physiomodel License 1.0</a> </p></td>
 </tr>
-<tr>
-<td><p>By:</p></td>
-<td><p>Charles University, Prague</p></td>
-</tr>
+
 <tr>
 <td><p>Date of:</p></td>
 <td><p>2012</p></td>
@@ -28244,7 +27756,7 @@ annotation (Placement(transformation(extent={{-42,64},{-24,82}})));*/
 <td></td>
 </tr>
 </table>
-<br/><p>Copyright &copy; 2014 Marek Matejak</p><br/>
+<br/><p>Copyright &copy; 2014 Marek Matejak, Charles University in Prague.</p><br/>
 
 </html>"));
     end CellularMetabolism;
@@ -28542,8 +28054,7 @@ annotation (Placement(transformation(extent={{-42,64},{-24,82}})));*/
         string="%second",
         index=1,
         extent={{6,3},{6,3}}));
-      annotation (Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,
-              -100},{100,100}}),        graphics), Icon(coordinateSystem(
+      annotation ( Icon(coordinateSystem(
               preserveAspectRatio=true, extent={{-100,-100},{100,100}}),
             graphics={Text(
               extent={{-168,-106},{152,-134}},
@@ -28639,7 +28150,6 @@ annotation (Placement(transformation(extent={{-42,64},{-24,82}})));*/
                                           final displayUnit="mmHg")
         "tissue venous O2 partial pressure"
           annotation (Placement(transformation(extent={{-5,-5},{5,5}},
-              rotation=0,
               origin={32,-66}),
               iconTransformation(extent={{-100,50},{-80,70}})));
         Modelica.Blocks.Math.Sum TotalCaloriesUse
@@ -28830,13 +28340,6 @@ annotation (Placement(transformation(extent={{-42,64},{-24,82}})));*/
             points={{73,95},{80.5,95},{80.5,94},{89,94}},
             color={0,0,127},
             smooth=Smooth.None));
-        annotation (Diagram(coordinateSystem(
-              preserveAspectRatio=false,
-              extent={{-100,-100},{100,100}},
-              grid={2,2}), graphics), Icon(coordinateSystem(
-              preserveAspectRatio=false,
-              extent={{-100,-100},{100,100}},
-              grid={2,2}), graphics));
       end TissueMetabolismBase;
 
       model TissueMetabolism
@@ -28950,13 +28453,6 @@ annotation (Placement(transformation(extent={{-42,64},{-24,82}})));*/
           points={{77.1,-73.7},{77.1,-74.85},{84,-74.85},{84,-80}},
           color={0,0,127},
           smooth=Smooth.None));
-        annotation (Diagram(coordinateSystem(
-              preserveAspectRatio=false,
-              extent={{-100,-100},{100,100}},
-              grid={2,2}), graphics), Icon(coordinateSystem(
-              preserveAspectRatio=true,
-              extent={{-100,-100},{100,100}},
-              grid={2,2}), graphics));
       end TissueMetabolism;
 
       model SkeletalMuscleMetabolism
@@ -29009,13 +28505,11 @@ annotation (Placement(transformation(extent={{-42,64},{-24,82}})));*/
                                               displayUnit="uU_Insulin/ml")
         "tissue venous O2 partial pressure"
           annotation (Placement(transformation(extent={{-5,-5},{5,5}},
-              rotation=0,
               origin={-16,-18}),
               iconTransformation(extent={{-100,-50},{-80,-30}})));
       Physiolibrary.Chemical.Sensors.ConcentrationMeasure concentrationMeasure3
         annotation (Placement(transformation(
             extent={{-10,-10},{10,10}},
-            rotation=0,
             origin={-14,-32})));
         Physiolibrary.Types.RealIO.MolarFlowRateOutput GlucoseToCellsStorageFlow(
                                                                  displayUnit=
@@ -29222,13 +28716,6 @@ annotation (Placement(transformation(extent={{-42,64},{-24,82}})));*/
             points={{-45,51},{-10,51},{-10,60},{62,60},{62,68},{71,68},{71,64.8}},
             color={0,0,127},
             smooth=Smooth.None));
-        annotation (Diagram(coordinateSystem(
-              preserveAspectRatio=false,
-              extent={{-100,-100},{100,100}},
-              grid={2,2}), graphics), Icon(coordinateSystem(
-              preserveAspectRatio=true,
-              extent={{-100,-100},{100,100}},
-              grid={2,2}), graphics));
       end SkeletalMuscleMetabolism;
 
       model RespiratoryMuscle
@@ -29270,12 +28757,10 @@ annotation (Placement(transformation(extent={{-42,64},{-24,82}})));*/
       Physiolibrary.Chemical.Sensors.ConcentrationMeasure concentrationMeasure3
         annotation (Placement(transformation(
             extent={{-10,-10},{10,10}},
-            rotation=0,
             origin={-14,-30})));
         Hormones.Insulin_Physiolibrary.Types.RealIO.ConcentrationInput Insulin(displayUnit="uU_Insulin/ml")
         "tissue venous O2 partial pressure"
           annotation (Placement(transformation(extent={{-5,-5},{5,5}},
-              rotation=0,
               origin={-16,-18}),
               iconTransformation(extent={{-100,-50},{-80,-30}})));
       Physiolibrary.Chemical.Interfaces.ChemicalPort_a fattyAcids
@@ -29467,7 +28952,7 @@ annotation (Placement(transformation(extent={{-42,64},{-24,82}})));*/
             points={{46,-40},{46,-48},{26,-48},{26,-14},{20,-14}},
             color={0,0,127},
             smooth=Smooth.None));
-        annotation (Icon(graphics), Diagram(coordinateSystem(preserveAspectRatio=false,
+        annotation ( Diagram(coordinateSystem(preserveAspectRatio=false,
                 extent={{-100,-100},{100,100}}),
                                             graphics={
               Text(
@@ -29599,13 +29084,6 @@ annotation (Placement(transformation(extent={{-42,64},{-24,82}})));*/
           points={{76.67,-74.69},{76.67,-80},{84,-80}},
           color={0,0,127},
           smooth=Smooth.None));
-        annotation (Diagram(coordinateSystem(
-              preserveAspectRatio=false,
-              extent={{-100,-100},{100,100}},
-              grid={1,1}), graphics), Icon(coordinateSystem(
-              preserveAspectRatio=true,
-              extent={{-100,-100},{100,100}},
-              grid={1,1}), graphics));
       end Brain;
 
       model Kidney
@@ -29654,13 +29132,6 @@ annotation (Placement(transformation(extent={{-42,64},{-24,82}})));*/
             points={{-33,44},{-19.4,44}},
             color={0,0,127},
             smooth=Smooth.None));
-        annotation (Diagram(coordinateSystem(
-              preserveAspectRatio=false,
-              extent={{-100,-100},{100,100}},
-              grid={1,1}), graphics), Icon(coordinateSystem(
-              preserveAspectRatio=true,
-              extent={{-100,-100},{100,100}},
-              grid={1,1}), graphics));
       end Kidney;
 
       model HeartMuscle
@@ -29683,7 +29154,6 @@ annotation (Placement(transformation(extent={{-42,64},{-24,82}})));*/
             points={{-30.5,44},{-4,44},{-4,50.8},{71,50.8}},
             color={0,0,127},
             smooth=Smooth.None));
-        annotation (Icon(graphics), Diagram(graphics));
       end HeartMuscle;
 
       model GITract
@@ -29710,7 +29180,6 @@ annotation (Placement(transformation(extent={{-42,64},{-24,82}})));*/
       Physiolibrary.Chemical.Sensors.MolarFlowMeasure flowMeasure2 annotation (
           Placement(transformation(
             extent={{-8,-8},{8,8}},
-            rotation=0,
             origin={28,-82})));
         Physiolibrary.Types.RealIO.MolarFlowRateOutput GIT_GluUse
                                                               annotation (
@@ -29841,13 +29310,6 @@ annotation (Placement(transformation(extent={{-42,64},{-24,82}})));*/
           color={107,45,134},
           thickness=1,
           smooth=Smooth.None));
-        annotation (Diagram(coordinateSystem(
-              preserveAspectRatio=false,
-              extent={{-100,-100},{100,100}},
-              grid={2,2}), graphics), Icon(coordinateSystem(
-              preserveAspectRatio=true,
-              extent={{-100,-100},{100,100}},
-              grid={2,2}), graphics));
       end GITract;
 
       model Liver
@@ -30073,13 +29535,6 @@ annotation (Placement(transformation(extent={{-42,64},{-24,82}})));*/
             points={{-62,-82},{-20,-82}},
             color={0,0,127},
             smooth=Smooth.None));
-        annotation (Diagram(coordinateSystem(
-              preserveAspectRatio=false,
-              extent={{-100,-100},{100,100}},
-              grid={2,2}), graphics), Icon(coordinateSystem(
-              preserveAspectRatio=true,
-              extent={{-100,-100},{100,100}},
-              grid={2,2}), graphics));
       end Liver;
 
       model Skin
@@ -30097,8 +29552,6 @@ annotation (Placement(transformation(extent={{-42,64},{-24,82}})));*/
       model Fat
         extends TissueMetabolism;//(Lactate(stateName="Fat-Lactate.Mass"));
         extends Physiolibrary.Icons.Fat;
-      annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{
-                -100,-100},{100,100}}), graphics));
       end Fat;
 
       model OtherTissue
@@ -31851,13 +31304,10 @@ annotation (Placement(transformation(extent={{-42,64},{-24,82}})));*/
               Text(
                 extent={{10,-84},{240,-48}},
                 textString="%name",
-                lineColor={0,0,255})}), Diagram(coordinateSystem(preserveAspectRatio=true,
-                         extent={{-100,-100},{100,100}}), graphics),
-          Documentation(revisions="<html>
+                lineColor={0,0,255})}),          Documentation(revisions="<html>
 <p><i>2009-2010</i></p>
 <p>Marek Matejak, Charles University, Prague, Czech Republic </p>
-</html>"),          Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-                  -100},{100,100}}), graphics));
+</html>"));
       end NutrientDelivery;
 
       model NutrientDelivery2
@@ -31871,7 +31321,6 @@ annotation (Placement(transformation(extent={{-42,64},{-24,82}})));*/
             color={200,0,0},
             thickness=1,
             smooth=Smooth.None));
-        annotation (Icon(graphics), Diagram(graphics));
       end NutrientDelivery2;
 
       model FuelDeficit
@@ -31907,10 +31356,6 @@ annotation (Placement(transformation(extent={{-42,64},{-24,82}})));*/
           delivered.q + neededFlow.q = 0;
           FractUseDelay = 1;
         end if;
-        annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-                  -100},{100,100}}),
-                               graphics), Icon(coordinateSystem(preserveAspectRatio=true,
-                extent={{-100,-100},{100,100}}), graphics));
       end FuelDeficit;
 
       model LeftHeartMuscle
@@ -31929,7 +31374,6 @@ annotation (Placement(transformation(extent={{-42,64},{-24,82}})));*/
             points={{-28.5,66},{0,66}},
             color={0,0,127},
             smooth=Smooth.None));
-        annotation (Icon(graphics),           Diagram(graphics));
       end LeftHeartMuscle;
 
       model RightHeartMuscle
@@ -31948,7 +31392,6 @@ annotation (Placement(transformation(extent={{-42,64},{-24,82}})));*/
             points={{-28.5,66},{4,66}},
             color={0,0,127},
             smooth=Smooth.None));
-        annotation (Icon(graphics));
       end RightHeartMuscle;
 
       model FuelDeficit2
@@ -31987,10 +31430,6 @@ annotation (Placement(transformation(extent={{-42,64},{-24,82}})));*/
           delivered.q + neededFlow.q = 0;
           FractUseDelay = 1;
         end if;
-        annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-                  -100},{100,100}}),
-                               graphics), Icon(coordinateSystem(preserveAspectRatio=true,
-                extent={{-100,-100},{100,100}}), graphics));
       end FuelDeficit2;
 
       model NutrientDelivery_Fat
@@ -32111,13 +31550,10 @@ annotation (Placement(transformation(extent={{-42,64},{-24,82}})));*/
               Text(
                 extent={{10,-84},{240,-48}},
                 textString="%name",
-                lineColor={0,0,255})}), Diagram(coordinateSystem(preserveAspectRatio=true,
-                         extent={{-100,-100},{100,100}}), graphics),
-          Documentation(revisions="<html>
+                lineColor={0,0,255})}),          Documentation(revisions="<html>
 <p><i>2009-2010</i></p>
 <p>Marek Matejak, Charles University, Prague, Czech Republic </p>
-</html>"),          Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-                  -100},{100,100}}), graphics));
+</html>"));
       end NutrientDelivery_Fat;
 
       model NutrientDelivery_2
@@ -32202,13 +31638,10 @@ annotation (Placement(transformation(extent={{-42,64},{-24,82}})));*/
               Text(
                 extent={{10,-84},{240,-48}},
                 textString="%name",
-                lineColor={0,0,255})}), Diagram(coordinateSystem(preserveAspectRatio=true,
-                         extent={{-100,-100},{100,100}}), graphics),
-          Documentation(revisions="<html>
+                lineColor={0,0,255})}),          Documentation(revisions="<html>
 <p><i>2012</i></p>
 <p>Marek Matejak, Charles University, Prague, Czech Republic </p>
-</html>"),          Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-                  -100},{100,100}}), graphics));
+</html>"));
       end NutrientDelivery_2;
 
       model Metabolism
@@ -33897,7 +33330,7 @@ annotation (Placement(transformation(extent={{-42,64},{-24,82}})));*/
 </tr>
 <tr>
 <td>License:</td>
-<td>GPL 3.0</td>
+<td><a href=\"http://www.physiomodel.org/license.html\">Physiomodel License 1.0</a> </td>
 </tr>
 <tr>
 <td>By:</td>
@@ -33908,7 +33341,7 @@ annotation (Placement(transformation(extent={{-42,64},{-24,82}})));*/
 <td>2009</td>
 </tr>
 </table>
-<br/><p>Copyright &copy; 2014 Marek Matejak</p><br/>
+<br/><p>Copyright &copy; 2014 Marek Matejak, Charles University in Prague.</p><br/>
 
 </html>"));
     end TissueMetabolism;
@@ -34138,8 +33571,7 @@ annotation (Placement(transformation(extent={{-42,64},{-24,82}})));*/
         string="%second",
         index=1,
         extent={{6,3},{6,3}}));
-      annotation (Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,
-              -100},{100,100}}),        graphics), Icon(coordinateSystem(
+      annotation ( Icon(coordinateSystem(
               preserveAspectRatio=true,  extent={{-100,-100},{100,100}}),
             graphics={                 Text(
               extent={{-180,-96},{190,-128}},
@@ -34373,7 +33805,7 @@ annotation (Placement(transformation(extent={{-42,64},{-24,82}})));*/
       T.Concentration skeletalMuscle_cLactate(varName="SkeletalMuscle-Lactate.[Lac-(mEq/L)]")
         "SkeletalMuscle intracellular lactate concentration."
       annotation (Placement(transformation(extent={{-36,740},{-30,746}})));
-      /*T.MolarFlowRate SkeletalMuscle_O2Need(varName="SkeletalMuscle-Metabolism.O2Need", storeUnit="ml_STP/min") 
+      /*T.MolarFlowRate SkeletalMuscle_O2Need(varName="SkeletalMuscle-Metabolism.O2Need", storeUnit="ml_STP/min")
     "Oxygen needed to be consumed by skeletal muscle cells if only aerobic metabolism is running."
 annotation (Placement(transformation(extent={{-36,750},{-30,756}})));
 */
@@ -34423,7 +33855,7 @@ annotation (Placement(transformation(extent={{-36,750},{-30,756}})));
       T.HeatFlowRate MetabolismCaloriesUsed_SkinHeat(                         varName=
               "Metabolism-CaloriesUsed.SkinHeat",storeUnit="cal/min")
       annotation (Placement(transformation(extent={{-76,-78},{-56,-98}})));
-      /*T.Concentration KAPool_mg_per_dl(varName="KAPool.[KA(mG/dL)]", storeUnit="mg/dl", unitConversions = Substances.KetoAcids.unitConversions) 
+      /*T.Concentration KAPool_mg_per_dl(varName="KAPool.[KA(mG/dL)]", storeUnit="mg/dl", unitConversions = Substances.KetoAcids.unitConversions)
     ";Keto-acids extracellular concentration."
 annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
       T.HeatFlowRate skeletalMuscle_producedHeat(storeUnit="cal/min", varName=
@@ -35300,9 +34732,7 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
                                     Text(
                 extent={{-120,-104},{122,-138}},
                 lineColor={0,0,255},
-                textString="%name")}), Diagram(coordinateSystem(
-                preserveAspectRatio=false,extent={{-100,-100},{100,100}}),
-              graphics));
+                textString="%name")}));
       end Variables;
 
       model Metabolism_test
@@ -35399,8 +34829,6 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
             color={0,0,255},
             thickness=0.5,
             smooth=Smooth.None));
-        annotation (Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,
-                -100},{100,100}}),         graphics));
       end Metabolism_test;
 
       model Metabolism_test_SI
@@ -35505,8 +34933,6 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
           color={0,0,255},
           thickness=0.5,
           smooth=Smooth.None));
-        annotation (Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,
-                -100},{100,100}}),         graphics));
       end Metabolism_test_SI;
     end IO_Bus;
 
@@ -35637,7 +35063,6 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
     Physiomodel.Metabolism.deprecated.ContinualReaction FA_TO_KA(a=1.02*(Substances.FattyAcids.mw
           /Substances.KetoAcids.mw)) annotation (Placement(transformation(
           extent={{-10,-10},{10,10}},
-          rotation=0,
           origin={-18,-82})));
     Physiolibrary.Blocks.Factors.Normalization LiverFunctionEffect_Ketogenesis
       annotation (Placement(transformation(extent={{-58,-84},{-38,-64}})));
@@ -36260,9 +35685,7 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
         points={{-56,28},{-56,24}},
         color={0,0,127},
         smooth=Smooth.None));
-      annotation (Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,
-              -100},{100,100}},
-            grid={2,2}),                graphics), Icon(coordinateSystem(
+      annotation ( Icon(coordinateSystem(
               preserveAspectRatio=true, extent={{-100,-100},{100,100}},
             grid={2,2}), graphics={
             Text(
@@ -36309,13 +35732,10 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
                 smooth=Smooth.None,
                 fillColor={0,0,0},
                 fillPattern=FillPattern.Solid)}),
-                                        Diagram(coordinateSystem(preserveAspectRatio=true,
-                         extent={{-100,-100},{100,100}}), graphics),
           Documentation(revisions="<html>
 <p><i>2009-2010</i></p>
 <p>Marek Matejak, Charles University, Prague, Czech Republic </p>
-</html>"),          Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-                  -100},{100,100}}), graphics));
+</html>"));
       end ContinualReaction;
 
       model ContinualReaction2
@@ -36368,13 +35788,10 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
                 smooth=Smooth.None,
                 fillColor={0,0,0},
                 fillPattern=FillPattern.Solid)}),
-                                        Diagram(coordinateSystem(preserveAspectRatio=true,
-                         extent={{-100,-100},{100,100}}), graphics),
           Documentation(revisions="<html>
 <p><i>2009-2010</i></p>
 <p>Marek Matejak, Charles University, Prague, Czech Republic </p>
-</html>"),          Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-                  -100},{100,100}}), graphics));
+</html>"));
       end ContinualReaction2;
 
     end deprecated;
@@ -36385,12 +35802,9 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
 </tr>
 <tr>
 <td><p>License:</p></td>
-<td><p>GPL 3.0</p></td>
+<td><p><a href=\"http://www.physiomodel.org/license.html\">Physiomodel License 1.0</a> </p></td>
 </tr>
-<tr>
-<td><p>By:</p></td>
-<td><p>Charles University, Prague</p></td>
-</tr>
+
 <tr>
 <td><p>Date of:</p></td>
 <td><p>2008-2015</p></td>
@@ -36400,7 +35814,7 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
 <td><p>Tom Coleman: HumMod 1.6, University of Mississippi Medical Center</p></td>
 </tr>
 </table>
-<p>Copyright &copy; 2008-2015 Marek Matejak</p>
+<p>Copyright &copy; 2008-2015 Marek Matejak, Charles University in Prague.</p>
 </html>", info="<html>
 <p>cellular metabolism [Wahren1970,Carlson1971]</p>
 <p><br>Liver metabolism</p>
@@ -36412,8 +35826,7 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
 <p>adipose tissue[Algenstaedt2004,Frayn2002,Schling2002,Wagner2004]</p>
 <p>hormones[Havel2004] - insulin[Arner2002.Chen2004]</p>
 <p><br>Urea [Sands1999]</p>
-</html>"), Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
-              {100,100}}), graphics));
+</html>"));
   end Metabolism;
 
 
@@ -36518,7 +35931,6 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
          annotation (Placement(
           transformation(
           extent={{-10,-10},{10,10}},
-          rotation=0,
           origin={-84,2})));
     Physiolibrary.Blocks.Math.Integrator integrator(
       stateName="InsulinSynthesis.Rate",
@@ -36677,8 +36089,7 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
         string="%first",
         index=-1,
         extent={{-6,3},{-6,3}}));
-      annotation (Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,
-              -100},{100,100}}),        graphics), Icon(coordinateSystem(
+      annotation ( Icon(coordinateSystem(
               preserveAspectRatio=true, extent={{-100,-100},{100,100}}),
             graphics={Text(
               extent={{-100,80},{100,100}},
@@ -36730,7 +36141,6 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
                 {-60,80}})));
     Physiolibrary.Chemical.Sensors.ConcentrationMeasure concentrationMeasure annotation (Placement(transformation(
           extent={{-10,-10},{10,10}},
-          rotation=0,
           origin={-60,8})));
       Physiolibrary.Types.RealIO.ConcentrationOutput
                                             Glucagon( displayUnit=
@@ -36844,8 +36254,7 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
           string="%first",
           index=-1,
           extent={{-6,3},{-6,3}}));
-      annotation (Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,-100},{100,100}}),
-                                        graphics), Icon(coordinateSystem(
+      annotation ( Icon(coordinateSystem(
               preserveAspectRatio=true, extent={{-100,-100},{100,100}}),
             graphics={Text(
               extent={{-100,80},{100,100}},
@@ -37099,8 +36508,7 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
         string="%second",
         index=1,
         extent={{6,3},{6,3}}));
-      annotation (Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,
-              -100},{100,100}}),   graphics),      Icon(coordinateSystem(
+      annotation (      Icon(coordinateSystem(
               preserveAspectRatio=true, extent={{-100,-100},{100,100}}),
             graphics={Text(
               extent={{-112,120},{122,98}},
@@ -37140,14 +36548,12 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
          annotation (Placement(
           transformation(
           extent={{-10,-10},{10,10}},
-          rotation=0,
           origin={-44,-2})));                                               //(toAnotherUnitCoef=1000, unitsString="pmol/l")
     Physiolibrary.Chemical.Sources.UnlimitedSolutePumpOut Degradation(
         useSoluteFlowInput=true)
       annotation (Placement(transformation(extent={{0,-68},{20,-48}})));
       Modelica.Blocks.Math.Gain DegradeK(k=0.0007/60)
         annotation (Placement(transformation(extent={{-3,-3},{3,3}},
-            rotation=0,
             origin={-3,-49})));
     Physiolibrary.Types.BusConnector busConnector annotation (Placement(
           transformation(extent={{-100,80},{-80,100}}), iconTransformation(
@@ -37252,8 +36658,7 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
         string="%first",
         index=-1,
         extent={{-6,3},{-6,3}}));
-      annotation (Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,
-              -100},{100,100}}),        graphics), Icon(coordinateSystem(
+      annotation ( Icon(coordinateSystem(
               preserveAspectRatio=true, extent={{-100,-100},{100,100}}),
             graphics={Text(
               extent={{-116,104},{118,82}},
@@ -37286,14 +36691,12 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
     Physiolibrary.Chemical.Sensors.ConcentrationMeasure concentrationMeasure annotation (Placement(
           transformation(
           extent={{-10,-10},{10,10}},
-          rotation=0,
           origin={-26,-16})));
     Physiolibrary.Chemical.Sources.UnlimitedSolutePumpOut Degradation(
         useSoluteFlowInput=true)
       annotation (Placement(transformation(extent={{12,-86},{32,-66}})));
       Modelica.Blocks.Math.Gain DegradeK(k=0.223/60)
         annotation (Placement(transformation(extent={{-3,-3},{3,3}},
-            rotation=0,
             origin={7,-65})));
     Physiolibrary.Types.Constants.MolarFlowRateConst hormoneFlowConstant1(k=
           4.3333333333333e-13)
@@ -37479,8 +36882,7 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
         string="%second",
         index=1,
         extent={{6,3},{6,3}}));
-      annotation (Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,
-              -100},{100,100}}),        graphics), Icon(coordinateSystem(
+      annotation ( Icon(coordinateSystem(
               preserveAspectRatio=true, extent={{-100,-100},{100,100}}),
             graphics={Text(
               extent={{-120,94},{114,72}},
@@ -37515,21 +36917,18 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
          annotation (Placement(
           transformation(
           extent={{-10,-10},{10,10}},
-          rotation=0,
           origin={-38,-32})));                                              //(toAnotherUnitCoef=1000, unitsString="U/l")
     EPO_Physiolibrary.Chemical.Sources.UnlimitedSolutePumpOut Clearance(
         useSoluteFlowInput=true)
       annotation (Placement(transformation(extent={{-30,-98},{-10,-78}})));
       Modelica.Blocks.Math.Gain K(k(unit="1/s")=0.00555/60)
         annotation (Placement(transformation(extent={{-3,-3},{3,3}},
-            rotation=0,
             origin={-31,-77})));
     EPO_Physiolibrary.Types.Constants.MolarFlowRateConst hormoneFlowConstant1(k=(
           0.67)/60)
       annotation (Placement(transformation(extent={{82,42},{70,54}})));
       Modelica.Blocks.Math.Gain VODIST(k=0.4)
         annotation (Placement(transformation(extent={{-6,-6},{6,6}},
-            rotation=0,
             origin={-64,-40})));
     Physiolibrary.Blocks.Math.Power avg1
       annotation (Placement(transformation(extent={{-8,10},{0,18}})));
@@ -37646,8 +37045,7 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
           points={{-14,20},{-14,11.6},{-8,11.6}},
           color={0,0,127},
           smooth=Smooth.None));
-      annotation (Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,
-              -100},{100,100}}),        graphics), Icon(coordinateSystem(
+      annotation ( Icon(coordinateSystem(
               preserveAspectRatio=true, extent={{-100,-100},{100,100}}),
             graphics={Text(
               extent={{-116,104},{118,82}},
@@ -37679,7 +37077,6 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
     Physiolibrary.Chemical.Sensors.ConcentrationMeasure concentrationMeasure annotation (Placement(
           transformation(
           extent={{-10,-10},{10,10}},
-          rotation=0,
           origin={-76,-30})));
     Physiolibrary.Chemical.Sources.UnlimitedSolutePumpOut Clearance(
         useSoluteFlowInput=true)
@@ -37687,7 +37084,6 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
       Modelica.Blocks.Math.Gain K(k(unit="1/s")=0.000041/60,y(unit="mol/s"))
       "typical degradation: 72 ug/day (T3 .. 33.5 ug/day, T4 .. 87 ug/day)"
         annotation (Placement(transformation(extent={{-3,-3},{3,3}},
-            rotation=0,
             origin={-35,-77})));
     Physiolibrary.Types.BusConnector busConnector annotation (Placement(
           transformation(extent={{-88,78},{-68,98}}), iconTransformation(extent=
@@ -37766,8 +37162,7 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
         string="%second",
         index=1,
         extent={{6,3},{6,3}}));
-      annotation (Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,
-              -100},{100,100}}),        graphics), Icon(coordinateSystem(
+      annotation ( Icon(coordinateSystem(
               preserveAspectRatio=true, extent={{-100,-100},{100,100}}),
             graphics={Text(
               extent={{-124,114},{118,90}},
@@ -37851,8 +37246,7 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
           points={{36,20},{36,12},{-16,12}},
           color={0,0,127},
           smooth=Smooth.None));
-      annotation (Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,
-              -100},{100,100}}),        graphics), Icon(coordinateSystem(
+      annotation ( Icon(coordinateSystem(
               preserveAspectRatio=true, extent={{-100,-100},{100,100}}),
             graphics={Text(
               extent={{-118,122},{116,100}},
@@ -37885,21 +37279,18 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
       Renin_Physiolibrary.Chemical.Sensors.ConcentrationMeasure concentrationMeasure
        annotation (Placement(transformation(
           extent={{-10,-10},{10,10}},
-          rotation=0,
           origin={-62,-32})));                                                //(unitsString="GU/ml")
     Renin_Physiolibrary.Chemical.Sources.UnlimitedSolutePumpOut Clearance(
         useSoluteFlowInput=true)
       annotation (Placement(transformation(extent={{-30,-98},{-10,-78}})));
       Modelica.Blocks.Math.Gain K(k=0.0161/60)
         annotation (Placement(transformation(extent={{-3,-3},{3,3}},
-            rotation=0,
             origin={-35,-59})));
     Renin_Physiolibrary.Types.Constants.MolarFlowRateConst hormoneFlowConstant1(k(
           displayUnit="GU_PRA/min") = 290/60) "290 GU/min"
       annotation (Placement(transformation(extent={{62,76},{50,88}})));
       Modelica.Blocks.Math.Gain VODIST(k=0.6)
         annotation (Placement(transformation(extent={{-6,-6},{6,6}},
-            rotation=0,
             origin={-68,-2})));
     Physiolibrary.Blocks.Factors.Normalization FunctionEffect
       annotation (Placement(transformation(extent={{36,56},{56,76}})));
@@ -38249,8 +37640,7 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
         points={{80,78},{98,78},{98,56},{80,56}},
         color={0,0,127},
         smooth=Smooth.None));
-      annotation (Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,
-              -100},{100,100}}),        graphics), Icon(coordinateSystem(
+      annotation ( Icon(coordinateSystem(
               preserveAspectRatio=true, extent={{-100,-100},{100,100}}),
             graphics={Text(
               extent={{-112,108},{122,86}},
@@ -38324,8 +37714,7 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
         string="%second",
         index=1,
         extent={{6,3},{6,3}}));
-      annotation (Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,
-              -100},{100,100}}),        graphics), Icon(coordinateSystem(
+      annotation ( Icon(coordinateSystem(
               preserveAspectRatio=true, extent={{-100,-100},{100,100}}),
             graphics={Text(
               extent={{-128,102},{106,80}},
@@ -38368,7 +37757,6 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
     Physiolibrary.Chemical.Sensors.ConcentrationMeasure concentrationMeasure
          annotation (Placement(transformation(
           extent={{-10,-10},{10,10}},
-          rotation=0,
           origin={-60,8})));
       Physiolibrary.Types.RealIO.ConcentrationOutput
                                             Leptin(displayUnit=
@@ -38446,8 +37834,7 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
         string="%second",
         index=1,
         extent={{6,3},{6,3}}));
-      annotation (Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,
-              -100},{100,100}}),        graphics), Icon(coordinateSystem(
+      annotation ( Icon(coordinateSystem(
               preserveAspectRatio=true, extent={{-100,-100},{100,100}}),
             graphics={Text(
               extent={{-100,80},{100,100}},
@@ -38463,7 +37850,6 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
       Modelica.Blocks.Math.Gain mlTOlitre(k=0.001)
                                      annotation (Placement(transformation(
             extent={{-4,-4},{4,4}},
-            rotation=0,
             origin={-2,-40})));
     Physiolibrary.Types.BusConnector busConnector
       annotation (Placement(transformation(extent={{-92,76},{-72,96}})));
@@ -38528,10 +37914,6 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
         der( PT_pool)   = (1-PT_pool)*0.01*(0.85*T64m+0.15) - PT_pool*0.01*(0.85*T64p+0.15);
         T64m = 1-(exp(0.03*(Calcitriol - 90*(2.35/Ca))) - exp(-0.03*(Calcitriol - 90*(2.35/Ca)))) / (exp(0.03*(Calcitriol - 90*(2.35/Ca))) + exp(-0.03*(Calcitriol - 90*(2.35/Ca))));
         T64p = 1+(exp(0.03*(Calcitriol - 90*(2.35/Ca))) - exp(-0.03*(Calcitriol - 90*(2.35/Ca)))) / (exp(0.03*(Calcitriol - 90*(2.35/Ca))) + exp(-0.03*(Calcitriol - 90*(2.35/Ca))));
-        annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-                  -100},{100,100}}),                                                                    graphics), Icon(
-              coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
-                  100,100}}), graphics));
       end PT;
 
       PT PT_pool
@@ -38539,7 +37921,6 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
     Physiolibrary.Chemical.Sensors.ConcentrationMeasure concentrationMeasure(
         unitsString="pmol/l") annotation (Placement(transformation(
           extent={{-10,-10},{10,10}},
-          rotation=0,
           origin={34,-36})));
     equation
       connect(busConnector.ECFV_Vol,mlTOlitre. u) annotation (Line(
@@ -38672,8 +38053,7 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
                 -100},{100,100}}), graphics={Text(
               extent={{-102,88},{98,108}},
               lineColor={0,0,255},
-              textString="%name")}), Diagram(coordinateSystem(preserveAspectRatio=true,
-              extent={{-100,-100},{100,100}}), graphics));
+              textString="%name")}));
     end PTH;
 
     model Calcitriol
@@ -38720,8 +38100,6 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
       equation
         der( One_alpha_OH)  = 6.3*H(PTH, 1.90371, 1.549,0.1112)*( if PO4<=16.8/14 then 1 else H_minus(PO4,1.525,1.302,8.252,-1.78249))  -0.05 *One_alpha_OH;
         //H7,9:alpha was calculated,
-        annotation (Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-                  -100},{100,100}}),                                                                 graphics));
       end One_alpha_OH;
       One_alpha_OH one_alpha_OH
         annotation (Placement(transformation(extent={{-26,16},{-6,36}})));
@@ -38741,12 +38119,10 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
       Modelica.Blocks.Math.Gain mlTOlitre(k=0.001)
                                      annotation (Placement(transformation(
             extent={{-4,-4},{4,4}},
-            rotation=0,
             origin={-2,-16})));
     Physiolibrary.Chemical.Sensors.ConcentrationMeasure concentrationMeasure
          annotation (Placement(transformation(
           extent={{-10,-10},{10,10}},
-          rotation=0,
           origin={30,0})));
     equation
 
@@ -38814,8 +38190,7 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
         string="%second",
         index=1,
         extent={{6,3},{6,3}}));
-      annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-                -100},{100,100}}),      graphics), Icon(coordinateSystem(
+      annotation ( Icon(coordinateSystem(
               preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
             graphics={Text(
               extent={{-96,94},{104,114}},
@@ -38858,7 +38233,6 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
            annotation (Placement(
             transformation(
             extent={{-10,-10},{10,10}},
-            rotation=0,
             origin={-76,-26})));
         Physiolibrary.Types.RealIO.ConcentrationOutput
                                             Epinephrine( displayUnit=
@@ -38928,10 +38302,6 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
           points={{38,-36},{38,-40},{34,-40}},
           color={0,0,127},
           smooth=Smooth.None));
-        annotation (Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,-100},{100,100}}),
-                                          graphics), Icon(coordinateSystem(
-                preserveAspectRatio=true, extent={{-100,-100},{100,100}}),
-              graphics));
       end Epinephrine;
 
       model Norepinephrine
@@ -38967,7 +38337,6 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
            annotation (Placement(
             transformation(
             extent={{-10,-10},{10,10}},
-            rotation=0,
             origin={-78,-20})));
         Physiolibrary.Types.RealIO.ConcentrationOutput
                                             Norepinephrine( displayUnit="pg/ml")
@@ -39069,10 +38438,6 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
           points={{40,34},{40,34},{40,32},{36,32}},
           color={0,0,127},
           smooth=Smooth.None));
-        annotation (Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,-100},{100,100}}),
-                                          graphics), Icon(coordinateSystem(
-                preserveAspectRatio=true, extent={{-100,-100},{100,100}}),
-              graphics));
       end Norepinephrine;
 
       model Catechols
@@ -39252,9 +38617,7 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
           string="%second",
           index=1,
           extent={{6,3},{6,3}}));
-        annotation (Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,
-                -100},{100,100}}),
-                               graphics), Icon(coordinateSystem(preserveAspectRatio=true,
+        annotation ( Icon(coordinateSystem(preserveAspectRatio=true,
                 extent={{-100,-100},{100,100}}), graphics={Text(
                 extent={{-100,80},{100,100}},
                 lineColor={0,0,255},
@@ -39269,7 +38632,7 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
 </tr>
 <tr>
 <td>License:</td>
-<td>GPL 3.0</td>
+<td><a href=\"http://www.physiomodel.org/license.html\">Physiomodel License 1.0</a> </td>
 </tr>
 <tr>
 <td>By:</td>
@@ -39284,7 +38647,7 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
 <td>Tom Coleman: QHP 2008 beta 3, University of Mississippi Medical Center</td>
 </tr>
 </table>
-<br/><p>Copyright &copy; 2014 Marek Matejak</p><br/>
+<br/><p>Copyright &copy; 2014 Marek Matejak, Charles University in Prague.</p><br/>
 
 </html>"));
     end Catechols;
@@ -39313,14 +38676,12 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
         toAnotherUnitCoef=1000,
         unitsString="nMol/l") annotation (Placement(transformation(
             extent={{-10,-10},{10,10}},
-            rotation=0,
             origin={-78,-22})));
       Physiolibrary.Chemical.Sources.UnlimitedSolutePumpOut Degradation(
           useSoluteFlowInput=true)
         annotation (Placement(transformation(extent={{-30,-98},{-10,-78}})));
         Modelica.Blocks.Math.Gain K(k=0.11)
           annotation (Placement(transformation(extent={{-3,-3},{3,3}},
-              rotation=0,
               origin={-35,-77})));
       Physiolibrary.Chemical.Sources.UnlimitedSolutePump
         Follicle_OvariesSecretion(useSoluteFlowInput=true)
@@ -39431,10 +38792,6 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
           points={{-78,-18},{-78,2},{-60,2}},
           color={0,0,127},
           smooth=Smooth.None));
-        annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-                  -100},{100,100}}),      graphics), Icon(coordinateSystem(
-                preserveAspectRatio=true, extent={{-100,-100},{100,100}}),
-              graphics));
       end Estradiol;
 
       model FemaleSexHormones
@@ -39463,7 +38820,6 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
                                               Cycling
                                  annotation (Placement(transformation(extent={{-4,-4},
                   {4,4}},
-              rotation=0,
               origin={0,-80}),        iconTransformation(extent={{-120,20},{-80,
                   60}})));
         Modelica.Blocks.Interfaces.RealInput EFCV_Vol(
@@ -39646,8 +39002,7 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
             points={{34,-42},{36,-42},{36,26},{50,26}},
             color={255,0,255},
             smooth=Smooth.None));
-        annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-                  -100},{100,100}}),      graphics), Icon(coordinateSystem(
+        annotation ( Icon(coordinateSystem(
                 preserveAspectRatio=true, extent={{-100,-100},{100,100}}),
               graphics={                            Text(
                 extent={{-100,-100},{102,-122}},
@@ -39797,9 +39152,6 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
             points={{81,-40},{90,-40}},
             color={0,0,127},
             smooth=Smooth.None));
-        annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-                  -100},{100,100}}),       graphics), Icon(coordinateSystem(
-                preserveAspectRatio=true, extent={{-100,-100},{100,100}}), graphics));
       end OvariesFollicle;
 
       model OvarianCycle
@@ -40061,9 +39413,6 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
             points={{84,17},{84,13},{93,13}},
             color={255,0,255},
             smooth=Smooth.None));
-        annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-                  -100},{100,100}}),       graphics), Icon(coordinateSystem(
-                preserveAspectRatio=true, extent={{-100,-100},{100,100}}), graphics));
       end OvarianCycle;
 
       model CorpusLuteum
@@ -40128,9 +39477,6 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
             points={{29,6},{52,6}},
             color={0,0,127},
             smooth=Smooth.None));
-        annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-                  -100},{100,100}}),       graphics), Icon(coordinateSystem(
-                preserveAspectRatio=true, extent={{-100,-100},{100,100}}), graphics));
       end CorpusLuteum;
 
       model Progesterone
@@ -40154,14 +39500,12 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
         toAnotherUnitCoef=1000,
         unitsString="nMol/l") annotation (Placement(transformation(
             extent={{-10,-10},{10,10}},
-            rotation=0,
             origin={-76,-22})));
       Physiolibrary.Chemical.Sources.UnlimitedSolutePumpOut Degradation(
           useSoluteFlowInput=true)
         annotation (Placement(transformation(extent={{-30,-98},{-10,-78}})));
         Modelica.Blocks.Math.Gain K(k=0.16)
           annotation (Placement(transformation(extent={{-3,-3},{3,3}},
-              rotation=0,
               origin={-35,-77})));
         Modelica.Blocks.Interfaces.RealInput EFCV_Vol(
                                                quantity="Volume", final displayUnit=
@@ -40229,10 +39573,6 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
           points={{-76,-18},{-76,-6},{-56,-6}},
           color={0,0,127},
           smooth=Smooth.None));
-        annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-                  -100},{100,100}}),      graphics), Icon(coordinateSystem(
-                preserveAspectRatio=true, extent={{-100,-100},{100,100}}),
-              graphics));
       end Progesterone;
 
       model LH
@@ -40248,14 +39588,12 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
         toAnotherUnitCoef=1,
         unitsString="IU/l") annotation (Placement(transformation(
             extent={{-10,-10},{10,10}},
-            rotation=0,
             origin={-78,-22})));
       Physiolibrary.Chemical.Sources.UnlimitedSolutePumpOut Degradation(
           useSoluteFlowInput=true)
         annotation (Placement(transformation(extent={{-30,-98},{-10,-78}})));
         Modelica.Blocks.Math.Gain K(k=0.005)
           annotation (Placement(transformation(extent={{-3,-3},{3,3}},
-              rotation=0,
               origin={-35,-77})));
       Physiolibrary.Chemical.Sources.UnlimitedSolutePump AnteriorPituitary(
           useSoluteFlowInput=true)
@@ -40382,10 +39720,6 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
           points={{-83.7,-35},{-83.7,-35.5},{-80,-35.5},{-80,-38}},
           color={0,0,127},
           smooth=Smooth.None));
-        annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-                  -100},{100,100}}),      graphics), Icon(coordinateSystem(
-                preserveAspectRatio=true, extent={{-100,-100},{100,100}}),
-              graphics));
       end LH;
 
       model FSH
@@ -40400,14 +39734,12 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
         toAnotherUnitCoef=1,
         unitsString="IU/l") annotation (Placement(transformation(
             extent={{-10,-10},{10,10}},
-            rotation=0,
             origin={-76,-22})));
       Physiolibrary.Chemical.Sources.UnlimitedSolutePumpOut Degradation(
           useSoluteFlowInput=true)
         annotation (Placement(transformation(extent={{-30,-98},{-10,-78}})));
         Modelica.Blocks.Math.Gain K(k=0.0009)
           annotation (Placement(transformation(extent={{-3,-3},{3,3}},
-              rotation=0,
               origin={-35,-77})));
       Physiolibrary.Chemical.Sources.UnlimitedSolutePump AnteriorPituitary(
           useSoluteFlowInput=true)
@@ -40536,10 +39868,6 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
           points={{-83.7,-35},{-83.7,-35.5},{-80,-35.5},{-80,-38}},
           color={0,0,127},
           smooth=Smooth.None));
-        annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-                  -100},{100,100}}),      graphics), Icon(coordinateSystem(
-                preserveAspectRatio=true, extent={{-100,-100},{100,100}}),
-              graphics));
       end FSH;
 
       model GnRH
@@ -40586,10 +39914,6 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
             points={{14,22},{14,8}},
             color={0,0,127},
             smooth=Smooth.None));
-        annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-                  -100},{100,100}}),      graphics), Icon(coordinateSystem(
-                preserveAspectRatio=true, extent={{-100,-100},{100,100}}),
-              graphics));
       end GnRH;
 
       model Inhibin
@@ -40613,14 +39937,12 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
         toAnotherUnitCoef=1000,
         unitsString="IU/l") annotation (Placement(transformation(
             extent={{-10,-10},{10,10}},
-            rotation=0,
             origin={-76,-22})));
       Physiolibrary.Chemical.Sources.UnlimitedSolutePumpOut Degradation(
           useSoluteFlowInput=true)
         annotation (Placement(transformation(extent={{-30,-98},{-10,-78}})));
         Modelica.Blocks.Math.Gain K(k=0.008)
           annotation (Placement(transformation(extent={{-3,-3},{3,3}},
-              rotation=0,
               origin={-35,-77})));
         Modelica.Blocks.Interfaces.RealInput EFCV_Vol(
                                                quantity="Volume", final displayUnit=
@@ -40726,10 +40048,6 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
             color={200,0,0},
             thickness=1,
             smooth=Smooth.None));
-        annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-                  -100},{100,100}}),      graphics), Icon(coordinateSystem(
-                preserveAspectRatio=true, extent={{-100,-100},{100,100}}),
-              graphics));
       end Inhibin;
 
       model Testosterone
@@ -40750,14 +40068,12 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
         toAnotherUnitCoef=1000,
         unitsString="nMol/l") annotation (Placement(transformation(
             extent={{-10,-10},{10,10}},
-            rotation=0,
             origin={-78,-22})));
       Physiolibrary.Chemical.Sources.UnlimitedSolutePumpOut Degradation(
           useSoluteFlowInput=true)
         annotation (Placement(transformation(extent={{-30,-98},{-10,-78}})));
         Modelica.Blocks.Math.Gain K(k=0.043)
           annotation (Placement(transformation(extent={{-3,-3},{3,3}},
-              rotation=0,
               origin={-35,-77})));
         Modelica.Blocks.Interfaces.RealInput EFCV_Vol(
                                                quantity="Volume", final displayUnit=
@@ -40811,10 +40127,6 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
           points={{71.4,-28},{66,-28},{66,-40}},
           color={0,0,127},
           smooth=Smooth.None));
-        annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-                  -100},{100,100}}),      graphics), Icon(coordinateSystem(
-                preserveAspectRatio=true, extent={{-100,-100},{100,100}}),
-              graphics));
       end Testosterone;
 
       model hCG
@@ -40836,14 +40148,12 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
         toAnotherUnitCoef=1000,
         unitsString="IU/l") annotation (Placement(transformation(
             extent={{-10,-10},{10,10}},
-            rotation=0,
             origin={-76,-22})));
       Physiolibrary.Chemical.Sources.UnlimitedSolutePumpOut Degradation(
           useSoluteFlowInput=true)
         annotation (Placement(transformation(extent={{-30,-98},{-10,-78}})));
         Modelica.Blocks.Math.Gain K(k=0.0009)
           annotation (Placement(transformation(extent={{-3,-3},{3,3}},
-              rotation=0,
               origin={-35,-77})));
         Modelica.Blocks.Interfaces.RealInput EFCV_Vol(
                                                quantity="Volume", final displayUnit=
@@ -40894,10 +40204,6 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
           points={{71.4,-28},{66,-28},{66,-40}},
           color={0,0,127},
           smooth=Smooth.None));
-        annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-                  -100},{100,100}}),      graphics), Icon(coordinateSystem(
-                preserveAspectRatio=true, extent={{-100,-100},{100,100}}),
-              graphics));
       end hCG;
 
       model DayCounter
@@ -40945,8 +40251,6 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
               points={{-63.6,24},{-44,24},{-44,6},{-26,6}},
               color={0,0,127},
               smooth=Smooth.None));
-          annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-                    -100},{100,100}}),       graphics));
         end T;
       end test;
       annotation (Documentation(revisions="<html>
@@ -40958,7 +40262,7 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
 </tr>
 <tr>
 <td>License:</td>
-<td>GPL 3.0</td>
+<td><a href=\"http://www.physiomodel.org/license.html\">Physiomodel License 1.0</a> </td>
 </tr>
 <tr>
 <td>By:</td>
@@ -40973,7 +40277,7 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
 <td>Tom Coleman: QHP 2008 beta 3, University of Mississippi Medical Center</td>
 </tr>
 </table>
-<br/><p>Copyright &copy; 2014 Marek Matejak</p><br/>
+<br/><p>Copyright &copy; 2014 Marek Matejak, Charles University in Prague.</p><br/>
 
 </html>"));
     end FemaleSexHormones;
@@ -41026,8 +40330,7 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
         points={{-24,78},{-10,78},{-10,96},{-94,96},{-94,86},{-78,86}},
         color={0,0,127},
         smooth=Smooth.None));
-      annotation (Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,-100},{100,100}}),
-                                        graphics), Icon(coordinateSystem(
+      annotation ( Icon(coordinateSystem(
               preserveAspectRatio=true, extent={{-100,-100},{100,100}}),
             graphics={                  Text(
               extent={{-120,-98},{122,-132}},
@@ -41143,8 +40446,7 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
           color={0,0,255},
           thickness=0.5,
           smooth=Smooth.None));
-      annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-                -100},{100,100}}),      graphics), Icon(coordinateSystem(
+      annotation ( Icon(coordinateSystem(
               preserveAspectRatio=true, extent={{-100,-100},{100,100}}),
             graphics={                  Text(
               extent={{-120,-98},{122,-132}},
@@ -41277,8 +40579,7 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
           color={0,0,255},
           thickness=0.5,
           smooth=Smooth.None));
-      annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-                -100},{100,100}}),      graphics), Icon(coordinateSystem(
+      annotation ( Icon(coordinateSystem(
               preserveAspectRatio=true, extent={{-100,-100},{100,100}}),
             graphics={                  Text(
               extent={{-120,-98},{122,-132}},
@@ -41385,9 +40686,7 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
                 textString="vars"), Text(
                 extent={{-118,-104},{124,-138}},
                 lineColor={0,0,255},
-                textString="%name")}), Diagram(coordinateSystem(preserveAspectRatio=false,
-                extent={{-100,-100},{100,100}}),
-                                               graphics));
+                textString="%name")}));
       end Variables;
 
       model Hormones_test
@@ -41484,7 +40783,6 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
             color={0,0,255},
             thickness=0.5,
             smooth=Smooth.None));
-        annotation (Diagram(graphics));
       end Hormones_test;
 
       model Hormones_test_SI
@@ -41581,7 +40879,6 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
             color={0,0,255},
             thickness=0.5,
             smooth=Smooth.None));
-        annotation (Diagram(graphics));
       end Hormones_test_SI;
     end IO_Bus;
 
@@ -41616,9 +40913,7 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
                 textString="vars"), Text(
                 extent={{-118,-104},{124,-138}},
                 lineColor={0,0,255},
-                textString="%name")}), Diagram(coordinateSystem(preserveAspectRatio=false,
-                extent={{-100,-100},{100,100}}),
-                                               graphics));
+                textString="%name")}));
       end Variables;
 
       model EPO_test
@@ -41707,7 +41002,6 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
             color={255,204,51},
             thickness=0.5,
             smooth=Smooth.None));
-        annotation (Diagram(graphics));
       end EPO_test;
     end IO_EPO;
 
@@ -41744,9 +41038,7 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
                                     Text(
                 extent={{-120,-104},{122,-138}},
                 lineColor={0,0,255},
-                textString="%name")}), Diagram(coordinateSystem(
-                preserveAspectRatio=false,extent={{-100,-100},{100,100}}),
-              graphics));
+                textString="%name")}));
       end Variables;
     end IO_Insulin;
 
@@ -41757,12 +41049,9 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
 </tr>
 <tr>
 <td><p>License:</p></td>
-<td><p>GPL 3.0</p></td>
+<td><p><a href=\"http://www.physiomodel.org/license.html\">Physiomodel License 1.0</a> </p></td>
 </tr>
-<tr>
-<td><p>By:</p></td>
-<td><p>Charles University, Prague</p></td>
-</tr>
+
 <tr>
 <td><p>Date of:</p></td>
 <td><p>2008-2015</p></td>
@@ -41772,7 +41061,7 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
 <td><p>Tom Coleman: HumMod 1.6, University of Mississippi Medical Center</p></td>
 </tr>
 </table>
-<p>Copyright &copy; 2008-2015 Marek Matejak</p>
+<p>Copyright &copy; 2008-2015 Marek Matejak, Charles University in Prague.</p>
 </html>", info="<html>
 <p>Vasopressin (Antidiuretic hormone, ADH)</p>
 <p>book about ADH [Glickson1974], pharmacological properties[Berde1968]</p>
@@ -41815,8 +41104,7 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
 <p>Thyrotropin</p>
 <p>Leptin</p>
 <p><br>Catecholamins (Adrenalin and Noradrenalin)</p>
-</html>"), Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
-              {100,100}}), graphics));
+</html>"));
   end Hormones;
 
 
@@ -41925,7 +41213,7 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
         annotation (
           preferredView = text,
           Documentation(info="<html>
-<pre>Blood pH calculation by 
+<pre>Blood pH calculation by
 <i><b>Van Slyke equation</b></i>,
 <i><b>Haldame</b></i> effect
 and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
@@ -41938,12 +41226,9 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
 </tr>
 <tr>
 <td><p>License:</p></td>
-<td><p>GPL 3.0</p></td>
+<td><p><a href=\"http://www.physiomodel.org/license.html\">Physiomodel License 1.0</a> </p></td>
 </tr>
-<tr>
-<td><p>By:</p></td>
-<td><p>Charles University, Prague</p></td>
-</tr>
+
 <tr>
 <td><p>Date of:</p></td>
 <td><p>dec 2009</p></td>
@@ -41953,7 +41238,7 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
 <td>Siggaard Andersen: OSA (2005), University of Copenhagen</td>
 </tr>
 </table>
-<br/><p>Copyright &copy; 2014 Marek Matejak</p><br/>
+<br/><p>Copyright &copy; 2014 Marek Matejak, Charles University in Prague.</p><br/>
 
 </html>"),Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{
                   100,100}}), graphics={
@@ -41969,8 +41254,7 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
               Text(
                 extent={{-96,-62},{98,-94}},
                 lineColor={0,0,255},
-                textString="%name")}),            Diagram(coordinateSystem(
-                preserveAspectRatio=true, extent={{-100,-100},{100,100}}), graphics));
+                textString="%name")}));
       end BloodPhBase;
 
       model BloodPhMeassure
@@ -41987,12 +41271,7 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
 
       //  cTHox.conc*1000 = _cTHox;
 
-        annotation (Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,
-                  -100},{100,100}}),
-                            graphics), Icon(coordinateSystem(preserveAspectRatio=true,
-                extent={{-100,-100},{100,100}}),
-                                            graphics),
-          Documentation(revisions="<html>
+        annotation (          Documentation(revisions="<html>
 
 <table cellspacing=\"2\" cellpadding=\"0\" border=\"0\"><tr>
 <td><p>Author:</p></td>
@@ -42000,12 +41279,9 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
 </tr>
 <tr>
 <td><p>License:</p></td>
-<td><p>GPL 3.0</p></td>
+<td><p><a href=\"http://www.physiomodel.org/license.html\">Physiomodel License 1.0</a> </p></td>
 </tr>
-<tr>
-<td><p>By:</p></td>
-<td><p>Charles University, Prague</p></td>
-</tr>
+
 <tr>
 <td><p>Date of:</p></td>
 <td><p>2013</p></td>
@@ -42015,7 +41291,7 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
 <td>Siggaard Andersen: OSA (2005), University of Copenhagen</td>
 </tr>
 </table>
-<br/><p>Copyright &copy; 2014 Marek Matejak</p><br/>
+<br/><p>Copyright &copy; 2014 Marek Matejak, Charles University in Prague.</p><br/>
 
 </html>"));
       end BloodPhMeassure;
@@ -42076,7 +41352,6 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
           annotation (Placement(transformation(extent={{12,-78},{32,-58}})));
         Modelica.Blocks.Math.Feedback Pct      annotation (Placement(transformation(
               extent={{-10,-10},{10,10}},
-              rotation=0,
               origin={26,56})));
         Modelica.Blocks.Math.Product product1(y(unit="C/m3", displayUnit=
               "mEq/l"))                       annotation (Placement(transformation(
@@ -42257,12 +41532,7 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
           points={{-72.5,-60},{-38,-60}},
           color={0,0,127},
           smooth=Smooth.None));
-        annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-                -100},{100,100}}),
-                            graphics), Icon(coordinateSystem(
-              preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
-                                            graphics),
-        Documentation(revisions="<html>
+        annotation (        Documentation(revisions="<html>
 
 <table cellspacing=\"2\" cellpadding=\"0\" border=\"0\"><tr>
 <td><p>Author:</p></td>
@@ -42270,18 +41540,15 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
 </tr>
 <tr>
 <td><p>License:</p></td>
-<td><p>GPL 3.0</p></td>
+<td><p><a href=\"http://www.physiomodel.org/license.html\">Physiomodel License 1.0</a> </p></td>
 </tr>
-<tr>
-<td><p>By:</p></td>
-<td><p>Charles University, Prague</p></td>
-</tr>
+
 <tr>
 <td><p>Date of:</p></td>
 <td><p>2013</p></td>
 </tr>
 </table>
-<br/><p>Copyright &copy; 2014 Marek Matejak</p><br/>
+<br/><p>Copyright &copy; 2014 Marek Matejak, Charles University in Prague.</p><br/>
 
 </html>"));
       end NormalSID;
@@ -42293,18 +41560,15 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
         "total phosphates outflow to urine"                                                         annotation (Placement(
               transformation(
               extent={{-20,-20},{20,20}},
-              rotation=0,
               origin={-100,100}),
                                 iconTransformation(
               extent={{-10,-10},{10,10}},
-              rotation=0,
               origin={-90,-50})));
         Physiolibrary.Types.RealIO.MolarFlowRateInput
                                            qKA(displayUnit="mmol/min")
         "total keto-acids outflow to urine"                                                         annotation (Placement(
               transformation(extent={{-120,42},{-80,82}}),  iconTransformation(
               extent={{-10,-10},{10,10}},
-              rotation=0,
               origin={-90,-70})));
         Physiolibrary.Types.RealIO.pHOutput PHU(start=5.7) "urine pH" annotation (Placement(
               transformation(extent={{70,-61},{100,-31}}),iconTransformation(extent={{86,-16},
@@ -42314,7 +41578,6 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
         "total sodium outflow to urine"                                                                annotation (Placement(transformation(
                 extent={{-120,-30},{-80,10}}), iconTransformation(extent={{-10,-10},{10,
                   10}},
-              rotation=0,
               origin={-90,90})));
 
         parameter Real CO2_solubility(displayUnit="(mmol/l)/Pa")=0.00023;
@@ -42347,14 +41610,12 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
                 extent={{-120,-140},{-80,-100}}),
                                                iconTransformation(extent={{-10,-10},{10,
                   10}},
-              rotation=0,
               origin={-90,-110})));
         Physiolibrary.Types.RealIO.MolarFlowRateInput qCl(displayUnit="mmol/min")
         "chloride flow to urine"                 annotation (Placement(transformation(
                 extent={{-120,-128},{-80,-88}}),
                                                iconTransformation(extent={{-10,-10},{10,
                   10}},
-              rotation=0,
               origin={-90,-10})));
         Physiolibrary.Types.RealIO.MolarFlowRateInput
                                            qSO4(displayUnit="mmol/min")
@@ -42362,21 +41623,18 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
                 extent={{-120,-128},{-80,-88}}),
                                                iconTransformation(extent={{-10,-10},{10,
                   10}},
-              rotation=0,
               origin={-90,-30})));
         Physiolibrary.Types.RealIO.MolarFlowRateInput
                                            qK(displayUnit="mmol/min")
         "total potassium outflow to urine"                                                          annotation (Placement(transformation(
                 extent={{-120,-30},{-80,10}}), iconTransformation(extent={{-10,-10},{10,
                   10}},
-              rotation=0,
               origin={-90,70})));
         Physiolibrary.Types.RealIO.MolarFlowRateInput
                                            qNH4(displayUnit="mmol/min")
         "total amonium outflow to urine"                                                            annotation (Placement(transformation(
                 extent={{-120,-30},{-80,10}}), iconTransformation(extent={{-10,-10},{10,
                   10}},
-              rotation=0,
               origin={-90,50})));
        Physiolibrary.Types.RealIO.MolarFlowRateInput
                                            qMg(displayUnit="mmol/min")
@@ -42384,7 +41642,6 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
                 extent={{-120,-128},{-80,-88}}),
                                                iconTransformation(extent={{-10,-10},{10,
                   10}},
-              rotation=0,
               origin={-90,30})));
         Physiolibrary.Types.RealIO.MolarFlowRateInput
                                            qCa(displayUnit="mmol/min")
@@ -42392,7 +41649,6 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
                 extent={{-120,-128},{-80,-88}}),
                                                iconTransformation(extent={{-10,-10},{10,
                   10}},
-              rotation=0,
               origin={-90,10})));
         parameter Physiolibrary.Types.MolarFlowRate  qX(displayUnit="mmol/min") = -5.6666666666666666666666666666667e-7
         "other acids/electrolytes charge outflow";
@@ -42430,12 +41686,9 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
 </tr>
 <tr>
 <td><p>License:</p></td>
-<td><p>GPL 3.0</p></td>
+<td><p><a href=\"http://www.physiomodel.org/license.html\">Physiomodel License 1.0</a> </p></td>
 </tr>
-<tr>
-<td><p>By:</p></td>
-<td><p>Charles University, Prague</p></td>
-</tr>
+
 <tr>
 <td><p>Date of:</p></td>
 <td><p>2013</p></td>
@@ -42445,7 +41698,7 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
 <td><p>Medsoft 2013, 146-147</p></td>
 </tr>
 </table>
-<br/><p>Copyright &copy; 2014 Marek Matejak</p><br/>
+<br/><p>Copyright &copy; 2014 Marek Matejak, Charles University in Prague.</p><br/>
 
 </html>"));
       end Urine;
@@ -42853,8 +42106,6 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
                   extent={{30,36},{96,-18}},
                   lineColor={0,0,0},
                   textString="pH")}),
-                                   Diagram(coordinateSystem(preserveAspectRatio=true,
-                          extent={{-100,-100},{100,100}}), graphics),
             Documentation(info="<html>
 <p>BE_interstitial is base excess in the interstitium of the tissue. The standard value is 0, when strong acid concentration increase, then BE value decrease with the same concentration. </p>
 <p>Meaning might be interpreted like what amount of hydrogen iont must be added to sollution if the end poit of titration will be pH=7.4 and pCO2=5.3kPa.</p>
@@ -42867,12 +42118,9 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
 </tr>
 <tr>
 <td><p>License:</p></td>
-<td><p>GPL 3.0</p></td>
+<td><p><a href=\"http://www.physiomodel.org/license.html\">Physiomodel License 1.0</a> </p></td>
 </tr>
-<tr>
-<td><p>By:</p></td>
-<td><p>Charles University, Prague</p></td>
-</tr>
+
 <tr>
 <td><p>Date of:</p></td>
 <td><p>2009</p></td>
@@ -42882,7 +42130,7 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
 <td>Siggaard Andersen: OSA (2005), University of Copenhagen</td>
 </tr>
 </table>
-<br/><p>Copyright &copy; 2014 Marek Matejak</p><br/>
+<br/><p>Copyright &copy; 2014 Marek Matejak, Charles University in Prague.</p><br/>
 
 </html>"));
         end Interstitia;
@@ -42893,7 +42141,6 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
           "tissue interstitial bicarbonate concentration"
                                            annotation (Placement(transformation(extent={{-106,-4},
                     {-90,12}}),           iconTransformation(extent={{-10,-10},{10,10}},
-                rotation=0,
                 origin={-90,-40})));                         //(final displayUnit="mEq/ml")
           Physiolibrary.Types.RealIO.pHOutput pH_interstitial
           "tissue interstitial pH"                                                      annotation (Placement(
@@ -42910,7 +42157,6 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
           "tissue interstitial bicarbonate concentration"
                                            annotation (Placement(transformation(extent={{62,24},
                     {40,2}}),             iconTransformation(extent={{-10,-10},{10,10}},
-                rotation=0,
                 origin={-90,-72})));
           Physiolibrary.Types.RealIO.PressureInput pCO2(
                                              displayUnit="mmHg")
@@ -42918,7 +42164,6 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
                                            annotation (Placement(transformation(extent={
                     {-56,18},{-38,36}}), iconTransformation(
                 extent={{-10,-10},{10,10}},
-                rotation=0,
                 origin={-90,80})));
         equation
 
@@ -42946,9 +42191,7 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
             points={{-21,16.2},{-30.5,16.2},{-30.5,27},{-47,27}},
             color={0,0,127},
             smooth=Smooth.None));
-          annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-                  -100},{100,100}}),
-                              graphics), Icon(coordinateSystem(preserveAspectRatio=true,
+          annotation ( Icon(coordinateSystem(preserveAspectRatio=true,
                   extent={{-100,-100},{100,100}}), graphics={
                 Rectangle(extent={{-100,100},{100,-100}}, lineColor={0,0,0}),
                 Text(
@@ -42967,12 +42210,9 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
 </tr>
 <tr>
 <td><p>License:</p></td>
-<td><p>GPL 3.0</p></td>
+<td><p><a href=\"http://www.physiomodel.org/license.html\">Physiomodel License 1.0</a> </p></td>
 </tr>
-<tr>
-<td><p>By:</p></td>
-<td><p>Charles University, Prague</p></td>
-</tr>
+
 <tr>
 <td><p>Date of:</p></td>
 <td><p>2009</p></td>
@@ -42982,7 +42222,7 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
 <td>Siggaard Andersen: OSA (2005), University of Copenhagen</td>
 </tr>
 </table>
-<br/><p>Copyright &copy; 2014 Marek Matejak</p><br/>
+<br/><p>Copyright &copy; 2014 Marek Matejak, Charles University in Prague.</p><br/>
 
 </html>"));
         end InterstitiumBase;
@@ -43053,7 +42293,6 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
               interstitium(stateName="SkeletalMuscleLactateMass"), inputPump1(
                 q_out(conc(start=5e-5)), useSoluteFlowInput=true));
             extends Physiolibrary.Icons.SkeletalMuscle;
-          annotation (Diagram(graphics));
          end SkeletalMuscleAcidity;
 
           model OtherTissueAcidity
@@ -43120,7 +42359,6 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
             extends Physiomodel.Electrolytes.AcidBase.Tissues.old.Tissue_cTH(
               interstitium(stateName="RightHeartLactateMass"));
             extends Physiolibrary.Icons.RightHeart;
-            annotation (Diagram(graphics));
           end RightHeartAcidity;
         end Interstitium;
 
@@ -44183,12 +43421,9 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
 </tr>
 <tr>
 <td><p>License:</p></td>
-<td><p>GPL 3.0</p></td>
+<td><p><a href=\"http://www.physiomodel.org/license.html\">Physiomodel License 1.0</a> </p></td>
 </tr>
-<tr>
-<td><p>By:</p></td>
-<td><p>Charles University, Prague</p></td>
-</tr>
+
 <tr>
 <td><p>Date of:</p></td>
 <td><p>dec 2013</p></td>
@@ -44198,7 +43433,7 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
 <td>Siggaard Andersen: OSA (2005), University of Copenhagen</td>
 </tr>
 </table>
-<br/><p>Copyright &copy; 2014 Marek Matejak</p><br/>
+<br/><p>Copyright &copy; 2014 Marek Matejak, Charles University in Prague.</p><br/>
 
 </html>"));
         end Bloods;
@@ -44211,20 +43446,17 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
           "titratable acidity of oxygenated blood"
                                            annotation (Placement(transformation(extent={{-54,62},
                     {-14,102}}),          iconTransformation(extent={{-10,-10},{10,10}},
-                rotation=0,
                 origin={-90,0})));
           Physiolibrary.Types.RealIO.TemperatureInput T(
                                            displayUnit="degC")
           "tissue interstitial bicarbonate concentration"
                                            annotation (Placement(transformation(extent={{62,24},
                     {40,2}}),             iconTransformation(extent={{-10,-10},{10,10}},
-                rotation=0,
                 origin={-90,-72})));
           Physiolibrary.Types.RealIO.ConcentrationInput cLactate
           "titratable acidity of oxygenated blood"
                                            annotation (Placement(transformation(extent={{-6,66},
                     {34,106}}),           iconTransformation(extent={{-10,-10},{10,10}},
-                rotation=0,
                 origin={-90,40})));                             //(final displayUnit="mEq/l")
         equation
 
@@ -44233,9 +43465,7 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
 
          // cTH_interstitial = -(1-((ctHb_ery/3)/43))*((cHCO3_interstitial-24.5)+betaX*(pH_interstitial-7.42));
 
-          annotation (Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,
-                    -100},{100,100}}),
-                              graphics), Icon(coordinateSystem(preserveAspectRatio=true,
+          annotation ( Icon(coordinateSystem(preserveAspectRatio=true,
                   extent={{-100,-100},{100,100}}), graphics={Text(
                   extent={{30,100},{96,46}},
                   lineColor={0,0,0},
@@ -44251,12 +43481,9 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
 </tr>
 <tr>
 <td><p>License:</p></td>
-<td><p>GPL 3.0</p></td>
+<td><p><a href=\"http://www.physiomodel.org/license.html\">Physiomodel License 1.0</a> </p></td>
 </tr>
-<tr>
-<td><p>By:</p></td>
-<td><p>Charles University, Prague</p></td>
-</tr>
+
 <tr>
 <td><p>Date of:</p></td>
 <td><p>2013</p></td>
@@ -44266,7 +43493,7 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
 <td>Siggaard Andersen: OSA (2005), University of Copenhagen</td>
 </tr>
 </table>
-<br/><p>Copyright &copy; 2014 Marek Matejak</p><br/>
+<br/><p>Copyright &copy; 2014 Marek Matejak, Charles University in Prague.</p><br/>
 
 </html>"));
         end BloodBase;
@@ -44733,8 +43960,6 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
                   extent={{28,30},{94,-24}},
                   lineColor={0,0,0},
                   textString="pH")}),
-                                   Diagram(coordinateSystem(preserveAspectRatio=true,
-                          extent={{-100,-100},{100,100}}), graphics),
             Documentation(info="<html>
 <p>BE_interstitial is base excess in the interstitium of the tissue. The standard value is 0, when strong acid concentration increase, then BE value decrease with the same concentration. </p>
 <p>Meaning might be interpreted like what amount of hydrogen iont must be added to sollution if the end poit of titration will be pH=7.4 and pCO2=5.3kPa.</p>
@@ -44747,12 +43972,9 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
 </tr>
 <tr>
 <td><p>License:</p></td>
-<td><p>GPL 3.0</p></td>
+<td><p><a href=\"http://www.physiomodel.org/license.html\">Physiomodel License 1.0</a> </p></td>
 </tr>
-<tr>
-<td><p>By:</p></td>
-<td><p>Charles University, Prague</p></td>
-</tr>
+
 <tr>
 <td><p>Date of:</p></td>
 <td><p>2009</p></td>
@@ -44762,7 +43984,7 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
 <td><p>Tom Coleman: QHP 2008 beta 3, University of Mississippi Medical Center</p></td>
 </tr>
 </table>
-<br/><p>Copyright &copy; 2014 Marek Matejak</p><br/>
+<br/><p>Copyright &copy; 2014 Marek Matejak, Charles University in Prague.</p><br/>
 
 </html>"));
         end Cells;
@@ -44775,13 +43997,11 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
           "tissue interstitial titratable acidity"
                                            annotation (Placement(transformation(extent={{-94,4},
                     {-54,44}}),           iconTransformation(extent={{-10,-10},{10,10}},
-                rotation=0,
                 origin={-90,0})));
           Physiolibrary.Types.RealIO.ConcentrationInput cLactate(
                                                  final displayUnit="mEq/l")
           "tissue lactate concentration"   annotation (Placement(transformation(extent={{-78,-86},
                     {-62,-70}}),          iconTransformation(extent={{-10,-10},{10,10}},
-                rotation=0,
                 origin={-90,-40})));
           Physiolibrary.Types.RealIO.pHOutput pH "tissue intracellular pH"            annotation (Placement(
                 transformation(extent={{66,-42},{86,-22}}), iconTransformation(
@@ -44793,7 +44013,6 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
           "tissue partial CO2 pressure"    annotation (Placement(transformation(extent={{-28,-38},
                     {-10,-20}}),         iconTransformation(
                 extent={{-10,-10},{10,10}},
-                rotation=0,
                 origin={-90,80})));
           Modelica.Blocks.Math.Add cations                                                                                                 annotation (Placement(transformation(extent={{-28,8},
                     {-8,28}})));
@@ -44887,9 +44106,7 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
               points={{62.4,50},{64,50},{64,12}},
               color={0,0,127},
               smooth=Smooth.None));
-          annotation (Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,
-                    -100},{100,100}}),
-                              graphics), Icon(coordinateSystem(preserveAspectRatio=true,
+          annotation ( Icon(coordinateSystem(preserveAspectRatio=true,
                   extent={{-100,-100},{100,100}}), graphics={
                 Text(
                   extent={{34,102},{100,48}},
@@ -44908,12 +44125,9 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
 </tr>
 <tr>
 <td><p>License:</p></td>
-<td><p>GPL 3.0</p></td>
+<td><p><a href=\"http://www.physiomodel.org/license.html\">Physiomodel License 1.0</a> </p></td>
 </tr>
-<tr>
-<td><p>By:</p></td>
-<td><p>Charles University, Prague</p></td>
-</tr>
+
 <tr>
 <td><p>Date of:</p></td>
 <td><p>2009</p></td>
@@ -44923,7 +44137,7 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
 <td><p>Tom Coleman: QHP 2008 beta 3, University of Mississippi Medical Center</p></td>
 </tr>
 </table>
-<br/><p>Copyright &copy; 2014 Marek Matejak</p><br/>
+<br/><p>Copyright &copy; 2014 Marek Matejak, Charles University in Prague.</p><br/>
 
 </html>"));
         end CellBase;
@@ -44932,7 +44146,6 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
            model SkeletalMuscleIntracellularPh
             extends CellBase;
             extends Physiolibrary.Icons.SkeletalMuscle;
-            annotation (Diagram(graphics));
            end SkeletalMuscleIntracellularPh;
 
           model BoneIntracellularPh
@@ -45925,8 +45138,6 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
                     extent={{32,40},{98,-14}},
                     lineColor={0,0,0},
                     textString="pH")}),
-                                     Diagram(coordinateSystem(preserveAspectRatio=true,
-                            extent={{-100,-100},{100,100}}), graphics),
               Documentation(info="<html>
 <p>BE_interstitial is base excess in the interstitium of the tissue. The standard value is 0, when strong acid concentration increase, then BE value decrease with the same concentration. </p>
 <p>Meaning might be interpreted like what amount of hydrogen iont must be added to sollution if the end poit of titration will be pH=7.4 and pCO2=5.3kPa.</p>
@@ -45939,12 +45150,9 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
 </tr>
 <tr>
 <td><p>License:</p></td>
-<td><p>GPL 3.0</p></td>
+<td><p><a href=\"http://www.physiomodel.org/license.html\">Physiomodel License 1.0</a> </p></td>
 </tr>
-<tr>
-<td><p>By:</p></td>
-<td><p>Charles University, Prague</p></td>
-</tr>
+
 <tr>
 <td><p>Date of:</p></td>
 <td><p>dec 2009</p></td>
@@ -45954,7 +45162,7 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
 <td>Siggaard Andersen: OSA (2005), University of Copenhagen</td>
 </tr>
 </table>
-<br/><p>Copyright &copy; 2014 Marek Matejak</p><br/>
+<br/><p>Copyright &copy; 2014 Marek Matejak, Charles University in Prague.</p><br/>
 
 </html>"));
           end TissuesPh;
@@ -46478,8 +45686,6 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
                     extent={{-118,-104},{130,-130}},
                     lineColor={0,0,127},
                     textString="%name")}),
-                                     Diagram(coordinateSystem(preserveAspectRatio=true,
-                            extent={{-100,-100},{100,100}}), graphics),
               Documentation(info="<html>
 <p>cTH_interstitial is base excess in the interstitium of the tissue. The standard value is 0, when strong acid concentration increase, then  value decrease with the same concentration. </p>
 <p>Meaning might  interpreted like what amount of hydrogen iont must  added to sollution if the end poit of titration will  pH=7.4 and pCO2=5.3kPa.</p>
@@ -46492,12 +45698,9 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
 </tr>
 <tr>
 <td><p>License:</p></td>
-<td><p>GPL 3.0</p></td>
+<td><p><a href=\"http://www.physiomodel.org/license.html\">Physiomodel License 1.0</a> </p></td>
 </tr>
-<tr>
-<td><p>By:</p></td>
-<td><p>Charles University, Prague</p></td>
-</tr>
+
 <tr>
 <td><p>Date of:</p></td>
 <td><p>2009</p></td>
@@ -46511,7 +45714,7 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
 <td><p>Tom Coleman: QHP 2008 beta 3, University of Mississippi Medical Center</p></td>
 </tr>
 </table>
-<br/><p>Copyright &copy; 2014 Marek Matejak</p><br/>
+<br/><p>Copyright &copy; 2014 Marek Matejak, Charles University in Prague.</p><br/>
 
 </html>"));
           end Tissues_cTH;
@@ -46524,14 +45727,12 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
             "titratable acidity of oxygenated blood"
                                              annotation (Placement(transformation(extent={{-54,62},
                       {-14,102}}),          iconTransformation(extent={{-10,-10},{10,10}},
-                  rotation=0,
                   origin={-90,40})));
             Physiolibrary.Types.RealIO.TemperatureInput
                                                  T(
                                              displayUnit="degC") "temperature"
                                              annotation (Placement(transformation(extent={{62,24},
                       {40,2}}),             iconTransformation(extent={{-10,-10},{10,10}},
-                  rotation=0,
                   origin={-90,-72})));
           equation
 
@@ -46540,9 +45741,7 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
 
            // cTH_interstitial = -(1-((ctHb_ery/3)/43))*((cHCO3_interstitial-24.5)+betaX*(pH_interstitial-7.42));
 
-            annotation (Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,
-                      -100},{100,100}}),
-                                graphics), Icon(coordinateSystem(preserveAspectRatio=true,
+            annotation ( Icon(coordinateSystem(preserveAspectRatio=true,
                     extent={{-100,-100},{100,100}}), graphics={Text(
                     extent={{30,100},{96,46}},
                     lineColor={0,0,0},
@@ -46558,12 +45757,9 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
 </tr>
 <tr>
 <td><p>License:</p></td>
-<td><p>GPL 3.0</p></td>
+<td><p><a href=\"http://www.physiomodel.org/license.html\">Physiomodel License 1.0</a> </p></td>
 </tr>
-<tr>
-<td><p>By:</p></td>
-<td><p>Charles University, Prague</p></td>
-</tr>
+
 <tr>
 <td><p>Date of:</p></td>
 <td><p>2009</p></td>
@@ -46573,7 +45769,7 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
 <td>Siggaard Andersen: OSA (2005), University of Copenhagen</td>
 </tr>
 </table>
-<br/><p>Copyright &copy; 2014 Marek Matejak</p><br/>
+<br/><p>Copyright &copy; 2014 Marek Matejak, Charles University in Prague.</p><br/>
 
 </html>"));
           end TissuePh__;
@@ -46601,7 +45797,6 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
           Physiolibrary.Chemical.Components.Stream solventFlowPump1(
               useSolutionFlowInput=true) annotation (Placement(transformation(
                 extent={{-10,-10},{10,10}},
-                rotation=0,
                 origin={24,24})));
             Modelica.Blocks.Interfaces.RealInput LactateFromMetabolism(
                                                                 displayUnit="mEq/min")                                                                                     annotation (Placement(transformation(extent={{-82,-16},
@@ -46672,10 +45867,7 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
                         100,-100}}, lineColor={0,0,0}), Text(
                     extent={{2,98},{88,48}},
                     lineColor={0,0,0},
-                    textString="cTH")}),                 Diagram(coordinateSystem(
-                    preserveAspectRatio=true, extent={{-100,-100},{100,100}}),
-                  graphics),
-              Documentation(revisions="<html>
+                    textString="cTH")}),              Documentation(revisions="<html>
 
 <table cellspacing=\"2\" cellpadding=\"0\" border=\"0\"><tr>
 <td><p>Author:</p></td>
@@ -46683,12 +45875,9 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
 </tr>
 <tr>
 <td><p>License:</p></td>
-<td><p>GPL 3.0</p></td>
+<td><p><a href=\"http://www.physiomodel.org/license.html\">Physiomodel License 1.0</a> </p></td>
 </tr>
-<tr>
-<td><p>By:</p></td>
-<td><p>Charles University, Prague</p></td>
-</tr>
+
 <tr>
 <td><p>Date of:</p></td>
 <td><p>2009</p></td>
@@ -46702,7 +45891,7 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
 <td><p>Tom Coleman: QHP 2008 beta 3, University of Mississippi Medical Center</p></td>
 </tr>
 </table>
-<br/><p>Copyright &copy; 2014 Marek Matejak</p><br/>
+<br/><p>Copyright &copy; 2014 Marek Matejak, Charles University in Prague.</p><br/>
 
 </html>"));
           end Tissue_cTH_steady;
@@ -46724,7 +45913,6 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
           Physiolibrary.Chemical.Components.Stream solventFlowPump1(
               useSolutionFlowInput=true) annotation (Placement(transformation(
                 extent={{-10,-10},{10,10}},
-                rotation=0,
                 origin={24,24})));
             Physiolibrary.Types.RealIO.MolarFlowRateInput LactateFromMetabolism                 annotation (Placement(transformation(extent={{-82,-16},
                       {-70,-4}}),                                                                                                   iconTransformation(extent={{-10,-10},{10,10}},         rotation=180,         origin={90,-60})));
@@ -46804,10 +45992,7 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
                         100,-100}}, lineColor={0,0,0}), Text(
                     extent={{2,98},{88,48}},
                     lineColor={0,0,0},
-                    textString="cTH")}),                 Diagram(coordinateSystem(
-                    preserveAspectRatio=false,extent={{-100,-100},{100,100}}),
-                  graphics),
-              Documentation(revisions="<html>
+                    textString="cTH")}),              Documentation(revisions="<html>
 
 <table cellspacing=\"2\" cellpadding=\"0\" border=\"0\"><tr>
 <td><p>Author:</p></td>
@@ -46815,12 +46000,9 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
 </tr>
 <tr>
 <td><p>License:</p></td>
-<td><p>GPL 3.0</p></td>
+<td><p><a href=\"http://www.physiomodel.org/license.html\">Physiomodel License 1.0</a> </p></td>
 </tr>
-<tr>
-<td><p>By:</p></td>
-<td><p>Charles University, Prague</p></td>
-</tr>
+
 <tr>
 <td><p>Date of:</p></td>
 <td><p>2009</p></td>
@@ -46834,7 +46016,7 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
 <td><p>Tom Coleman: QHP 2008 beta 3, University of Mississippi Medical Center</p></td>
 </tr>
 </table>
-<br/><p>Copyright &copy; 2014 Marek Matejak</p><br/>
+<br/><p>Copyright &copy; 2014 Marek Matejak, Charles University in Prague.</p><br/>
 
 </html>"));
           end Tissue_cTH;
@@ -46847,13 +46029,11 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
             "tissue interstitial titratable acidity"
                                              annotation (Placement(transformation(extent={{-94,4},
                       {-54,44}}),           iconTransformation(extent={{-10,-10},{10,10}},
-                  rotation=0,
                   origin={-90,0})));
             Physiolibrary.Types.RealIO.ConcentrationInput cLactate(
                                                    final displayUnit="mEq/l")
             "tissue lactate concentration"   annotation (Placement(transformation(extent={{-78,-86},
                       {-62,-70}}),          iconTransformation(extent={{-10,-10},{10,10}},
-                  rotation=0,
                   origin={-90,-40})));
             Physiolibrary.Types.RealIO.pHOutput pH "tissue intracellular pH"            annotation (Placement(
                   transformation(extent={{66,-42},{86,-22}}), iconTransformation(
@@ -46865,7 +46045,6 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
             "tissue partial CO2 pressure"    annotation (Placement(transformation(extent={{-28,-38},
                       {-10,-20}}),         iconTransformation(
                   extent={{-10,-10},{10,10}},
-                  rotation=0,
                   origin={-90,80})));
             Modelica.Blocks.Math.Add cations                                                                                                 annotation (Placement(transformation(extent={{-28,8},
                       {-8,28}})));
@@ -46957,9 +46136,7 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
                 points={{62.4,50},{64,50},{64,12}},
                 color={0,0,127},
                 smooth=Smooth.None));
-            annotation (Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,
-                      -100},{100,100}}),
-                                graphics), Icon(coordinateSystem(preserveAspectRatio=true,
+            annotation ( Icon(coordinateSystem(preserveAspectRatio=true,
                     extent={{-100,-100},{100,100}}), graphics={
                   Text(
                     extent={{34,102},{100,48}},
@@ -46978,12 +46155,9 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
 </tr>
 <tr>
 <td><p>License:</p></td>
-<td><p>GPL 3.0</p></td>
+<td><p><a href=\"http://www.physiomodel.org/license.html\">Physiomodel License 1.0</a> </p></td>
 </tr>
-<tr>
-<td><p>By:</p></td>
-<td><p>Charles University, Prague</p></td>
-</tr>
+
 <tr>
 <td><p>Date of:</p></td>
 <td><p>2009</p></td>
@@ -46993,7 +46167,7 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
 <td><p>Tom Coleman: QHP 2008 beta 3, University of Mississippi Medical Center</p></td>
 </tr>
 </table>
-<br/><p>Copyright &copy; 2014 Marek Matejak</p><br/>
+<br/><p>Copyright &copy; 2014 Marek Matejak, Charles University in Prague.</p><br/>
 
 </html>"));
           end TissuePh_intracellular_;
@@ -47010,7 +46184,7 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
           "charge of buffer"                                                        annotation (Placement(
                 transformation(extent={{80,-100},{120,-60}}), iconTransformation(extent=
                    {{80,-100},{120,-60}})));
-          annotation (Diagram(graphics), Icon(graphics={Rectangle(extent={{-100,
+          annotation ( Icon(graphics={Rectangle(extent={{-100,
                       100},{100,-100}}, lineColor={0,0,255})}));
         end BufferInterface;
 
@@ -47104,7 +46278,7 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
         equation
            y = - tPO4*(10^(pKa2-pH)+2+3*10^(pH-pKa3))/(10^(pKa1+pKa2-2*pH)+10^(pKa2-pH)+1+10^(pH-pKa3))* Modelica.Constants.F;
 
-          annotation (Diagram(graphics), Documentation(info="<html>
+          annotation ( Documentation(info="<html>
 <p><b><font style=\"font-size: 12pt; \"><a name=\"internal-source-marker_0.47659245471196454\">C</a>harge for phosphates:</b></p>
 <p><br/>pKa1=2.1, pKa2=6.8, pKa3=12.7 &nbsp;&nbsp;(wiki: &nbsp;2.12, 7.21, 12.67 at 25&deg;C)</p>
 <p><br/>tPO4 = [H3PO4] + [H2PO4] + [HPO4] + [PO4]</p>
@@ -47197,9 +46371,7 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
         equation
            y = - NCharge * Modelica.Constants.F;
 
-          annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-                    -100},{100,100}}),
-                              graphics), Documentation(info="<html>
+          annotation ( Documentation(info="<html>
 <p><b><font style=\"font-size: 12pt; \"><a name=\"internal-source-marker_0.47659245471196454\">C</a>harge for phosphates:</b></p>
 <p><br/>pKa1=2.1, pKa2=6.8, pKa3=12.7 &nbsp;&nbsp;(wiki: &nbsp;2.12, 7.21, 12.67 at 25&deg;C)</p>
 <p><br/>tPO4 = [H3PO4] + [H2PO4] + [HPO4] + [PO4]</p>
@@ -47698,9 +46870,7 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
           string="%first",
           index=-1,
           extent={{-6,3},{-6,3}}));
-        annotation (Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,
-                -100},{100,100}}),
-                               graphics), Icon(coordinateSystem(
+        annotation ( Icon(coordinateSystem(
                 preserveAspectRatio=true, extent={{-100,-100},{100,100}}),
               graphics={                 Text(
                 extent={{-118,-84},{124,-118}},
@@ -47714,12 +46884,9 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
 </tr>
 <tr>
 <td><p>License:</p></td>
-<td><p>GPL 3.0</p></td>
+<td><p><a href=\"http://www.physiomodel.org/license.html\">Physiomodel License 1.0</a> </p></td>
 </tr>
-<tr>
-<td><p>By:</p></td>
-<td><p>Charles University, Prague</p></td>
-</tr>
+
 <tr>
 <td><p>Date of:</p></td>
 <td><p>2009</p></td>
@@ -47737,7 +46904,7 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
 <td><p>Tom Coleman: QHP 2008 beta 3, University of Mississippi Medical Center</p></td>
 </tr>
 </table>
-<br/><p>Copyright &copy; 2014 Marek Matejak</p><br/>
+<br/><p>Copyright &copy; 2014 Marek Matejak, Charles University in Prague.</p><br/>
 
 </html>"));
       end AcidBase;
@@ -47861,7 +47028,7 @@ and plasma-<i><b>erythrocytes</b></i> acidity distribution.</pre>
       T.pH skin_pH_intracellular(varName="Skin-Ph.Ph")
       annotation (Placement(transformation(extent={{-36,120},{-30,126}})));
       /*
-T.pH CD_NH4_Outflow(varName="CD_NH4.Outflow") 
+T.pH CD_NH4_Outflow(varName="CD_NH4.Outflow")
     "Collecting duct amonia ions outflow to urine."
 annotation (Placement(transformation(extent={{-110,-130},{-104,-124}})));
 T.pH Urine_pH(varName="Urine_pH") "Acidity (pH) of urine."
@@ -48275,9 +47442,7 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
               Text(
                 extent={{-122,-106},{120,-140}},
                 lineColor={0,0,255},
-                textString="%name")}), Diagram(coordinateSystem(
-                preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
-              graphics));
+                textString="%name")}));
       end AcidBase_variables;
       annotation (Documentation(revisions="<html>
 
@@ -48288,7 +47453,7 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
 </tr>
 <tr>
 <td>License:</td>
-<td>GPL 3.0</td>
+<td><a href=\"http://www.physiomodel.org/license.html\">Physiomodel License 1.0</a> </td>
 </tr>
 <tr>
 <td>By:</td>
@@ -48309,7 +47474,7 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
 <td>Noriaki Ikeda: A model of overall regulation of body fluids (1979), Kitasato University</td>
 </tr>
 </table>
-<br/><p>Copyright &copy; 2014 Marek Matejak</p><br/>
+<br/><p>Copyright &copy; 2014 Marek Matejak, Charles University in Prague.</p><br/>
 
 </html>"));
     end AcidBase;
@@ -48377,10 +47542,7 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
                 points={{0,-26},{0,-42}},
                 color={0,0,255},
                 smooth=Smooth.None,
-                thickness=0.5)}),       Diagram(coordinateSystem(preserveAspectRatio=true,
-                         extent={{-100,-100},{100,100}}), graphics),
-                    Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-                  -100},{100,100}}), graphics));
+                thickness=0.5)}));
       end GlomerulusCationFiltration;
 
       package test
@@ -48407,8 +47569,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
               color={0,0,255},
               thickness=0.5,
               smooth=Smooth.None));
-          annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-                    -100},{100,100}}),       graphics));
         end T_;
 
         model T
@@ -48434,8 +47594,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
               color={0,0,255},
               thickness=0.5,
               smooth=Smooth.None));
-          annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-                    -100},{100,100}}),       graphics));
         end T;
 
         model Sodium
@@ -48711,7 +47869,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
             annotation (Placement(transformation(extent={{-46,-88},{-38,-80}}),
                 iconTransformation(
                 extent={{-6,-6},{6,6}},
-                rotation=0,
                 origin={-94,26})));
           Modelica.Blocks.Math.Gain gain(k=0.03)
             annotation (Placement(transformation(extent={{-28,-88},{-20,-80}})));
@@ -48720,7 +47877,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
             annotation (Placement(transformation(extent={{8,-88},{16,-80}}),
                 iconTransformation(
                 extent={{-6,-6},{6,6}},
-                rotation=0,
                 origin={-94,40})));
           Modelica.Blocks.Interfaces.RealOutput NaPool_mass
                                           annotation (Placement(transformation(extent={{-68,2},
@@ -48744,7 +47900,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
             annotation (Placement(transformation(extent={{4,-10},{12,-2}}),
                 iconTransformation(
                 extent={{-6,-6},{6,6}},
-                rotation=0,
                 origin={-94,-106})));
           Modelica.Blocks.Interfaces.RealOutput GILumenSodium_Mass
                                           annotation (Placement(transformation(extent={{-64,-60},
@@ -49240,8 +48395,7 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
               color={200,0,0},
               thickness=1,
               smooth=Smooth.None));
-          annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-                    -100},{100,100}}),       graphics), Icon(coordinateSystem(
+          annotation ( Icon(coordinateSystem(
                   preserveAspectRatio=true, extent={{-100,-100},{100,100}}),
                 graphics={Bitmap(extent={{-100,100},{100,-100}}, fileName=
                       "../Physiolibrary/icons/Na.jpg")}));
@@ -49396,7 +48550,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
           concentrationMeasure1(toAnotherUnitCoef=1000, unitsString="mEq/l")
           annotation (Placement(transformation(
               extent={{-10,-10},{10,10}},
-              rotation=0,
               origin={-92,36})));
         Physiolibrary.Chemical.Components.Clearance bladderVoid(
             useSolutionFlowInput=true)
@@ -50096,8 +49249,7 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
               string="%first",
               index=-1,
               extent={{-6,3},{-6,3}}));
-          annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-                    -100},{100,100}}),       graphics), Icon(coordinateSystem(
+          annotation ( Icon(coordinateSystem(
                   preserveAspectRatio=true, extent={{-100,-100},{100,100}}),
                 graphics={Bitmap(extent={{-100,100},{100,-100}}, fileName=
                       "../Physiolibrary/icons/Na.jpg"), Text(
@@ -50113,7 +49265,7 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
 </tr>
 <tr>
 <td>License:</td>
-<td>GPL 3.0</td>
+<td><a href=\"http://www.physiomodel.org/license.html\">Physiomodel License 1.0</a> </td>
 </tr>
 <tr>
 <td>By:</td>
@@ -50128,7 +49280,7 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
 <td>Tom Coleman: QHP 2008 beta 3, University of Mississippi Medical Center</td>
 </tr>
 </table>
-<br/><p>Copyright &copy; 2014 Marek Matejak</p><br/>
+<br/><p>Copyright &copy; 2014 Marek Matejak, Charles University in Prague.</p><br/>
 
 </html>"));
         end Sodium2;
@@ -50162,9 +49314,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
               string="%second",
               index=1,
               extent={{6,3},{6,3}}));
-          annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-                    -100},{100,100}}),
-                                 graphics));
         end ConstInputsFromOtherElectrolytes;
       end setup;
 
@@ -50759,9 +49908,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
             points={{71.6,-18},{29,-18},{29,-3}},
             color={0,0,127},
             smooth=Smooth.None));
-        annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-                    -100},{100,100}}),
-                               graphics));
       end ElectrolytesConstInputs;
       end expandableConnectorPatch;
 
@@ -50790,7 +49936,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
           concentrationMeasure1
           annotation (Placement(transformation(
               extent={{-10,-10},{10,10}},
-              rotation=0,
               origin={-60,26})));
       Physiolibrary.Types.BusConnector busConnector annotation (Placement(
             transformation(extent={{-74,84},{-62,96}}), iconTransformation(
@@ -50936,8 +50081,7 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
           string="%second",
           index=1,
           extent={{6,3},{6,3}}));
-        annotation (Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,
-                -100},{100,100}}),         graphics), Icon(coordinateSystem(
+        annotation ( Icon(coordinateSystem(
                 preserveAspectRatio=true, extent={{-100,-100},{100,100}}),
               graphics={             Text(
                 extent={{-110,-104},{110,-130}},
@@ -50952,7 +50096,7 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
 </tr>
 <tr>
 <td>License:</td>
-<td>GPL 3.0</td>
+<td><a href=\"http://www.physiomodel.org/license.html\">Physiomodel License 1.0</a> </td>
 </tr>
 <tr>
 <td>By:</td>
@@ -50967,7 +50111,7 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
 <td>Tom Coleman: QHP 2008 beta 3, University of Mississippi Medical Center</td>
 </tr>
 </table>
-<br/><p>Copyright &copy; 2014 Marek Matejak</p><br/>
+<br/><p>Copyright &copy; 2014 Marek Matejak, Charles University in Prague.</p><br/>
 
 </html>"));
       end Sodium;
@@ -51073,11 +50217,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
           string="%first",
           index=-1,
           extent={{-6,3},{-6,3}}));
-        annotation (Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,
-                -100},{100,100}}),
-                               graphics), Icon(coordinateSystem(
-                preserveAspectRatio=true, extent={{-100,-100},{100,100}}),
-              graphics));
       end GILumen;
 
       model KidneyNa
@@ -51722,8 +50861,7 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
           string="%first",
           index=-1,
           extent={{-6,3},{-6,3}}));
-        annotation (Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,
-                -100},{100,100}}),         graphics), Icon(coordinateSystem(
+        annotation ( Icon(coordinateSystem(
                 preserveAspectRatio=true, extent={{-100,-100},{100,100}}),
               graphics={Text(
                 extent={{-110,-104},{110,-130}},
@@ -51738,7 +50876,7 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
 </tr>
 <tr>
 <td>License:</td>
-<td>GPL 3.0</td>
+<td><a href=\"http://www.physiomodel.org/license.html\">Physiomodel License 1.0</a> </td>
 </tr>
 <tr>
 <td>By:</td>
@@ -51753,7 +50891,7 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
 <td>Tom Coleman: QHP 2008 beta 3, University of Mississippi Medical Center</td>
 </tr>
 </table>
-<br/><p>Copyright &copy; 2014 Marek Matejak</p><br/>
+<br/><p>Copyright &copy; 2014 Marek Matejak, Charles University in Prague.</p><br/>
 
 </html>"));
       end KidneyNa;
@@ -51803,9 +50941,7 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
                 extent={{-86,-36},{100,40}},
                 textString="%name",
                 lineColor={0,0,0},
-                fillPattern=FillPattern.Sphere)}), Diagram(coordinateSystem(
-                preserveAspectRatio=true, extent={{-100,-100},{100,100}}),
-              graphics));
+                fillPattern=FillPattern.Sphere)}));
       end IkedaPotasiumIntoICFFactor;
 
       package test
@@ -51832,8 +50968,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
               color={0,0,255},
               thickness=0.5,
               smooth=Smooth.None));
-          annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-                    -100},{100,100}}),       graphics));
         end T;
 
         model T_old
@@ -51859,8 +50993,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
               color={0,0,255},
               thickness=0.5,
               smooth=Smooth.None));
-          annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-                    -100},{100,100}}),       graphics));
         end T_old;
 
         model Potassium
@@ -52024,7 +51156,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
             annotation (Placement(transformation(extent={{62,36},{56,42}}),
                 iconTransformation(
                 extent={{-6,-6},{6,6}},
-                rotation=0,
                 origin={-94,10})));
         Physiolibrary.Types.Constants.ElectricCurrentConst
           electrolytesFlowConstant(k=0.08040444991666501)
@@ -52033,14 +51164,12 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
               true)                                       annotation (Placement(
               transformation(
               extent={{-6,-6},{6,6}},
-              rotation=0,
               origin={34,22})));
           Physiolibrary.Factors.NonlinearSystemPatch.SplineValue3 KEffect( data={
                 {0.0,0.0,0},{4.4,1.0,0.5},{5.5,3.0,0}})
             annotation (Placement(transformation(extent={{24,22},{44,42}})));
           Modelica.Blocks.Math.Gain mEq_per_L(k=1000)
             annotation (Placement(transformation(extent={{-3,-3},{3,3}},
-                rotation=0,
                 origin={15,31})));
           Modelica.Blocks.Math.Division division
             annotation (Placement(transformation(extent={{-18,6},{-14,10}})));
@@ -52053,12 +51182,10 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
           Modelica.Blocks.Interfaces.RealOutput CD_Outflow
                                           annotation (Placement(transformation(extent={{-4,-4},
                     {4,4}},
-                rotation=0,
                 origin={62,26}),       iconTransformation(extent={{100,0},{120,20}})));
           Modelica.Blocks.Interfaces.RealOutput KCell_Mass
                                           annotation (Placement(transformation(extent={{-4,-4},
                     {4,4}},
-                rotation=0,
                 origin={-18,68}),      iconTransformation(extent={{100,20},{120,
                     40}})));
           Modelica.Blocks.Interfaces.RealOutput KPool_mass
@@ -52092,7 +51219,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
             annotation (Placement(transformation(extent={{74,-8},{82,0}}),
                 iconTransformation(
                 extent={{-6,-6},{6,6}},
-                rotation=0,
                 origin={-94,-106})));
           Modelica.Blocks.Interfaces.RealOutput GILumenPotasium_Mass
                                           annotation (Placement(transformation(extent={{4,-60},
@@ -52102,7 +51228,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
           concentrationMeasure1(toAnotherUnitCoef=1000, unitsString="mEq/l")
           annotation (Placement(transformation(
               extent={{-10,-10},{10,10}},
-              rotation=0,
               origin={-8,80})));
           Modelica.Blocks.Interfaces.RealOutput KCell_conc
                                           annotation (Placement(transformation(extent={{-8,84},
@@ -52127,7 +51252,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
           Modelica.Blocks.Math.Gain CGL3(k=0.03)
           "glucose flow into cells to potassium flow into cells"
             annotation (Placement(transformation(extent={{-4,-4},{4,4}},
-                rotation=0,
                 origin={-82,50})));
           Modelica.Blocks.Interfaces.RealInput GlucoseToCellsFlow(final
               quantity="VolumeFlowRate", final displayUnit="mmol/min")
@@ -52145,7 +51269,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
           concentrationMeasure2(toAnotherUnitCoef=1000, unitsString="mEq/l")
           annotation (Placement(transformation(
               extent={{-10,-10},{10,10}},
-              rotation=0,
               origin={-48,24})));
           Modelica.Blocks.Interfaces.RealOutput KPool_per_liter(
                                                          displayUnit="mEq/l")
@@ -52470,8 +51593,7 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
             points={{-48,28},{-48,30},{-74,30}},
             color={0,0,127},
             smooth=Smooth.None));
-          annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-                    -100},{100,100}}),       graphics), Icon(coordinateSystem(
+          annotation ( Icon(coordinateSystem(
                   preserveAspectRatio=true, extent={{-100,-100},{100,100}}),
                 graphics={Bitmap(extent={{-100,100},{100,-100}}, fileName=
                       "../Physiolibrary/icons/K.jpg")}));
@@ -52568,14 +51690,12 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
               true)                                       annotation (Placement(
               transformation(
               extent={{-6,-6},{6,6}},
-              rotation=0,
               origin={34,22})));
         Physiolibrary.Blocks.Factors.Spline KEffect(data={{0.0,0.0,0},{4.4,1.0,
               0.5},{5.5,3.0,0}})
           annotation (Placement(transformation(extent={{24,22},{44,42}})));
           Modelica.Blocks.Math.Gain mEq_per_L(k=1000)
             annotation (Placement(transformation(extent={{-3,-3},{3,3}},
-                rotation=0,
                 origin={15,31})));
           Modelica.Blocks.Math.Division division
             annotation (Placement(transformation(extent={{-18,6},{-14,10}})));
@@ -52601,7 +51721,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
           concentrationMeasure1(toAnotherUnitCoef=1000, unitsString="mEq/l")
           annotation (Placement(transformation(
               extent={{-10,-10},{10,10}},
-              rotation=0,
               origin={-8,80})));
         Physiolibrary.Chemical.Sensors.MolarFlowMeasure flowMeasure annotation (
            Placement(transformation(
@@ -52617,7 +51736,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
           Modelica.Blocks.Math.Gain CGL3(k=0.03)
           "glucose flow into cells to potassium flow into cells"
             annotation (Placement(transformation(extent={{-2,-2},{2,2}},
-                rotation=0,
                 origin={-78,60})));
           IkedaPotasiumIntoICFFactor IkedaIntoICF annotation (Placement(
                 transformation(
@@ -52628,7 +51746,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
           concentrationMeasure2(toAnotherUnitCoef=1000, unitsString="mEq/l")
           annotation (Placement(transformation(
               extent={{-10,-10},{10,10}},
-              rotation=0,
               origin={-48,24})));
         Physiolibrary.Types.BusConnector busConnector annotation (Placement(
               transformation(extent={{-94,88},{-82,100}}), iconTransformation(
@@ -53113,8 +52230,7 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
             string="%first",
             index=-1,
             extent={{-6,3},{-6,3}}));
-          annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-                    -100},{100,100}}),       graphics), Icon(coordinateSystem(
+          annotation ( Icon(coordinateSystem(
                   preserveAspectRatio=true, extent={{-100,-100},{100,100}}),
                 graphics={Bitmap(extent={{-100,100},{100,-100}}, fileName=
                       "../Physiolibrary/icons/K.jpg"), Text(
@@ -53130,7 +52246,7 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
 </tr>
 <tr>
 <td>License:</td>
-<td>GPL 3.0</td>
+<td><a href=\"http://www.physiomodel.org/license.html\">Physiomodel License 1.0</a> </td>
 </tr>
 <tr>
 <td>By:</td>
@@ -53148,7 +52264,7 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
 <td>Noriaki Ikeda: A model of overall regulation of body fluids (1979), Kitasato University</td>
 </tr>
 </table>
-<br/><p>Copyright &copy; 2014 Marek Matejak</p><br/>
+<br/><p>Copyright &copy; 2014 Marek Matejak, Charles University in Prague.</p><br/>
 
 </html>",   info="<html>
 <p>TODO: Ikeda - Potassium glucose flow from ECF to ICF with insulin affects potassium flow to cells.</p>
@@ -53237,14 +52353,12 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
               true)                                       annotation (Placement(
               transformation(
               extent={{-6,-6},{6,6}},
-              rotation=0,
               origin={34,22})));
         Physiolibrary.Blocks.Factors.Spline KEffect(data={{0.0,0.0,0},{4.4,1.0,
               0.5},{5.5,3.0,0}})
           annotation (Placement(transformation(extent={{24,22},{44,42}})));
           Modelica.Blocks.Math.Gain mEq_per_L(k=1000)
             annotation (Placement(transformation(extent={{-3,-3},{3,3}},
-                rotation=0,
                 origin={15,31})));
           Modelica.Blocks.Math.Division division
             annotation (Placement(transformation(extent={{-18,6},{-14,10}})));
@@ -53270,7 +52384,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
           concentrationMeasure1(toAnotherUnitCoef=1000, unitsString="mEq/l")
           annotation (Placement(transformation(
               extent={{-10,-10},{10,10}},
-              rotation=0,
               origin={-8,80})));
         Physiolibrary.Chemical.Sensors.MolarFlowMeasure flowMeasure annotation (
            Placement(transformation(
@@ -53286,7 +52399,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
           Modelica.Blocks.Math.Gain CGL3(k=0.03)
           "glucose flow into cells to potassium flow into cells"
             annotation (Placement(transformation(extent={{-2,-2},{2,2}},
-                rotation=0,
                 origin={-78,60})));
           IkedaPotasiumIntoICFFactor IkedaIntoICF annotation (Placement(
                 transformation(
@@ -53297,7 +52409,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
           concentrationMeasure2(toAnotherUnitCoef=1000, unitsString="mEq/l")
           annotation (Placement(transformation(
               extent={{-10,-10},{10,10}},
-              rotation=0,
               origin={-48,24})));
         Physiolibrary.Types.BusConnector busConnector annotation (Placement(
               transformation(extent={{-94,88},{-82,100}}), iconTransformation(
@@ -53779,8 +52890,7 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
               string="%second",
               index=1,
               extent={{6,3},{6,3}}));
-          annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-                    -100},{100,100}}),       graphics), Icon(coordinateSystem(
+          annotation ( Icon(coordinateSystem(
                   preserveAspectRatio=true, extent={{-100,-100},{100,100}}),
                 graphics={Bitmap(extent={{-100,100},{100,-100}}, fileName=
                       "../Physiolibrary/icons/K.jpg"), Text(
@@ -53796,7 +52906,7 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
 </tr>
 <tr>
 <td>License:</td>
-<td>GPL 3.0</td>
+<td><a href=\"http://www.physiomodel.org/license.html\">Physiomodel License 1.0</a> </td>
 </tr>
 <tr>
 <td>By:</td>
@@ -53814,7 +52924,7 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
 <td>Noriaki Ikeda: A model of overall regulation of body fluids (1979), Kitasato University</td>
 </tr>
 </table>
-<br/><p>Copyright &copy; 2014 Marek Matejak</p><br/>
+<br/><p>Copyright &copy; 2014 Marek Matejak, Charles University in Prague.</p><br/>
 
 </html>",   info="<html>
 <p>TODO: Ikeda - Potassium glucose flow from ECF to ICF with insulin affects potassium flow to cells.</p>
@@ -53930,9 +53040,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
               string="%second",
               index=1,
               extent={{6,3},{6,3}}));
-          annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-                    -100},{100,100}}),
-                                 graphics));
         end TNa_K;
       end test;
 
@@ -53954,9 +53061,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
               string="%second",
               index=1,
               extent={{6,3},{6,3}}));
-          annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-                    -100},{100,100}}),
-                                 graphics));
         end ConstInputsFromOtherElectrolytes;
       end setup;
 
@@ -53983,7 +53087,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
         Physiolibrary.Chemical.Sensors.ConcentrationMeasure concentrationMeasure2 annotation (Placement(
               transformation(
               extent={{-10,-10},{10,10}},
-              rotation=0,
               origin={-80,42})));
       Physiolibrary.Types.BusConnector busConnector annotation (Placement(
             transformation(extent={{-94,88},{-82,100}}), iconTransformation(
@@ -54144,8 +53247,7 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
           string="%second",
           index=1,
           extent={{6,3},{6,3}}));
-        annotation (Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,
-                -100},{100,100}}),         graphics), Icon(coordinateSystem(
+        annotation ( Icon(coordinateSystem(
                 preserveAspectRatio=true, extent={{-100,-100},{100,100}}),
               graphics={            Text(
                 extent={{-112,-102},{108,-128}},
@@ -54160,7 +53262,7 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
 </tr>
 <tr>
 <td>License:</td>
-<td>GPL 3.0</td>
+<td><a href=\"http://www.physiomodel.org/license.html\">Physiomodel License 1.0</a> </td>
 </tr>
 <tr>
 <td>By:</td>
@@ -54178,7 +53280,7 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
 <td>Noriaki Ikeda: A model of overall regulation of body fluids (1979), Kitasato University</td>
 </tr>
 </table>
-<br/><p>Copyright &copy; 2014 Marek Matejak</p><br/>
+<br/><p>Copyright &copy; 2014 Marek Matejak, Charles University in Prague.</p><br/>
 
 </html>", info="<html>
 <p>TODO: Ikeda - Potassium glucose flow from ECF to ICF with insulin affects potassium flow to cells.</p>
@@ -54187,13 +53289,14 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
 
       model KindeyK
         extends Physiolibrary.Icons.Kidney;
+
       Physiolibrary.Blocks.Factors.Spline NaEffect(data={{0.0,0.3,0},{0.4,1.0,
             1.5},{4.0,3.0,0}}, Xscale=1e-3/60)
         annotation (Placement(transformation(extent={{44,30},{24,50}})));
       Physiolibrary.Blocks.Factors.LagSpline
                                           AldoEffect(data={{0.0,0.3,0},{12.0,
             1.0,0.06},{50.0,3.0,0}},
-        Xscale=1e-8/Physiomodel.Substances.Aldosterone.mw,
+        Xscale=1e-8/Substances.Aldosterone.mw,
         HalfTime=Modelica.Math.log(2)*3*60*60,
         initialValue=12)
         annotation (Placement(transformation(extent={{44,38},{24,58}})));
@@ -54207,7 +53310,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
                                                         annotation (Placement(
             transformation(
             extent={{-6,-6},{6,6}},
-            rotation=0,
             origin={34,22})));
       Physiolibrary.Blocks.Factors.Spline KEffect(data={{0.0,0.0,0},{4.4,1.0,
             0.5},{5.5,3.0,0}})
@@ -54307,8 +53409,7 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
           string="%second",
           index=1,
           extent={{6,3},{6,3}}));
-        annotation (Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,
-                -100},{100,100}}),         graphics), Icon(coordinateSystem(
+        annotation ( Icon(coordinateSystem(
                 preserveAspectRatio=true, extent={{-100,-100},{100,100}}),
               graphics={Text(
                 extent={{-112,-102},{108,-128}},
@@ -54323,7 +53424,7 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
 </tr>
 <tr>
 <td>License:</td>
-<td>GPL 3.0</td>
+<td><a href=\"http://www.physiomodel.org/license.html\">Physiomodel License 1.0</a> </td>
 </tr>
 <tr>
 <td>By:</td>
@@ -54341,7 +53442,7 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
 <td>Noriaki Ikeda: A model of overall regulation of body fluids (1979), Kitasato University</td>
 </tr>
 </table>
-<br/><p>Copyright &copy; 2014 Marek Matejak</p><br/>
+<br/><p>Copyright &copy; 2014 Marek Matejak, Charles University in Prague.</p><br/>
 
 </html>", info="<html>
 <p>TODO: Ikeda - Potassium glucose flow from ECF to ICF with insulin affects potassium flow to cells.</p>
@@ -54461,8 +53562,7 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
             color={200,0,0},
             thickness=1,
             smooth=Smooth.None));
-        annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-                  -100},{100,100}}),       graphics), Icon(coordinateSystem(
+        annotation ( Icon(coordinateSystem(
                 preserveAspectRatio=true, extent={{-100,-100},{100,100}}),
               graphics={Text(
                 extent={{-112,-102},{108,-128}},
@@ -54477,7 +53577,7 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
 </tr>
 <tr>
 <td>License:</td>
-<td>GPL 3.0</td>
+<td><a href=\"http://www.physiomodel.org/license.html\">Physiomodel License 1.0</a> </td>
 </tr>
 <tr>
 <td>By:</td>
@@ -54495,7 +53595,7 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
 <td>Noriaki Ikeda: A model of overall regulation of body fluids (1979), Kitasato University</td>
 </tr>
 </table>
-<br/><p>Copyright &copy; 2014 Marek Matejak</p><br/>
+<br/><p>Copyright &copy; 2014 Marek Matejak, Charles University in Prague.</p><br/>
 
 </html>", info="<html>
 <p>TODO: Ikeda - Potassium glucose flow from ECF to ICF with insulin affects potassium flow to cells.</p>
@@ -54543,12 +53643,10 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
                                                             annotation (
             Placement(transformation(
               extent={{10,-10},{-10,10}},
-              rotation=0,
               origin={-68,18})));
       Physiolibrary.Chemical.Sensors.ConcentrationMeasure concentrationMeasure1 annotation (Placement(
             transformation(
             extent={{-10,-10},{10,10}},
-            rotation=0,
             origin={-24,74})));
       Physiolibrary.Chemical.Sensors.MolarFlowMeasure flowMeasure annotation (
           Placement(transformation(
@@ -54564,12 +53662,10 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
         Modelica.Blocks.Math.Gain CGL3(k=0.03/60)
         "glucose flow into cells to potassium flow into cells"
           annotation (Placement(transformation(extent={{-2,-2},{2,2}},
-              rotation=0,
               origin={-38,-44})));
         IkedaPotasiumIntoICFFactor IkedaIntoICF annotation (Placement(
               transformation(
               extent={{-10,-10},{10,10}},
-              rotation=0,
               origin={-68,2})));
       Physiolibrary.Types.BusConnector busConnector annotation (Placement(
             transformation(extent={{-94,88},{-82,100}}), iconTransformation(
@@ -54755,8 +53851,7 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
           string="%first",
           index=-1,
           extent={{-6,3},{-6,3}}));
-        annotation (Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,
-                -100},{100,100}}),         graphics), Icon(coordinateSystem(
+        annotation ( Icon(coordinateSystem(
                 preserveAspectRatio=true, extent={{-100,-100},{100,100}}),
               graphics={Text(
                 extent={{-112,-102},{108,-128}},
@@ -54771,7 +53866,7 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
 </tr>
 <tr>
 <td>License:</td>
-<td>GPL 3.0</td>
+<td><a href=\"http://www.physiomodel.org/license.html\">Physiomodel License 1.0</a> </td>
 </tr>
 <tr>
 <td>By:</td>
@@ -54789,7 +53884,7 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
 <td>Noriaki Ikeda: A model of overall regulation of body fluids (1979), Kitasato University</td>
 </tr>
 </table>
-<br/><p>Copyright &copy; 2014 Marek Matejak</p><br/>
+<br/><p>Copyright &copy; 2014 Marek Matejak, Charles University in Prague.</p><br/>
 
 </html>", info="<html>
 <p>TODO: Ikeda - Potassium glucose flow from ECF to ICF with insulin affects potassium flow to cells.</p>
@@ -54812,8 +53907,7 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
       equation
 
         q_in.q=0
-        annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-                  -100},{100,100}}),       graphics), Icon(coordinateSystem(
+        annotation ( Icon(coordinateSystem(
                 preserveAspectRatio=true, extent={{-100,-100},{100,100}}),
               graphics={Text(
                 extent={{-112,-102},{108,-128}},
@@ -54828,7 +53922,7 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
 </tr>
 <tr>
 <td>License:</td>
-<td>GPL 3.0</td>
+<td><a href=\"http://www.physiomodel.org/license.html\">Physiomodel License 1.0</a> </td>
 </tr>
 <tr>
 <td>By:</td>
@@ -54846,7 +53940,7 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
 <td>Noriaki Ikeda: A model of overall regulation of body fluids (1979), Kitasato University</td>
 </tr>
 </table>
-<br/><p>Copyright &copy; 2014 Marek Matejak</p><br/>
+<br/><p>Copyright &copy; 2014 Marek Matejak, Charles University in Prague.</p><br/>
 
 </html>", info="<html>
 <p>TODO: Ikeda - Potassium glucose flow from ECF to ICF with insulin affects potassium flow to cells.</p>
@@ -54859,7 +53953,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
             string="%second",
             index=1,
             extent={{6,3},{6,3}}));
-        annotation (Diagram(graphics));
       end CellsK_Steady;
 
       model CellsK_
@@ -54903,13 +53996,11 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
         Tau=120*1440,
         stateName="PotassiumToCell_AldoEffect") annotation (Placement(transformation(
             extent={{10,-10},{-10,10}},
-            rotation=0,
             origin={-68,18})));
       Physiolibrary.Chemical.Sensors.ConcentrationMeasure concentrationMeasure1(
          toAnotherUnitCoef=1000, unitsString="mEq/l") annotation (Placement(
             transformation(
             extent={{-10,-10},{10,10}},
-            rotation=0,
             origin={-24,74})));
       Physiolibrary.Chemical.Sensors.MolarFlowMeasure flowMeasure annotation (
           Placement(transformation(
@@ -54925,7 +54016,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
         IkedaPotasiumIntoICFFactor IkedaIntoICF annotation (Placement(
               transformation(
               extent={{-10,-10},{10,10}},
-              rotation=0,
               origin={-68,2})));
       Physiolibrary.Types.BusConnector busConnector annotation (Placement(
             transformation(extent={{-94,88},{-82,100}}), iconTransformation(
@@ -55068,8 +54158,7 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
           points={{-24,78},{-24,82},{54,82}},
           color={0,0,127},
           smooth=Smooth.None));
-        annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-                -100},{100,100}}),         graphics), Icon(coordinateSystem(
+        annotation ( Icon(coordinateSystem(
                 preserveAspectRatio=true, extent={{-100,-100},{100,100}}),
               graphics={Text(
                 extent={{-112,-102},{108,-128}},
@@ -55088,7 +54177,7 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
 </tr>
 <tr>
 <td>License:</td>
-<td>GPL 3.0</td>
+<td><a href=\"http://www.physiomodel.org/license.html\">Physiomodel License 1.0</a> </td>
 </tr>
 <tr>
 <td>By:</td>
@@ -55106,7 +54195,7 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
 <td>Noriaki Ikeda: A model of overall regulation of body fluids (1979), Kitasato University</td>
 </tr>
 </table>
-<br/><p>Copyright &copy; 2014 Marek Matejak</p><br/>
+<br/><p>Copyright &copy; 2014 Marek Matejak, Charles University in Prague.</p><br/>
 
 </html>", info="<html>
 <p>TODO: Ikeda - Potassium glucose flow from ECF to ICF with insulin affects potassium flow to cells.</p>
@@ -55334,7 +54423,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
           string="%second",
           index=1,
           extent={{6,3},{6,3}}));
-        annotation (Diagram(graphics));
       end IntracellularPotassium;
 
       model IntracellularPotassium_const
@@ -55395,9 +54483,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
           string="%second",
           index=1,
           extent={{6,3},{6,3}}));
-        annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent=
-                {{-100,-100},{100,100}}),
-                            graphics));
       end IntracellularPotassium_const;
     end Potassium;
 
@@ -55427,8 +54512,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
               color={0,0,255},
               thickness=0.5,
               smooth=Smooth.None));
-          annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-                    -100},{100,100}}),       graphics));
         end T_;
 
         model T
@@ -55454,8 +54537,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
               color={0,0,255},
               thickness=0.5,
               smooth=Smooth.None));
-          annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-                    -100},{100,100}}),       graphics));
         end T;
 
         model Chloride
@@ -55564,7 +54645,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
               true)                                        annotation (
             Placement(transformation(
               extent={{-6,-6},{6,6}},
-              rotation=0,
               origin={26,24})));
           Modelica.Blocks.Interfaces.RealInput CollectingDuct_NetSumCats(final
               quantity="Mass", final displayUnit="mEq")
@@ -55600,7 +54680,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
             annotation (Placement(transformation(extent={{50,-2},{58,6}}),
                 iconTransformation(
                 extent={{-6,-6},{6,6}},
-                rotation=0,
                 origin={-94,-106})));
         equation
         connect(ClPool.solutionVolume, ECFV_Vol) annotation (Line(
@@ -55746,8 +54825,7 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
             points={{64,-4.4},{64,2},{54,2}},
             color={0,0,127},
             smooth=Smooth.None));
-          annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-                    -100},{100,100}}),       graphics), Icon(coordinateSystem(
+          annotation ( Icon(coordinateSystem(
                   preserveAspectRatio=true, extent={{-100,-100},{100,100}}),
                 graphics={Bitmap(extent={{-100,100},{100,-100}}, fileName=
                       "../Physiolibrary/icons/Cl.jpg")}));
@@ -55772,9 +54850,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
               string="%second",
               index=1,
               extent={{6,3},{6,3}}));
-          annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-                    -100},{100,100}}),
-                                 graphics));
         end ConstInputsFromOtherElectrolytes;
 
         model Chloride
@@ -55958,8 +55033,7 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
               string="%second",
               index=1,
               extent={{6,3},{6,3}}));
-          annotation (Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,
-                  -100},{100,100}}),         graphics), Icon(coordinateSystem(
+          annotation ( Icon(coordinateSystem(
                   preserveAspectRatio=true, extent={{-100,-100},{100,100}}),
                 graphics={             Text(
                   extent={{-112,-102},{108,-128}},
@@ -55974,7 +55048,7 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
 </tr>
 <tr>
 <td>License:</td>
-<td>GPL 3.0</td>
+<td><a href=\"http://www.physiomodel.org/license.html\">Physiomodel License 1.0</a> </td>
 </tr>
 <tr>
 <td>By:</td>
@@ -55989,7 +55063,7 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
 <td>Tom Coleman: QHP 2008 beta 3, University of Mississippi Medical Center</td>
 </tr>
 </table>
-<br/><p>Copyright &copy; 2014 Marek Matejak</p><br/>
+<br/><p>Copyright &copy; 2014 Marek Matejak, Charles University in Prague.</p><br/>
 
 </html>"));
         end Chloride;
@@ -56028,8 +55102,7 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
           q_out.conc =  ECF_conc/1000.;
 
           ClPool_mass=ClPool_conc_per_liter*EFCV_Vol/1000.;
-          annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-                    -100},{100,100}}),       graphics), Icon(coordinateSystem(
+          annotation ( Icon(coordinateSystem(
                   preserveAspectRatio=true, extent={{-100,-100},{100,100}}),
                 graphics={             Text(
                   extent={{-112,-102},{108,-128}},
@@ -56044,7 +55117,7 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
 </tr>
 <tr>
 <td>License:</td>
-<td>GPL 3.0</td>
+<td><a href=\"http://www.physiomodel.org/license.html\">Physiomodel License 1.0</a> </td>
 </tr>
 <tr>
 <td>By:</td>
@@ -56059,7 +55132,7 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
 <td>Tom Coleman: QHP 2008 beta 3, University of Mississippi Medical Center</td>
 </tr>
 </table>
-<br/><p>Copyright &copy; 2014 Marek Matejak</p><br/>
+<br/><p>Copyright &copy; 2014 Marek Matejak, Charles University in Prague.</p><br/>
 
 </html>"));
         end ChloridePool;
@@ -56162,8 +55235,7 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
             color={200,0,0},
             thickness=1,
             smooth=Smooth.None));
-        annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-                  -100},{100,100}}),       graphics), Icon(coordinateSystem(
+        annotation ( Icon(coordinateSystem(
                 preserveAspectRatio=true, extent={{-100,-100},{100,100}}),
               graphics={Text(
                 extent={{-112,-102},{108,-128}},
@@ -56178,7 +55250,7 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
 </tr>
 <tr>
 <td>License:</td>
-<td>GPL 3.0</td>
+<td><a href=\"http://www.physiomodel.org/license.html\">Physiomodel License 1.0</a> </td>
 </tr>
 <tr>
 <td>By:</td>
@@ -56193,7 +55265,7 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
 <td>Tom Coleman: QHP 2008 beta 3, University of Mississippi Medical Center</td>
 </tr>
 </table>
-<br/><p>Copyright &copy; 2014 Marek Matejak</p><br/>
+<br/><p>Copyright &copy; 2014 Marek Matejak, Charles University in Prague.</p><br/>
 
 </html>"));
       end GILumenCl;
@@ -56377,8 +55449,7 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
           points={{18.4,13.6},{18.4,6},{26,6},{26,36}},
           color={0,0,127},
           smooth=Smooth.None));
-        annotation (Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,
-                -100},{100,100}}),         graphics), Icon(coordinateSystem(
+        annotation ( Icon(coordinateSystem(
                 preserveAspectRatio=true, extent={{-100,-100},{100,100}}),
               graphics={Text(
                 extent={{-112,-102},{108,-128}},
@@ -56393,7 +55464,7 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
 </tr>
 <tr>
 <td>License:</td>
-<td>GPL 3.0</td>
+<td><a href=\"http://www.physiomodel.org/license.html\">Physiomodel License 1.0</a> </td>
 </tr>
 <tr>
 <td>By:</td>
@@ -56408,7 +55479,7 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
 <td>Tom Coleman: QHP 2008 beta 3, University of Mississippi Medical Center</td>
 </tr>
 </table>
-<br/><p>Copyright &copy; 2014 Marek Matejak</p><br/>
+<br/><p>Copyright &copy; 2014 Marek Matejak, Charles University in Prague.</p><br/>
 
 </html>", info="<html>
 <p>TODO: Chloride extracellular body concentration should play a role in chloride excretion by kidney?</p>
@@ -56454,7 +55525,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
         Physiolibrary.Chemical.Sensors.ConcentrationMeasure concentrationMeasure1 annotation (Placement(
               transformation(
               extent={{-10,-10},{10,10}},
-              rotation=0,
               origin={10,72})));
       equation
          ECF_conc =concentrationMeasure1.concentration;
@@ -56586,8 +55656,7 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
           string="%second",
           index=1,
           extent={{6,3},{6,3}}));
-        annotation (Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,
-                -100},{100,100}}),         graphics), Icon(coordinateSystem(
+        annotation ( Icon(coordinateSystem(
                 preserveAspectRatio=true, extent={{-100,-100},{100,100}}),
               graphics={             Text(
                 extent={{-112,-102},{108,-128}},
@@ -56602,7 +55671,7 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
 </tr>
 <tr>
 <td>License:</td>
-<td>GPL 3.0</td>
+<td><a href=\"http://www.physiomodel.org/license.html\">Physiomodel License 1.0</a> </td>
 </tr>
 <tr>
 <td>By:</td>
@@ -56617,7 +55686,7 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
 <td>Tom Coleman: QHP 2008 beta 3, University of Mississippi Medical Center</td>
 </tr>
 </table>
-<br/><p>Copyright &copy; 2014 Marek Matejak</p><br/>
+<br/><p>Copyright &copy; 2014 Marek Matejak, Charles University in Prague.</p><br/>
 
 </html>"));
       end Chloride2;
@@ -56800,8 +55869,7 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
           points={{18.4,13.6},{18.4,6},{26,6},{26,36}},
           color={0,0,127},
           smooth=Smooth.None));
-        annotation (Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,
-                -100},{100,100}}),         graphics), Icon(coordinateSystem(
+        annotation ( Icon(coordinateSystem(
                 preserveAspectRatio=true, extent={{-100,-100},{100,100}}),
               graphics={Text(
                 extent={{-112,-102},{108,-128}},
@@ -56816,7 +55884,7 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
 </tr>
 <tr>
 <td>License:</td>
-<td>GPL 3.0</td>
+<td><a href=\"http://www.physiomodel.org/license.html\">Physiomodel License 1.0</a> </td>
 </tr>
 <tr>
 <td>By:</td>
@@ -56831,7 +55899,7 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
 <td>Tom Coleman: QHP 2008 beta 3, University of Mississippi Medical Center</td>
 </tr>
 </table>
-<br/><p>Copyright &copy; 2014 Marek Matejak</p><br/>
+<br/><p>Copyright &copy; 2014 Marek Matejak, Charles University in Prague.</p><br/>
 
 </html>", info="<html>
 <p>TODO: Chloride extracellular body concentration should play a role in chloride excretion by kidney?</p>
@@ -56934,7 +56002,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
           annotation (Placement(transformation(extent={{58,-8},{66,0}}),
               iconTransformation(
               extent={{-6,-6},{6,6}},
-              rotation=0,
               origin={-94,-106})));
         Modelica.Blocks.Interfaces.RealOutput ctPO4(
                                              final displayUnit="mmol/l")
@@ -56945,7 +56012,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
          toAnotherUnitCoef=1000, unitsString="mmol/l") annotation (Placement(
             transformation(
             extent={{-10,-10},{10,10}},
-            rotation=0,
             origin={-60,60})));
       equation
       connect(PO4Pool.solutionVolume, ECFV_Vol) annotation (Line(
@@ -57049,10 +56115,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
             color={200,0,0},
             thickness=1,
             smooth=Smooth.None));
-        annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-                  -100},{100,100}}),       graphics), Icon(coordinateSystem(
-                preserveAspectRatio=true, extent={{-100,-100},{100,100}}),
-              graphics));
       end Phosphate;
 
       model GlomerulusStrongAnionFiltration
@@ -57127,10 +56189,7 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
                 points={{0,-26},{0,-42}},
                 color={0,0,255},
                 smooth=Smooth.None,
-                thickness=0.5)}),       Diagram(coordinateSystem(preserveAspectRatio=true,
-                         extent={{-100,-100},{100,100}}), graphics),
-                    Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-                  -100},{100,100}}), graphics));
+                thickness=0.5)}));
       end GlomerulusStrongAnionFiltration;
 
       model Phosphate2
@@ -57164,7 +56223,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
          toAnotherUnitCoef=1000, unitsString="mmol/l") annotation (Placement(
             transformation(
             extent={{-10,-10},{10,10}},
-            rotation=0,
             origin={-60,60})));
       Physiolibrary.Types.BusConnector busConnector annotation (Placement(
             transformation(extent={{-90,76},{-78,88}}), iconTransformation(
@@ -57333,8 +56391,7 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
             color={200,0,0},
             thickness=1,
             smooth=Smooth.None));
-        annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-                -100},{100,100}}),         graphics), Icon(coordinateSystem(
+        annotation ( Icon(coordinateSystem(
                 preserveAspectRatio=true, extent={{-100,-100},{100,100}}),
               graphics={                 Text(
                 extent={{-108,-98},{112,-124}},
@@ -57397,7 +56454,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
         Physiolibrary.Chemical.Sensors.ConcentrationMeasure concentrationMeasure1 annotation (Placement(
               transformation(
               extent={{-10,-10},{10,10}},
-              rotation=0,
               origin={-60,60})));
       Physiolibrary.Types.BusConnector busConnector annotation (Placement(
             transformation(extent={{-90,76},{-78,88}}), iconTransformation(
@@ -57556,8 +56612,7 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
           string="%second",
           index=1,
           extent={{6,3},{6,3}}));
-        annotation (Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,
-                -100},{100,100}}),         graphics), Icon(coordinateSystem(
+        annotation ( Icon(coordinateSystem(
                 preserveAspectRatio=true, extent={{-100,-100},{100,100}}),
               graphics={                 Text(
                 extent={{-108,-98},{112,-124}},
@@ -57623,7 +56678,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
           annotation (Placement(transformation(extent={{58,-6},{66,2}}),
               iconTransformation(
               extent={{-6,-6},{6,6}},
-              rotation=0,
               origin={-94,-106})));
 
       Physiolibrary.Chemical.Components.Substance SO4Pool(
@@ -57752,10 +56806,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
           color={0,0,127},
           smooth=Smooth.None));
 
-        annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-                  -100},{100,100}}),       graphics), Icon(coordinateSystem(
-                preserveAspectRatio=true, extent={{-100,-100},{100,100}}),
-              graphics));
       end Sulphate;
 
       model GlomerulusStrongAnionFiltration
@@ -57828,10 +56878,7 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
                 points={{0,-26},{0,-42}},
                 color={0,0,255},
                 smooth=Smooth.None,
-                thickness=0.5)}),       Diagram(coordinateSystem(preserveAspectRatio=true,
-                         extent={{-100,-100},{100,100}}), graphics),
-                    Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-                  -100},{100,100}}), graphics));
+                thickness=0.5)}));
       end GlomerulusStrongAnionFiltration;
 
       model Sulphate2
@@ -58002,8 +57049,7 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
           string="%second",
           index=1,
           extent={{6,3},{6,3}}));
-        annotation (Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,
-                -100},{100,100}}),         graphics), Icon(coordinateSystem(
+        annotation ( Icon(coordinateSystem(
                 preserveAspectRatio=true, extent={{-100,-100},{100,100}}),
               graphics={Text(
                 extent={{-110,-104},{110,-130}},
@@ -58100,8 +57146,7 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
           string="%second",
           index=1,
           extent={{6,3},{6,3}}));
-        annotation (Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,
-                -100},{100,100}}),         graphics), Icon(coordinateSystem(
+        annotation ( Icon(coordinateSystem(
                 preserveAspectRatio=true, extent={{-100,-100},{100,100}}),
               graphics={              Text(
                 extent={{-112,-102},{108,-128}},
@@ -58116,7 +57161,7 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
 </tr>
 <tr>
 <td>License:</td>
-<td>GPL 3.0</td>
+<td><a href=\"http://www.physiomodel.org/license.html\">Physiomodel License 1.0</a> </td>
 </tr>
 <tr>
 <td>By:</td>
@@ -58131,7 +57176,7 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
 <td>Tom Coleman: QHP 2008 beta 3, University of Mississippi Medical Center</td>
 </tr>
 </table>
-<br/><p>Copyright &copy; 2014 Marek Matejak</p><br/>
+<br/><p>Copyright &copy; 2014 Marek Matejak, Charles University in Prague.</p><br/>
 
 </html>"));
       end Ammonium;
@@ -58149,8 +57194,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
               color={0,0,255},
               thickness=0.5,
               smooth=Smooth.None));
-          annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-                    -100},{100,100}}),       graphics));
         end T;
 
         model NH4
@@ -58204,10 +57247,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
               points={{-50,34},{-50,14},{-40,14}},
               color={0,0,127},
               smooth=Smooth.None));
-          annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-                    -100},{100,100}}),       graphics), Icon(coordinateSystem(
-                  preserveAspectRatio=true, extent={{-100,-100},{100,100}}),
-                graphics));
         end NH4;
       end test;
 
@@ -58294,8 +57333,7 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
           string="%second",
           index=1,
           extent={{6,3},{6,3}}));
-        annotation (Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,
-                -100},{100,100}}),         graphics), Icon(coordinateSystem(
+        annotation ( Icon(coordinateSystem(
                 preserveAspectRatio=true, extent={{-100,-100},{100,100}}),
               graphics={              Text(
                 extent={{-112,-102},{108,-128}},
@@ -58310,7 +57348,7 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
 </tr>
 <tr>
 <td>License:</td>
-<td>GPL 3.0</td>
+<td><a href=\"http://www.physiomodel.org/license.html\">Physiomodel License 1.0</a> </td>
 </tr>
 <tr>
 <td>By:</td>
@@ -58325,7 +57363,7 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
 <td>Tom Coleman: QHP 2008 beta 3, University of Mississippi Medical Center</td>
 </tr>
 </table>
-<br/><p>Copyright &copy; 2014 Marek Matejak</p><br/>
+<br/><p>Copyright &copy; 2014 Marek Matejak, Charles University in Prague.</p><br/>
 
 </html>"));
       end Ammonium_old;
@@ -58352,7 +57390,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
         Modelica.Blocks.Math.Gain gain(k=3.3/31.2)
                                        annotation (Placement(transformation(
               extent={{-4,-4},{4,4}},
-              rotation=0,
               origin={4,-24})));
       Physiolibrary.Chemical.Components.SolutePump J_bp(useSoluteFlowInput=true)
         annotation (Placement(transformation(extent={{26,-16},{10,0}})));
@@ -58412,7 +57449,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
         Modelica.Blocks.Math.Gain mlTOlitre1(k=0.001)
                                        annotation (Placement(transformation(
               extent={{-4,-4},{4,4}},
-              rotation=0,
               origin={74,-82})));
       equation
         connect(CaPool.q_out, J_pu.q_in) annotation (Line(
@@ -58582,8 +57618,7 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
             string="%first",
             index=-1,
             extent={{-6,3},{-6,3}}));
-        annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-                  -100},{100,100}}), graphics), uses);
+        annotation ( uses);
       end Calcium;
 
       package Factors "Multiplication Effect Types"
@@ -58702,8 +57737,7 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
                   -20}},
               color={0,0,127},
               smooth=Smooth.None));
-          annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-                    -100},{100,100}}), graphics), Documentation(revisions="<html>
+          annotation ( Documentation(revisions="<html>
 <p><i>2009-2010</i></p>
 <p>Marek Matejak, Charles University, Prague, Czech Republic </p>
 </html>"));
@@ -58728,7 +57762,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
           Modelica.Blocks.Math.Add add2(
                                        k1=+1)  annotation (Placement(transformation(
                 extent={{-4,-4},{4,4}},
-                rotation=0,
                 origin={-58,62})));
           Modelica.Blocks.Math.Division division
             annotation (Placement(transformation(extent={{-36,58},{-16,78}})));
@@ -58763,8 +57796,7 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
               points={{-15,68},{-6,68},{-6,-20}},
               color={0,0,127},
               smooth=Smooth.None));
-          annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-                    -100},{100,100}}), graphics), Documentation(revisions="<html>
+          annotation ( Documentation(revisions="<html>
 <p><i>2009-2010</i></p>
 <p>Marek Matejak, Charles University, Prague, Czech Republic </p>
 </html>"));
@@ -58804,8 +57836,7 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
               points={{-33,64},{-6,64},{-6,-20}},
               color={0,0,127},
               smooth=Smooth.None));
-          annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-                    -100},{100,100}}), graphics), Documentation(revisions="<html>
+          annotation ( Documentation(revisions="<html>
 <p><i>2009-2010</i></p>
 <p>Marek Matejak, Charles University, Prague, Czech Republic </p>
 </html>"));
@@ -58834,8 +57865,7 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
                   -60}},
               color={0,0,127},
               smooth=Smooth.None));
-          annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-                    -100},{100,100}}), graphics), Documentation(revisions="<html>
+          annotation ( Documentation(revisions="<html>
 <p><i>2009-2010</i></p>
 <p>Marek Matejak, Charles University, Prague, Czech Republic </p>
 </html>"));
@@ -58878,7 +57908,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
         Modelica.Blocks.Math.Gain mlTOlitre(k=0.001)
                                        annotation (Placement(transformation(
               extent={{-4,-4},{4,4}},
-              rotation=0,
               origin={-36,8})));
       equation
         connect(resistorWithCondParam.q_out, q_out) annotation (Line(
@@ -58956,8 +57985,7 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
                 fillColor={255,255,255},
                 fillPattern=FillPattern.Solid,
                 textString="%name",
-                lineColor={0,0,127})}), Diagram(coordinateSystem(preserveAspectRatio=true,
-                extent={{-100,-100},{100,100}}), graphics));
+                lineColor={0,0,127})}));
       end CaGILumen;
 
       block CaTransportPool
@@ -58998,9 +58026,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
             points={{-84,-6},{-33.8,-6}},
             color={0,0,127},
             smooth=Smooth.None));
-        annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-                  -100},{100,100}}),
-                               graphics));
       end CaTransportPool;
 
       model Bladder
@@ -59023,8 +58048,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
               color={0,0,255},
               thickness=0.5,
               smooth=Smooth.None));
-          annotation (Diagram(coordinateSystem(preserveAspectRatio=false,
-                  extent={{-100,-100},{100,100}}), graphics));
         end T;
 
         model T2
@@ -59039,8 +58062,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
               color={0,0,255},
               thickness=0.5,
               smooth=Smooth.None));
-          annotation (Diagram(coordinateSystem(preserveAspectRatio=false,
-                  extent={{-100,-100},{100,100}}), graphics));
         end T2;
       end test;
 
@@ -59115,8 +58136,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
               string="%second",
               index=1,
               extent={{6,3},{6,3}}));
-          annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-                    -100},{100,100}}),       graphics));
         end CaInputs;
 
         model CalcitriolInputs
@@ -59179,8 +58198,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
               string="%second",
               index=1,
               extent={{6,3},{6,3}}));
-          annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-                    -100},{100,100}}),       graphics));
         end CalcitriolInputs;
       end setup;
 
@@ -59222,13 +58239,11 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
         Modelica.Blocks.Math.Gain mlTOlitre(k=0.001)
                                        annotation (Placement(transformation(
               extent={{-4,-4},{4,4}},
-              rotation=0,
               origin={0,-50})));
         Modelica.Blocks.Math.Gain mlTOlitre1(
                                             k=0.001)
                                        annotation (Placement(transformation(
               extent={{-4,-4},{4,4}},
-              rotation=0,
               origin={-54,-10})));
       equation
         connect(inputPump.q_out, concentrationCompartment.q_out) annotation (
@@ -59318,8 +58333,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
             string="%first",
             index=-1,
             extent={{-6,3},{-6,3}}));
-        annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-                  -100},{100,100}}),       graphics));
       end Calcitriol;
       annotation (Documentation(info="<html>
 <p>J.F.Raposo,L.G.Sobrinho,and H.G.Ferreira: A Minimal Mathematical Model of Calcium Homeostasis,JCE&AMP;M,sep2002,87(9)</p>
@@ -59459,8 +58472,7 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
         equation
           effect = alpha*u^gamma/(delta^gamma+u^gamma);
           y = effect * yBase;
-          annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-                    -100},{100,100}}), graphics), Documentation(revisions="<html>
+          annotation ( Documentation(revisions="<html>
 <p><i>2009-2010</i></p>
 <p>Marek Matejak, Charles University, Prague, Czech Republic </p>
 </html>"));
@@ -59481,8 +58493,7 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
         equation
           effect = ro+(alpha-ro)*u^gamma/(delta^gamma+u^gamma);
           y = effect * yBase;
-          annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-                    -100},{100,100}}), graphics), Documentation(revisions="<html>
+          annotation ( Documentation(revisions="<html>
 <p><i>2009-2010</i></p>
 <p>Marek Matejak, Charles University, Prague, Czech Republic </p>
 </html>"));
@@ -59503,8 +58514,7 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
         equation
           effect = alpha-(alpha-ro)*u^gamma/(delta^gamma+u^gamma);
           y = effect * yBase;
-          annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-                    -100},{100,100}}), graphics), Documentation(revisions="<html>
+          annotation ( Documentation(revisions="<html>
 <p><i>2009-2010</i></p>
 <p>Marek Matejak, Charles University, Prague, Czech Republic </p>
 </html>"));
@@ -59532,7 +58542,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
         Modelica.Blocks.Math.Gain mlTOlitre(k=0.001)
                                        annotation (Placement(transformation(
               extent={{-4,-4},{4,4}},
-              rotation=0,
               origin={-36,12})));
         Physiomodel.Electrolytes.Calcium2.Factors.H_plus H21_plus(
           delta=0.75,
@@ -59546,7 +58555,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
         Modelica.Blocks.Math.Gain k_1to4(k=0.0495)
                                        annotation (Placement(transformation(
               extent={{-4,-4},{4,4}},
-              rotation=0,
               origin={30,-36})));
         Physiomodel.Electrolytes.Calcium2.Factors.H d21(alpha=2, delta=0.75)
           annotation (Placement(transformation(extent={{32,12},{52,32}})));
@@ -59579,7 +58587,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
         Physiomodel.Electrolytes.Calcium2.Factors.H H1to4(alpha=0.9, delta=1)
           annotation (Placement(transformation(
               extent={{-10,-10},{10,10}},
-              rotation=0,
               origin={42,30})));
       Physiolibrary.Chemical.Sensors.ConcentrationMeasure concentrationMeasure
         annotation (Placement(transformation(
@@ -59729,8 +58736,7 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
                 fillColor={255,255,255},
                 fillPattern=FillPattern.Solid,
                 textString="%name",
-                lineColor={0,0,127})}), Diagram(coordinateSystem(preserveAspectRatio=true,
-                extent={{-100,-100},{100,100}}), graphics));
+                lineColor={0,0,127})}));
       end CaGILumen;
 
       model Ca
@@ -59741,7 +58747,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
         Modelica.Blocks.Math.Gain mlTOlitre1(k=0.001)
                                        annotation (Placement(transformation(
               extent={{-4,-4},{4,4}},
-              rotation=0,
               origin={-72,-64})));
       Physiolibrary.Chemical.Components.Substance CaPool(
         stateName="CaPool.Mass",
@@ -59751,7 +58756,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
         Modelica.Blocks.Math.Gain mlTOlitre(k=0.001)
                                        annotation (Placement(transformation(
               extent={{-4,-4},{4,4}},
-              rotation=0,
               origin={-54,14})));
       Physiolibrary.Types.BusConnector busConnector
         annotation (Placement(transformation(extent={{-88,78},{-68,98}})));
@@ -59764,7 +58768,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
       Physiolibrary.Chemical.Sensors.ConcentrationMeasure concentrationMeasure(
           unitsString="mmol/l") annotation (Placement(transformation(
             extent={{-10,-10},{10,10}},
-            rotation=0,
             origin={-18,22})));
       equation
       connect(mlTOlitre1.y, Bladder.solutionVolume) annotation (Line(
@@ -59839,8 +58842,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
           string="%second",
           index=1,
           extent={{6,3},{6,3}}));
-        annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-                  -100},{100,100}}),       graphics));
       end Ca;
 
       model CaKidneyExcretion
@@ -59865,7 +58866,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
           useSoluteFlowInput=true)
         annotation (Placement(transformation(
             extent={{10,-10},{-10,10}},
-            rotation=0,
             origin={24,-22})));
         Factors.H_minus H64_minus1(
           alpha=2,
@@ -59889,7 +58889,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
         Modelica.Blocks.Math.Gain to_liters_per_hours(k=60/1000)
                                        annotation (Placement(transformation(
               extent={{-4,-4},{4,4}},
-              rotation=0,
               origin={18,-42})));
       equation
 
@@ -59989,8 +58988,7 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
             string="%first",
             index=-1,
             extent={{-6,3},{-6,3}}));
-        annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-                  -100},{100,100}}),       graphics), Icon(coordinateSystem(
+        annotation ( Icon(coordinateSystem(
                 preserveAspectRatio=true, extent={{-100,-100},{100,100}}),
               graphics={Text(
                 extent={{-112,120},{100,100}},
@@ -60026,7 +59024,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
         "\"assumed that all Ca immediatebly changable could become nonimmediately changable (if there is only one way of change) after one month\""
                                        annotation (Placement(transformation(
               extent={{-4,-4},{4,4}},
-              rotation=0,
               origin={46,-30})));
         Modelica.Blocks.Math.Gain k_13to12(k=(1/(30*24))*(100/249000))
         "\"value calculated from k_12to13\""
@@ -60053,9 +59050,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
                     60,-20},{100,20}})));
         equation
           fluxToBone=3.667*Ca/2.35*(1-0.1144)+0.1144*(Osteoblast/0.00501324);
-          annotation (Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-                    -100},{100,100}}),
-                                 graphics));
         end CalciumToBone;
 
         model CalciumFromBone
@@ -60073,16 +59067,12 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
                     {100,20}})));
         equation
 
-          annotation (Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-                    -100},{100,100}}),
-                                 graphics));
         end CalciumFromBone;
 
         CalciumToBone calciumToBone
           annotation (Placement(transformation(extent={{-34,40},{-14,20}})));
         CalciumFromBone calciumFromBone annotation (Placement(transformation(
               extent={{-10,-10},{10,10}},
-              rotation=0,
               origin={-24,-42})));
         Osteoblast osteoblast
           annotation (Placement(transformation(extent={{-34,58},{-14,78}})));
@@ -60228,9 +59218,7 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
             string="%first",
             index=-1,
             extent={{-6,3},{-6,3}}));
-        annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-                  -100},{100,100}}),
-                               graphics), Icon(coordinateSystem(preserveAspectRatio=false,
+        annotation ( Icon(coordinateSystem(preserveAspectRatio=false,
                 extent={{-100,-100},{100,100}}), graphics={Text(
                 extent={{-112,-98},{100,-118}},
                 fillColor={255,255,255},
@@ -60314,8 +59302,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
               string="%second",
               index=1,
               extent={{6,3},{6,3}}));
-          annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-                    -100},{100,100}}),       graphics));
         end CaInputs;
       end setup;
 
@@ -60346,8 +59332,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
               color={0,0,255},
               thickness=0.5,
               smooth=Smooth.None));
-          annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-                    -100},{100,100}}),       graphics));
         end T;
       end test;
 
@@ -60384,10 +59368,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
             points={{26.8,60},{53.4,60},{53.4,-40},{80,-40}},
             color={0,0,127},
             smooth=Smooth.None));
-        annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-                  -100},{100,100}}),
-                               graphics), Icon(coordinateSystem(preserveAspectRatio=true,
-                extent={{-100,-100},{100,100}}), graphics));
       end Osteoblast;
 
       model Osteoclast
@@ -60407,10 +59387,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
             points={{32.8,0},{80,0}},
             color={0,0,127},
             smooth=Smooth.None));
-        annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-                  -100},{100,100}}),       graphics), Icon(coordinateSystem(
-                preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
-              graphics));
       end Osteoclast;
 
       model RANK_RANKL
@@ -60434,10 +59410,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
                                          annotation (Placement(transformation(extent={{-100,20},
                   {-60,60}}),           iconTransformation(extent={{-100,60},{
                   -60,100}})));
-        annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-                  -100},{100,100}}),       graphics), Icon(coordinateSystem(
-                preserveAspectRatio=true, extent={{-100,-100},{100,100}}),
-              graphics));
       end RANK_RANKL;
     end Calcium2;
 
@@ -60477,7 +59449,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
       Physiolibrary.Chemical.Sensors.ConcentrationMeasure    concentrationMeasure
         annotation (Placement(transformation(
             extent={{-10,-10},{10,10}},
-            rotation=0,
             origin={2,-58})));
     Physiolibrary.Types.BusConnector busConnector annotation (Placement(
           transformation(extent={{-88,76},{-76,88}}), iconTransformation(extent=
@@ -60563,11 +59534,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
         string="%first",
         index=-1,
         extent={{-6,3},{-6,3}}));
-      annotation (Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,
-              -100},{100,100}}),
-                             graphics), Icon(coordinateSystem(
-              preserveAspectRatio=true, extent={{-100,-100},{100,100}}),
-            graphics));
     end SweatGlandSalt;
 
     model Bladder
@@ -60616,10 +59582,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
         string="%first",
         index=-1,
         extent={{-6,3},{-6,3}}));
-      annotation (Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,
-              -100},{100,100}}),
-                             graphics), Icon(coordinateSystem(preserveAspectRatio=true,
-              extent={{-100,-100},{100,100}}), graphics));
     end Bladder;
 
     model ElectrolytesProperties
@@ -60670,7 +59632,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
       "extracellular fluid strong ion difference"   annotation (Placement(
             transformation(
             extent={{-10,10},{10,-10}},
-            rotation=0,
             origin={0,64})));
       Modelica.Blocks.Math.Feedback lessCl
         annotation (Placement(transformation(extent={{78,52},{98,32}})));
@@ -60684,17 +59645,14 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
       annotation (Placement(transformation(extent={{24,12},{34,22}})));
       Modelica.Blocks.Math.Feedback Pct      annotation (Placement(transformation(
             extent={{-5,-5},{5,5}},
-            rotation=0,
             origin={47,17})));
       Modelica.Blocks.Math.Product plasma_part(y(unit="C/m3", displayUnit=
             "mEq/l")) annotation (Placement(transformation(
           extent={{-5,-5},{5,5}},
-          rotation=0,
           origin={69,17})));
       Modelica.Blocks.Math.Product ery_part(y(unit="C/m3", displayUnit=
             "mEq/l"))                       annotation (Placement(transformation(
             extent={{-5,-5},{5,5}},
-            rotation=0,
             origin={69,-3})));
       Modelica.Blocks.Math.Add blood_SID(y(unit="C/m3", displayUnit="meq/l"))
       annotation (Placement(transformation(extent={{80,0},{90,10}})));
@@ -61018,9 +59976,7 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
         color={0,0,255},
         thickness=0.5,
         smooth=Smooth.None));
-      annotation (Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,
-              -100},{100,100}}),
-                             graphics), Icon(coordinateSystem(preserveAspectRatio=true,
+      annotation ( Icon(coordinateSystem(preserveAspectRatio=true,
               extent={{-100,-100},{100,100}}), graphics={               Text(
               extent={{-122,-58},{120,-92}},
               lineColor={0,0,255},
@@ -61034,7 +59990,7 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
 </tr>
 <tr>
 <td>License:</td>
-<td>GPL 3.0</td>
+<td><a href=\"http://www.physiomodel.org/license.html\">Physiomodel License 1.0</a> </td>
 </tr>
 <tr>
 <td>By:</td>
@@ -61052,7 +60008,7 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
 <td>Noriaki Ikeda: A model of overall regulation of body fluids (1979), Kitasato University</td>
 </tr>
 </table>
-<br/><p>Copyright &copy; 2014 Marek Matejak</p><br/>
+<br/><p>Copyright &copy; 2014 Marek Matejak, Charles University in Prague.</p><br/>
 
 </html>"));
     end ElectrolytesProperties;
@@ -61143,9 +60099,7 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
         color={255,204,51},
         thickness=0.5,
         smooth=Smooth.None));
-      annotation (Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,
-              -100},{100,100}}),   graphics),
-                                        Icon(coordinateSystem(preserveAspectRatio=true,
+      annotation (                                        Icon(coordinateSystem(preserveAspectRatio=true,
               extent={{-100,-100},{100,100}}), graphics={               Text(
               extent={{-122,-58},{120,-92}},
               lineColor={0,0,255},
@@ -61159,7 +60113,7 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
 </tr>
 <tr>
 <td>License:</td>
-<td>GPL 3.0</td>
+<td><a href=\"http://www.physiomodel.org/license.html\">Physiomodel License 1.0</a> </td>
 </tr>
 <tr>
 <td>By:</td>
@@ -61177,7 +60131,7 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
 <td>Noriaki Ikeda: A model of overall regulation of body fluids (1979), Kitasato University</td>
 </tr>
 </table>
-<br/><p>Copyright &copy; 2014 Marek Matejak</p><br/>
+<br/><p>Copyright &copy; 2014 Marek Matejak, Charles University in Prague.</p><br/>
 
 </html>"));
     end Electrolytes;
@@ -61489,9 +60443,7 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
                 textString="vars"), Text(
                 extent={{-120,-58},{122,-92}},
                 lineColor={0,0,255},
-                textString="%name")}), Diagram(coordinateSystem(
-              preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
-                                               graphics));
+                textString="%name")}));
       end Variables;
 
       model Electrolytes_test
@@ -61587,9 +60539,7 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
             color={0,0,255},
             thickness=0.5,
             smooth=Smooth.None));
-        annotation (Diagram(graphics),
-        experiment(StopTime=86400),
-        __Dymola_experimentSetupOutput);
+        annotation (        experiment(StopTime=86400));
       end Electrolytes_test;
 
       model Electrolytes_test_SI
@@ -61685,7 +60635,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
             color={0,0,255},
             thickness=0.5,
             smooth=Smooth.None));
-        annotation (Diagram(graphics));
       end Electrolytes_test_SI;
 
       model ElectrolytesAndProteins_test_SI
@@ -61765,7 +60714,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
             color={0,0,255},
             thickness=0.5,
             smooth=Smooth.None));
-        annotation (Diagram(graphics));
       end ElectrolytesAndProteins_test_SI;
     end IO_Bus;
 
@@ -61776,12 +60724,9 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
 </tr>
 <tr>
 <td><p>License:</p></td>
-<td><p>GPL 3.0</p></td>
+<td><p><a href=\"http://www.physiomodel.org/license.html\">Physiomodel License 1.0</a> </p></td>
 </tr>
-<tr>
-<td><p>By:</p></td>
-<td><p>Charles University, Prague</p></td>
-</tr>
+
 <tr>
 <td><p>Date of:</p></td>
 <td><p>2008-2015</p></td>
@@ -61791,7 +60736,7 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
 <td><p>Tom Coleman: HumMod 1.6, University of Mississippi Medical Center</p></td>
 </tr>
 </table>
-<p>Copyright &copy; 2008-2015 Marek Matejak</p>
+<p>Copyright &copy; 2008-2015 Marek Matejak, Charles University in Prague.</p>
 </html>", info="<html>
 <p>Electrolytes have four main functions:</p>
 <ul>
@@ -61808,8 +60753,7 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
 <li>Amonium(NH4+) is formed and excreted in kidney to compensate plasma hydrogen ions concentration[Rodriguez-Nichols1984], because its production consume the free hydrogen ions changing to a strong cation at pH&LT;=7.4.  </li>
 <li>Phosphates(H2PO4-, HPO4^2-) and sulphate(SO4^2-) has no renal reabsorption, which means, that their excretion to urine is dependent only on Donnan&apos;s equilibrium on glomerular membrane [Donnan1911]. </li>
 </ul>
-</html>"), Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
-              {100,100}}), graphics));
+</html>"));
   end Electrolytes;
 
 
@@ -61861,8 +60805,7 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
           points={{-100,0},{-68,0}},
           color={0,0,127},
           smooth=Smooth.None));
-      annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-                -100},{100,100}}), graphics), Icon(coordinateSystem(
+      annotation ( Icon(coordinateSystem(
               preserveAspectRatio=true, extent={{-100,-100},{100,100}}),
             graphics={
             Text(
@@ -62001,8 +60944,7 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
         points={{-25,-60},{-20,-60},{-20,-77}},
         color={0,0,127},
         smooth=Smooth.None));
-      annotation (Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,
-              -100},{100,100}}),   graphics), Icon(coordinateSystem(
+      annotation ( Icon(coordinateSystem(
               preserveAspectRatio=true,  extent={{-100,-100},{100,100}}),
             graphics={Text(
               extent={{-160,198},{156,164}},
@@ -62070,8 +61012,7 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
           points={{53,0},{98,0}},
           color={0,0,127},
           smooth=Smooth.None));
-      annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-                -100},{100,100}}), graphics), Icon(coordinateSystem(
+      annotation ( Icon(coordinateSystem(
               preserveAspectRatio=true,  extent={{-100,-100},{100,100}}),
             graphics={
             Text(
@@ -62105,8 +61046,7 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
           points={{-34,0},{98,0}},
           color={0,0,127},
           smooth=Smooth.None));
-      annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-                -100},{100,100}}), graphics), Icon(coordinateSystem(
+      annotation ( Icon(coordinateSystem(
               preserveAspectRatio=true,  extent={{-100,-100},{100,100}}),
             graphics={
             Text(
@@ -62202,8 +61142,7 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
         points={{-100,-40},{-58,-40},{-58,8},{-14,8}},
         color={0,0,127},
         smooth=Smooth.None));
-      annotation (Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,
-              -100},{100,100}}),   graphics), Icon(coordinateSystem(
+      annotation ( Icon(coordinateSystem(
               preserveAspectRatio=true,  extent={{-100,-100},{100,100}}),
             graphics={Text(
               extent={{-112,138},{110,106}},
@@ -62318,8 +61257,7 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
               lineColor={0,0,0},
               fillPattern=FillPattern.Sphere,
               fillColor={85,255,170},
-              textString="%name")}), Diagram(coordinateSystem(preserveAspectRatio=true,
-                      extent={{-100,-100},{100,100}}), graphics));
+              textString="%name")}));
     end BetaReceptorsActivityFactor;
 
     model AplhaReceptorsActivityFactor
@@ -62439,8 +61377,7 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
               lineColor={0,0,0},
               fillPattern=FillPattern.Sphere,
               fillColor={85,255,170},
-              textString="%name")}), Diagram(coordinateSystem(preserveAspectRatio=true,
-                      extent={{-100,-100},{100,100}}), graphics));
+              textString="%name")}));
     end AplhaReceptorsActivityFactor;
 
     model Pituitary
@@ -62500,8 +61437,7 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
           points={{-3,34},{4,34},{4,18},{10,18}},
           color={0,0,127},
           smooth=Smooth.None));
-      annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-                -100},{100,100}}), graphics), Icon(coordinateSystem(
+      annotation ( Icon(coordinateSystem(
               preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
             graphics={Text(
               extent={{-110,128},{110,102}},
@@ -62683,8 +61619,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
           points={{7,88},{8,88},{8,82}},
           color={0,0,127},
           smooth=Smooth.None));
-      annotation (Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,
-              -100},{100,100}}),        graphics));
     end Hypothalamus;
 
     model SA_Node
@@ -62769,8 +61703,7 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
           points={{46,30},{54,30},{54,1.33333},{62,1.33333}},
           color={0,0,127},
           smooth=Smooth.None));
-      annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-                -100},{100,100}}), graphics), Icon(coordinateSystem(
+      annotation ( Icon(coordinateSystem(
               preserveAspectRatio=true,  extent={{-100,-100},{100,100}}),
             graphics={
             Text(
@@ -62972,8 +61905,7 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
         string="%first",
         index=-1,
         extent={{-6,3},{-6,3}}));
-      annotation (Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,
-              -100},{100,100}}),        graphics), Icon(coordinateSystem(
+      annotation ( Icon(coordinateSystem(
               preserveAspectRatio=true, extent={{-100,-100},{100,100}}),
             graphics={                      Text(
               extent={{-120,-70},{122,-104}},
@@ -63066,9 +61998,7 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
                 textString="vars"), Text(
                 extent={{-124,-54},{118,-88}},
                 lineColor={0,0,255},
-                textString="%name")}), Diagram(coordinateSystem(
-                preserveAspectRatio=true,  extent={{-100,-100},{100,100}}),
-              graphics));
+                textString="%name")}));
       end Variables;
 
       model Nerves_test
@@ -63164,7 +62094,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
             color={0,0,255},
             thickness=0.5,
             smooth=Smooth.None));
-        annotation (Diagram(graphics));
       end Nerves_test;
 
       model Nerves_test_SI
@@ -63260,7 +62189,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
             color={0,0,255},
             thickness=0.5,
             smooth=Smooth.None));
-        annotation (Diagram(graphics));
       end Nerves_test_SI;
     end IO_Bus;
 
@@ -63271,12 +62199,9 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
 </tr>
 <tr>
 <td><p>License:</p></td>
-<td><p>GPL 3.0</p></td>
+<td><p><a href=\"http://www.physiomodel.org/license.html\">Physiomodel License 1.0</a> </p></td>
 </tr>
-<tr>
-<td><p>By:</p></td>
-<td><p>Charles University, Prague</p></td>
-</tr>
+
 <tr>
 <td><p>Date of:</p></td>
 <td><p>2008-2015</p></td>
@@ -63286,7 +62211,7 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
 <td><p>Tom Coleman: HumMod 1.6, University of Mississippi Medical Center</p></td>
 </tr>
 </table>
-<p>Copyright &copy; 2008-2015 Marek Matejak</p>
+<p>Copyright &copy; 2008-2015 Marek Matejak, Charles University in Prague.</p>
 </html>", info="<html>
 <p>General</p>
 <p>The book about autonimic nerve functions by Matias and Bannister [Mathias2013]. Autonomic response is sympathetic (through alpha/beta receptors, connected with catecholamines) or parasympathetic (nervus vagus).</p>
@@ -63294,8 +62219,7 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
 <p>Blood pressure, vasoconstriction[Drees1974,Risoe1994] and heart rate is driven by baroreflex [Conci2001,Williamson1993,Plotts1993]. The pressure is measured in carotid sinus receptors [Hayward1993,Imaizumi1993,Mendelowitz1988,Plotts1993,VanDeBorne1999] and ventricular receptors [Little1975,Wennergren1976]. Integration of measured signal is processed in the solitary nucleus of medulla oblongata [Rogers1993]. </p>
 <p><br>Thermoregulation</p>
 <p>Themperature signal from terrmoreceptors is processed by the preoptic area of the anterior hypothalamus [Kelso1982,Dodt1952,Hensel1953].</p>
-</html>"), Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
-              {100,100}}), graphics));
+</html>"));
   end Nerves;
 
 
@@ -63506,12 +62430,7 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
           index=-1,
           extent={{-6,3},{-6,3}}));
 
-      annotation (Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-                -100},{100,100}}),
-                       graphics),
-                               Diagram(coordinateSystem(preserveAspectRatio=true,
-                      extent={{-100,-100},{100,100}}), graphics),
-        Documentation(info="<html>
+      annotation (        Documentation(info="<html>
 <p>Heat in tissues. Temperatures are in celsius degrees.</p>
 </html>",     revisions="<html>
 <p>Marek Matejak, 24.12.2009</p>
@@ -63529,8 +62448,7 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
           annotation (Placement(transformation(extent={{80,-20},{120,20}})));
       equation
         T=BaseT;
-        annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-                  -100},{100,100}}), graphics), Icon(coordinateSystem(
+        annotation ( Icon(coordinateSystem(
                 preserveAspectRatio=true, extent={{-100,-100},{100,100}}),
               graphics={Text(
                 extent={{-148,-98},{100,-124}},
@@ -63649,11 +62567,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
         string="%first",
         index=-1,
         extent={{-6,3},{-6,3}}));
-      annotation (Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,
-              -100},{100,100}}),
-                             graphics), Icon(coordinateSystem(
-              preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
-            graphics));
     end BladderHeat;
 
     model GILumenHeat
@@ -63790,10 +62703,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
         string="%first",
         index=-1,
         extent={{-6,3},{-6,3}}));
-      annotation (Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,
-              -100},{100,100}}),
-                             graphics), Icon(coordinateSystem(preserveAspectRatio=false,
-              extent={{-100,-100},{100,100}}), graphics));
     end GILumenHeat;
 
     model MuscleHeat
@@ -63887,10 +62796,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
         string="%first",
         index=-1,
         extent={{-6,3},{-6,3}}));
-      annotation (Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,
-              -100},{100,100}}),
-                             graphics), Icon(coordinateSystem(preserveAspectRatio=false,
-              extent={{-100,-100},{100,100}}), graphics));
     end MuscleHeat;
 
     model SkinHeat2
@@ -64161,10 +63066,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
           points={{64,-84},{74,-84},{74,-98},{88,-98}},
           color={0,0,127},
           smooth=Smooth.None));
-      annotation (Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,-100},
-                {100,100}}), graphics), Icon(coordinateSystem(
-              preserveAspectRatio=true, extent={{-100,-100},{100,100}}),
-            graphics));
     end SkinHeat2;
 
     model Heat2
@@ -64241,7 +63142,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
         k(unit="kg/m3") = 1000,
         u(unit="m3/s")) annotation (Placement(transformation(
             extent={{-4,-4},{4,4}},
-            rotation=0,
             origin={-16,-38})));
     equation
       connect(BloodFlowEffect.y, WindEffect.yBase) annotation (Line(
@@ -64463,8 +63363,7 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
           string="%second",
           index=1,
           extent={{6,3},{6,3}}));
-      annotation (Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,
-              -100},{100,100}}),        graphics), Icon(coordinateSystem(
+      annotation ( Icon(coordinateSystem(
               preserveAspectRatio=true,  extent={{-100,-100},{100,100}}),
             graphics={               Text(
               extent={{-94,-100},{94,-126}},
@@ -64669,8 +63568,7 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
           points={{-17.2,-4},{-72,-4},{-72,-32}},
           color={0,0,127},
           smooth=Smooth.None));
-        annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-                  -100},{100,100}}),       graphics), Icon(coordinateSystem(
+        annotation ( Icon(coordinateSystem(
                 preserveAspectRatio=true,  extent={{-100,-100},{100,100}}),
               graphics={Text(
                 extent={{-155,-83},{126,-108}},
@@ -64753,7 +63651,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
       Gases.Ventilation.VaporPressure vaporPressure1 annotation (Placement(
             transformation(
             extent={{-10,-10},{10,10}},
-            rotation=0,
             origin={-76,62})));
         Modelica.Blocks.Math.Product air_pH2O
           annotation (Placement(transformation(extent={{-54,56},{-44,46}})));
@@ -64971,8 +63868,7 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
           points={{73.6,-52},{68,-52},{68,-62},{24,-62},{24,52},{64,52}},
           color={0,0,127},
           smooth=Smooth.None));
-        annotation (Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,
-                -100},{100,100}}),         graphics), Icon(coordinateSystem(
+        annotation ( Icon(coordinateSystem(
                 preserveAspectRatio=true,  extent={{-100,-100},{100,100}}),
               graphics={Text(
                 extent={{-137,-103},{144,-128}},
@@ -65005,8 +63901,7 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
           points={{-39,-60},{16,-60},{16,-78}},
           color={0,0,127},
           smooth=Smooth.None));
-        annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-                  -100},{100,100}}),       graphics), Icon(coordinateSystem(
+        annotation ( Icon(coordinateSystem(
                 preserveAspectRatio=true,  extent={{-100,-100},{100,100}}),
               graphics={Text(
                 extent={{-155,-83},{126,-108}},
@@ -65069,8 +63964,7 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
           points={{-7,-72},{16,-72},{16,-78}},
           color={0,0,127},
           smooth=Smooth.None));
-        annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-                  -100},{100,100}}),       graphics), Icon(coordinateSystem(
+        annotation ( Icon(coordinateSystem(
                 preserveAspectRatio=true,  extent={{-100,-100},{100,100}}),
               graphics={Text(
                 extent={{-155,-83},{126,-108}},
@@ -65097,14 +63991,12 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
     Gases.Ventilation.VaporPressure vaporPressure1 annotation (Placement(
           transformation(
           extent={{-10,-10},{10,10}},
-          rotation=0,
           origin={-62,56})));
       Modelica.Blocks.Math.Product air_pH2O
         annotation (Placement(transformation(extent={{-42,60},{-32,70}})));
     Gases.Ventilation.VaporPressure vaporPressure2 annotation (Placement(
           transformation(
           extent={{-10,-10},{10,10}},
-          rotation=0,
           origin={-52,84})));
       Modelica.Blocks.Math.Division division
         annotation (Placement(transformation(extent={{-2,46},{18,66}})));
@@ -65232,11 +64124,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
           points={{-27,16},{-22,16},{-22,0}},
           color={0,0,127},
           smooth=Smooth.None));
-      annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-                -100},{100,100}}),
-                          graphics), Icon(coordinateSystem(preserveAspectRatio=
-                false, extent={{-100,-100},{100,100}}),
-                                          graphics));
     end Lungs;
 
     model Core
@@ -65316,11 +64203,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
           points={{40,-44},{46,-44},{46,-76},{16,-76},{16,-92},{42,-92}},
           color={0,0,127},
           smooth=Smooth.None));
-      annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-                -100},{100,100}}),
-                          graphics), Icon(coordinateSystem(preserveAspectRatio=
-                false, extent={{-100,-100},{100,100}}),
-                                          graphics));
     end Core;
 
     package IO_Bus
@@ -65521,9 +64403,7 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
               Text(
                 extent={{-122,-102},{120,-136}},
                 lineColor={0,0,255},
-                textString="%name")}), Diagram(coordinateSystem(
-                preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
-              graphics));
+                textString="%name")}));
       end Variables;
 
       model Heat_test
@@ -65625,9 +64505,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
             color={0,0,255},
             thickness=0.5,
             smooth=Smooth.None));
-        annotation (Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,
-                  -100},{100,100}}),
-                            graphics));
       end Heat_test;
 
       model Heat_test_SI
@@ -65729,9 +64606,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
             color={0,0,255},
             thickness=0.5,
             smooth=Smooth.None));
-        annotation (Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,
-                  -100},{100,100}}),
-                            graphics));
       end Heat_test_SI;
     end IO_Bus;
 
@@ -65976,8 +64850,7 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
           string="%second",
           index=1,
           extent={{6,3},{6,3}}));
-      annotation (Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,
-              -100},{100,100}}),        graphics), Icon(coordinateSystem(
+      annotation ( Icon(coordinateSystem(
               preserveAspectRatio=true,  extent={{-100,-100},{100,100}}),
             graphics={               Text(
               extent={{-94,-100},{94,-126}},
@@ -65991,12 +64864,9 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
 </tr>
 <tr>
 <td><p>License:</p></td>
-<td><p>GPL 3.0</p></td>
+<td><p><a href=\"http://www.physiomodel.org/license.html\">Physiomodel License 1.0</a> </p></td>
 </tr>
-<tr>
-<td><p>By:</p></td>
-<td><p>Charles University, Prague</p></td>
-</tr>
+
 <tr>
 <td><p>Date of:</p></td>
 <td><p>2008-2015</p></td>
@@ -66006,15 +64876,14 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
 <td><p>Tom Coleman: HumMod 1.6, University of Mississippi Medical Center</p></td>
 </tr>
 </table>
-<p>Copyright &copy; 2008-2015 Marek Matejak</p>
+<p>Copyright &copy; 2008-2015 Marek Matejak, Charles University in Prague.</p>
 </html>", info="<html>
 <p>Thermoregulation [Benzinger1969,Hardy1961,Schreider1957] maintains the body temperature around 37degC. Heat is produced mostly by metabolismus or work of muscles [Saltin1966]. It is transported to environment[Consolazio1963] through skin, where the skin temperature depends on skin blood flow [Adolph1946,Hardy1938,Hsieh1965,Kamon1968,Pennes1948]. Body can be also heated or cooled by food or drinks [Gephart1915]. </p>
 <p>The temperature is from heat energy calculated using specific heat capacity of tissues [Burton1935,Lipkin1954].</p>
 <p>Thermoreceptors measure the temperature throughout the body and send the signal to hypothalamic centre of termoregulation[Kelso1982,Dodt1952,Hensel1953]. Main response on hypertermia [Blatteis1997,Hart1982,Gaus1917,Consolazio1961] is skin vasodilation and sweating[Armstrong1991,Epstein1999,Latzka1999,Morimoto1998,Quinton1991,Sato1977,1989a,b], where sweat glands could suffer with fatigue[Wyndham1966]. Main responses on hypotermia [Molnar1946,Talbott1941] is skin vasoconstriction and shivering[Carlson1954,Lampietro1960]. The neural acclination are more complex and is different for short time and long time responses [Horowitz2003,Armstrong1991,Piwonka1967].</p>
 <p>The spontaneus loss of heat is by lungs evaporization[Brabbia1957]. </p>
 <p>Temperature has effect on chemical reactions, so the metabolic processes are dependent on it [Abramson1958,Consolazio1961,Dirmi1980,Talbott1941,Matsuoka1994] as well as metabolism of leg muscle[Fink1975]. But the main problem with temperature is denaturisation of proteins at high temperature [Katschinski2004].</p>
-</html>"), Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
-              {100,100}}), graphics));
+</html>"));
   end Heat;
 
 
@@ -66101,9 +64970,7 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
                 -100},{100,100}}), graphics={Text(
               extent={{-120,-42},{122,-76}},
               lineColor={0,0,255},
-              textString="%name")}),               Diagram(coordinateSystem(
-              preserveAspectRatio=true,  extent={{-100,-100},{100,100}}),
-            graphics));
+              textString="%name")}));
     end Setup;
 
     model Enviroment
@@ -66181,9 +65048,7 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
                 -100},{100,100}}), graphics={Text(
               extent={{-100,-20},{100,-60}},
               lineColor={0,0,0},
-              textString="enviroment")}),          Diagram(coordinateSystem(
-              preserveAspectRatio=true,  extent={{-100,-100},{100,100}}),
-            graphics));
+              textString="enviroment")}));
     end Enviroment;
 
     model Diet
@@ -66356,9 +65221,7 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
                 -100},{100,100}}), graphics={Text(
               extent={{-100,-20},{100,-60}},
               lineColor={0,0,0},
-              textString="diet")}),                Diagram(coordinateSystem(
-              preserveAspectRatio=true,  extent={{-100,-100},{100,100}}),
-            graphics));
+              textString="diet")}));
     end Diet;
 
     model Exercise
@@ -66454,9 +65317,7 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
                 -100},{100,100}}), graphics={Text(
               extent={{-100,-20},{100,-60}},
               lineColor={0,0,0},
-              textString="exercise")}),            Diagram(coordinateSystem(
-              preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
-            graphics));
+              textString="exercise")}));
     end Exercise;
 
     model Posture
@@ -66509,9 +65370,7 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
                 -100},{100,100}}), graphics={Text(
               extent={{-100,-20},{100,-60}},
               lineColor={0,0,0},
-              textString="posture")}),             Diagram(coordinateSystem(
-              preserveAspectRatio=true,  extent={{-100,-100},{100,100}}),
-            graphics));
+              textString="posture")}));
     end Posture;
 
     model Drugs
@@ -66553,9 +65412,7 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
                 -100},{100,100}}), graphics={Text(
               extent={{-100,-20},{100,-60}},
               lineColor={0,0,0},
-              textString="drugs")}),               Diagram(coordinateSystem(
-              preserveAspectRatio=true,  extent={{-100,-100},{100,100}}),
-            graphics));
+              textString="drugs")}));
     end Drugs;
 
     model Blood
@@ -66642,9 +65499,7 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
                 -100},{100,100}}), graphics={Text(
               extent={{-100,-20},{100,-60}},
               lineColor={0,0,0},
-              textString="blood +-")}),            Diagram(coordinateSystem(
-              preserveAspectRatio=true,  extent={{-100,-100},{100,100}}),
-            graphics));
+              textString="blood +-")}));
     end Blood;
 
     model Tissues
@@ -66733,9 +65588,7 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
                 -100},{100,100}}), graphics={Text(
               extent={{-100,-20},{100,-60}},
               lineColor={0,0,0},
-              textString="tissues")}),             Diagram(coordinateSystem(
-              preserveAspectRatio=true,  extent={{-100,-100},{100,100}}),
-            graphics));
+              textString="tissues")}));
     end Tissues;
 
     model Secretion "of urine and faeces"
@@ -66761,9 +65614,7 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
                 -100},{100,100}}), graphics={Text(
               extent={{-100,-20},{100,-60}},
               lineColor={0,0,0},
-              textString="secretion")}),                Diagram(coordinateSystem(
-              preserveAspectRatio=true,  extent={{-100,-100},{100,100}}),
-            graphics));
+              textString="secretion")}));
     end Secretion;
 
     model Anesthesia
@@ -66795,10 +65646,7 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
                 -100},{100,100}}), graphics={Text(
               extent={{-100,-20},{100,-60}},
               lineColor={0,0,0},
-              textString="anesthesia")}),               Diagram(coordinateSystem(
-              preserveAspectRatio=true,  extent={{-100,-100},{100,100}}),
-            graphics),
-        Documentation(info="<html>
+              textString="anesthesia")}),        Documentation(info="<html>
 <p>effect 1 means no anesthesia</p>
 </html>"));
     end Anesthesia;
@@ -66848,8 +65696,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
           string="%second",
           index=1,
           extent={{6,3},{6,3}}));
-      annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-                -100},{100,100}}),      graphics));
     end Unpaired;
 
     package IO_Bus
@@ -67438,9 +66284,7 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
                   -100},{100,100}}), graphics={Text(
                 extent={{-120,-42},{122,-76}},
                 lineColor={0,0,255},
-                textString="%name")}),               Diagram(coordinateSystem(
-                preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
-              graphics));
+                textString="%name")}));
       end Variables;
 
       model Setup_test
@@ -67543,7 +66387,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
             color={0,0,255},
             thickness=0.5,
             smooth=Smooth.None));
-        annotation (Diagram(graphics));
       end Setup_test;
 
       model Setup_test_SI
@@ -67646,7 +66489,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
             color={0,0,255},
             thickness=0.5,
             smooth=Smooth.None));
-        annotation (Diagram(graphics));
       end Setup_test_SI;
     end IO_Bus;
 
@@ -68238,9 +67080,7 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
                 -100},{100,100}}), graphics={Text(
               extent={{-120,-42},{122,-76}},
               lineColor={0,0,255},
-              textString="%name")}),               Diagram(coordinateSystem(
-              preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
-            graphics));
+              textString="%name")}));
     end ConstantSetup;
 
     model ExcerciseSetup
@@ -68831,9 +67671,7 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
                 -100},{100,100}}), graphics={Text(
               extent={{-120,-42},{122,-76}},
               lineColor={0,0,255},
-              textString="%name")}),               Diagram(coordinateSystem(
-              preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
-            graphics));
+              textString="%name")}));
     end ExcerciseSetup;
 
     model HemorrhageSetup
@@ -69426,9 +68264,7 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
                 -100},{100,100}}), graphics={Text(
               extent={{-120,-42},{122,-76}},
               lineColor={0,0,255},
-              textString="%name")}),               Diagram(coordinateSystem(
-              preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
-            graphics));
+              textString="%name")}));
     end HemorrhageSetup;
     annotation (Documentation(revisions="<html>
 <table cellspacing=\"2\" cellpadding=\"0\" border=\"0\"><tr>
@@ -69437,12 +68273,9 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
 </tr>
 <tr>
 <td><p>License:</p></td>
-<td><p>GPL 3.0</p></td>
+<td><p><a href=\"http://www.physiomodel.org/license.html\">Physiomodel License 1.0</a> </p></td>
 </tr>
-<tr>
-<td><p>By:</p></td>
-<td><p>Charles University, Prague</p></td>
-</tr>
+
 <tr>
 <td><p>Date of:</p></td>
 <td><p>2008-2015</p></td>
@@ -69452,9 +68285,8 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
 <td><p>Tom Coleman: HumMod 1.6, University of Mississippi Medical Center</p></td>
 </tr>
 </table>
-<p>Copyright &copy; 2008-2015 Marek Matejak</p>
-</html>"), Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
-              {100,100}}), graphics));
+<p>Copyright &copy; 2008-2015 Marek Matejak, Charles University in Prague.</p>
+</html>"));
   end Setup;
 
 
@@ -70145,8 +68977,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
               fillColor={255,255,255},
               fillPattern=FillPattern.Solid,
               textString="%name")}),
-                               Diagram(coordinateSystem(preserveAspectRatio=true,
-                      extent={{-100,-100},{100,100}}), graphics),
         Documentation(info="<html>
 <p>BE_interstitial is base excess in the interstitium of the tissue. The standard value is 0, when strong acid concentration increase, then BE value decrease with the same concentration. </p>
 <p>Meaning might be interpreted like what amount of hydrogen iont must be added to sollution if the end poit of titration will be pH=7.4 and pCO2=5.3kPa.</p>
@@ -70178,8 +69008,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
       b=FunctionEffect>effectAtRevitaling;
       c=pre(Failed);
       Failed=a or ( c and ( not b));
-      annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-                -100},{100,100}}),      graphics));
     end Failed;
 
     model PatientStatus
@@ -70188,9 +69016,9 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
         annotation (Placement(transformation(extent={{-66,34},{-46,54}})));
       Confused confused(                          nOut=2, nIn=2)
         annotation (Placement(transformation(extent={{-24,34},{-4,54}})));
-      Modelica.StateGraph.TransitionWithSignal worse1 "He's like confused. 
+      Modelica.StateGraph.TransitionWithSignal worse1 "He's like confused.
 "     annotation (Placement(transformation(extent={{-44,34},{-24,54}})));
-      Modelica.StateGraph.TransitionWithSignal better "Now he's feeling better. 
+      Modelica.StateGraph.TransitionWithSignal better "Now he's feeling better.
 "     annotation (Placement(transformation(extent={{-24,84},{-44,64}})));
       Impaired impaired(                          nIn=2, nOut=2)
         annotation (Placement(transformation(extent={{28,34},{48,54}})));
@@ -70216,16 +69044,16 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
             extent={{-4,-4},{4,4}},
             rotation=90,
             origin={14,24})));
-      Modelica.StateGraph.TransitionWithSignal worse2 "He can't talk wery well ... 
+      Modelica.StateGraph.TransitionWithSignal worse2 "He can't talk wery well ...
 "     annotation (Placement(transformation(extent={{4,34},{24,54}})));
       Modelica.Blocks.Logical.LessEqualThreshold lessEqualThreshold2(threshold=0.4)
         annotation (Placement(transformation(
             extent={{-4,-4},{4,4}},
             rotation=90,
             origin={62,24})));
-      Modelica.StateGraph.TransitionWithSignal worse3 "Your patient is not conscious! 
+      Modelica.StateGraph.TransitionWithSignal worse3 "Your patient is not conscious!
 "     annotation (Placement(transformation(extent={{52,34},{72,54}})));
-      Modelica.StateGraph.TransitionWithSignal worse4 "Your patient is not conscious! 
+      Modelica.StateGraph.TransitionWithSignal worse4 "Your patient is not conscious!
 "     annotation (Placement(transformation(
             extent={{-10,-10},{10,10}},
             rotation=180,
@@ -70240,7 +69068,7 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
             extent={{-4,-4},{4,4}},
             rotation=270,
             origin={6,-22})));
-      Modelica.StateGraph.TransitionWithSignal worse5 "Your patient is not conscious! 
+      Modelica.StateGraph.TransitionWithSignal worse5 "Your patient is not conscious!
 "     annotation (Placement(transformation(
             extent={{-10,-10},{10,10}},
             rotation=180,
@@ -70250,14 +69078,14 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
             extent={{-4,-4},{4,4}},
             rotation=270,
             origin={-50,-22})));
-      Modelica.StateGraph.TransitionWithSignal worse6 "Your patient is not conscious! 
+      Modelica.StateGraph.TransitionWithSignal worse6 "Your patient is not conscious!
 "     annotation (Placement(transformation(
             extent={{-10,-10},{10,10}},
             rotation=180,
             origin={-50,-42})));
-      Modelica.StateGraph.TransitionWithSignal better2 "Your patient seems to be conscious again. 
+      Modelica.StateGraph.TransitionWithSignal better2 "Your patient seems to be conscious again.
 "     annotation (Placement(transformation(extent={{72,84},{52,64}})));
-      Modelica.StateGraph.TransitionWithSignal better3 "Your patient is breathing again. 
+      Modelica.StateGraph.TransitionWithSignal better3 "Your patient is breathing again.
 "     annotation (Placement(transformation(extent={{52,-82},{72,-62}})));
       Modelica.StateGraph.TransitionWithSignal better4
       "Wait. Your patient is not dead! "
@@ -70318,7 +69146,7 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
                                              IS_REALLY_DEAD
         annotation (Placement(transformation(extent={{-78,-64},{-68,-54}}),
             iconTransformation(extent={{100,-140},{140,-100}})));
-      Modelica.StateGraph.TransitionWithSignal better1 "Your patient seems to be conscious again. 
+      Modelica.StateGraph.TransitionWithSignal better1 "Your patient seems to be conscious again.
 "     annotation (Placement(transformation(extent={{24,84},{4,64}})));
       Modelica.Blocks.Logical.GreaterEqualThreshold lessEqualThreshold11(
           threshold=0.8)
@@ -70550,53 +69378,41 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
           points={{12.5,74},{-25,74},{-25,43.5}},
           color={0,0,0},
           smooth=Smooth.None));
-      annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-                -100},{100,100}}),
-                             graphics), Icon(coordinateSystem(
-              preserveAspectRatio=true, extent={{-100,-100},{100,100}}),
-            graphics));
     end PatientStatus;
 
     block Normal
       extends Modelica.StateGraph.InitialStepWithSignal;
       extends Physiolibrary.Icons.StatusNormal;
-      annotation (Icon(graphics));
     end Normal;
 
     block Confused
       extends Modelica.StateGraph.StepWithSignal;
       extends Physiolibrary.Icons.StatusConfused;
-      annotation (Icon(graphics));
     end Confused;
 
     block Impaired
       extends Modelica.StateGraph.StepWithSignal;
       extends Physiolibrary.Icons.StatusImpaired;
-      annotation (Icon(graphics));
     end Impaired;
 
     block Comatose
       extends Modelica.StateGraph.StepWithSignal;
       extends Physiolibrary.Icons.StatusComatose;
-      annotation (Icon(graphics));
     end Comatose;
 
     block NotBreathing
       extends Modelica.StateGraph.StepWithSignal;
       extends Physiolibrary.Icons.StatusNotBreathing;
-      annotation (Icon(graphics));
     end NotBreathing;
 
     block MayBeDead
       extends Modelica.StateGraph.StepWithSignal;
       extends Physiolibrary.Icons.StatusMayBeDead;
-      annotation (Icon(graphics));
     end MayBeDead;
 
     block IsReallyDead
       extends Modelica.StateGraph.StepWithSignal;
       extends Physiolibrary.Icons.StatusIsReallyDead;
-      annotation (Icon(graphics));
     end IsReallyDead;
 
     package Tissues
@@ -70779,8 +69595,7 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
             points={{-77,-26},{-62,-26}},
             color={0,0,127},
             smooth=Smooth.None));
-        annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-                  -100},{100,100}}),      graphics), Icon(coordinateSystem(
+        annotation ( Icon(coordinateSystem(
                 preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
               graphics={Rectangle(extent={{-100,100},{100,-100}}, lineColor={0,
                     0,255})}));
@@ -71187,9 +70002,7 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
               Text(
                 extent={{-124,-90},{118,-124}},
                 lineColor={0,0,255},
-                textString="%name")}), Diagram(coordinateSystem(
-                preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
-              graphics));
+                textString="%name")}));
       end Variables;
 
       model Status_test
@@ -71285,7 +70098,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
           color={0,0,255},
           thickness=0.5,
           smooth=Smooth.None));
-        annotation (Diagram(graphics));
       end Status_test;
 
       model Status_test_SI
@@ -71381,7 +70193,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
           color={0,0,255},
           thickness=0.5,
           smooth=Smooth.None));
-        annotation (Diagram(graphics));
       end Status_test_SI;
     end IO_Bus;
 
@@ -71392,12 +70203,9 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
 </tr>
 <tr>
 <td><p>License:</p></td>
-<td><p>GPL 3.0</p></td>
+<td><p><a href=\"http://www.physiomodel.org/license.html\">Physiomodel License 1.0</a> </p></td>
 </tr>
-<tr>
-<td><p>By:</p></td>
-<td><p>Charles University, Prague</p></td>
-</tr>
+
 <tr>
 <td><p>Date of:</p></td>
 <td><p>2008-2015</p></td>
@@ -71407,43 +70215,22 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
 <td><p>Tom Coleman: HumMod 1.6, University of Mississippi Medical Center</p></td>
 </tr>
 </table>
-<p>Copyright &copy; 2008-2015 Marek Matejak</p>
-</html>"), Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
-              {100,100}}), graphics));
+<p>Copyright &copy; 2008-2015 Marek Matejak, Charles University in Prague.</p>
+</html>"));
   end Status;
 
 
-  annotation (uses(Modelica(version="3.2.1"), Physiolibrary(version="2.3.0")),                           Documentation(revisions="<html>
+  annotation (uses(Modelica(version="3.2.1"), Physiolibrary(version="2.3.1")),                           Documentation(revisions="<html>
 <table cellspacing=\"2\" cellpadding=\"0\" border=\"0\"><tr>
 <td><p>Author:</p></td>
 <td><p>Marek Matejak</p></td>
 </tr>
 <tr>
 <td><p>License:</p></td>
-<td><p>GPL 3.0</p></td>
-</tr>
-<tr>
-<td><p>By:</p></td>
-<td><p>Charles University, Prague</p></td>
+<td><p><a href=\"http://www.physiomodel.org/license.html\">Physiomodel License 1.0</a> </p></td>
 </tr>
 </table>
-<p>Copyright &copy; 2008-2015 Marek Matejak</p>
-<pre>    This file is part of Physiomodel.
-
-    Physiomodel is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License 3.0 as published by
-    the Free Software Foundation.
-
-    Physiomodel is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-<p><code>    along with Physiomodel.  If not, see <a href=\"http://www.gnu.org/licenses/\">http://www.gnu.org/licenses/</a>.</code></p>
+<p><br>Copyright &copy; 2008-2015 Marek Matejak. All rights reserved.</p>
 </html>"),
-    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}}),
-        graphics),
   version="1.0.0");
 end Physiomodel;

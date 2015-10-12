@@ -87,8 +87,7 @@ equation
       color={0,0,255},
       thickness=0.5,
       smooth=Smooth.None));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,
-            -100},{100,100}}),      graphics), Documentation(info="<html>
+  annotation ( Documentation(info="<html>
 <p><h4><font color=\"#008000\">QHP Golem Edition</font></h4></p>
 <p>Signal bus connect all submodels with their signal inputs/outputs variables.</p>
 </html>",
@@ -99,11 +98,7 @@ equation
 </tr>
 <tr>
 <td><p>License:</p></td>
-<td><p>GPL 3.0</p></td>
-</tr>
-<tr>
-<td><p>By:</p></td>
-<td><p>Charles University, Prague</p></td>
+<td><p><a href=\"http://www.physiomodel.org/license.html\">Physiomodel License 1.0</a> </p></td>
 </tr>
 <tr>
 <td><p>Date of:</p></td>
@@ -115,31 +110,15 @@ equation
 </tr>
 <tr>
 <td></td>
-<td><p><br><br>Siggaard Andersen: OSA (2005), University of Copenhagen</p></td>
+<td><p><br><br><br>Siggaard Andersen: OSA (2005), University of Copenhagen</p></td>
 </tr>
 <tr>
 <td></td>
-<td><p><br><br>Noriaki Ikeda: A model of overall regulation of body fluids (1979), Kitasato University</p></td>
+<td><p><br><br><br>Noriaki Ikeda: A model of overall regulation of body fluids (1979), Kitasato University</p></td>
 </tr>
 </table>
-<p>Copyright &copy; 2015 Marek Matejak </p>
-<pre>
-    This file is part of Physiomodel.
-
-    Physiomodel is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License 3.0 as published by
-    the Free Software Foundation.
-
-    Physiomodel is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-<p><code>    along with Physiomodel.  If not, see <a href=\"http://www.gnu.org/licenses/\">http://www.gnu.org/licenses/</a>.</code></p>
+<p><br>Copyright &copy; 2008-2015 Marek Matejak. Charles University in Prague. All rights reserved.</p>
+<pre> </pre>
 </html>"),
-    Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
-            100}}),
-        graphics),
     experiment(StopTime=1e+008, Tolerance=1e-005));
 end Physiomodel_Main;

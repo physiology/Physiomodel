@@ -1,14 +1,12 @@
 Physiomodel
 ===========
 
-Physiomodel 1.0.0 - quantitative model of human physiology in [Modelica](http://www.modelica.org) based on [HumMod 1.6.1](http://hummod.org) and [Physiolibrary 2.3.1](http://www.physiolibrary.org).
+[www.physiomodel.org](http://www.physiomode.org)
+
+Physiomodel - quantitative model of human physiology in [Modelica](http://www.modelica.org) based on [HumMod 1.6.1](http://hummod.org) and [Physiolibrary 2.3.1](http://www.physiolibrary.org).
 
 
+`Copyright (C) 2008-2015 Marek Mateják. All rights reserved.`
 
-`Copyright (C) 2008-2015 Marek Mateják`
+[`Physiomodel License 1.0`](http://www.physiomodel.org/license.html)` allows to use it in open-source projects (`[`GPL 3.0`](http://www.gnu.org/licenses/gpl-3.0.en.html)`) for everybody and also in non-open-source projects (`[`BSD 3-clause license`](http://opensource.org/licenses/BSD-3-Clause)`) for registered parties.`
 
-`This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.`
-
-`This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.`
-
-`You should have received a copy of the GNU General Public License along with this program.  If not, see <http://www.gnu.org/licenses/>.`
