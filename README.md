@@ -1,7 +1,7 @@
 Physiomodel
 ===========
 
-[www.physiomodel.org](http://www.physiomode.org)
+[www.physiomodel.org](http://www.physiomodel.org)
 
 Physiomodel - quantitative model of human physiology in [Modelica](http://www.modelica.org) based on [HumMod 1.6.1](http://hummod.org) and [Physiolibrary 2.3.1](http://www.physiolibrary.org).
 
