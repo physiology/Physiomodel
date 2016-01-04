@@ -8715,7 +8715,7 @@ QHP 2008 / LeftHeart-Flow
         annotation (Placement(transformation(extent={{28,-14},{36,-6}})));
         Modelica.Blocks.Math.Feedback PVCrit
           annotation (Placement(transformation(extent={{38,-14},{46,-6}})));
-      Physiolibrary.Types.Constants.ConcentrationConst Hb(k=8.4)
+      Physiolibrary.Types.Constants.ConcentrationConst Hb(k=9.3)
         annotation (Placement(transformation(extent={{-20,8},{-28,16}})));
       Physiolibrary.Blocks.Factors.Normalization hematocritEffect(NormalValue=
             0.44)
@@ -11854,7 +11854,7 @@ QHP 2008 / LeftHeart-Flow
           "see Resources/Data/erythropiesis ;  older notes:  0.9 ml_STP/(min.mmHg) = ? mol/(s.Pa), alphaO2=1.005e-5 mol/(m3.Pa)   Before: (3.929e-5)/60/0.00133989"
           annotation (Placement(transformation(extent={{46,-42},{60,-28}})));
         Physiolibrary.Blocks.Factors.Spline HgbOnPerm(data={{0.00,0.4,0},{0.15,
-              1.0,8.0},{0.25,2.0,0}}, Xscale=8.4/0.15)
+              1.0,8.0},{0.25,2.0,0}}, Xscale=9.3/0.15)
           "\"recalculated [Hb] in mmol = 56*[Hb] in ml\""
           annotation (Placement(transformation(extent={{74,-58},{54,-38}})));
           Physiolibrary.Types.RealIO.PressureOutput      TubulePO2
@@ -41155,7 +41155,7 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
               origin={90,80})));
         Physiolibrary.Types.RealIO.ConcentrationInput ctHb(
                                                 displayUnit="mmol/l")
-        "concentration of total haemoglobin in whole blood (8.4)"
+        "concentration of total haemoglobin in whole blood (9.3)"
                                          annotation (Placement(transformation(extent={{50,58},
                   {90,98}}),            iconTransformation(
               extent={{-10,-10},{10,10}},
