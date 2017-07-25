@@ -759,11 +759,13 @@ package Physiomodel "Mammalian physiology model"
         //parameter Physiolibrary.Types.HydraulicConductance Cond2;//=1;
 
         Physiolibrary.Hydraulic.Interfaces.HydraulicPort_a q_in annotation (
-            extent=[-10,-110; 10,-90], Placement(transformation(extent={{-90,70},
-                  {-70,90}}),iconTransformation(extent={{10,70},{30,90}})));
+            extent=[-10,-110; 10,-90], Placement(transformation(extent={{-10,
+                  -110},{10,-90}}, rotation=0),
+                             iconTransformation(extent={{10,70},{30,90}})));
         Physiolibrary.Hydraulic.Interfaces.HydraulicPort_b q_out annotation (
-            extent=[-10,-110; 10,-90], Placement(transformation(extent={{70,70},
-                  {90,90}}),   iconTransformation(extent={{-30,90},{-10,110}})));
+            extent=[-10,-110; 10,-90], Placement(transformation(extent={{-10,
+                  -110},{10,-90}}, rotation=0),
+                               iconTransformation(extent={{-30,90},{-10,110}})));
 
         Physiolibrary.Types.BusConnector busConnector annotation (Placement(
               transformation(extent={{12,-8},{32,12}}), iconTransformation(
@@ -1478,7 +1480,11 @@ SYSTOLE
             iconTransformation(extent={{80,20},{120,60}})));
 
         Physiolibrary.Types.RealIO.FractionInput contractility
-        "heart muscle contractility"   annotation ( extent = [70,90;90,110], rotation = -90);
+        "heart muscle contractility"   annotation ( extent = [70,90;90,110], rotation = -90,
+        Placement(transformation(
+            origin={80,100},
+            extent={{-10,-10},{10,10}},
+            rotation=270)));
 
       parameter Physiolibrary.Types.Fraction n_Systole(displayUnit="1")
         "parametrization of end diastolic volume curve";
@@ -1633,8 +1639,9 @@ SYSTOLE
                     parameter Physiolibrary.Types.Volume initialVolume(displayUnit="ml");
 
                     Physiolibrary.Hydraulic.Interfaces.HydraulicPort_b q_out annotation (
-                    extent=[-10,-110; 10,-90], Placement(transformation(extent={{90,-10},
-                          {110,10}}), iconTransformation(extent={{90,-10},{110,10}})));
+                    extent=[-10,-110; 10,-90], Placement(transformation(extent={{-10,
+                -110},{10,-90}}, rotation=0),
+                                      iconTransformation(extent={{90,-10},{110,10}})));
 
                     Physiolibrary.Types.VolumeFlowRate delta(displayUnit="ml/min");
 
@@ -2798,17 +2805,30 @@ SYSTOLE
 
         Physiolibrary.Hydraulic.Interfaces.HydraulicPort_a referencePoint
           annotation (extent=[-10,-110; 10,-90], Placement(transformation(
-                extent={{-110,-10},{-90,10}}), iconTransformation(extent={{-10,
+                extent={{-10,-110},{10,-90}}, rotation=0),
+                                               iconTransformation(extent={{-10,
                   -10},{10,10}})));
           Modelica.Blocks.Interfaces.RealInput V0(
                                                final quantity="Volume", final displayUnit="ml")
-          "maximal nonstressed volume"                                                                                annotation (extent = [-70,90;-50,110], rotation = -90);
+          "maximal nonstressed volume"                                                                                annotation (extent = [-70,90;-50,110], rotation = -90,
+          Placement(transformation(
+              origin={-60,100},
+              extent={{-10,-10},{10,10}},
+              rotation=270)));
           Modelica.Blocks.Interfaces.RealInput ExternalPressure(
                                                             final quantity="Pressure", final displayUnit="mmHg")
-          "external pressure around the compartment"                              annotation (extent = [-10,90;10,110], rotation = -90);
+          "external pressure around the compartment"                              annotation (extent = [-10,90;10,110], rotation = -90,
+          Placement(transformation(
+              origin={0,100},
+              extent={{-10,-10},{10,10}},
+              rotation=270)));
           Modelica.Blocks.Interfaces.RealInput Compliance(
                                                         final quantity="Compliance", final displayUnit="ml/mmHg")
-          "elasticity of the stressed walls"                               annotation (extent = [50,90;70,110], rotation = -90);
+          "elasticity of the stressed walls"                               annotation (extent = [50,90;70,110], rotation = -90,
+          Placement(transformation(
+              origin={60,100},
+              extent={{-10,-10},{10,10}},
+              rotation=270)));
 
           Modelica.Blocks.Interfaces.RealOutput Pressure(  final quantity="Pressure", final displayUnit="mmHg")
           "blod pressure in compartment"
@@ -2837,10 +2857,15 @@ SYSTOLE
 
         Physiolibrary.Hydraulic.Interfaces.HydraulicPort_a referencePoint
           annotation (extent=[-10,-110; 10,-90], Placement(transformation(
-                extent={{-110,-10},{-90,10}}), iconTransformation(extent={{-10,
+                extent={{-10,-110},{10,-90}}, rotation=0),
+                                               iconTransformation(extent={{-10,
                   -10},{10,10}})));
           Physiolibrary.Types.RealIO.PressureInput ExternalPressure
-          "external pressure around the compartment"                              annotation (extent = [-100,90;-80,110], rotation = -90);
+          "external pressure around the compartment"                              annotation (extent = [-100,90;-80,110], rotation = -90,
+          Placement(transformation(
+              origin={-90,100},
+              extent={{-10,-10},{10,10}},
+              rotation=270)));
 
           Physiolibrary.Types.RealIO.PressureOutput Pressure
           "blod pressure in compartment"
@@ -2864,12 +2889,14 @@ SYSTOLE
         //Can not be one port, because for example whole periferal resistance is taken as ResistorBases, but blood can accumulate inside
 
       Physiolibrary.Hydraulic.Interfaces.HydraulicPort_a q_in "Blood inflow"
-        annotation (extent=[-10,-110; 10,-90], Placement(transformation(extent=
-                {{-112,-10},{-92,10}}), iconTransformation(extent={{-112,-10},{
+        annotation (extent=[-10,-110; 10,-90], Placement(transformation(extent={{-10,
+                -110},{10,-90}}, rotation=0),
+                                        iconTransformation(extent={{-112,-10},{
                 -92,10}})));
       Physiolibrary.Hydraulic.Interfaces.HydraulicPort_b q_out "Blood outflow"
-        annotation (extent=[-10,-110; 10,-90], Placement(transformation(extent=
-                {{90,-10},{110,10}}), iconTransformation(extent={{90,-10},{110,
+        annotation (extent=[-10,-110; 10,-90], Placement(transformation(extent={{-10,
+                -110},{10,-90}}, rotation=0),
+                                      iconTransformation(extent={{90,-10},{110,
                 10}})));
 
       Physiolibrary.Hydraulic.Components.ElasticVessel pulmCapys(
@@ -3134,12 +3161,14 @@ SYSTOLE
         extends Physiolibrary.Icons.SystemicCirculation;
 
       Physiolibrary.Hydraulic.Interfaces.HydraulicPort_a q_in "Blood inflow"
-        annotation (extent=[-10,-110; 10,-90], Placement(transformation(extent=
-                {{90,-10},{110,10}}), iconTransformation(extent={{90,-10},{110,
+        annotation (extent=[-10,-110; 10,-90], Placement(transformation(extent={{-10,
+                -110},{10,-90}}, rotation=0),
+                                      iconTransformation(extent={{90,-10},{110,
                 10}})));
       Physiolibrary.Hydraulic.Interfaces.HydraulicPort_b q_out "Blood outflow"
-        annotation (extent=[-10,-110; 10,-90], Placement(transformation(extent=
-                {{-110,-10},{-90,10}}), iconTransformation(extent={{-110,-10},{
+        annotation (extent=[-10,-110; 10,-90], Placement(transformation(extent={{-10,
+                -110},{10,-90}}, rotation=0),
+                                        iconTransformation(extent={{-110,-10},{
                 -90,10}})));
 
         /*
@@ -3943,12 +3972,14 @@ Blood resistance in peripheral organs except hepatic artery, gastro interstition
         extends Physiolibrary.Icons.GITract;
 
       Physiolibrary.Hydraulic.Interfaces.HydraulicPort_a q_in "Blood inflow"
-        annotation (extent=[-10,-110; 10,-90], Placement(transformation(extent=
-                {{90,-10},{110,10}}), iconTransformation(extent={{90,-10},{110,
+        annotation (extent=[-10,-110; 10,-90], Placement(transformation(extent={{-10,
+                -110},{10,-90}}, rotation=0),
+                                      iconTransformation(extent={{90,-10},{110,
                 10}})));
       Physiolibrary.Hydraulic.Interfaces.HydraulicPort_b q_out "Blood outflow"
-        annotation (extent=[-10,-110; 10,-90], Placement(transformation(extent=
-                {{-110,-10},{-90,10}}), iconTransformation(extent={{-110,-10},{
+        annotation (extent=[-10,-110; 10,-90], Placement(transformation(extent={{-10,
+                -110},{10,-90}}, rotation=0),
+                                        iconTransformation(extent={{-110,-10},{
                 -90,10}})));
 
       Physiolibrary.Types.BusConnector busConnector
@@ -4236,13 +4267,22 @@ Blood resistance in peripheral organs except hepatic artery, gastro interstition
        extends Physiolibrary.Icons.ElasticBalloon;
 
       Physiolibrary.Hydraulic.Interfaces.HydraulicPort_a referencePoint
-        annotation (extent=[-10,-110; 10,-90], Placement(transformation(extent=
-                {{-110,-10},{-90,10}}), iconTransformation(
+        annotation (extent=[-10,-110; 10,-90], Placement(transformation(extent={{-10,
+                -110},{10,-90}}, rotation=0),
+                                        iconTransformation(
             extent={{-10,-10},{10,10}})));
         Physiolibrary.Types.RealIO.PressureInput ExternalPressure
-        "external pressure around the compartment"                              annotation (extent = [-10,90;10,110], rotation = -90);
+        "external pressure around the compartment"                              annotation (extent = [-10,90;10,110], rotation = -90,
+        Placement(transformation(
+            origin={0,100},
+            extent={{-10,-10},{10,10}},
+            rotation=270)));
         Physiolibrary.Types.RealIO.HydraulicComplianceInput Compliance( displayUnit="ml/mmHg")
-        "elasticity of the stressed walls"                               annotation (extent = [50,90;70,110], rotation = -90);
+        "elasticity of the stressed walls"                               annotation (extent = [50,90;70,110], rotation = -90,
+        Placement(transformation(
+            origin={60,100},
+            extent={{-10,-10},{10,10}},
+            rotation=270)));
 
         Physiolibrary.Types.RealIO.PressureOutput Pressure( displayUnit="mmHg")
         "blod pressure in compartment"
@@ -4506,12 +4546,14 @@ Blood resistance in peripheral organs except hepatic artery, gastro interstition
       extends Physiolibrary.Icons.CollapsingVessel;
 
       Physiolibrary.Hydraulic.Interfaces.HydraulicPort_a q_in "Blood inflow"
-        annotation (extent=[-10,-110; 10,-90], Placement(transformation(extent=
-                {{90,-10},{110,10}}), iconTransformation(extent={{90,-10},{110,
+        annotation (extent=[-10,-110; 10,-90], Placement(transformation(extent={{-10,
+                -110},{10,-90}}, rotation=0),
+                                      iconTransformation(extent={{90,-10},{110,
                 10}})));
       Physiolibrary.Hydraulic.Interfaces.HydraulicPort_b q_out "Blood outflow"
-        annotation (extent=[-10,-110; 10,-90], Placement(transformation(extent=
-                {{-110,-10},{-90,10}}), iconTransformation(extent={{-110,-10},{
+        annotation (extent=[-10,-110; 10,-90], Placement(transformation(extent={{-10,
+                -110},{10,-90}}, rotation=0),
+                                        iconTransformation(extent={{-110,-10},{
                 -90,10}})));
 
       Modelica.Blocks.Interfaces.RealInput ExternalPressure
@@ -4540,12 +4582,14 @@ Blood resistance in peripheral organs except hepatic artery, gastro interstition
       extends Physiolibrary.Icons.Resistor;
 
       Physiolibrary.Hydraulic.Interfaces.HydraulicPort_a q_in "Blood inflow"
-        annotation (extent=[-10,-110; 10,-90], Placement(transformation(extent=
-                {{90,-10},{110,10}}), iconTransformation(extent={{90,-10},{110,
+        annotation (extent=[-10,-110; 10,-90], Placement(transformation(extent={{-10,
+                -110},{10,-90}}, rotation=0),
+                                      iconTransformation(extent={{90,-10},{110,
                 10}})));
       Physiolibrary.Hydraulic.Interfaces.HydraulicPort_b q_out "Blood outflow"
-        annotation (extent=[-10,-110; 10,-90], Placement(transformation(extent=
-                {{-110,-10},{-90,10}}), iconTransformation(extent={{-110,-10},{
+        annotation (extent=[-10,-110; 10,-90], Placement(transformation(extent={{-10,
+                -110},{10,-90}}, rotation=0),
+                                        iconTransformation(extent={{-110,-10},{
                 -90,10}})));
 
       Physiolibrary.Hydraulic.Components.Conductor systemicVeinsConductance(
@@ -4770,13 +4814,15 @@ Blood resistance in peripheral organs except hepatic artery, gastro interstition
           extends Physiolibrary.Icons.SystemicCirculation;
 
         Physiolibrary.Hydraulic.Interfaces.HydraulicPort_a q_in "Blood inflow"
-          annotation (extent=[-10,-110; 10,-90], Placement(transformation(extent=
-                  {{90,-10},{110,10}}), iconTransformation(extent={{90,-10},{110,
+          annotation (extent=[-10,-110; 10,-90], Placement(transformation(extent={{-10,
+                  -110},{10,-90}}, rotation=0),
+                                        iconTransformation(extent={{90,-10},{110,
                   10}})));
         Physiolibrary.Hydraulic.Interfaces.HydraulicPort_b q_out
           "Blood outflow"
-          annotation (extent=[-10,-110; 10,-90], Placement(transformation(extent=
-                  {{-110,-10},{-90,10}}), iconTransformation(extent={{-110,-10},{
+          annotation (extent=[-10,-110; 10,-90], Placement(transformation(extent={{-10,
+                  -110},{10,-90}}, rotation=0),
+                                          iconTransformation(extent={{-110,-10},{
                   -90,10}})));
 
           /*
@@ -5149,13 +5195,15 @@ Blood resistance in peripheral organs except hepatic artery, gastro interstition
            extends Physiolibrary.Icons.SystemicCirculation;
 
         Physiolibrary.Hydraulic.Interfaces.HydraulicPort_a q_in "Blood inflow"
-          annotation (extent=[-10,-110; 10,-90], Placement(transformation(extent=
-                  {{90,-10},{110,10}}), iconTransformation(extent={{90,-10},{110,
+          annotation (extent=[-10,-110; 10,-90], Placement(transformation(extent={{-10,
+                  -110},{10,-90}}, rotation=0),
+                                        iconTransformation(extent={{90,-10},{110,
                   10}})));
         Physiolibrary.Hydraulic.Interfaces.HydraulicPort_b q_out
           "Blood outflow"
-          annotation (extent=[-10,-110; 10,-90], Placement(transformation(extent=
-                  {{-110,-10},{-90,10}}), iconTransformation(extent={{-110,-10},{
+          annotation (extent=[-10,-110; 10,-90], Placement(transformation(extent={{-10,
+                  -110},{10,-90}}, rotation=0),
+                                          iconTransformation(extent={{-110,-10},{
                   -90,10}})));
 
           /*
@@ -5681,13 +5729,15 @@ Blood resistance in peripheral organs except hepatic artery, gastro interstition
           extends Physiolibrary.Icons.SystemicCirculation;
 
         Physiolibrary.Hydraulic.Interfaces.HydraulicPort_a q_in "Blood inflow"
-          annotation (extent=[-10,-110; 10,-90], Placement(transformation(extent=
-                  {{90,-10},{110,10}}), iconTransformation(extent={{90,-10},{110,
+          annotation (extent=[-10,-110; 10,-90], Placement(transformation(extent={{-10,
+                  -110},{10,-90}}, rotation=0),
+                                        iconTransformation(extent={{90,-10},{110,
                   10}})));
         Physiolibrary.Hydraulic.Interfaces.HydraulicPort_b q_out
           "Blood outflow"
-          annotation (extent=[-10,-110; 10,-90], Placement(transformation(extent=
-                  {{-110,-10},{-90,10}}), iconTransformation(extent={{-110,-10},{
+          annotation (extent=[-10,-110; 10,-90], Placement(transformation(extent={{-10,
+                  -110},{10,-90}}, rotation=0),
+                                          iconTransformation(extent={{-110,-10},{
                   -90,10}})));
           /*
   Library.PressureFlow.NegativePressureFlow fromSystemicVeins annotation (
@@ -6080,8 +6130,9 @@ Blood resistance in peripheral organs except hepatic artery, gastro interstition
         model GuytonOutputPump
 
         Physiolibrary.Hydraulic.Interfaces.HydraulicPort_a q_in annotation (
-            extent=[-10,-110; 10,-90], Placement(transformation(extent={{-110,-10},
-                  {-90,10}}), iconTransformation(extent={{-110,-10},{-90,10}})));
+            extent=[-10,-110; 10,-90], Placement(transformation(extent={{-10,
+                  -110},{10,-90}}, rotation=0),
+                              iconTransformation(extent={{-110,-10},{-90,10}})));
           Modelica.Blocks.Interfaces.RealInput inputPressure
                                                       annotation (Placement(
                 transformation(extent={{-96,54},{-56,94}}), iconTransformation(
@@ -6113,11 +6164,13 @@ Blood resistance in peripheral organs except hepatic artery, gastro interstition
         model GuytonPump
 
         Physiolibrary.Hydraulic.Interfaces.HydraulicPort_b q_out annotation (
-            extent=[-10,-110; 10,-90], Placement(transformation(extent={{90,-10},
-                  {110,10}}), iconTransformation(extent={{90,-10},{110,10}})));
+            extent=[-10,-110; 10,-90], Placement(transformation(extent={{-10,
+                  -110},{10,-90}}, rotation=0),
+                              iconTransformation(extent={{90,-10},{110,10}})));
         Physiolibrary.Hydraulic.Interfaces.HydraulicPort_a q_in annotation (
-            extent=[-10,-110; 10,-90], Placement(transformation(extent={{-110,-10},
-                  {-90,10}}), iconTransformation(extent={{-110,-10},{-90,10}})));
+            extent=[-10,-110; 10,-90], Placement(transformation(extent={{-10,
+                  -110},{10,-90}}, rotation=0),
+                              iconTransformation(extent={{-110,-10},{-90,10}})));
           Modelica.Blocks.Interfaces.RealInput inputPressure
                                                       annotation (Placement(
                 transformation(extent={{-96,54},{-56,94}}), iconTransformation(
@@ -6151,15 +6204,24 @@ Blood resistance in peripheral organs except hepatic artery, gastro interstition
          extends Physiolibrary.Icons.ElasticBalloon;
 
         Physiolibrary.Hydraulic.Interfaces.HydraulicPort_a referencePoint
-          annotation (extent=[-10,-110; 10,-90], Placement(transformation(extent=
-                  {{-110,-10},{-90,10}}), iconTransformation(
+          annotation (extent=[-10,-110; 10,-90], Placement(transformation(extent={{-10,
+                  -110},{10,-90}}, rotation=0),
+                                          iconTransformation(
               extent={{-10,-10},{10,10}})));
           Modelica.Blocks.Interfaces.RealInput ExternalPressure(
                                                               final quantity="Pressure", final displayUnit="mmHg")
-          "external pressure around the compartment"                              annotation (extent = [-10,90;10,110], rotation = -90);
+          "external pressure around the compartment"                              annotation (extent = [-10,90;10,110], rotation = -90,
+          Placement(transformation(
+              origin={0,100},
+              extent={{-10,-10},{10,10}},
+              rotation=270)));
           Modelica.Blocks.Interfaces.RealInput Compliance(
                                                         final quantity="Compliance", final displayUnit="ml/mmHg")
-          "elasticity of the stressed walls"                               annotation (extent = [50,90;70,110], rotation = -90);
+          "elasticity of the stressed walls"                               annotation (extent = [50,90;70,110], rotation = -90,
+          Placement(transformation(
+              origin={60,100},
+              extent={{-10,-10},{10,10}},
+              rotation=270)));
 
           Modelica.Blocks.Interfaces.RealOutput Pressure(  final quantity="Pressure", final displayUnit="mmHg")
           "blod pressure in compartment"
@@ -6708,16 +6770,18 @@ Blood resistance in peripheral organs except hepatic artery, gastro interstition
         Physiolibrary.Types.Constants.OneConst one1
           annotation (Placement(transformation(extent={{20,52},{28,60}})));
       Physiolibrary.Hydraulic.Interfaces.HydraulicPort_a q_in "Blood inflow"
-        annotation (extent=[-10,-110; 10,-90], Placement(transformation(extent={{80,-100},
-                  {100,-80}}),        iconTransformation(extent={{90,-10},{110,
+        annotation (extent=[-10,-110; 10,-90], Placement(transformation(extent={{-10,
+                -110},{10,-90}}, rotation=0),
+                                      iconTransformation(extent={{90,-10},{110,
                 10}})));
       Physiolibrary.Hydraulic.Sensors.FlowMeasure flowMeasure annotation (
           Placement(transformation(
             extent={{10,-10},{-10,10}},
             origin={58,-90})));
       Physiolibrary.Hydraulic.Interfaces.HydraulicPort_b q_out "Blood outflow"
-        annotation (extent=[-10,-110; 10,-90], Placement(transformation(extent={{-94,-100},
-                  {-74,-80}}),          iconTransformation(extent={{-110,-10},{
+        annotation (extent=[-10,-110; 10,-90], Placement(transformation(extent={{-10,
+                -110},{10,-90}}, rotation=0),
+                                        iconTransformation(extent={{-110,-10},{
                 -90,10}})));
         Modelica.Blocks.Interfaces.RealOutput BloodFlow
                                                  annotation (Placement(transformation(
@@ -6975,8 +7039,9 @@ Blood resistance in gastro interstitial tract.
         extends Interfaces.BaseDO;
         extends Physiolibrary.Icons.Liver;
       Physiolibrary.Hydraulic.Interfaces.HydraulicPort_a portalVein annotation (
-         extent=[-10,-110; 10,-90], Placement(transformation(extent={{-14,-22},
-                {6,-2}}), iconTransformation(extent={{12,-58},{32,-38}})));
+         extent=[-10,-110; 10,-90], Placement(transformation(extent={{-10,-110},
+                {10,-90}}, rotation=0),
+                          iconTransformation(extent={{12,-58},{32,-38}})));
       Physiolibrary.Hydraulic.Components.Conductor liverPortalConductance(
           Conductance=2.2251826750088e-08)
         "corrected to flow 1250ml/min in pressure gradient 1 mmHg"
@@ -8043,12 +8108,14 @@ QHP 2008 / Skin-Flow
       extends Physiolibrary.Icons.Resistor;
 
       Physiolibrary.Hydraulic.Interfaces.HydraulicPort_a q_in "Blood inflow"
-        annotation (extent=[-10,-110; 10,-90], Placement(transformation(extent=
-                {{90,-10},{110,10}}), iconTransformation(extent={{90,-10},{110,
+        annotation (extent=[-10,-110; 10,-90], Placement(transformation(extent={{-10,
+                -110},{10,-90}}, rotation=0),
+                                      iconTransformation(extent={{90,-10},{110,
                 10}})));
       Physiolibrary.Hydraulic.Interfaces.HydraulicPort_b q_out "Blood outflow"
-        annotation (extent=[-10,-110; 10,-90], Placement(transformation(extent=
-                {{-110,-10},{-90,10}}), iconTransformation(extent={{-110,-10},{
+        annotation (extent=[-10,-110; 10,-90], Placement(transformation(extent={{-10,
+                -110},{10,-90}}, rotation=0),
+                                        iconTransformation(extent={{-110,-10},{
                 -90,10}})));
 
       //(q_in(pressure(start=95.5)),q_out(pressure(start=61.5)));
@@ -8152,12 +8219,14 @@ QHP 2008 / Skin-Flow
         extends Physiolibrary.Icons.PerfusionOD;
 
         Physiolibrary.Hydraulic.Interfaces.HydraulicPort_a q_in "Blood inflow"
-          annotation (extent=[-10,-110; 10,-90], Placement(transformation(extent={{-110,
-                    -10},{-90,10}}),    iconTransformation(extent={{-110,-10},{-90,10}})));
+          annotation (extent=[-10,-110; 10,-90], Placement(transformation(extent={{-10,
+                  -110},{10,-90}}, rotation=0),
+                                        iconTransformation(extent={{-110,-10},{-90,10}})));
         Physiolibrary.Hydraulic.Interfaces.HydraulicPort_b q_out
           "Blood outflow"
-          annotation (extent=[-10,-110; 10,-90], Placement(transformation(extent={{90,-10},
-                    {110,10}}),           iconTransformation(extent={{90,-10},{110,10}})));
+          annotation (extent=[-10,-110; 10,-90], Placement(transformation(extent={{-10,
+                  -110},{10,-90}}, rotation=0),
+                                          iconTransformation(extent={{90,-10},{110,10}})));
 
         Physiolibrary.Types.BusConnector busConnector
           "signals of organ bood flow resistence" annotation (Placement(
@@ -8216,13 +8285,15 @@ Blood flow variable resistor abstract model.
         extends Physiolibrary.Icons.PerfusionDO;
 
         Physiolibrary.Hydraulic.Interfaces.HydraulicPort_a q_in "Blood inflow"
-          annotation (extent=[-10,-110; 10,-90], Placement(transformation(extent=
-                  {{90,-10},{110,10}}), iconTransformation(extent={{90,-10},{110,
+          annotation (extent=[-10,-110; 10,-90], Placement(transformation(extent={{-10,
+                  -110},{10,-90}}, rotation=0),
+                                        iconTransformation(extent={{90,-10},{110,
                   10}})));
         Physiolibrary.Hydraulic.Interfaces.HydraulicPort_b q_out
           "Blood outflow"
-          annotation (extent=[-10,-110; 10,-90], Placement(transformation(extent=
-                  {{-110,-10},{-90,10}}), iconTransformation(extent={{-110,-10},{
+          annotation (extent=[-10,-110; 10,-90], Placement(transformation(extent={{-10,
+                  -110},{10,-90}}, rotation=0),
+                                          iconTransformation(extent={{-110,-10},{
                   -90,10}})));
 
         Physiolibrary.Types.BusConnector busConnector
@@ -17516,8 +17587,9 @@ annotation (Placement(transformation(extent={{16,-70},{22,-64}})));
       //  parameter Real EnvironmentPressure(final displayUnit="mmHg");
       //  parameter Real EnvironmentTemperature(final displayUnit="degC");
       Physiolibrary.Chemical.Interfaces.ChemicalPort_b expired annotation (
-          extent=[-10,-110; 10,-90], Placement(transformation(extent={{68,18},{
-                88,38}}), iconTransformation(extent={{90,70},{110,90}})));
+          extent=[-10,-110; 10,-90], Placement(transformation(extent={{-10,-110},
+                {10,-90}}, rotation=0),
+                          iconTransformation(extent={{90,70},{110,90}})));
 
       Physiolibrary.Chemical.Interfaces.ChemicalPort_a inspired annotation (
           Placement(transformation(extent={{-120,8},{-80,48}}),
@@ -17540,8 +17612,9 @@ annotation (Placement(transformation(extent={{16,-70},{22,-64}})));
           useSolutionFlowInput=true)
         annotation (Placement(transformation(extent={{44,18},{64,38}})));
       Physiolibrary.Chemical.Interfaces.ChemicalPort_b   alveolar annotation (
-          extent=[-10,-110; 10,-90], Placement(transformation(extent={{20,-14},
-                {40,6}}), iconTransformation(extent={{-8,-110},{12,-90}})));
+          extent=[-10,-110; 10,-90], Placement(transformation(extent={{-10,-110},
+                {10,-90}}, rotation=0),
+                          iconTransformation(extent={{-8,-110},{12,-90}})));
         Physiolibrary.Types.RealIO.FractionInput BronchiDilution
                                                annotation (Placement(
               transformation(
@@ -24810,7 +24883,8 @@ Total         = 43000
       Xscale=101325/760);
 
     Physiolibrary.Chemical.Interfaces.ChemicalPort_b q_out annotation (extent=[
-          -10,-110; 10,-90], Placement(transformation(extent={{90,-10},{110,10}})));
+          -10,-110; 10,-90], Placement(transformation(extent={{-10,-110},{10,
+              -90}}, rotation=0)));
 
       Physiolibrary.Types.Pressure COP;
     //  Physiolibrary.Types.AmountOfSubstance  synthetizedAmount(start=0);
@@ -31225,10 +31299,14 @@ annotation (Placement(transformation(extent={{-42,64},{-24,82}})));*/
       model NutrientDelivery
 
       Physiolibrary.Chemical.Interfaces.ChemicalPort_b q_out annotation (extent=
-           [-10,-110; 10,-90], Placement(transformation(extent={{90,-10},{110,
-                10}})));
+           [-10,-110; 10,-90], Placement(transformation(extent={{-10,-110},{10,
+                -90}}, rotation=0)));
         Physiolibrary.Types.RealIO.VolumeFlowRateInput solventFlow
-                                      annotation ( extent = [-10,50;10,70], rotation = -90);
+                                      annotation ( extent = [-10,50;10,70], rotation = -90,
+        Placement(transformation(
+            origin={0,60},
+            extent={{-10,-10},{10,10}},
+            rotation=270)));
 
       Physiolibrary.Chemical.Interfaces.ChemicalPort_a q_in annotation (
           Placement(transformation(extent={{-120,-20},{-80,20}}),
@@ -31435,10 +31513,14 @@ annotation (Placement(transformation(extent={{-42,64},{-24,82}})));*/
       model NutrientDelivery_Fat
 
       Physiolibrary.Chemical.Interfaces.ChemicalPort_b q_out annotation (extent=
-           [-10,-110; 10,-90], Placement(transformation(extent={{90,-10},{110,
-                10}})));
+           [-10,-110; 10,-90], Placement(transformation(extent={{-10,-110},{10,
+                -90}}, rotation=0)));
         Physiolibrary.Types.RealIO.VolumeFlowRateInput solventFlow
-                                      annotation ( extent = [-10,50;10,70], rotation = -90);
+                                      annotation ( extent = [-10,50;10,70], rotation = -90,
+        Placement(transformation(
+            origin={0,60},
+            extent={{-10,-10},{10,10}},
+            rotation=270)));
 
       Physiolibrary.Chemical.Interfaces.ChemicalPort_a q_in annotation (
           Placement(transformation(extent={{-120,-20},{-80,20}}),
@@ -31560,11 +31642,15 @@ annotation (Placement(transformation(extent={{-42,64},{-24,82}})));*/
 
       Physiolibrary.Chemical.Interfaces.ChemicalPort_b q_out
         "Base plasma pool of glucose, outflow of glucose to plasma pool from tissue"
-        annotation (extent=[-10,-110; 10,-90], Placement(transformation(extent=
-                {{90,-10},{110,10}})));
+        annotation (extent=[-10,-110; 10,-90], Placement(transformation(extent={{-10,
+                -110},{10,-90}}, rotation=0)));
         Physiolibrary.Types.RealIO.VolumeFlowRateInput solventFlow
         "Portal vein plus hepatic artery plasma flow"
-                                      annotation ( extent = [-10,50;10,70], rotation = -90);
+                                      annotation ( extent = [-10,50;10,70], rotation = -90,
+        Placement(transformation(
+            origin={0,60},
+            extent={{-10,-10},{10,10}},
+            rotation=270)));
 
       Physiolibrary.Chemical.Interfaces.ChemicalPort_a q_in
         "Base plasma pool of glucose, delivery of glucose minus absorbtion from GI lumen"
@@ -35703,8 +35789,9 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
             Placement(transformation(extent={{-120,-20},{-80,20}}),
               iconTransformation(extent={{-110,-10},{-90,10}})));
         Physiolibrary.Chemical.Interfaces.ChemicalPort_b B "solute B" annotation (
-            extent=[-10,-110; 10,-90], Placement(transformation(extent={{90,20},{
-                  110,40}}), iconTransformation(extent={{90,20},{110,40}})));
+            extent=[-10,-110; 10,-90], Placement(transformation(extent={{-10,
+                -110},{10,-90}}, rotation=0),
+                             iconTransformation(extent={{90,20},{110,40}})));
 
         parameter Modelica.SIunits.StoichiometricNumber a=1
         "Stoichiometric number of solute A";
@@ -35742,17 +35829,23 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
       "Continual flow reaction of type  a A <-> b B + c C, where the concentration of C does not play the role"
 
         Physiolibrary.Chemical.Interfaces.ChemicalPort_b q_out annotation (extent=[
-              -10,-110; 10,-90], Placement(transformation(extent={{90,20},{110,40}}),
+              -10,-110; 10,-90], Placement(transformation(extent={{-10,-110},{
+                10,-90}}, rotation=0),
               iconTransformation(extent={{90,20},{110,40}})));
         Modelica.Blocks.Interfaces.RealInput coef
         "who much units of q_out produce one unit of q_in"
-                                      annotation ( extent = [-10,30;10,50], rotation = -90);
+                                      annotation ( extent = [-10,30;10,50], rotation = -90,
+        Placement(transformation(
+            origin={0,40},
+            extent={{-10,-10},{10,10}},
+            rotation=270)));
 
         Physiolibrary.Chemical.Interfaces.ChemicalPort_a q_in annotation (Placement(
               transformation(extent={{-120,-20},{-80,20}}), iconTransformation(
                 extent={{-110,-10},{-90,10}})));
         Physiolibrary.Chemical.Interfaces.ChemicalPort_b q_out2 annotation (extent=
-              [-10,-110; 10,-90], Placement(transformation(extent={{90,-10},{110,10}}),
+              [-10,-110; 10,-90], Placement(transformation(extent={{-10,-110},{
+                10,-90}}, rotation=0),
               iconTransformation(extent={{90,-40},{110,-20}})));
         Modelica.Blocks.Interfaces.RealInput
                               coef2
@@ -47484,8 +47577,8 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
       model GlomerulusCationFiltration
 
       Physiolibrary.Chemical.Interfaces.ChemicalPort_b q_out annotation (extent=
-           [-10,-110; 10,-90], Placement(transformation(extent={{90,-10},{110,
-                10}})));
+           [-10,-110; 10,-90], Placement(transformation(extent={{-10,-110},{10,
+                -90}}, rotation=0)));
 
       Physiolibrary.Chemical.Interfaces.ChemicalPort_a q_in annotation (
           Placement(transformation(extent={{-120,-20},{-80,20}}),
@@ -56120,8 +56213,8 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
       model GlomerulusStrongAnionFiltration
 
       Physiolibrary.Chemical.Interfaces.ChemicalPort_b q_out annotation (extent=
-           [-10,-110; 10,-90], Placement(transformation(extent={{90,-10},{110,
-                10}})));
+           [-10,-110; 10,-90], Placement(transformation(extent={{-10,-110},{10,
+                -90}}, rotation=0)));
 
       Physiolibrary.Chemical.Interfaces.ChemicalPort_a q_in annotation (
           Placement(transformation(extent={{-120,-20},{-80,20}}),
@@ -56811,8 +56904,8 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
       model GlomerulusStrongAnionFiltration
 
       Physiolibrary.Chemical.Interfaces.ChemicalPort_b q_out annotation (extent=
-           [-10,-110; 10,-90], Placement(transformation(extent={{90,-10},{110,
-                10}})));
+           [-10,-110; 10,-90], Placement(transformation(extent={{-10,-110},{10,
+                -90}}, rotation=0)));
 
       Physiolibrary.Chemical.Interfaces.ChemicalPort_a q_in annotation (
           Placement(transformation(extent={{-120,-20},{-80,20}}),
@@ -60141,8 +60234,7 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
 
       redeclare model extends Variables
 
-      AcidBase.AcidBase_variables acidBase_variables(T(redeclare block Variable
-            =                                                                     T.Variable))
+      AcidBase.AcidBase_variables acidBase_variables(T(redeclare block Variable = T.Variable))
           annotation (Placement(transformation(extent={{4,-88},{24,-68}})));
 
       T.VolumeDensityOfCharge BloodCations(varName="BloodIons.Cations")
@@ -70220,7 +70312,7 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
   end Status;
 
 
-  annotation (uses(Modelica(version="3.2.1"), Physiolibrary(version="2.3.1")),                           Documentation(revisions="<html>
+  annotation (uses(Modelica(version="3.2.2"), Physiolibrary(version="2.3.2")),                           Documentation(revisions="<html>
 <table cellspacing=\"2\" cellpadding=\"0\" border=\"0\"><tr>
 <td><p>Author:</p></td>
 <td><p>Marek Matejak</p></td>
@@ -70232,5 +70324,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
 </table>
 <p><br>Copyright &copy; 2008-2015 Marek Matejak. All rights reserved.</p>
 </html>"),
-  version="1.0.0");
+  version="1.0.1",
+  conversion(noneFromVersion="1.0.0"));
 end Physiomodel;
