@@ -120,5 +120,5 @@ equation
 <p><br>Copyright &copy; 2008-2015 Marek Matejak. Charles University in Prague. All rights reserved.</p>
 <pre> </pre>
 </html>"),
-    experiment(StopTime=1e+008, Tolerance=1e-005));
+    experiment(StopTime=31536000, Tolerance=1e-005));
 end Physiomodel_Main;

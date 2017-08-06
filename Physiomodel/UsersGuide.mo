@@ -3135,7 +3135,6 @@ Czech Republic
 </html>"));
   end Contact;
 
-
 class NewRealease "Publishing new release"
   extends Modelica.Icons.Information;
 

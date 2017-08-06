@@ -10054,7 +10054,6 @@ QHP 2008 / LeftHeart-Flow
         annotation (        experiment(StopTime=864000));
       end CardioVascular_test_SI;
     end IO_Bus;
-
   annotation (Documentation(revisions="<html>
 <table cellspacing=\"2\" cellpadding=\"0\" border=\"0\"><tr>
 <td><p>Author:</p></td>
@@ -10100,7 +10099,6 @@ QHP 2008 / LeftHeart-Flow
 <p><br>RAAS and other regulations .. see hormones, nerves and drugs</p>
 </html>"));
   end CardioVascular;
-
 
   package Gases "Body O2 and CO2"
     extends Physiolibrary.Icons.GasesLib;
@@ -18706,7 +18704,6 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
         annotation (          experiment(StopTime=1e+006, Tolerance=1e-005));
       end GasesAndElectrolytes_test_SI;
     end IO_Bus;
-
     annotation (Documentation(revisions="<html>
 <table cellspacing=\"2\" cellpadding=\"0\" border=\"0\"><tr>
 <td><p>Author:</p></td>
@@ -18733,7 +18730,6 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
 <p><br><br>Copyright &copy; 2008-2015 Marek Matejak, Charles University in Prague.</p>
 </html>"));
   end Gases;
-
 
   package Water "Body Water"
     extends Physiolibrary.Icons.WaterLib;
@@ -23700,10 +23696,10 @@ skeletalMuscle.FractOrganH2O <> 1, "Water.TissuesVolume.Tissues: Sum of FractOrg
     QHP.Water.WaterCompartments.Torso MiddleTorso(
       InterstitialPressureVolumeData={{1200.0,-30.0,0.01},{4800.0,-4.8,0.0004},
           {12000.0,0.0,0.0004},{24000.0,50.0,0.01}},
+      CapillaryConductance(displayUnit="l/(kPa.d)") = 3.7268518518519e-11,
       InterstitialWater_start=0.00567,
       IntracellularWater_start=0.01246,
       NormalLymphFlow=1.3333333333333e-08,
-      CapillaryConductance(displayUnit="l/(kPa.d)") = 3.7268518518519e-11,
       ICFVFract=0.94,
       SizeFract=0.5,
       CalsFract=0.5,
@@ -24837,7 +24833,6 @@ Total         = 43000
         annotation (        experiment(StopTime=864000));
       end Water_test_SI;
     end IO_Bus;
-
     annotation (                   Documentation(revisions="<html>
 <table cellspacing=\"2\" cellpadding=\"0\" border=\"0\"><tr>
 <td><p>Author:</p></td>
@@ -24865,7 +24860,6 @@ Total         = 43000
 <p>Water is also necessary for termoregulation in heat conditions, where evaporation takes heat from body to cool it down. Evaporation can be driven by sweating [Dodt1952,Wyndham1966,Piwonka1967,Benzinger1969,Sato1977,Sato1989a,b] or be spontaneus from lungs [Brebbia1957] and insensible tissues.</p>
 </html>"));
   end Water;
-
 
   package Proteins "Body Proteins"
     extends Physiolibrary.Icons.ProteinsLib;
@@ -25656,7 +25650,6 @@ annotation (Placement(transformation(extent={{-42,64},{-24,82}})));*/
         annotation (        experiment(StopTime=864000));
       end Proteins_test_SI;
     end IO_Bus;
-
     annotation (Documentation(revisions="<html>
 <table cellspacing=\"2\" cellpadding=\"0\" border=\"0\"><tr>
 <td><p>Author:</p></td>
@@ -25685,7 +25678,6 @@ annotation (Placement(transformation(extent={{-42,64},{-24,82}})));*/
 <p>hypogammaglobulinamia [Wollheim1964]</p>
 </html>"));
   end Proteins;
-
 
   package Metabolism "Body Nutrients, Metabolism and Heat Systems"
     extends Physiolibrary.Icons.NutrientsMetabolismLib;
@@ -26089,7 +26081,7 @@ annotation (Placement(transformation(extent={{-42,64},{-24,82}})));*/
           thickness=1,
           smooth=Smooth.None));
       connect(AminoAcids, concentrationMeasure1.q_in) annotation (Line(
-          points={{86,-24},{80,-24},{80,-14},{96,-14}},
+          points={{86,-24},{80,-24},{80,-12},{96,-12}},
           color={200,0,0},
           thickness=1,
           smooth=Smooth.None));
@@ -26148,7 +26140,7 @@ annotation (Placement(transformation(extent={{-42,64},{-24,82}})));*/
           smooth=Smooth.None));
       connect(fattyAcids, concentrationMeasure.q_in)
         annotation (Line(
-          points={{-92,-82},{-70,-82}},
+          points={{-92,-82},{-82,-82},{-82,-80},{-70,-80}},
           color={200,0,0},
           thickness=1,
           smooth=Smooth.None));
@@ -26272,12 +26264,12 @@ annotation (Placement(transformation(extent={{-42,64},{-24,82}})));*/
         smooth=Smooth.None));
     connect(concentrationMeasure1.concentration, AminoAcidEffect.u)
       annotation (Line(
-        points={{96,-8},{96,2},{90,2}},
+        points={{96,-20},{96,2},{90,2}},
         color={0,0,127},
         smooth=Smooth.None));
     connect(concentrationMeasure.concentration, FattyAcidEffect_Ketogenesis.u)
       annotation (Line(
-        points={{-70,-76},{-70,-66},{-56,-66}},
+        points={{-70,-88},{-70,-66},{-56,-66}},
         color={0,0,127},
         smooth=Smooth.None));
     connect(busConnector.PortalVein_Insulin, InsulinEffect_Glycogenesis.u)
@@ -26334,7 +26326,7 @@ annotation (Placement(transformation(extent={{-42,64},{-24,82}})));*/
         smooth=Smooth.None));
     connect(molarFlowMeasure.molarFlowRate, busConnector.GlucoseFromGluconeogenesis)
       annotation (Line(
-        points={{-1,-24},{-2,-24},{-2,-34},{-98,-34},{-98,96}},
+        points={{-1,-25},{-2,-25},{-2,-34},{-98,-34},{-98,96}},
         color={0,0,127},
         smooth=Smooth.None), Text(
         string="%second",
@@ -26416,8 +26408,6 @@ annotation (Placement(transformation(extent={{-42,64},{-24,82}})));*/
       annotation (Placement(transformation(extent={{50,66},{70,86}})));
     Physiolibrary.Chemical.Sensors.ConcentrationMeasure concentrationMeasure
       annotation (Placement(transformation(extent={{-82,74},{-62,94}})));
-      Modelica.Blocks.Math.Add3 YGLS "Ikeda glucose to cells flow"
-        annotation (Placement(transformation(extent={{-4,-26},{14,-8}})));
       Electrolytes.Bladder bladder(                      stateVarName=
             "BladderGlucose.Mass")
         annotation (Placement(transformation(extent={{70,36},{90,56}})));
@@ -26476,37 +26466,6 @@ annotation (Placement(transformation(extent={{-42,64},{-24,82}})));*/
           color={200,0,0},
           thickness=1,
           smooth=Smooth.None));
-      connect(YGLS.y, busConnector.GlucoseToCellsFlow) annotation (Line(
-          points={{14.9,-17},{20,-16},{24,-16},{24,10},{-90,10}},
-          color={0,0,127},
-          smooth=Smooth.None));
-      connect(busConnector.skeletalMuscle_GlucoseToCellStorageFlow,YGLS. u2)
-                 annotation (Line(
-          points={{-90,10},{-90,-17},{-5.8,-17}},
-          color={0,0,255},
-          thickness=0.5,
-          smooth=Smooth.None), Text(
-          string="%first",
-          index=-1,
-          extent={{-6,3},{-6,3}}));
-      connect(busConnector.liver_GlucoseToCellStorageFlow,YGLS. u1)
-        annotation (Line(
-          points={{-90,10},{-90,-9.8},{-5.8,-9.8}},
-          color={0,0,255},
-          thickness=0.5,
-          smooth=Smooth.None), Text(
-          string="%first",
-          index=-1,
-          extent={{-6,3},{-6,3}}));
-      connect(busConnector.respiratoryMuscle_GlucoseToCellStorageFlow,YGLS. u3)
-        annotation (Line(
-          points={{-90,10},{-90,-24.2},{-5.8,-24.2}},
-          color={0,0,255},
-          thickness=0.5,
-          smooth=Smooth.None), Text(
-          string="%first",
-          index=-1,
-          extent={{-6,3},{-6,3}}));
       connect(flowMeasure.q_out, bladder.q_in) annotation (Line(
           points={{70,76},{80,76},{80,54}},
           color={200,0,0},
@@ -35922,7 +35881,6 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
 </html>"));
   end Metabolism;
 
-
   package Hormones "Hormones"
     extends Physiolibrary.Icons.HormonesLib;
 
@@ -35931,19 +35889,16 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
       redeclare type AmountOfSubstance = Real(quantity="Unsulin AmountOfSubstance",unit="1",displayUnit="iu"),
       redeclare type MolarFlowRate = Real(quantity="Insulin Flow Rate",unit="1/s",displayUnit="iu/min"),
       redeclare type MolarEnergy = Real(quantity="Insulin Internal Energy",unit="J",displayUnit="cal/iu")));
-
     package EPO_Physiolibrary = Physiolibrary(Types(
       redeclare type Concentration = Real(quantity="EPO Concentration",unit="1/m3",displayUnit="iu/l"),
       redeclare type AmountOfSubstance = Real(quantity="EPO AmountOfSubstance",unit="1",displayUnit="iu"),
       redeclare type MolarFlowRate = Real(quantity="EPO Flow Rate",unit="1/s",displayUnit="iu/min"),
       redeclare type MolarEnergy = Real(quantity="EPO Internal Energy",unit="J",displayUnit="cal/iu")));
-
     package TSH_Physiolibrary = Physiolibrary(Types(
       redeclare type Concentration = Real(quantity="TSH Concentration",unit="1/m3",displayUnit="iu/l"),
       redeclare type AmountOfSubstance = Real(quantity="TSH AmountOfSubstance",unit="1",displayUnit="iu"),
       redeclare type MolarFlowRate = Real(quantity="TSH Flow Rate",unit="1/s",displayUnit="iu/min"),
       redeclare type MolarEnergy = Real(quantity="TSH Internal Energy",unit="J",displayUnit="cal/iu")));
-
   /*  package ADH_Physiolibrary = Physiolibrary(Types(
     redeclare type Concentration = Real(quantity="ADH Concentration",unit="1/m3",displayUnit="iu/l"),
     redeclare type AmountOfSubstance = Real(quantity="ADH AmountOfSubstance",unit="1",displayUnit="iu"),
@@ -35955,7 +35910,6 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
       redeclare type AmountOfSubstance = Real(quantity="Renin Goldblat AmountOfSubstance",unit="1",displayUnit="Gu"),
       redeclare type MolarFlowRate = Real(quantity="Renin Goldblat Flow Rate",unit="1/s",displayUnit="Gu/min"),
       redeclare type MolarEnergy = Real(quantity="Renin Goldblat Internal Energy",unit="J",displayUnit="cal/Gu")));
-
    //  constant Physiolibrary.Types.MolarMass ADHMolarMass=1.084 "kDa = molar mass of arginine vassopressin";
 
     model Insulin
@@ -41134,7 +41088,6 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
                 textString="%name")}));
       end Variables;
     end IO_Insulin;
-
     annotation (Documentation(revisions="<html>
 <table cellspacing=\"2\" cellpadding=\"0\" border=\"0\"><tr>
 <td><p>Author:</p></td>
@@ -41199,7 +41152,6 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
 <p><br>Catecholamins (Adrenalin and Noradrenalin)</p>
 </html>"));
   end Hormones;
-
 
   package Electrolytes "Body Electrolytes"
     extends Physiolibrary.Icons.ElectrolytesLib;
@@ -51020,7 +50972,7 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
 
         Real effect;
       equation
-        effect = 1+0.5*log(PotasiumECF_conc/(56.744-7.06*Artys_pH));
+        effect = 1+0.5*log10(PotasiumECF_conc/(56.744-7.06*Artys_pH));
         y = yBase*effect;
        annotation (
           Icon(coordinateSystem(
@@ -53701,42 +53653,15 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
       Physiolibrary.Chemical.Components.Substance KCell(
         stateName="KCell.Mass",
         useNormalizedVolume=false,
-        solute_start=(3769.74)/1000)
+        solute_start=3.964)   "in 1.0.0 initial value was 3769.74"
         annotation (Placement(transformation(extent={{2,46},{22,66}})));
-      Physiolibrary.Chemical.Components.SolutePump KFluxToCell(
-          useSoluteFlowInput=true)                             annotation (
-          Placement(transformation(
-            extent={{-6,-6},{6,6}},
-            rotation=90,
-            origin={6,-10})));
-        Modelica.Blocks.Math.Gain Perm1(k=0.002/60)
-          annotation (Placement(transformation(extent={{-4,-4},{4,4}},
+        Modelica.Blocks.Math.Feedback freeK annotation (Placement(transformation(
+              extent={{-6,6},{6,-6}},
               rotation=270,
-              origin={-68,32})));
-      Physiolibrary.Chemical.Components.SolutePump KFluxToPool(
-          useSoluteFlowInput=true)                             annotation (
-          Placement(transformation(
-            extent={{-6,-6},{6,6}},
-            rotation=270,
-            origin={48,-56})));
-        Modelica.Blocks.Math.Feedback feedback
-          annotation (Placement(transformation(extent={{54,-18},{62,-26}})));
+              origin={18,32})));
       Physiolibrary.Types.Constants.AmountOfSubstanceConst
                                                         KCell_CaptiveMass(k=2.18)
-        annotation (Placement(transformation(extent={{72,-4},{62,-14}})));
-        Modelica.Blocks.Math.Gain Perm2(k=7.4e-5/60)
-          annotation (Placement(transformation(extent={{-3,-3},{3,3}},
-              rotation=270,
-              origin={67,-27})));
-        Physiolibrary.Blocks.Factors.SplineLag      splineDelayByDay(        data={{
-              0,0.9,0.0},{300,1.0,0.00025},{1500,1.1,0.0}},
-          stateName="PotassiumToCell_AldoEffect",
-          Xscale=1e-9,
-          HalfTime=120*Modelica.Math.log(2)*60) "1 pmol/L = 1e-9 mmol/l"
-                                                            annotation (
-            Placement(transformation(
-              extent={{10,-10},{-10,10}},
-              origin={-68,18})));
+        annotation (Placement(transformation(extent={{54,38},{42,26}})));
       Physiolibrary.Chemical.Sensors.ConcentrationMeasure concentrationMeasure1 annotation (Placement(
             transformation(
             extent={{-10,-10},{10,10}},
@@ -53753,59 +53678,37 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
             rotation=90,
             origin={-28,-44})));
         Modelica.Blocks.Math.Gain CGL3(k=0.03/60)
-        "glucose flow into cells to potassium flow into cells"
-          annotation (Placement(transformation(extent={{-2,-2},{2,2}},
-              origin={-38,-44})));
-        IkedaPotasiumIntoICFFactor IkedaIntoICF annotation (Placement(
-              transformation(
-              extent={{-10,-10},{10,10}},
-              origin={-68,2})));
+          "potassium flow into cells accompanying glucose flow into the cells"
+          annotation (Placement(transformation(extent={{-4,-4},{4,4}},
+              origin={-40,-42})));
       Physiolibrary.Types.BusConnector busConnector annotation (Placement(
             transformation(extent={{-94,88},{-82,100}}), iconTransformation(
               extent={{60,60},{100,100}})));
         Modelica.Blocks.Math.Add3 YGLS "Ikeda glucose to cells flow"
-          annotation (Placement(transformation(extent={{-44,-38},{-34,-28}})));
-      Physiolibrary.Types.Constants.MolarFlowRateConst
-        electrolytesFlowConstant1(k=0)
-        annotation (Placement(transformation(extent={{-50,-58},{-40,-48}})));
+          annotation (Placement(transformation(extent={{-62,-44},{-52,-34}})));
       Physiolibrary.Chemical.Interfaces.ChemicalPort_a q_in
         "sodium concentration in blood incomming to glomerulus capillaries; sodium mass flow is filtration - reabsorbtion"
         annotation (Placement(transformation(extent={{-4,-94},{14,-76}}),
             iconTransformation(extent={{-10,-10},{10,10}})));
 
+        Physiomodel.Electrolytes.Potassium.K_H_exchange k_H_exchange(CZKI=1.784, CKEI=
+             1.6666666666667e-05)
+          annotation (Placement(transformation(extent={{2,-4},{22,16}})));
       equation
       connect(KCell.solutionVolume, busConnector.CellH2O_Vol) annotation (Line(
-          points={{8,60},{-1,60},{-1,94},{-88,94}},
+          points={{8,60},{7,60},{7,94},{-88,94}},
           color={0,0,127},
           smooth=Smooth.None), Text(
           string="%second",
           index=1,
           extent={{3,1},{3,1}}));
 
-        connect(KFluxToCell.q_out, KCell.q_out) annotation (Line(
-            points={{6,-4},{6,56},{12,56}},
-            color={200,0,0},
-            smooth=Smooth.None,
-            thickness=1));
-        connect(KCell.q_out, KFluxToPool.q_in) annotation (Line(
-            points={{12,56},{48,56},{48,-50}},
-            color={200,0,0},
-            smooth=Smooth.None,
-            thickness=1));
-      connect(KCell.solute, feedback.u1) annotation (Line(
-          points={{18,46},{18,-22},{54.8,-22}},
-          color={0,0,127},
-          smooth=Smooth.None));
-        connect(KCell_CaptiveMass.y, feedback.u2) annotation (Line(
-            points={{60.75,-9},{58,-9},{58,-18.8}},
+        connect(KCell.solute, freeK.u1) annotation (Line(
+            points={{18,46},{18,36.8}},
             color={0,0,127},
             smooth=Smooth.None));
-        connect(feedback.y, Perm2.u) annotation (Line(
-            points={{61.6,-22},{67.3,-22},{67.3,-23.4},{67,-23.4}},
-            color={0,0,127},
-            smooth=Smooth.None));
-        connect(KFluxToPool.soluteFlow, Perm2.y) annotation (Line(
-            points={{50.4,-58.4},{67,-58.4},{67,-30.3}},
+        connect(KCell_CaptiveMass.y, freeK.u2) annotation (Line(
+            points={{40.5,32},{22.8,32}},
             color={0,0,127},
             smooth=Smooth.None));
       connect(busConnector.KCell_Mass, KCell.solute) annotation (Line(
@@ -53815,36 +53718,22 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
           string="%first",
           index=-1,
           extent={{-3,1},{-3,1}}));
-        connect(Perm1.y, splineDelayByDay.yBase) annotation (Line(
-            points={{-68,27.6},{-68,20}},
-            color={0,0,127},
-            smooth=Smooth.None));
         connect(KCell.q_out, concentrationMeasure1.q_in) annotation (Line(
-            points={{12,56},{-24,56},{-24,72}},
+            points={{12,56},{-24,56},{-24,74}},
             color={200,0,0},
             thickness=1,
             smooth=Smooth.None));
       connect(concentrationMeasure1.concentration, busConnector.KCell_conc)
         annotation (Line(
-          points={{-24,78},{-24,94},{-88,94}},
+          points={{-24,66},{-24,64},{-56,64},{-56,94},{-88,94}},
           color={0,0,127},
           smooth=Smooth.None), Text(
           string="%second",
           index=1,
           extent={{3,1},{3,1}}));
-        connect(flowMeasure.q_out, KFluxToPool.q_out) annotation (Line(
-            points={{6,-68},{6,-62},{48,-62}},
-            color={200,0,0},
-            thickness=1,
-            smooth=Smooth.None));
-        connect(flowMeasure.q_out, KFluxToCell.q_in) annotation (Line(
-            points={{6,-68},{6,-16}},
-            color={200,0,0},
-            thickness=1,
-            smooth=Smooth.None));
       connect(flowMeasure.molarFlowRate, busConnector.PotassiumToCells)
         annotation (Line(
-          points={{10.8,-76},{97,-76},{97,94},{-88,94}},
+          points={{12.4,-76},{97,-76},{97,94},{-88,94}},
           color={0,0,127},
           smooth=Smooth.None), Text(
           string="%second",
@@ -53857,29 +53746,14 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
             thickness=1,
             smooth=Smooth.None));
         connect(KFluxToCellWithGlucose.q_out, KCell.q_out) annotation (Line(
-            points={{-28,-38},{-28,56},{12,56}},
+            points={{-28,-38},{-28,34},{12,34},{12,56}},
             color={200,0,0},
             thickness=1,
             smooth=Smooth.None));
-        connect(IkedaIntoICF.y, KFluxToCell.soluteFlow) annotation (Line(
-            points={{-68,-3.2},{-68,-7.6},{3.6,-7.6}},
-            color={0,0,127},
-            smooth=Smooth.None));
-        connect(splineDelayByDay.y, IkedaIntoICF.yBase) annotation (Line(
-            points={{-68,14},{-68,7}},
-            color={0,0,127},
-            smooth=Smooth.None));
-        connect(IkedaIntoICF.Artys_pH, busConnector. Artys_pH) annotation (Line(
-            points={{-78,5},{-86,6},{-100,6},{-100,94},{-88,94}},
-            color={0,0,127},
-            smooth=Smooth.None), Text(
-       string="%second",
-       index=1,
-       extent={{3,1},{3,1}}));
 
         connect(busConnector.skeletalMuscle_GlucoseToCellStorageFlow,YGLS. u2)
                    annotation (Line(
-            points={{-88,94},{-100,94},{-100,-33},{-45,-33}},
+            points={{-88,94},{-100,94},{-100,-39},{-63,-39}},
             color={0,0,255},
             thickness=0.5,
             smooth=Smooth.None), Text(
@@ -53888,7 +53762,7 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
             extent={{-6,3},{-6,3}}));
         connect(busConnector.liver_GlucoseToCellStorageFlow,YGLS. u1)
           annotation (Line(
-            points={{-88,94},{-100,94},{-100,-29},{-45,-29}},
+            points={{-88,94},{-100,94},{-100,-35},{-63,-35}},
             color={0,0,255},
             thickness=0.5,
             smooth=Smooth.None), Text(
@@ -53897,7 +53771,7 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
             extent={{-6,3},{-6,3}}));
         connect(busConnector.respiratoryMuscle_GlucoseToCellStorageFlow,YGLS. u3)
           annotation (Line(
-            points={{-88,94},{-100,94},{-100,-37},{-45,-37}},
+            points={{-88,94},{-100,94},{-100,-43},{-63,-43}},
             color={0,0,255},
             thickness=0.5,
             smooth=Smooth.None), Text(
@@ -53905,45 +53779,35 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
             index=-1,
             extent={{-6,3},{-6,3}}));
         connect(YGLS.y, CGL3.u) annotation (Line(
-            points={{-33.5,-33},{-32,-33},{-32,-40},{-42,-40},{-42,-44},{-40.4,-44}},
+            points={{-51.5,-39},{-48,-39},{-48,-42},{-44.8,-42}},
             color={0,0,127},
             smooth=Smooth.None));
 
-        connect(electrolytesFlowConstant1.y, KFluxToCellWithGlucose.soluteFlow)
-          annotation (Line(
-            points={{-38.75,-53},{-34,-53},{-34,-41.6},{-30.4,-41.6}},
-            color={0,0,127},
-            smooth=Smooth.None));
         connect(flowMeasure.q_in, q_in) annotation (Line(
             points={{6,-84},{5,-84},{5,-85}},
             color={200,0,0},
             thickness=1,
             smooth=Smooth.None));
-        connect(busConnector.KPool_mass, Perm1.u) annotation (Line(
-            points={{-88,94},{-68,94},{-68,36.8}},
+
+        connect(KCell.q_out, k_H_exchange.cell) annotation (Line(
+            points={{12,56},{12,16}},
+            color={107,45,134},
+            thickness=1));
+        connect(k_H_exchange.interstitium, flowMeasure.q_out) annotation (Line(
+            points={{12,-4},{12,-62},{6,-62},{6,-68}},
+            color={107,45,134},
+            thickness=1));
+        connect(busConnector.Artys_pH, k_H_exchange.pH) annotation (Line(
+            points={{-88,94},{-98,94},{-98,-96},{18,-96},{18,-4}},
             color={0,0,255},
-            thickness=0.5,
-            smooth=Smooth.None), Text(
+            thickness=0.5), Text(
             string="%first",
             index=-1,
             extent={{-6,3},{-6,3}}));
-
-      connect(splineDelayByDay.u, busConnector.Aldosterone) annotation (Line(
-          points={{-60,18},{-36,18},{-36,94},{-88,94}},
-          color={0,0,127},
-          smooth=Smooth.None), Text(
-          string="%second",
-          index=1,
-          extent={{6,3},{6,3}}));
-      connect(busConnector.KPool, IkedaIntoICF.PotasiumECF_conc) annotation (
-          Line(
-          points={{-88,94},{-96,94},{-96,-1},{-78,-1}},
-          color={255,204,51},
-          thickness=0.5,
-          smooth=Smooth.None), Text(
-          string="%first",
-          index=-1,
-          extent={{-6,3},{-6,3}}));
+        connect(freeK.y, k_H_exchange.ZKI)
+          annotation (Line(points={{18,26.6},{18,16}}, color={0,0,127}));
+        connect(CGL3.y, KFluxToCellWithGlucose.soluteFlow) annotation (Line(points={{-35.6,
+                -42},{-32,-42},{-32,-41.6},{-30.4,-41.6}}, color={0,0,127}));
         annotation ( Icon(coordinateSystem(
                 preserveAspectRatio=true, extent={{-100,-100},{100,100}}),
               graphics={Text(
@@ -54143,7 +54007,7 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
             smooth=Smooth.None,
             thickness=1));
       connect(KCell.solute, feedback.u1) annotation (Line(
-          points={{12,46},{12,-22},{54.8,-22}},
+          points={{18,46},{18,-22},{54.8,-22}},
           color={0,0,127},
           smooth=Smooth.None));
         connect(KCell_CaptiveMass.y, feedback.u2) annotation (Line(
@@ -54170,7 +54034,7 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
        index=1,
        extent={{3,1},{3,1}}));
         connect(KCell.q_out, concentrationMeasure1.q_in) annotation (Line(
-            points={{12,56},{-24,56},{-24,72}},
+            points={{12,56},{-24,56},{-24,74}},
             color={200,0,0},
             thickness=1,
             smooth=Smooth.None));
@@ -54244,11 +54108,11 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
           color={0,0,127},
           smooth=Smooth.None));
       connect(KCell.solute, KCell_Mass) annotation (Line(
-          points={{12,46},{12,28},{80,28}},
+          points={{18,46},{18,28},{80,28}},
           color={0,0,127},
           smooth=Smooth.None));
       connect(concentrationMeasure1.concentration, KCell_conc) annotation (Line(
-          points={{-24,78},{-24,82},{54,82}},
+          points={{-24,66},{-24,82},{54,82}},
           color={0,0,127},
           smooth=Smooth.None));
         annotation ( Icon(coordinateSystem(
@@ -54577,6 +54441,42 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
           index=1,
           extent={{6,3},{6,3}}));
       end IntracellularPotassium_const;
+
+      model K_H_exchange
+        Physiolibrary.Chemical.Interfaces.ChemicalPort_a cell
+          annotation (Placement(transformation(extent={{-10,90},{10,110}})));
+        Physiolibrary.Chemical.Interfaces.ChemicalPort_b interstitium
+          annotation (Placement(transformation(extent={{-10,-110},{10,-90}})));
+        Physiolibrary.Types.RealIO.AmountOfSubstanceInput ZKI
+          "Amount of free intracellular potassium" annotation (Placement(transformation(
+              extent={{-20,-20},{20,20}},
+              rotation=270,
+              origin={60,100})));
+        Physiolibrary.Types.RealIO.pHInput pH "Arterial pH" annotation (Placement(
+              transformation(
+              extent={{-20,-20},{20,20}},
+              rotation=90,
+              origin={60,-100})));
+        annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
+                Rectangle(extent={{-60,100},{100,-100}}, lineColor={28,108,200}),
+                Text(
+                extent={{-60,100},{100,-100}},
+                lineColor={28,108,200},
+                textString="K+, H+
+exchange")}),                                                          Diagram(
+              coordinateSystem(preserveAspectRatio=false)));
+
+
+        parameter Physiolibrary.Types.AmountOfSubstance CZKI(displayUnit="mmol") = 1.7 "Base amount of free intracellular potassium (45% of base total intracellular potassium)";
+        parameter Physiolibrary.Types.Frequency CKEI(displayUnit="1/min") = 0.001/60 "Potassium transfer coefficient from ECF to ICF";
+        Physiolibrary.Types.Fraction F41 "Rate of potassium flow into IFC {ratio to normal)";
+      equation
+        cell.q + interstitium.q = 0;
+
+        interstitium.q = CKEI * ( CZKI * F41 - ZKI);
+
+        F41 = 1 + 0.5*log10(interstitium.conc/(56.744-7.06*pH));
+      end K_H_exchange;
     end Potassium;
 
     package Chloride "Body Chloride Distribution"
@@ -55715,7 +55615,7 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
             smooth=Smooth.None));
       connect(concentrationMeasure1.concentration, busConnector.ClPool_conc_per_liter)
         annotation (Line(
-          points={{10,76},{-16,76},{-16,2},{-86,2}},
+          points={{10,64},{-16,64},{-16,2},{-86,2}},
           color={0,0,127},
           smooth=Smooth.None), Text(
           string="%second",
@@ -55737,13 +55637,13 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
           index=-1,
           extent={{-6,3},{-6,3}}));
         connect(ClPool.q_out, concentrationMeasure1.q_in) annotation (Line(
-            points={{18,56},{16,56},{16,70},{10,70}},
+            points={{18,56},{16,56},{16,72},{10,72}},
             color={200,0,0},
             thickness=1,
             smooth=Smooth.None));
       connect(concentrationMeasure1.concentration, busConnector.ClPool)
         annotation (Line(
-          points={{10,76},{-16,76},{-16,2},{-86,2},{-86,2}},
+          points={{10,64},{-16,64},{-16,2},{-86,2},{-86,2}},
           color={0,0,127},
           smooth=Smooth.None), Text(
           string="%second",
@@ -60234,7 +60134,8 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
 
       redeclare model extends Variables
 
-      AcidBase.AcidBase_variables acidBase_variables(T(redeclare block Variable = T.Variable))
+      AcidBase.AcidBase_variables acidBase_variables(T(redeclare block Variable
+            =                                                                     T.Variable))
           annotation (Placement(transformation(extent={{4,-88},{24,-68}})));
 
       T.VolumeDensityOfCharge BloodCations(varName="BloodIons.Cations")
@@ -60808,7 +60709,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
             smooth=Smooth.None));
       end ElectrolytesAndProteins_test_SI;
     end IO_Bus;
-
     annotation (Documentation(revisions="<html>
 <table cellspacing=\"2\" cellpadding=\"0\" border=\"0\"><tr>
 <td><p>Author:</p></td>
@@ -60847,7 +60747,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
 </ul>
 </html>"));
   end Electrolytes;
-
 
   package Nerves "Autonimic Nerves"
     extends Physiolibrary.Icons.NervesLib;
@@ -62283,7 +62182,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
             smooth=Smooth.None));
       end Nerves_test_SI;
     end IO_Bus;
-
     annotation (Documentation(revisions="<html>
 <table cellspacing=\"2\" cellpadding=\"0\" border=\"0\"><tr>
 <td><p>Author:</p></td>
@@ -62313,7 +62211,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
 <p>Themperature signal from terrmoreceptors is processed by the preoptic area of the anterior hypothalamus [Kelso1982,Dodt1952,Hensel1953].</p>
 </html>"));
   end Nerves;
-
 
   package Heat "Body Temperature Balance"
     extends Physiolibrary.Icons.HeatLib;
@@ -64977,7 +64874,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
 <p>Temperature has effect on chemical reactions, so the metabolic processes are dependent on it [Abramson1958,Consolazio1961,Dirmi1980,Talbott1941,Matsuoka1994] as well as metabolism of leg muscle[Fink1975]. But the main problem with temperature is denaturisation of proteins at high temperature [Katschinski2004].</p>
 </html>"));
   end Heat;
-
 
   package Setup "Environment Influences"
     extends Physiolibrary.Icons.SetupLib;
@@ -68381,7 +68277,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
 </html>"));
   end Setup;
 
-
   package Status "Fitness Status of Tissue Structures and Functionality"
    extends Physiolibrary.Icons.StatusLib;
     model TissuesFitness
@@ -70287,7 +70182,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
           smooth=Smooth.None));
       end Status_test_SI;
     end IO_Bus;
-
     annotation (Documentation(revisions="<html>
 <table cellspacing=\"2\" cellpadding=\"0\" border=\"0\"><tr>
 <td><p>Author:</p></td>
@@ -70311,7 +70205,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
 </html>"));
   end Status;
 
-
   annotation (uses(Modelica(version="3.2.2"), Physiolibrary(version="2.3.2")),                           Documentation(revisions="<html>
 <table cellspacing=\"2\" cellpadding=\"0\" border=\"0\"><tr>
 <td><p>Author:</p></td>
@@ -70324,6 +70217,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
 </table>
 <p><br>Copyright &copy; 2008-2015 Marek Matejak. All rights reserved.</p>
 </html>"),
-  version="1.0.1",
+  version="1.0.1-beta",
   conversion(noneFromVersion="1.0.0"));
 end Physiomodel;
