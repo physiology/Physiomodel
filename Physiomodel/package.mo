@@ -1335,11 +1335,11 @@ package Physiomodel "Mammalian physiology model"
             color={0,0,127},
             smooth=Smooth.None));
         connect(systole.outflow, q_out) annotation (Line(
-            points={{72,-30},{86,-30},{86,80},{80,80}},
+            points={{72,-30},{86,-30},{86,-100},{0,-100}},
             color={0,0,0},
             smooth=Smooth.None));
         connect(q_in, diastole.inflow) annotation (Line(
-            points={{-80,80},{-82,80},{-82,-30},{-76,-30}},
+            points={{0,-100},{-82,-100},{-82,-30},{-76,-30}},
             color={0,0,0},
             smooth=Smooth.None));
         connect(systole.ESV, Vol_SteadyState.u1) annotation (Line(
@@ -1356,11 +1356,11 @@ package Physiomodel "Mammalian physiology model"
             color={0,0,127},
             smooth=Smooth.None));
         connect(q_in, ventricle.q_in)                 annotation (Line(
-            points={{-80,80},{-8,80}},
+            points={{0,-100},{-4,-100},{-4,80},{-8,80}},
             color={0,0,0},
             smooth=Smooth.None));
         connect(ventricle.q_out, q_out)                 annotation (Line(
-            points={{12,80},{80,80}},
+            points={{12,80},{6,80},{6,-100},{0,-100}},
             color={0,0,0},
             smooth=Smooth.None));
         connect(StrokeVolume.y, BloodFlow.u1)     annotation (Line(
@@ -20499,7 +20499,8 @@ QHP 2008 / Peritoneum
               graphics={                 Text(
                 extent={{-139,-101},{142,-126}},
                 lineColor={0,0,255},
-                textString="%name")}));
+                textString="%name")}), experiment(StopTime=31536000, Tolerance=
+              1e-005));
       end Torso;
 
       model CerebrospinalFluid
@@ -21530,6 +21531,347 @@ Torso water compartment.
                 lineColor={0,0,255},
                 textString="%name")}));
       end LungEdema_const;
+
+      model Torsos
+        import Physiomodel;
+          extends Physiolibrary.Icons.Torso;
+
+      //    parameter Real interstitiumProteins = 2.6;
+
+          parameter Physiolibrary.Types.Volume InterstitialWater_start
+        "Sum of volumes 2270,5670,3400 ml";
+          parameter Physiolibrary.Types.Volume IntracellularWater_start
+        "Sum of volumes 4980,12460,7470 ml";
+
+          parameter Physiolibrary.Types.VolumeFlowRate NormalLymphFlow
+        "Sum of lymph flows 0.4,0.8,1.3 ml/min";
+
+          parameter Physiolibrary.Types.OsmoticPermeability CapillaryConductance
+        "Capillary wall permeability for water. 0.6, 3.6, 1.3 ml/(kPa.min)";
+
+          parameter Real[ :,3] InterstitialPressureVolumeData
+        "{{600.0,-30.0,0.01},{2000.0,-4.8,0.0004},{5000.0,0.0,0.0004},{12000.0,50.0,0.01}}, {{1200.0,-30.0,0.01},{4800.0,-4.8,0.0004},{12000.0,0.0,0.0004},{24000.0,50.0,0.01}}, {{600.0,-30.0,0.02},{3000.0,-4.8,0.0004},{4000.0,-4.0,0.0004},{6000.0,50.0,0.03}}";
+          parameter Physiolibrary.Types.Fraction ICFVFract
+        "0.94. Ratio between non-RBC-ICFV and total ICFV, because red cells are not part of any torso ICF!";
+          parameter Physiolibrary.Types.Fraction SizeFract "0.2,0.5,0.3";
+          parameter Physiolibrary.Types.Fraction CalsFract "0.3,0.5,0.2";
+          parameter Physiolibrary.Types.Fraction SweatFract "0.33,0.34,0.33";
+          parameter Physiolibrary.Types.Fraction SkinFract "0.33,0.34,0.33";
+          parameter Physiolibrary.Types.Fraction LungFract "0,1,0";
+
+      Physiolibrary.Types.TorsoBusConnector torsoSpecific annotation (Placement(
+            transformation(extent={{62,27},{80,44}}), iconTransformation(extent=
+               {{30,10},{50,30}})));
+      Physiolibrary.Osmotic.Interfaces.OsmoticPort_a vascularH2O
+        "plasma capillary wall osmotic connector"
+        annotation (Placement(transformation(extent={{-92,-42},{-72,-22}}),
+            iconTransformation(extent={{-70,-10},{-50,10}})));
+        Modelica.Blocks.Math.Gain calsFract(k=CalsFract) annotation (Placement(
+              transformation(
+              extent={{-6,-6},{6,6}},
+              origin={48,-82})));
+
+      //  Physiolibrary.Types.Volume volume;
+      //  Physiolibrary.Types.VolumeFlowRate change;
+      Physiolibrary.Osmotic.Sources.SolventInflux metabolicH2O(useSolutionFlowInput=true)
+          annotation (Placement(transformation(extent={{68,-98},{88,-78}})));
+      Physiolibrary.Osmotic.Sensors.FlowMeasure flowMeasure1 annotation (
+          Placement(transformation(
+            extent={{5,4},{-5,-4}},
+            rotation=270,
+            origin={24,45})));
+      Physiolibrary.Osmotic.Sensors.FlowMeasure flowMeasure2 annotation (
+          Placement(transformation(
+            extent={{5,6},{-5,-6}},
+            rotation=270,
+            origin={8,25})));
+        Physiolibrary.Osmotic.Components.Membrane capyMembrane(
+          useHydraulicPressureInputs=true,
+          useTemperatureInputs=false,
+          cond=CapillaryConductance)
+          annotation (Placement(transformation(extent={{-60,-24},{-40,-4}})));
+      Physiolibrary.Osmotic.Components.SolventFlux lymph(useSolutionFlowInput=
+            true) annotation (Placement(transformation(
+            extent={{-10,10},{10,-10}},
+            rotation=180,
+            origin={-58,-70})));
+      Physiolibrary.Blocks.Factors.Spline InterstitialPressureEffect(
+          data={{-14.0,0.0,0.0},{-4.0,1.0,0.1},{2.0,8.0,4.0},{6.0,25.0,0.0}},
+          Xscale=101325/760,
+          y(unit="m3/s"))
+        annotation (Placement(transformation(extent={{-48,-68},{-68,-48}})));
+      Physiolibrary.Types.Constants.VolumeFlowRateConst flowConstant(k=
+              NormalLymphFlow)
+        annotation (Placement(transformation(extent={{-68,-50},{-60,-42}})));
+        Physiolibrary.Osmotic.Components.OsmoticCell Interstitium(
+            useImpermeableSolutesInput=true, volume_start=InterstitialWater_start,
+          NumberOfMembraneTypes=2)
+        "Iterstitium has two type of membranes: capillary membrane (index 1) and cell membrane (index 2)"
+          annotation (Placement(transformation(extent={{18,-10},{-2,10}})));
+        Physiolibrary.Blocks.Interpolation.Curve pressureOnVolume(
+          Xscale=1e-6,
+          Yscale=101325/760,
+        data=InterstitialPressureVolumeData)
+          annotation (Placement(transformation(extent={{4,-50},{-16,-30}})));
+      Physiolibrary.Osmotic.Sources.SolventOutflux sweat(useSolutionFlowInput=
+            true)
+        annotation (Placement(transformation(extent={{10,10},{-10,-10}},
+            rotation=270,
+            origin={24,64})));
+      Physiolibrary.Types.Constants.VolumeFlowRateConst Vapor(k=
+            6.1666666666667e-09)
+          annotation (Placement(transformation(extent={{-24,40},{-16,48}})));
+      Physiolibrary.Osmotic.Sources.SolventOutflux insensibleSkinVapor(
+            useSolutionFlowInput=true) annotation (Placement(transformation(
+              extent={{10,10},{-10,-10}},
+              rotation=270,
+              origin={8,44})));
+        Physiolibrary.Osmotic.Components.OsmoticCell ICF(useImpermeableSolutesInput=true,
+            volume_start=IntracellularWater_start)
+          annotation (Placement(transformation(extent={{94,-66},{74,-46}})));
+        Physiolibrary.Osmotic.Components.Membrane cellMembrane(
+          useTemperatureInputs=false,
+          useHydraulicPressureInputs=false,
+        cond(displayUnit="l/(kPa.min)") = 1.6666666666667e-08)
+          annotation (Placement(transformation(extent={{62,-46},{82,-26}})));
+      Physiolibrary.Types.BusConnector busConnector annotation (Placement(
+            transformation(extent={{30,70},{50,90}}), iconTransformation(extent=
+               {{30,70},{50,90}})));
+        Modelica.Blocks.Math.Gain sizeFract(k=SizeFract*ICFVFract)
+                                                         annotation (Placement(
+              transformation(
+              extent={{6,-6},{-6,6}},
+              rotation=180,
+              origin={90,72})));
+      Modelica.Blocks.Math.Gain lungFract(k=LungFract)
+        annotation (Placement(transformation(extent={{-24,22},{-16,30}})));
+      Physiolibrary.Osmotic.Sources.SolventOutflux insensibleLungVapor(
+          useSolutionFlowInput=true) annotation (Placement(transformation(
+            extent={{-10,-10},{10,10}},
+            rotation=90,
+            origin={-6,26})));
+      Modelica.Blocks.Math.Gain skinFract(k=SkinFract) annotation (Placement(
+            transformation(
+            extent={{-4,-4},{4,4}},
+            origin={-6,44})));
+      Modelica.Blocks.Math.Gain sweatFract(k=SweatFract) annotation (Placement(
+            transformation(
+            extent={{-4,-4},{4,4}},
+            origin={10,64})));
+
+        Physiolibrary.Types.VolumeFlowRate fromCapillaries, toLymph, evaporation, fromMetabolism;
+      equation
+        fromCapillaries = capyMembrane.q_in.q;
+        toLymph = lymph.q_out.q;
+        evaporation = insensibleLungVapor.q_in.q + insensibleSkinVapor.q_in.q + sweat.q_in.q;
+        fromMetabolism = metabolicH2O.q_out.q;
+
+        connect(calsFract.y, metabolicH2O.solutionFlow) annotation (Line(
+            points={{54.6,-82},{78,-82},{78,-81}},
+            color={0,0,127},
+            smooth=Smooth.None));
+      //  volume = extravascularH2O.WaterVolume;
+      //  change = extravascularH2O.q_out.q;
+
+        connect(vascularH2O, capyMembrane.q_in) annotation (Line(
+            points={{-82,-32},{-82,-14},{-60,-14}},
+            color={127,127,0},
+            thickness=1,
+            smooth=Smooth.None));
+        connect(InterstitialPressureEffect.y, lymph.solutionFlow) annotation (Line(
+            points={{-58,-62},{-58,-63}},
+            color={0,0,127},
+            smooth=Smooth.None));
+        connect(flowConstant.y,InterstitialPressureEffect. yBase) annotation (
+            Line(
+            points={{-59,-46},{-58,-46},{-58,-56}},
+            color={0,0,127},
+            smooth=Smooth.None));
+        connect(vascularH2O, lymph.q_out) annotation (Line(
+            points={{-82,-32},{-82,-70},{-68,-70}},
+            color={127,127,0},
+            thickness=1,
+            smooth=Smooth.None));
+        connect(flowMeasure2.q_in, Interstitium.q_in[1]) annotation (Line(
+            points={{8,20},{8,-0.5}},
+            color={127,127,0},
+            thickness=1,
+            smooth=Smooth.None));
+        connect(pressureOnVolume.u, Interstitium.volume) annotation (Line(
+            points={{4,-40},{2,-40},{2,-10}},
+            color={0,0,127},
+            smooth=Smooth.None));
+        connect(pressureOnVolume.val, capyMembrane.hydraulicPressureOut) annotation (
+            Line(
+            points={{-16,-40},{-20,-40},{-20,-6},{-42,-6}},
+            color={0,0,127},
+            smooth=Smooth.None));
+        connect(pressureOnVolume.val, InterstitialPressureEffect.u) annotation (Line(
+            points={{-16,-40},{-20,-40},{-20,-58},{-50,-58}},
+            color={0,0,127},
+            smooth=Smooth.None));
+        connect(sweat.q_in, flowMeasure1.q_out) annotation (Line(
+            points={{24,58},{24,50}},
+            color={127,127,0},
+            thickness=1,
+            smooth=Smooth.None));
+        connect(insensibleSkinVapor.q_in, flowMeasure2.q_out) annotation (Line(
+            points={{8,38},{8,30}},
+            color={127,127,0},
+            thickness=1,
+            smooth=Smooth.None));
+        connect(ICF.q_in[1], cellMembrane.q_out) annotation (Line(
+            points={{84,-56},{86,-56},{86,-36},{82,-36}},
+            color={127,127,0},
+            thickness=1,
+            smooth=Smooth.None));
+        connect(metabolicH2O.q_out, ICF.q_in[1]) annotation (Line(
+            points={{84,-88},{96,-88},{96,-56},{84,-56}},
+            color={127,127,0},
+            thickness=1,
+            smooth=Smooth.None));
+      connect(flowMeasure1.volumeFlowRate, torsoSpecific.Sweat_H2OOutflow)
+        annotation (Line(
+          points={{27.2,45},{54,45},{54,35.5},{71,35.5}},
+          color={215,215,215},
+          smooth=Smooth.None), Text(
+          string="%second",
+          index=1,
+          extent={{6,3},{6,3}}));
+      connect(flowMeasure2.volumeFlowRate, torsoSpecific.InsensibleSkin_H2O)
+        annotation (Line(
+          points={{12.8,25},{54,25},{54,35.5},{71,35.5}},
+          color={215,215,215},
+          smooth=Smooth.None), Text(
+          string="%second",
+          index=1,
+          extent={{6,3},{6,3}}));
+        connect(Interstitium.volume, torsoSpecific.InterstitialWater_Vol) annotation (
+           Line(
+            points={{2,-10},{54,-10},{54,35.5},{71,35.5}},
+            color={215,215,215},
+            smooth=Smooth.None), Text(
+            string="%second",
+            index=1,
+            extent={{6,3},{6,3}}));
+        connect(Interstitium.impermeableSolutes[1], torsoSpecific.InterstitialProtein_Mass)
+          annotation (Line(
+            points={{16,5},{54,5},{54,35.5},{71,35.5}},
+            color={0,0,127},
+            smooth=Smooth.None), Text(
+            string="%second",
+            index=1,
+            extent={{6,3},{6,3}}));
+        connect(InterstitialPressureEffect.y, torsoSpecific.LymphFlow) annotation (
+           Line(
+            points={{-58,-62},{52,-62},{52,35.5},{71,35.5}},
+            color={215,215,215},
+            smooth=Smooth.None), Text(
+            string="%second",
+            index=1,
+            extent={{6,3},{6,3}}));
+        connect(ICF.impermeableSolutes[1], sizeFract.y) annotation (Line(
+            points={{92,-50},{96,-50},{96,72},{96.6,72}},
+            color={0,0,127},
+            smooth=Smooth.None));
+        connect(busConnector.OsmBody_ICFVActiveOsmoles, sizeFract.u) annotation (Line(
+            points={{40,80},{40,72},{82.8,72}},
+            color={0,0,127},
+            smooth=Smooth.None), Text(
+            string="%first",
+            index=-1,
+            extent={{-6,3},{-6,3}}));
+        connect(torsoSpecific.CapillaryRegionalPressure, capyMembrane.hydraulicPressureIn)
+          annotation (Line(
+            points={{71,35.5},{71,36},{56,36},{56,14},{-98,14},{-98,-6},{-58,-6}},
+            color={170,255,255},
+            smooth=Smooth.None,
+          thickness=0.5),        Text(
+            string="%first",
+            index=-1,
+            extent={{-6,3},{-6,3}}));
+      connect(lungFract.y, insensibleLungVapor.solutionFlow) annotation (Line(
+          points={{-15.6,26},{-13,26}},
+          color={0,0,127},
+          smooth=Smooth.None));
+        connect(insensibleLungVapor.q_in, Interstitium.q_in[1]) annotation (Line(
+            points={{-6,20},{-6,10},{8,10},{8,-0.5}},
+            color={127,127,0},
+            thickness=1,
+            smooth=Smooth.None));
+      connect(Vapor.y, skinFract.u) annotation (Line(
+          points={{-15,44},{-10.8,44}},
+          color={0,0,127},
+          smooth=Smooth.None));
+      connect(insensibleSkinVapor.solutionFlow, skinFract.y) annotation (Line(
+          points={{1,44},{-1.6,44}},
+          color={0,0,127},
+          smooth=Smooth.None));
+      connect(sweat.solutionFlow, sweatFract.y) annotation (Line(
+          points={{17,64},{14.4,64}},
+          color={0,0,127},
+          smooth=Smooth.None));
+      connect(busConnector.SweatDuct_H2OOutflow, sweatFract.u) annotation (Line(
+          points={{40,80},{-66,80},{-66,64},{5.2,64}},
+          color={0,0,255},
+          smooth=Smooth.None), Text(
+          string="%first",
+          index=-1,
+          extent={{-6,3},{-6,3}}));
+      connect(busConnector.HeatInsensibleLung_H2O, lungFract.u) annotation (
+          Line(
+          points={{40,80},{-66,80},{-66,26},{-24.8,26}},
+          color={0,0,255},
+          smooth=Smooth.None), Text(
+          string="%first",
+          index=-1,
+          extent={{-6,3},{-6,3}}));
+      connect(torsoSpecific.Cell_H2O, ICF.volume) annotation (Line(
+          points={{71,35.5},{54,35.5},{54,-66},{78,-66}},
+          color={215,215,215},
+          smooth=Smooth.None), Text(
+          string="%first",
+          index=-1,
+          extent={{-6,3},{-6,3}}));
+      connect(busConnector.MetabolicH2O_Rate, calsFract.u) annotation (Line(
+          points={{40,80},{-100,80},{-100,-82},{40.8,-82}},
+          color={0,0,255},
+          smooth=Smooth.None), Text(
+          string="%first",
+          index=-1,
+          extent={{-6,3},{-6,3}}));
+        connect(Interstitium.impermeableSolutes[2], torsoSpecific.InterstitialOsmoles)
+          annotation (Line(
+            points={{16,7},{68,7},{68,35.5},{71,35.5}},
+            color={0,0,127},
+            smooth=Smooth.None));
+        connect(Interstitium.q_in[2], cellMembrane.q_in) annotation (Line(
+            points={{8,0.5},{36,0.5},{36,-36},{62,-36}},
+            color={127,127,0},
+            thickness=1,
+            smooth=Smooth.None));
+      connect(flowMeasure1.q_in, Interstitium.q_in[1]) annotation (Line(
+          points={{24,40},{24,10},{8,10},{8,-0.5}},
+          color={127,127,0},
+          thickness=1,
+          smooth=Smooth.None));
+      connect(Interstitium.q_in[1], lymph.q_in) annotation (Line(
+          points={{8,-0.5},{-18,-0.5},{-18,-70},{-48,-70}},
+          color={127,127,0},
+          thickness=1,
+          smooth=Smooth.None));
+      connect(capyMembrane.q_out, Interstitium.q_in[1]) annotation (Line(
+          points={{-40,-14},{-18,-14},{-18,-0.5},{8,-0.5}},
+          color={127,127,0},
+          thickness=1,
+          smooth=Smooth.None));
+        annotation ( Icon(coordinateSystem(
+                preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
+              graphics={                 Text(
+                extent={{-139,-101},{142,-126}},
+                lineColor={0,0,255},
+                textString="%name")}), experiment(StopTime=31536000, Tolerance=1e-005));
+      end Torsos;
     end WaterCompartments;
 
     package TissuesVolume
@@ -31843,173 +32185,173 @@ annotation (Placement(transformation(extent={{-42,64},{-24,82}})));*/
         tissueCO2Produce = brain.Tissue_CO2FromMetabolism + fat.Tissue_CO2FromMetabolism + gITract.Tissue_CO2FromMetabolism + kidney.Tissue_CO2FromMetabolism + liver.Tissue_CO2FromMetabolism + otherTissue.Tissue_CO2FromMetabolism + respiratoryMuscle.Tissue_CO2FromMetabolism + leftHeart.Tissue_CO2FromMetabolism + rightHeart.Tissue_CO2FromMetabolism + skeletalMuscle.Tissue_CO2FromMetabolism + skin.Tissue_CO2FromMetabolism + bone.Tissue_CO2FromMetabolism;
 
         connect(brain.glucose, glucose) annotation (Line(
-            points={{-32,114},{-28,114},{-28,12},{-2,12}},
+            points={{-32,111.455},{-28,111.455},{-28,12},{-2,12}},
             color={200,0,0},
             smooth=Smooth.None,
             thickness=1));
         connect(respiratoryMuscle.glucose, glucose) annotation (Line(
-            points={{-32,80},{-28,80},{-28,12},{-2,12}},
+            points={{-32,77.4545},{-28,77.4545},{-28,12},{-2,12}},
             color={200,0,0},
             smooth=Smooth.None,
             thickness=1));
         connect(rightHeart.glucose, glucose) annotation (Line(
-            points={{-32,42},{-28,42},{-28,12},{-2,12}},
+            points={{-32,39.4545},{-28,39.4545},{-28,12},{-2,12}},
             color={200,0,0},
             smooth=Smooth.None,
             thickness=1));
         connect(leftHeart.glucose, glucose) annotation (Line(
-            points={{-30,8},{-28,8},{-28,12},{-2,12}},
+            points={{-30,5.45455},{-28,5.45455},{-28,12},{-2,12}},
             color={200,0,0},
             smooth=Smooth.None,
             thickness=1));
         connect(skeletalMuscle.glucose, glucose) annotation (Line(
-            points={{-30,-30},{-28,-30},{-28,12},{-2,12}},
+            points={{-30,-32.5455},{-28,-32.5455},{-28,12},{-2,12}},
             color={200,0,0},
             smooth=Smooth.None,
             thickness=1));
         connect(skin.glucose, glucose) annotation (Line(
-            points={{-32,-68},{-28,-68},{-28,12},{-2,12}},
+            points={{-32,-70.5455},{-28,-70.5455},{-28,12},{-2,12}},
             color={200,0,0},
             smooth=Smooth.None,
             thickness=1));
         connect(bone.glucose, glucose) annotation (Line(
-            points={{40,114},{24,114},{24,12},{-2,12}},
+            points={{40,111.636},{24,111.636},{24,12},{-2,12}},
             color={200,0,0},
             smooth=Smooth.None,
             thickness=1));
         connect(kidney.glucose, glucose) annotation (Line(
-            points={{40,36},{24,36},{24,12},{-2,12}},
+            points={{40,33.6364},{24,33.6364},{24,12},{-2,12}},
             color={200,0,0},
             smooth=Smooth.None,
             thickness=1));
         connect(gITract.glucose, glucose) annotation (Line(
-            points={{40,4},{24,4},{24,12},{-2,12}},
+            points={{40,1.63636},{24,1.63636},{24,12},{-2,12}},
             color={200,0,0},
             smooth=Smooth.None,
             thickness=1));
         connect(fat.glucose, glucose) annotation (Line(
-            points={{40,-28},{24,-28},{24,12},{-2,12}},
+            points={{40,-30.3636},{24,-30.3636},{24,12},{-2,12}},
             color={200,0,0},
             smooth=Smooth.None,
             thickness=1));
         connect(otherTissue.glucose, glucose) annotation (Line(
-            points={{40,-62},{24,-62},{24,12},{-2,12}},
+            points={{40,-64.3636},{24,-64.3636},{24,12},{-2,12}},
             color={200,0,0},
             smooth=Smooth.None,
             thickness=1));
         connect(brain.lactate, lactate) annotation (Line(
-            points={{-32,102.8},{-24,102.8},{-24,66},{0,66}},
+            points={{-32,101.273},{-24,101.273},{-24,66},{0,66}},
             color={200,0,0},
             smooth=Smooth.None,
             thickness=1));
         connect(respiratoryMuscle.lactate, lactate) annotation (Line(
-            points={{-32,68.8},{-24,68.8},{-24,66},{0,66}},
+            points={{-32,67.2727},{-24,67.2727},{-24,66},{0,66}},
             color={200,0,0},
             smooth=Smooth.None,
             thickness=1));
         connect(leftHeart.lactate, lactate) annotation (Line(
-            points={{-30,-3.2},{-24,-3.2},{-24,66},{0,66}},
+            points={{-30,-4.72727},{-24,-4.72727},{-24,66},{0,66}},
             color={200,0,0},
             smooth=Smooth.None,
             thickness=1));
         connect(rightHeart.lactate, lactate) annotation (Line(
-            points={{-32,30.8},{-24,30.8},{-24,66},{0,66}},
+            points={{-32,29.2727},{-24,29.2727},{-24,66},{0,66}},
             color={200,0,0},
             smooth=Smooth.None,
             thickness=1));
         connect(skeletalMuscle.lactate, lactate) annotation (Line(
-            points={{-30,-41.2},{-24,-41.2},{-24,66},{0,66}},
+            points={{-30,-42.7273},{-24,-42.7273},{-24,66},{0,66}},
             color={200,0,0},
             smooth=Smooth.None,
             thickness=1));
         connect(skin.lactate, lactate) annotation (Line(
-            points={{-32,-79.2},{-24,-79.2},{-24,66},{0,66}},
+            points={{-32,-80.7273},{-24,-80.7273},{-24,66},{0,66}},
             color={200,0,0},
             smooth=Smooth.None,
             thickness=1));
         connect(bone.lactate, lactate) annotation (Line(
-            points={{40,103.6},{20,103.6},{20,66},{0,66}},
+            points={{40,102.182},{20,102.182},{20,66},{0,66}},
             color={200,0,0},
             smooth=Smooth.None,
             thickness=1));
         connect(liver.lactate, lactate) annotation (Line(
-            points={{40,59.6},{20,59.6},{20,66},{0,66}},
+            points={{40,58.1818},{20,58.1818},{20,66},{0,66}},
             color={200,0,0},
             smooth=Smooth.None,
             thickness=1));
         connect(kidney.lactate, lactate) annotation (Line(
-            points={{40,25.6},{20,25.6},{20,66},{0,66}},
+            points={{40,24.1818},{20,24.1818},{20,66},{0,66}},
             color={200,0,0},
             smooth=Smooth.None,
             thickness=1));
         connect(gITract.lactate, lactate) annotation (Line(
-            points={{40,-6.4},{20,-6.4},{20,66},{0,66}},
+            points={{40,-7.81818},{20,-7.81818},{20,66},{0,66}},
             color={200,0,0},
             smooth=Smooth.None,
             thickness=1));
         connect(fat.lactate, lactate) annotation (Line(
-            points={{40,-38.4},{20,-38.4},{20,66},{0,66}},
+            points={{40,-39.8182},{20,-39.8182},{20,66},{0,66}},
             color={200,0,0},
             smooth=Smooth.None,
             thickness=1));
         connect(otherTissue.lactate, lactate) annotation (Line(
-            points={{40,-72.4},{20,-72.4},{20,66},{0,66}},
+            points={{40,-73.8182},{20,-73.8182},{20,66},{0,66}},
             color={200,0,0},
             smooth=Smooth.None,
             thickness=1));
         connect(respiratoryMuscle.fattyAcids, fattyAcids) annotation (Line(
-            points={{-32,57.6},{-20,57.6},{-20,-6},{0,-6}},
+            points={{-32,57.0909},{-20,57.0909},{-20,-6},{0,-6}},
             color={200,0,0},
             smooth=Smooth.None,
             thickness=1));
         connect(rightHeart.fattyAcids, fattyAcids) annotation (Line(
-            points={{-32,19.6},{-20,19.6},{-20,-6},{0,-6}},
+            points={{-32,19.0909},{-20,19.0909},{-20,-6},{0,-6}},
             color={200,0,0},
             smooth=Smooth.None,
             thickness=1));
         connect(leftHeart.fattyAcids, fattyAcids) annotation (Line(
-            points={{-30,-14.4},{-20,-14.4},{-20,-6},{0,-6}},
+            points={{-30,-14.9091},{-20,-14.9091},{-20,-6},{0,-6}},
             color={200,0,0},
             smooth=Smooth.None,
             thickness=1));
         connect(skeletalMuscle.fattyAcids, fattyAcids) annotation (Line(
-            points={{-30,-52.4},{-20,-52.4},{-20,-6},{0,-6}},
+            points={{-30,-52.9091},{-20,-52.9091},{-20,-6},{0,-6}},
             color={200,0,0},
             smooth=Smooth.None,
             thickness=1));
         connect(skin.fattyAcids, fattyAcids) annotation (Line(
-            points={{-32,-90.4},{-20,-90.4},{-20,-6},{0,-6}},
+            points={{-32,-90.9091},{-20,-90.9091},{-20,-6},{0,-6}},
             color={200,0,0},
             smooth=Smooth.None,
             thickness=1));
         connect(bone.fattyAcids, fattyAcids) annotation (Line(
-            points={{40,93.2},{16,93.2},{16,-6},{0,-6}},
+            points={{40,92.7273},{16,92.7273},{16,-6},{0,-6}},
             color={200,0,0},
             smooth=Smooth.None,
             thickness=1));
         connect(kidney.fattyAcids, fattyAcids) annotation (Line(
-            points={{40,15.2},{16,15.2},{16,-6},{0,-6}},
+            points={{40,14.7273},{16,14.7273},{16,-6},{0,-6}},
             color={200,0,0},
             smooth=Smooth.None,
             thickness=1));
         connect(gITract.fattyAcids, fattyAcids) annotation (Line(
-            points={{40,-16.8},{16,-16.8},{16,-6},{0,-6}},
+            points={{40,-17.2727},{16,-17.2727},{16,-6},{0,-6}},
             color={200,0,0},
             smooth=Smooth.None,
             thickness=1));
         connect(fat.fattyAcids, fattyAcids) annotation (Line(
-            points={{40,-48.8},{16,-48.8},{16,-6},{0,-6}},
+            points={{40,-49.2727},{16,-49.2727},{16,-6},{0,-6}},
             color={200,0,0},
             smooth=Smooth.None,
             thickness=1));
         connect(otherTissue.fattyAcids, fattyAcids) annotation (Line(
-            points={{40,-82.8},{16,-82.8},{16,-6},{0,-6}},
+            points={{40,-83.2727},{16,-83.2727},{16,-6},{0,-6}},
             color={200,0,0},
             smooth=Smooth.None,
             thickness=1));
 
         connect(busConnector.Brain_LiquidVol,brain. LiquidVol)  annotation (Line(
-            points={{-82,116},{-62,116},{-62,105.6},{-58.6,105.6}},
+            points={{-82,116},{-62,116},{-62,103.818},{-58.6,103.818}},
             color={0,0,255},
             thickness=0.5,
             smooth=Smooth.None), Text(
@@ -32018,7 +32360,7 @@ annotation (Placement(transformation(extent={{-42,64},{-24,82}})));*/
             extent={{-5,0},{-5,0}}));
         connect(busConnector.RespiratoryMuscle_LiquidVol,respiratoryMuscle. LiquidVol)  annotation (
             Line(
-            points={{-82,116},{-62,116},{-62,71.6},{-58.6,71.6}},
+            points={{-82,116},{-62,116},{-62,69.8182},{-58.6,69.8182}},
             color={0,0,255},
             thickness=0.5,
             smooth=Smooth.None), Text(
@@ -32026,7 +32368,7 @@ annotation (Placement(transformation(extent={{-42,64},{-24,82}})));*/
             index=-1,
             extent={{-5,0},{-5,0}}));
         connect(busConnector.RightHeart_LiquidVol,rightHeart. LiquidVol)  annotation (Line(
-            points={{-82,116},{-62,116},{-62,33.6},{-58.6,33.6}},
+            points={{-82,116},{-62,116},{-62,31.8182},{-58.6,31.8182}},
             color={0,0,255},
             thickness=0.5,
             smooth=Smooth.None), Text(
@@ -32034,7 +32376,7 @@ annotation (Placement(transformation(extent={{-42,64},{-24,82}})));*/
             index=-1,
             extent={{-5,0},{-5,0}}));
         connect(busConnector.LeftHeart_LiquidVol,leftHeart. LiquidVol)  annotation (Line(
-            points={{-82,116},{-62,116},{-62,-0.4},{-56.6,-0.4}},
+            points={{-82,116},{-62,116},{-62,-2.18182},{-56.6,-2.18182}},
             color={0,0,255},
             thickness=0.5,
             smooth=Smooth.None), Text(
@@ -32042,7 +32384,7 @@ annotation (Placement(transformation(extent={{-42,64},{-24,82}})));*/
             index=-1,
             extent={{-5,0},{-5,0}}));
         connect(busConnector.SkeletalMuscle_LiquidVol,skeletalMuscle. LiquidVol)  annotation (Line(
-            points={{-82,116},{-62,116},{-62,-38.4},{-56.6,-38.4}},
+            points={{-82,116},{-62,116},{-62,-40.1818},{-56.6,-40.1818}},
             color={0,0,255},
             thickness=0.5,
             smooth=Smooth.None), Text(
@@ -32050,49 +32392,49 @@ annotation (Placement(transformation(extent={{-42,64},{-24,82}})));*/
             index=-1,
             extent={{-5,0},{-5,0}}));
         connect(bone.LiquidVol, busConnector.Bone_LiquidVol)  annotation (Line(
-            points={{64.7,106.2},{68,106.2},{68,116},{-82,116}},
+            points={{64.7,104.545},{68,104.545},{68,116},{-82,116}},
             color={0,0,127},
             smooth=Smooth.None), Text(
             string="%second",
             index=1,
             extent={{5,0},{5,0}}));
         connect(liver.LiquidVol, busConnector.Liver_LiquidVol)  annotation (Line(
-            points={{64.7,62.2},{68,62.2},{68,116},{-82,116}},
+            points={{64.7,60.5455},{68,60.5455},{68,116},{-82,116}},
             color={0,0,127},
             smooth=Smooth.None), Text(
             string="%second",
             index=1,
             extent={{5,0},{5,0}}));
         connect(gITract.LiquidVol, busConnector.GITract_LiquidVol)  annotation (Line(
-            points={{64.7,-3.8},{68,-3.8},{68,116},{-82,116}},
+            points={{64.7,-5.45455},{68,-5.45455},{68,116},{-82,116}},
             color={0,0,127},
             smooth=Smooth.None), Text(
             string="%second",
             index=1,
             extent={{5,0},{5,0}}));
         connect(fat.LiquidVol, busConnector.Fat_LiquidVol)  annotation (Line(
-            points={{64.7,-35.8},{68,-35.8},{68,116},{-82,116}},
+            points={{64.7,-37.4545},{68,-37.4545},{68,116},{-82,116}},
             color={0,0,127},
             smooth=Smooth.None), Text(
             string="%second",
             index=1,
             extent={{5,0},{5,0}}));
         connect(otherTissue.LiquidVol, busConnector.OtherTissue_LiquidVol)  annotation (Line(
-            points={{64.7,-69.8},{68,-69.8},{68,116},{-82,116}},
+            points={{64.7,-71.4545},{68,-71.4545},{68,116},{-82,116}},
             color={0,0,127},
             smooth=Smooth.None), Text(
             string="%second",
             index=1,
             extent={{5,0},{5,0}}));
         connect(kidney.LiquidVol, busConnector.Kidney_LiquidVol)  annotation (Line(
-            points={{64.7,28.2},{68,28.2},{68,116},{-82,116}},
+            points={{64.7,26.5455},{68,26.5455},{68,116},{-82,116}},
             color={0,0,127},
             smooth=Smooth.None), Text(
             string="%second",
             index=1,
             extent={{5,0},{5,0}}));
         connect(busConnector.Skin_LiquidVol,skin. LiquidVol)  annotation (Line(
-            points={{-82,116},{-62,116},{-62,-76.4},{-58.6,-76.4}},
+            points={{-82,116},{-62,116},{-62,-78.1818},{-58.6,-78.1818}},
             color={0,0,255},
             thickness=0.5,
             smooth=Smooth.None), Text(
@@ -32102,7 +32444,7 @@ annotation (Placement(transformation(extent={{-42,64},{-24,82}})));*/
 
         connect(busConnector.LeftHeart_BloodFlow,leftHeart. BloodFlow)  annotation (
             Line(
-            points={{-82,116},{-62,116},{-62,5.2},{-56.6,5.2}},
+            points={{-82,116},{-62,116},{-62,2.90909},{-56.6,2.90909}},
             color={0,0,255},
             thickness=0.5,
             smooth=Smooth.None), Text(
@@ -32111,7 +32453,7 @@ annotation (Placement(transformation(extent={{-42,64},{-24,82}})));*/
             extent={{-5,0},{-5,0}}));
         connect(busConnector.RightHeart_BloodFlow,rightHeart. BloodFlow)  annotation (
             Line(
-            points={{-82,116},{-62,116},{-62,39.2},{-58.6,39.2}},
+            points={{-82,116},{-62,116},{-62,36.9091},{-58.6,36.9091}},
             color={0,0,255},
             thickness=0.5,
             smooth=Smooth.None), Text(
@@ -32120,7 +32462,7 @@ annotation (Placement(transformation(extent={{-42,64},{-24,82}})));*/
             extent={{-5,0},{-5,0}}));
         connect(busConnector.Brain_BloodFlow,brain. BloodFlow)  annotation (
             Line(
-            points={{-82,116},{-62,116},{-62,111.2},{-58.6,111.2}},
+            points={{-82,116},{-62,116},{-62,108.909},{-58.6,108.909}},
             color={0,0,255},
             thickness=0.5,
             smooth=Smooth.None), Text(
@@ -32129,7 +32471,7 @@ annotation (Placement(transformation(extent={{-42,64},{-24,82}})));*/
             extent={{-5,0},{-5,0}}));
         connect(busConnector.RespiratoryMuscle_BloodFlow,respiratoryMuscle. BloodFlow)
           annotation (Line(
-            points={{-82,116},{-62,116},{-62,77.2},{-58.6,77.2}},
+            points={{-82,116},{-62,116},{-62,74.9091},{-58.6,74.9091}},
             color={0,0,255},
             thickness=0.5,
             smooth=Smooth.None), Text(
@@ -32138,7 +32480,7 @@ annotation (Placement(transformation(extent={{-42,64},{-24,82}})));*/
             extent={{-5,0},{-5,0}}));
            connect(busConnector.SkeletalMuscle_BloodFlow,skeletalMuscle. BloodFlow)
           annotation (Line(
-            points={{-82,116},{-62,116},{-62,-32.8},{-56.6,-32.8}},
+            points={{-82,116},{-62,116},{-62,-35.0909},{-56.6,-35.0909}},
             color={0,0,255},
             thickness=0.5,
             smooth=Smooth.None), Text(
@@ -32146,7 +32488,7 @@ annotation (Placement(transformation(extent={{-42,64},{-24,82}})));*/
             index=-1,
             extent={{-5,0},{-5,0}}));
        connect(busConnector.Skin_BloodFlow,skin. BloodFlow)  annotation (Line(
-            points={{-82,116},{-62,116},{-62,-70.8},{-58.6,-70.8}},
+            points={{-82,116},{-62,116},{-62,-73.0909},{-58.6,-73.0909}},
             color={0,0,255},
             thickness=0.5,
             smooth=Smooth.None), Text(
@@ -32154,14 +32496,14 @@ annotation (Placement(transformation(extent={{-42,64},{-24,82}})));*/
             index=-1,
             extent={{-5,0},{-5,0}}));
         connect(bone.BloodFlow, busConnector.Bone_BloodFlow)  annotation (Line(
-            points={{64.7,111.4},{68,111.4},{68,116},{-82,116}},
+            points={{64.7,109.273},{68,109.273},{68,116},{-82,116}},
             color={0,0,127},
             smooth=Smooth.None), Text(
             string="%second",
             index=1,
             extent={{5,0},{5,0}}));
         connect(kidney.BloodFlow, busConnector.Kidney_BloodFlow)  annotation (Line(
-            points={{64.7,33.4},{68,33.4},{68,116},{-82,116}},
+            points={{64.7,31.2727},{68,31.2727},{68,116},{-82,116}},
             color={0,0,127},
             smooth=Smooth.None), Text(
             string="%second",
@@ -32169,14 +32511,14 @@ annotation (Placement(transformation(extent={{-42,64},{-24,82}})));*/
             extent={{5,0},{5,0}}));
         connect(gITract.BloodFlow, busConnector.GITract_BloodFlow)  annotation (
             Line(
-            points={{64.7,1.4},{68,1.4},{68,116},{-82,116}},
+            points={{64.7,-0.727273},{68,-0.727273},{68,116},{-82,116}},
             color={0,0,127},
             smooth=Smooth.None), Text(
             string="%second",
             index=1,
             extent={{5,0},{5,0}}));
         connect(fat.BloodFlow, busConnector.Fat_BloodFlow)  annotation (Line(
-            points={{64.7,-30.6},{68,-30.6},{68,116},{-82,116}},
+            points={{64.7,-32.7273},{68,-32.7273},{68,116},{-82,116}},
             color={0,0,127},
             smooth=Smooth.None), Text(
             string="%second",
@@ -32184,7 +32526,7 @@ annotation (Placement(transformation(extent={{-42,64},{-24,82}})));*/
             extent={{5,0},{5,0}}));
         connect(otherTissue.BloodFlow, busConnector.OtherTissue_BloodFlow)
           annotation (Line(
-            points={{64.7,-64.6},{68,-64.6},{68,116},{-82,116}},
+            points={{64.7,-66.7273},{68,-66.7273},{68,116},{-82,116}},
             color={0,0,127},
             smooth=Smooth.None), Text(
             string="%second",
@@ -32193,7 +32535,7 @@ annotation (Placement(transformation(extent={{-42,64},{-24,82}})));*/
 
         connect(bone.Structure_Effect, busConnector.Bone_StructureEffect)
           annotation (Line(
-            points={{64.7,103.6},{68,103.6},{68,116},{-82,116}},
+            points={{64.7,102.182},{68,102.182},{68,116},{-82,116}},
             color={0,0,127},
             smooth=Smooth.None), Text(
             string="%second",
@@ -32201,7 +32543,7 @@ annotation (Placement(transformation(extent={{-42,64},{-24,82}})));*/
             extent={{5,0},{5,0}}));
         connect(liver.Structure_Effect, busConnector.Liver_StructureEffect)
           annotation (Line(
-            points={{64.7,59.6},{68,59.6},{68,116},{-82,116}},
+            points={{64.7,58.1818},{68,58.1818},{68,116},{-82,116}},
             color={0,0,127},
             smooth=Smooth.None), Text(
             string="%second",
@@ -32209,7 +32551,7 @@ annotation (Placement(transformation(extent={{-42,64},{-24,82}})));*/
             extent={{5,0},{5,0}}));
         connect(kidney.Structure_Effect, busConnector.Kidney_StructureEffect)
           annotation (Line(
-            points={{64.7,25.6},{68,25.6},{68,116},{-82,116}},
+            points={{64.7,24.1818},{68,24.1818},{68,116},{-82,116}},
             color={0,0,127},
             smooth=Smooth.None), Text(
             string="%second",
@@ -32217,7 +32559,7 @@ annotation (Placement(transformation(extent={{-42,64},{-24,82}})));*/
             extent={{5,0},{5,0}}));
         connect(gITract.Structure_Effect, busConnector.GITract_StructureEffect)
           annotation (Line(
-            points={{64.7,-6.4},{68,-6.4},{68,116},{-82,116}},
+            points={{64.7,-7.81818},{68,-7.81818},{68,116},{-82,116}},
             color={0,0,127},
             smooth=Smooth.None), Text(
             string="%second",
@@ -32225,7 +32567,7 @@ annotation (Placement(transformation(extent={{-42,64},{-24,82}})));*/
             extent={{5,0},{5,0}}));
         connect(fat.Structure_Effect, busConnector.Fat_StructureEffect)  annotation (
             Line(
-            points={{64.7,-38.4},{68,-38.4},{68,116},{-82,116}},
+            points={{64.7,-39.8182},{68,-39.8182},{68,116},{-82,116}},
             color={0,0,127},
             smooth=Smooth.None), Text(
             string="%second",
@@ -32233,7 +32575,7 @@ annotation (Placement(transformation(extent={{-42,64},{-24,82}})));*/
             extent={{5,0},{5,0}}));
         connect(otherTissue.Structure_Effect, busConnector.OtherTissue_StructureEffect)
           annotation (Line(
-            points={{64.7,-72.4},{68,-72.4},{68,116},{-82,116}},
+            points={{64.7,-73.8182},{68,-73.8182},{68,116},{-82,116}},
             color={0,0,127},
             smooth=Smooth.None), Text(
             string="%second",
@@ -32241,7 +32583,7 @@ annotation (Placement(transformation(extent={{-42,64},{-24,82}})));*/
             extent={{5,0},{5,0}}));
         connect(busConnector.Skin_StructureEffect,skin. Structure_Effect)
           annotation (Line(
-            points={{-82,116},{-62,116},{-62,-79.2},{-58.6,-79.2}},
+            points={{-82,116},{-62,116},{-62,-80.7273},{-58.6,-80.7273}},
             color={0,0,255},
             thickness=0.5,
             smooth=Smooth.None), Text(
@@ -32250,7 +32592,7 @@ annotation (Placement(transformation(extent={{-42,64},{-24,82}})));*/
             extent={{-5,0},{-5,0}}));
         connect(busConnector.SkeletalMuscle_StructureEffect,skeletalMuscle. Structure_Effect)
           annotation (Line(
-            points={{-82,116},{-62,116},{-62,-41.2},{-56.6,-41.2}},
+            points={{-82,116},{-62,116},{-62,-42.7273},{-56.6,-42.7273}},
             color={0,0,255},
             thickness=0.5,
             smooth=Smooth.None), Text(
@@ -32259,7 +32601,7 @@ annotation (Placement(transformation(extent={{-42,64},{-24,82}})));*/
             extent={{-5,0},{-5,0}}));
         connect(busConnector.LeftHeart_StructureEffect,leftHeart. Structure_Effect)
           annotation (Line(
-            points={{-82,116},{-62,116},{-62,-3.2},{-56.6,-3.2}},
+            points={{-82,116},{-62,116},{-62,-4.72727},{-56.6,-4.72727}},
             color={0,0,255},
             thickness=0.5,
             smooth=Smooth.None), Text(
@@ -32268,7 +32610,7 @@ annotation (Placement(transformation(extent={{-42,64},{-24,82}})));*/
             extent={{-5,0},{-5,0}}));
           connect(busConnector.RightHeart_StructureEffect,rightHeart. Structure_Effect)
           annotation (Line(
-            points={{-82,116},{-62,116},{-62,30.8},{-58.6,30.8}},
+            points={{-82,116},{-62,116},{-62,29.2727},{-58.6,29.2727}},
             color={0,0,255},
             thickness=0.5,
             smooth=Smooth.None), Text(
@@ -32278,7 +32620,7 @@ annotation (Placement(transformation(extent={{-42,64},{-24,82}})));*/
         connect(busConnector.RespiratoryMuscle_StructureEffect,
           respiratoryMuscle.                                                      Structure_Effect)
           annotation (Line(
-            points={{-82,116},{-62,116},{-62,68.8},{-58.6,68.8}},
+            points={{-82,116},{-62,116},{-62,67.2727},{-58.6,67.2727}},
             color={0,0,255},
             thickness=0.5,
             smooth=Smooth.None), Text(
@@ -32287,7 +32629,7 @@ annotation (Placement(transformation(extent={{-42,64},{-24,82}})));*/
             extent={{-5,0},{-5,0}}));
         connect(busConnector.Brain_StructureEffect,brain. Structure_Effect)
           annotation (Line(
-            points={{-82,116},{-62,116},{-62,102.8},{-58.6,102.8}},
+            points={{-82,116},{-62,116},{-62,101.273},{-58.6,101.273}},
             color={0,0,255},
             thickness=0.5,
             smooth=Smooth.None), Text(
@@ -32296,21 +32638,21 @@ annotation (Placement(transformation(extent={{-42,64},{-24,82}})));*/
             extent={{-5,0},{-5,0}}));
 
         connect(kidney.PT_Na_Reab, busConnector.PT_Na_Reab)  annotation (Line(
-            points={{64.7,15.2},{68,15.2},{68,116},{-82,116}},
+            points={{64.7,14.7273},{68,14.7273},{68,116},{-82,116}},
             color={0,0,127},
             smooth=Smooth.None), Text(
             string="%second",
             index=1,
             extent={{5,0},{5,0}}));
         connect(kidney.LH_Na_Reab, busConnector.LH_Na_Reab)  annotation (Line(
-            points={{64.7,38.6},{68,38.6},{68,116},{-82,116}},
+            points={{64.7,36},{68,36},{68,116},{-82,116}},
             color={0,0,127},
             smooth=Smooth.None), Text(
             string="%second",
             index=1,
             extent={{5,0},{5,0}}));
         connect(kidney.DT_Na_Reab, busConnector.DT_Na_Reab)  annotation (Line(
-            points={{64.7,17.8},{68,17.8},{68,116},{-82,116}},
+            points={{64.7,17.0909},{68,17.0909},{68,116},{-82,116}},
             color={0,0,127},
             smooth=Smooth.None), Text(
             string="%second",
@@ -32318,7 +32660,7 @@ annotation (Placement(transformation(extent={{-42,64},{-24,82}})));*/
             extent={{5,0},{5,0}}));
         connect(busConnector.ExerciseMetabolism_MotionWatts,skeletalMuscle. ExerciseMetabolism_MotionCals)
           annotation (Line(
-            points={{-82,116},{-62,116},{-62,-52.4},{-56.6,-52.4}},
+            points={{-82,116},{-62,116},{-62,-52.9091},{-56.6,-52.9091}},
             color={0,0,255},
             thickness=0.5,
             smooth=Smooth.None), Text(
@@ -32327,130 +32669,130 @@ annotation (Placement(transformation(extent={{-42,64},{-24,82}})));*/
             extent={{-5,0},{-5,0}}));
 
         connect(busConnector.BloodVol_PVCrit,brain. BloodVol_PVCrit)  annotation (Line(
-            points={{-82,116},{-62,116},{-62,114},{-58.6,114}},
+            points={{-82,116},{-62,116},{-62,111.455},{-58.6,111.455}},
             color={0,0,255},
             thickness=0.5,
             smooth=Smooth.None));
         connect(busConnector.BloodVol_PVCrit,respiratoryMuscle. BloodVol_PVCrit)  annotation (Line(
-            points={{-82,116},{-62,116},{-62,80},{-58.6,80}},
+            points={{-82,116},{-62,116},{-62,77.4545},{-58.6,77.4545}},
             color={0,0,255},
             thickness=0.5,
             smooth=Smooth.None));
         connect(busConnector.BloodVol_PVCrit,rightHeart. BloodVol_PVCrit)  annotation (Line(
-            points={{-82,116},{-62,116},{-62,42},{-58.6,42}},
+            points={{-82,116},{-62,116},{-62,39.4545},{-58.6,39.4545}},
             color={0,0,255},
             thickness=0.5,
             smooth=Smooth.None));
         connect(busConnector.BloodVol_PVCrit,leftHeart. BloodVol_PVCrit)  annotation (Line(
-            points={{-82,116},{-62,116},{-62,8},{-56.6,8}},
+            points={{-82,116},{-62,116},{-62,5.45455},{-56.6,5.45455}},
             color={0,0,255},
             thickness=0.5,
             smooth=Smooth.None));
         connect(busConnector.BloodVol_PVCrit,skeletalMuscle. BloodVol_PVCrit)  annotation (Line(
-            points={{-82,116},{-62,116},{-62,-30},{-56.6,-30}},
+            points={{-82,116},{-62,116},{-62,-32.5455},{-56.6,-32.5455}},
             color={0,0,255},
             thickness=0.5,
             smooth=Smooth.None));
         connect(busConnector.BloodVol_PVCrit,skin. BloodVol_PVCrit)  annotation (Line(
-            points={{-82,116},{-62,116},{-62,-68},{-58.6,-68}},
+            points={{-82,116},{-62,116},{-62,-70.5455},{-58.6,-70.5455}},
             color={0,0,255},
             thickness=0.5,
             smooth=Smooth.None));
         connect(busConnector.BloodVol_PVCrit,bone. BloodVol_PVCrit)  annotation (Line(
-            points={{-82,116},{68,116},{68,114},{64.7,114}},
+            points={{-82,116},{68,116},{68,111.636},{64.7,111.636}},
             color={0,0,255},
             thickness=0.5,
             smooth=Smooth.None));
         connect(busConnector.BloodVol_PVCrit,liver. BloodVol_PVCrit)  annotation (Line(
-            points={{-82,116},{68,116},{68,70},{64.7,70}},
+            points={{-82,116},{68,116},{68,67.6364},{64.7,67.6364}},
             color={0,0,255},
             thickness=0.5,
             smooth=Smooth.None));
         connect(gITract.BloodVol_PVCrit, busConnector.BloodVol_PVCrit)  annotation (Line(
-            points={{64.7,4},{68,4},{68,116},{-82,116}},
+            points={{64.7,1.63636},{68,1.63636},{68,116},{-82,116}},
             color={0,0,255},
             thickness=0.5,
             smooth=Smooth.None));
         connect(otherTissue.BloodVol_PVCrit, busConnector.BloodVol_PVCrit)  annotation (Line(
-            points={{64.7,-62},{68,-62},{68,116},{-82,116}},
+            points={{64.7,-64.3636},{68,-64.3636},{68,116},{-82,116}},
             color={0,0,255},
             thickness=0.5,
             smooth=Smooth.None));
         connect(fat.BloodVol_PVCrit, busConnector.BloodVol_PVCrit)  annotation (Line(
-            points={{64.7,-28},{68,-28},{68,116},{-82,116}},
+            points={{64.7,-30.3636},{68,-30.3636},{68,116},{-82,116}},
             color={0,0,255},
             thickness=0.5,
             smooth=Smooth.None));
         connect(busConnector.BloodVol_PVCrit,kidney. BloodVol_PVCrit)  annotation (Line(
-            points={{-82,116},{68,116},{68,36},{64.7,36}},
+            points={{-82,116},{68,116},{68,33.6364},{64.7,33.6364}},
             color={0,0,255},
             thickness=0.5,
             smooth=Smooth.None));
 
         connect(busConnector.Thyroxine,brain. Thyroxine)  annotation (Line(
-            points={{-82,116},{-62,116},{-62,97.2},{-58.6,97.2}},
+            points={{-82,116},{-62,116},{-62,96.1818},{-58.6,96.1818}},
             color={0,0,255},
             thickness=0.5,
             smooth=Smooth.None));
         connect(busConnector.Thyroxine,respiratoryMuscle. Thyroxine)  annotation (Line(
-            points={{-82,116},{-62,116},{-62,63.2},{-58.6,63.2}},
+            points={{-82,116},{-62,116},{-62,62.1818},{-58.6,62.1818}},
             color={0,0,255},
             thickness=0.5,
             smooth=Smooth.None));
         connect(busConnector.Thyroxine,rightHeart. Thyroxine)  annotation (Line(
-            points={{-82,116},{-62,116},{-62,25.2},{-58.6,25.2}},
+            points={{-82,116},{-62,116},{-62,24.1818},{-58.6,24.1818}},
             color={0,0,255},
             thickness=0.5,
             smooth=Smooth.None));
         connect(busConnector.Thyroxine,leftHeart. Thyroxine)  annotation (Line(
-            points={{-82,116},{-62,116},{-62,-8.8},{-56.6,-8.8}},
+            points={{-82,116},{-62,116},{-62,-9.81818},{-56.6,-9.81818}},
             color={0,0,255},
             thickness=0.5,
             smooth=Smooth.None));
         connect(busConnector.Thyroxine,skeletalMuscle. Thyroxine)  annotation (Line(
-            points={{-82,116},{-62,116},{-62,-46.8},{-56.6,-46.8}},
+            points={{-82,116},{-62,116},{-62,-47.8182},{-56.6,-47.8182}},
             color={0,0,255},
             thickness=0.5,
             smooth=Smooth.None));
         connect(busConnector.Thyroxine,skin. Thyroxine)  annotation (Line(
-            points={{-82,116},{-62,116},{-62,-84.8},{-58.6,-84.8}},
+            points={{-82,116},{-62,116},{-62,-85.8182},{-58.6,-85.8182}},
             color={0,0,255},
             thickness=0.5,
             smooth=Smooth.None));
         connect(busConnector.Thyroxine,bone. Thyroxine)  annotation (Line(
-            points={{-82,116},{68,116},{68,98.4},{64.7,98.4}},
+            points={{-82,116},{68,116},{68,97.4545},{64.7,97.4545}},
             color={0,0,255},
             thickness=0.5,
             smooth=Smooth.None));
         connect(busConnector.Thyroxine,liver. Thyroxine)  annotation (Line(
-            points={{-82,116},{68,116},{68,54.4},{64.7,54.4}},
+            points={{-82,116},{68,116},{68,53.4545},{64.7,53.4545}},
             color={0,0,255},
             thickness=0.5,
             smooth=Smooth.None));
         connect(gITract.Thyroxine, busConnector.Thyroxine)  annotation (Line(
-            points={{64.7,-11.6},{68,-11.6},{68,116},{-82,116}},
+            points={{64.7,-12.5455},{68,-12.5455},{68,116},{-82,116}},
             color={0,0,255},
             thickness=0.5,
             smooth=Smooth.None));
         connect(otherTissue.Thyroxine, busConnector.Thyroxine)  annotation (Line(
-            points={{64.7,-77.6},{68,-77.6},{68,116},{-82,116}},
+            points={{64.7,-78.5455},{68,-78.5455},{68,116},{-82,116}},
             color={0,0,255},
             thickness=0.5,
             smooth=Smooth.None));
         connect(fat.Thyroxine, busConnector.Thyroxine)  annotation (Line(
-            points={{64.7,-43.6},{68,-43.6},{68,116},{-82,116}},
+            points={{64.7,-44.5455},{68,-44.5455},{68,116},{-82,116}},
             color={0,0,255},
             thickness=0.5,
             smooth=Smooth.None));
         connect(busConnector.Thyroxine,kidney. Thyroxine)  annotation (Line(
-            points={{-82,116},{68,116},{68,20.4},{64.7,20.4}},
+            points={{-82,116},{68,116},{68,19.4545},{64.7,19.4545}},
             color={0,0,255},
             thickness=0.5,
             smooth=Smooth.None));
 
         connect(bone.pO2, busConnector.bone.pO2)
           annotation (Line(
-            points={{64.7,108.8},{68,108.8},{68,116},{-82,116}},
+            points={{64.7,106.909},{68,106.909},{68,116},{-82,116}},
             color={0,0,127},
             smooth=Smooth.None), Text(
             string="%second",
@@ -32458,7 +32800,7 @@ annotation (Placement(transformation(extent={{-42,64},{-24,82}})));*/
             extent={{5,0},{5,0}}));
         connect(liver.pO2, busConnector.Liver_PO2)
           annotation (Line(
-            points={{64.7,64.8},{68,64.8},{68,116},{-82,116}},
+            points={{64.7,62.9091},{68,62.9091},{68,116},{-82,116}},
             color={0,0,127},
             smooth=Smooth.None), Text(
             string="%second",
@@ -32466,7 +32808,7 @@ annotation (Placement(transformation(extent={{-42,64},{-24,82}})));*/
             extent={{5,0},{5,0}}));
         connect(kidney.pO2, busConnector.Kidney_PO2)
           annotation (Line(
-            points={{64.7,30.8},{68,30.8},{68,116},{-82,116}},
+            points={{64.7,28.9091},{68,28.9091},{68,116},{-82,116}},
             color={0,0,127},
             smooth=Smooth.None), Text(
             string="%second",
@@ -32474,7 +32816,7 @@ annotation (Placement(transformation(extent={{-42,64},{-24,82}})));*/
             extent={{5,0},{5,0}}));
         connect(gITract.pO2, busConnector.GITract.pO2)
           annotation (Line(
-            points={{64.7,-1.2},{68,-1.2},{68,116},{-82,116}},
+            points={{64.7,-3.09091},{68,-3.09091},{68,116},{-82,116}},
             color={0,0,127},
             smooth=Smooth.None), Text(
             string="%second",
@@ -32482,7 +32824,7 @@ annotation (Placement(transformation(extent={{-42,64},{-24,82}})));*/
             extent={{5,0},{5,0}}));
         connect(fat.pO2, busConnector.fat.pO2)  annotation (
             Line(
-            points={{64.7,-33.2},{68,-33.2},{68,116},{-82,116}},
+            points={{64.7,-35.0909},{68,-35.0909},{68,116},{-82,116}},
             color={0,0,127},
             smooth=Smooth.None), Text(
             string="%second",
@@ -32490,7 +32832,7 @@ annotation (Placement(transformation(extent={{-42,64},{-24,82}})));*/
             extent={{5,0},{5,0}}));
         connect(otherTissue.pO2, busConnector.otherTissue.pO2)
           annotation (Line(
-            points={{64.7,-67.2},{68,-67.2},{68,116},{-82,116}},
+            points={{64.7,-69.0909},{68,-69.0909},{68,116},{-82,116}},
             color={0,0,127},
             smooth=Smooth.None), Text(
             string="%second",
@@ -32498,7 +32840,7 @@ annotation (Placement(transformation(extent={{-42,64},{-24,82}})));*/
             extent={{5,0},{5,0}}));
         connect(busConnector.Skin_PO2,skin. pO2)
           annotation (Line(
-            points={{-82,116},{-62,116},{-62,-73.6},{-58.6,-73.6}},
+            points={{-82,116},{-62,116},{-62,-75.6364},{-58.6,-75.6364}},
             color={0,0,255},
             thickness=0.5,
             smooth=Smooth.None), Text(
@@ -32507,7 +32849,7 @@ annotation (Placement(transformation(extent={{-42,64},{-24,82}})));*/
             extent={{-5,0},{-5,0}}));
         connect(busConnector.skeletalMuscle.pO2,skeletalMuscle. pO2)
           annotation (Line(
-            points={{-82,116},{-62,116},{-62,-35.6},{-56.6,-35.6}},
+            points={{-82,116},{-62,116},{-62,-37.6364},{-56.6,-37.6364}},
             color={0,0,255},
             thickness=0.5,
             smooth=Smooth.None), Text(
@@ -32516,7 +32858,7 @@ annotation (Placement(transformation(extent={{-42,64},{-24,82}})));*/
             extent={{-5,0},{-5,0}}));
         connect(busConnector.LeftHeart_PO2,leftHeart. pO2)
           annotation (Line(
-            points={{-82,116},{-62,116},{-62,2.4},{-56.6,2.4}},
+            points={{-82,116},{-62,116},{-62,0.363636},{-56.6,0.363636}},
             color={0,0,255},
             thickness=0.5,
             smooth=Smooth.None), Text(
@@ -32525,7 +32867,7 @@ annotation (Placement(transformation(extent={{-42,64},{-24,82}})));*/
             extent={{-5,0},{-5,0}}));
           connect(busConnector.RightHeart_PO2,rightHeart. pO2)
           annotation (Line(
-            points={{-82,116},{-62,116},{-62,36.4},{-58.6,36.4}},
+            points={{-82,116},{-62,116},{-62,34.3636},{-58.6,34.3636}},
             color={0,0,255},
             thickness=0.5,
             smooth=Smooth.None), Text(
@@ -32534,7 +32876,7 @@ annotation (Placement(transformation(extent={{-42,64},{-24,82}})));*/
             extent={{-5,0},{-5,0}}));
         connect(busConnector.respiratoryMuscle.pO2,respiratoryMuscle. pO2)
           annotation (Line(
-            points={{-82,116},{-62,116},{-62,74.4},{-58.6,74.4}},
+            points={{-82,116},{-62,116},{-62,72.3636},{-58.6,72.3636}},
             color={0,0,255},
             thickness=0.5,
             smooth=Smooth.None), Text(
@@ -32543,7 +32885,7 @@ annotation (Placement(transformation(extent={{-42,64},{-24,82}})));*/
             extent={{-5,0},{-5,0}}));
         connect(busConnector.brain.pO2,brain. pO2)
           annotation (Line(
-            points={{-82,116},{-62,116},{-62,108.4},{-58.6,108.4}},
+            points={{-82,116},{-62,116},{-62,106.364},{-58.6,106.364}},
             color={0,0,255},
             thickness=0.5,
             smooth=Smooth.None), Text(
@@ -32553,7 +32895,7 @@ annotation (Placement(transformation(extent={{-42,64},{-24,82}})));*/
 
       connect(bone.T, busConnector.bone_T)
           annotation (Line(
-            points={{64.7,101},{68,101},{68,116},{-82,116}},
+            points={{64.7,99.8182},{68,99.8182},{68,116},{-82,116}},
             color={0,0,127},
             smooth=Smooth.None), Text(
             string="%second",
@@ -32561,7 +32903,7 @@ annotation (Placement(transformation(extent={{-42,64},{-24,82}})));*/
             extent={{5,0},{5,0}}));
         connect(liver.T, busConnector.liver_T)
           annotation (Line(
-            points={{64.7,57},{68,57},{68,116},{-82,116}},
+            points={{64.7,55.8182},{68,55.8182},{68,116},{-82,116}},
             color={0,0,127},
             smooth=Smooth.None), Text(
             string="%second",
@@ -32569,7 +32911,7 @@ annotation (Placement(transformation(extent={{-42,64},{-24,82}})));*/
             extent={{5,0},{5,0}}));
         connect(kidney.T, busConnector.kidney_T)
           annotation (Line(
-            points={{64.7,23},{68,23},{68,116},{-82,116}},
+            points={{64.7,21.8182},{68,21.8182},{68,116},{-82,116}},
             color={0,0,127},
             smooth=Smooth.None), Text(
             string="%second",
@@ -32577,7 +32919,7 @@ annotation (Placement(transformation(extent={{-42,64},{-24,82}})));*/
             extent={{5,0},{5,0}}));
         connect(gITract.T, busConnector.GITract_T)
           annotation (Line(
-            points={{64.7,-9},{68,-9},{68,116},{-82,116}},
+            points={{64.7,-10.1818},{68,-10.1818},{68,116},{-82,116}},
             color={0,0,127},
             smooth=Smooth.None), Text(
             string="%second",
@@ -32585,7 +32927,7 @@ annotation (Placement(transformation(extent={{-42,64},{-24,82}})));*/
             extent={{5,0},{5,0}}));
         connect(fat.T, busConnector.fat_T)  annotation (
             Line(
-            points={{64.7,-41},{68,-41},{68,116},{-82,116}},
+            points={{64.7,-42.1818},{68,-42.1818},{68,116},{-82,116}},
             color={0,0,127},
             smooth=Smooth.None), Text(
             string="%second",
@@ -32593,7 +32935,7 @@ annotation (Placement(transformation(extent={{-42,64},{-24,82}})));*/
             extent={{5,0},{5,0}}));
         connect(otherTissue.T, busConnector.otherTissue_T)
           annotation (Line(
-            points={{64.7,-75},{68,-75},{68,116},{-82,116}},
+            points={{64.7,-76.1818},{68,-76.1818},{68,116},{-82,116}},
             color={0,0,127},
             smooth=Smooth.None), Text(
             string="%second",
@@ -32601,7 +32943,7 @@ annotation (Placement(transformation(extent={{-42,64},{-24,82}})));*/
             extent={{5,0},{5,0}}));
         connect(busConnector.skin_T,skin. T)
           annotation (Line(
-            points={{-82,116},{-62,116},{-62,-82},{-58.6,-82}},
+            points={{-82,116},{-62,116},{-62,-83.2727},{-58.6,-83.2727}},
             color={0,0,255},
             thickness=0.5,
             smooth=Smooth.None), Text(
@@ -32610,7 +32952,7 @@ annotation (Placement(transformation(extent={{-42,64},{-24,82}})));*/
             extent={{-5,0},{-5,0}}));
         connect(busConnector.skeletalMuscle_T,skeletalMuscle. T)
           annotation (Line(
-            points={{-82,116},{-62,116},{-62,-44},{-56.6,-44}},
+            points={{-82,116},{-62,116},{-62,-45.2727},{-56.6,-45.2727}},
             color={0,0,255},
             thickness=0.5,
             smooth=Smooth.None), Text(
@@ -32619,7 +32961,7 @@ annotation (Placement(transformation(extent={{-42,64},{-24,82}})));*/
             extent={{-5,0},{-5,0}}));
         connect(busConnector.leftHeart_T,leftHeart. T)
           annotation (Line(
-            points={{-82,116},{-62,116},{-62,-6},{-56.6,-6}},
+            points={{-82,116},{-62,116},{-62,-7.27273},{-56.6,-7.27273}},
             color={0,0,255},
             thickness=0.5,
             smooth=Smooth.None), Text(
@@ -32628,7 +32970,7 @@ annotation (Placement(transformation(extent={{-42,64},{-24,82}})));*/
             extent={{-5,0},{-5,0}}));
           connect(busConnector.rightHeart_T,rightHeart. T)
           annotation (Line(
-            points={{-82,116},{-62,116},{-62,28},{-58.6,28}},
+            points={{-82,116},{-62,116},{-62,26.7273},{-58.6,26.7273}},
             color={0,0,255},
             thickness=0.5,
             smooth=Smooth.None), Text(
@@ -32637,7 +32979,7 @@ annotation (Placement(transformation(extent={{-42,64},{-24,82}})));*/
             extent={{-5,0},{-5,0}}));
         connect(busConnector.respiratoryMuscle_T,respiratoryMuscle. T)
           annotation (Line(
-            points={{-82,116},{-62,116},{-62,66},{-58.6,66}},
+            points={{-82,116},{-62,116},{-62,64.7273},{-58.6,64.7273}},
             color={0,0,255},
             thickness=0.5,
             smooth=Smooth.None), Text(
@@ -32646,7 +32988,7 @@ annotation (Placement(transformation(extent={{-42,64},{-24,82}})));*/
             extent={{-5,0},{-5,0}}));
         connect(busConnector.brain_T,brain. T)
           annotation (Line(
-            points={{-82,116},{-62,116},{-62,100},{-58.6,100}},
+            points={{-82,116},{-62,116},{-62,98.7273},{-58.6,98.7273}},
             color={0,0,255},
             thickness=0.5,
             smooth=Smooth.None), Text(
@@ -33061,12 +33403,12 @@ annotation (Placement(transformation(extent={{-42,64},{-24,82}})));*/
             smooth=Smooth.None));
 
         connect(brain.ketoAcids, ketoAcids) annotation (Line(
-            points={{-32,91.6},{0,91.6},{0,86}},
+            points={{-32,91.0909},{0,91.0909},{0,86}},
             color={200,0,0},
             thickness=1,
             smooth=Smooth.None));
         connect(busConnector.Insulin,skeletalMuscle. Insulin) annotation (Line(
-            points={{-82,116},{-62,116},{-62,-49.6},{-56.6,-49.6}},
+            points={{-82,116},{-62,116},{-62,-50.3636},{-56.6,-50.3636}},
             color={0,0,255},
             thickness=0.5,
             smooth=Smooth.None), Text(
@@ -33075,7 +33417,7 @@ annotation (Placement(transformation(extent={{-42,64},{-24,82}})));*/
             extent={{-6,1},{-6,1}}));
         connect(busConnector.Insulin,respiratoryMuscle. Insulin) annotation (
             Line(
-            points={{-82,116},{-62,116},{-62,60.4},{-58.6,60.4}},
+            points={{-82,116},{-62,116},{-62,59.6364},{-58.6,59.6364}},
             color={0,0,255},
             thickness=0.5,
             smooth=Smooth.None), Text(
@@ -33191,39 +33533,41 @@ annotation (Placement(transformation(extent={{-42,64},{-24,82}})));*/
 
         connect(liver.GILumenCarbohydrates, GILumenCarbohydrates) annotation (
             Line(
-            points={{55.6,70},{56,70},{56,82},{80,82}},
+            points={{55.6,67.6364},{56,67.6364},{56,82},{80,82}},
             color={200,0,0},
             thickness=1,
             smooth=Smooth.None));
         connect(liver.PortalVeinGlucose, busConnector.PortalVein_Glucose)
           annotation (Line(
-            points={{59.5,70},{60,70},{60,74},{36,74},{36,116},{-82,116}},
+            points={{59.5,67.6364},{60,67.6364},{60,74},{36,74},{36,116},{-82,
+              116}},
             color={0,0,127},
             smooth=Smooth.None), Text(
             string="%second",
             index=1,
             extent={{6,3},{6,3}}));
         connect(liver.glucose, glucose) annotation (Line(
-            points={{40,70},{24,70},{24,12},{-2,12}},
+            points={{40,67.6364},{24,67.6364},{24,12},{-2,12}},
             color={200,0,0},
             thickness=1,
             smooth=Smooth.None));
         connect(liver.fattyAcids, fattyAcids) annotation (Line(
-            points={{40,49.2},{16,49.2},{16,-6},{0,-6}},
+            points={{40,48.7273},{16,48.7273},{16,-6},{0,-6}},
             color={200,0,0},
             thickness=1,
             smooth=Smooth.None));
         connect(gITract.GIT_GluUse,liver. GITract_GlucoseUsed) annotation (Line(
-            points={{48.32,4},{48,4},{48,6},{80,6},{80,51.54},{64.7,51.54}},
+            points={{48.32,1.63636},{48,1.63636},{48,6},{80,6},{80,50.8545},{
+              64.7,50.8545}},
             color={0,0,127},
             smooth=Smooth.None));
         connect(gITract.GIT_FatUse,liver. GITract_FatUsed) annotation (Line(
-            points={{50.92,4},{82,4},{82,48.68},{64.7,48.68}},
+            points={{50.92,1.63636},{82,1.63636},{82,48.2545},{64.7,48.2545}},
             color={0,0,127},
             smooth=Smooth.None));
         connect(liver.FatAbsorbtion, busConnector.FA_Absorbtion) annotation (
             Line(
-            points={{64.7,46.08},{68,46.08},{68,116},{-82,116}},
+            points={{64.7,45.8909},{68,45.8909},{68,116},{-82,116}},
             color={0,0,127},
             smooth=Smooth.None), Text(
             string="%second",
@@ -33313,7 +33657,7 @@ annotation (Placement(transformation(extent={{-42,64},{-24,82}})));*/
             color={0,0,127},
             smooth=Smooth.None));
         connect(liver.BloodFlow, busConnector.Liver_BloodFlow) annotation (Line(
-            points={{64.7,67.4},{68,67.4},{68,116},{-82,116}},
+            points={{64.7,65.2727},{68,65.2727},{68,116},{-82,116}},
             color={0,0,127},
             smooth=Smooth.None), Text(
             string="%second",
@@ -33321,7 +33665,7 @@ annotation (Placement(transformation(extent={{-42,64},{-24,82}})));*/
             extent={{6,3},{6,3}}));
         connect(liver.HepaticArtyBloodFlow, busConnector.HepaticArty_BloodFlow)
           annotation (Line(
-            points={{56.38,65.58},{56.38,116},{-82,116}},
+            points={{56.38,63.6182},{56.38,116},{-82,116}},
             color={0,0,127},
             smooth=Smooth.None), Text(
             string="%second",
@@ -33345,7 +33689,7 @@ annotation (Placement(transformation(extent={{-42,64},{-24,82}})));*/
       extent={{-6,3},{-6,3}})); */
       connect(busConnector.HypothalamusShivering_NerveActivity, skeletalMuscle.HypothalamusShivering_NerveActivity)
         annotation (Line(
-          points={{-82,116},{-70,116},{-70,-27.2},{-56.6,-27.2}},
+          points={{-82,116},{-70,116},{-70,-30},{-56.6,-30}},
           color={0,0,255},
           thickness=0.5,
           smooth=Smooth.None), Text(
