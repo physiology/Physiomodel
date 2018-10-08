@@ -1,7 +1,7 @@
 within Physiomodel;
 model Physiomodel_Main "Main model"
   import Physiomodel;
-  extends Physiolibrary.Icons.Golem;
+  extends Physiolibrary.Icons.PhysicalExercise;
 
   Physiomodel.CardioVascular.CardioVascularSystem cardioVascularSystem
     annotation (Placement(transformation(extent={{58,74},{78,96}})));
@@ -31,11 +31,12 @@ model Physiomodel_Main "Main model"
   Physiomodel.Heat.Heat2 heat
     annotation (Placement(transformation(extent={{-28,36},{-48,56}})));
   Physiolibrary.Types.BusConnector busConnector
-    annotation (Placement(transformation(extent={{-34,64},{6,104}})));
+    annotation (Placement(transformation(extent={{-20,70},{20,110}}),
+        iconTransformation(extent={{-20,70},{20,110}})));
 equation
 
   connect(status.busConnector, busConnector) annotation (Line(
-      points={{43.2,-54.8},{7.6,-54.8},{7.6,84},{-14,84}},
+      points={{43.2,-54.8},{7.6,-54.8},{7.6,90},{0,90}},
       color={0,0,255},
       thickness=0.5,
       smooth=Smooth.None), Text(
@@ -43,37 +44,37 @@ equation
       index=1,
       extent={{6,3},{6,3}}));
   connect(busConnector, gases.busConnector) annotation (Line(
-      points={{-14,84},{8,84},{8,-42},{-58,-42}},
+      points={{0,90},{8,90},{8,-42},{-58,-42}},
       color={0,0,255},
       thickness=0.5,
       smooth=Smooth.None));
   connect(nutrientsAndMetabolism.busConnector, busConnector) annotation (Line(
-      points={{-72,84},{-14,84}},
+      points={{-72,84},{-36,84},{-36,90},{0,90}},
       color={0,0,255},
       thickness=0.5,
       smooth=Smooth.None));
   connect(cardioVascularSystem.busConnector, busConnector) annotation (Line(
-      points={{60,93.8},{8,93.8},{8,84},{-14,84}},
+      points={{60,93.8},{8,93.8},{8,90},{0,90}},
       color={0,0,255},
       thickness=0.5,
       smooth=Smooth.None));
   connect(heat.busConnector, busConnector) annotation (Line(
-      points={{-28.6,55.6},{8,55.6},{8,84},{-14,84}},
+      points={{-28.6,55.6},{8,55.6},{8,90},{0,90}},
       color={0,0,255},
       thickness=0.5,
       smooth=Smooth.None));
   connect(nerves.busConnector, busConnector) annotation (Line(
-      points={{76.2,61.6},{8,61.6},{8,84},{-14,84}},
+      points={{76.2,61.6},{8,61.6},{8,90},{0,90}},
       color={0,0,255},
       thickness=0.5,
       smooth=Smooth.None));
   connect(water.busConnector, busConnector) annotation (Line(
-      points={{-69,17},{8,17},{8,84},{-14,84}},
+      points={{-69,17},{8,17},{8,90},{0,90}},
       color={0,0,255},
       thickness=0.5,
       smooth=Smooth.None));
   connect(hormones.busConnector, busConnector) annotation (Line(
-      points={{43.9,27.9},{8,27.9},{8,84},{-14,84}},
+      points={{43.9,27.9},{8,27.9},{8,90},{0,90}},
       color={0,0,255},
       thickness=0.5,
       smooth=Smooth.None));

@@ -3090,12 +3090,12 @@ SYSTOLE
             index=-1,
             extent={{-6,3},{-6,3}}));
       connect(q_in, pulmArty.q_in) annotation (Line(
-          points={{-102,0},{-76,0}},
+          points={{0,-100},{-38,-100},{-38,0},{-76,0}},
           color={0,0,0},
           thickness=1,
           smooth=Smooth.None));
         connect(pulmVeinsConductance.q_out, q_out) annotation (Line(
-            points={{84,0},{100,0}},
+            points={{84,0},{42,0},{42,-100},{0,-100}},
             color={0,0,0},
             thickness=1,
             smooth=Smooth.None));
@@ -21536,7 +21536,14 @@ Torso water compartment.
         import Physiomodel;
           extends Physiolibrary.Icons.Torso;
 
-      //    parameter Real interstitiumProteins = 2.6;
+         replaceable package anatomy = Anatomies.ThreeTorsos
+           constrainedby Anatomies
+          "Anatomy model to divide body into parts"
+          annotation (choicesAllMatching = true);
+
+           parameter anatomy.Parameters anatomyData
+           "Definition of the anatomy"
+           annotation (choicesAllMatching = true);
 
           parameter Physiolibrary.Types.Volume InterstitialWater_start
         "Sum of volumes 2270,5670,3400 ml";
@@ -26925,6 +26932,9 @@ annotation (Placement(transformation(extent={{-42,64},{-24,82}})));*/
       Electrolytes.Bladder bladder(
                        stateVarName="BladderUrea.Mass")
         annotation (Placement(transformation(extent={{82,-84},{102,-64}})));
+    Physiolibrary.Chemical.Sources.UnlimitedSolutePumpOut DialyzerActivity(
+        useSoluteFlowInput=true)
+      annotation (Placement(transformation(extent={{44,54},{64,74}})));
     equation
       connect(reabsorbtion.Outflow, CD_Outflow.q_in) annotation (Line(
           points={{22,-22},{48,-22}},
@@ -26998,14 +27008,14 @@ annotation (Placement(transformation(extent={{-42,64},{-24,82}})));*/
           smooth=Smooth.None));
     connect(flowMeasure.molarFlowRate, busConnector.CD_Urea_Outflow)
       annotation (Line(
-        points={{80,-17.2},{80,80},{-34,80}},
+        points={{80,-15.6},{80,80},{-34,80}},
         color={0,0,127},
         smooth=Smooth.None), Text(
         string="%second",
         index=1,
         extent={{6,3},{6,3}}));
       connect(Medulla.q_out, osmolarityMeasure.q_in) annotation (Line(
-          points={{12,-54},{42,-54}},
+          points={{12,-54},{44,-54}},
           color={200,0,0},
           thickness=1,
           smooth=Smooth.None));
@@ -27069,7 +27079,7 @@ annotation (Placement(transformation(extent={{-42,64},{-24,82}})));*/
         smooth=Smooth.None));
     connect(osmolarityMeasure.concentration, busConnector.MedullaUrea_Osmolarity)
       annotation (Line(
-        points={{48,-54},{100,-54},{100,80},{-34,80}},
+        points={{36,-54},{100,-54},{100,80},{-34,80}},
         color={0,0,127},
         smooth=Smooth.None), Text(
         string="%second",
@@ -27094,6 +27104,18 @@ annotation (Placement(transformation(extent={{-42,64},{-24,82}})));*/
         color={107,45,134},
         thickness=1,
         smooth=Smooth.None));
+    connect(Urea.q_out, DialyzerActivity.q_in) annotation (Line(
+        points={{-4,34},{-4,64},{44,64}},
+        color={107,45,134},
+        thickness=1));
+    connect(busConnector.DialyzerActivity_UreaFlux, DialyzerActivity.soluteFlow)
+      annotation (Line(
+        points={{-34,80},{58,80},{58,68}},
+        color={0,0,255},
+        thickness=0.5), Text(
+        string="%first",
+        index=-1,
+        extent={{-6,3},{-6,3}}));
       annotation ( Icon(coordinateSystem(
               preserveAspectRatio=true,  extent={{-100,-100},{100,100}}),
             graphics={
@@ -28151,7 +28173,7 @@ annotation (Placement(transformation(extent={{-42,64},{-24,82}})));*/
           origin={14,66})));
     Physiolibrary.Chemical.Sources.UnlimitedSolutePump Diet(
         useSoluteFlowInput=true)
-      annotation (Placement(transformation(extent={{-18,58},{2,38}})));
+      annotation (Placement(transformation(extent={{-22,58},{-2,38}})));
     Physiolibrary.Blocks.Factors.Spline AbsorptionSaturation(
       data={{0,0,0.0},{1900,150,0.08},{6000,600,0.0}},
       Xscale=1e-6/Substances.Glucose.mw,
@@ -28175,7 +28197,7 @@ annotation (Placement(transformation(extent={{-42,64},{-24,82}})));*/
           origin={14,-64})));
     Physiolibrary.Chemical.Sources.UnlimitedSolutePump Diet1(
         useSoluteFlowInput=true)
-      annotation (Placement(transformation(extent={{-18,-72},{2,-92}})));
+      annotation (Placement(transformation(extent={{-22,-72},{-2,-92}})));
     Physiolibrary.Blocks.Factors.Normalization AbsorptionSaturation1
       annotation (Placement(transformation(
           extent={{-10,10},{10,-10}},
@@ -28206,7 +28228,7 @@ annotation (Placement(transformation(extent={{-42,64},{-24,82}})));*/
           origin={14,0})));
     Physiolibrary.Chemical.Sources.UnlimitedSolutePump Diet2(
         useSoluteFlowInput=true)
-      annotation (Placement(transformation(extent={{-18,-8},{2,-28}})));
+      annotation (Placement(transformation(extent={{-24,-10},{-4,-30}})));
     Physiolibrary.Blocks.Factors.Normalization AbsorptionSaturation2
       annotation (Placement(transformation(
           extent={{-10,10},{10,-10}},
@@ -28248,7 +28270,7 @@ annotation (Placement(transformation(extent={{-42,64},{-24,82}})));*/
           thickness=1));
       connect(Diet.q_out, Carbohydrates.q_out)
                                          annotation (Line(
-          points={{2,48},{10,48}},
+          points={{-2,48},{10,48}},
           color={255,0,0},
           smooth=Smooth.None,
           thickness=1));
@@ -28266,7 +28288,7 @@ annotation (Placement(transformation(extent={{-42,64},{-24,82}})));*/
           smooth=Smooth.None,
           thickness=1));
       connect(Diet1.q_out, Fat.q_out)    annotation (Line(
-          points={{2,-82},{10,-82}},
+          points={{-2,-82},{10,-82}},
           color={255,0,0},
           smooth=Smooth.None,
           thickness=1));
@@ -28298,7 +28320,7 @@ annotation (Placement(transformation(extent={{-42,64},{-24,82}})));*/
           thickness=1));
       connect(Diet2.q_out, Protein.q_out)
                                          annotation (Line(
-          points={{2,-18},{10,-18}},
+          points={{-4,-20},{6,-20},{6,-18},{10,-18}},
           color={255,0,0},
           smooth=Smooth.None,
           thickness=1));
@@ -28372,7 +28394,7 @@ annotation (Placement(transformation(extent={{-42,64},{-24,82}})));*/
         extent={{-6,3},{-6,3}}));
     connect(Carbohydrates.solute, AbsorptionSaturation.u)
       annotation (Line(
-        points={{10,38},{10,34},{26,34},{26,58}},
+        points={{16,38},{16,34},{26,34},{26,58}},
         color={0,0,127},
         smooth=Smooth.None));
     connect(busConnector.GILumenVolume_Mass, Protein.solutionVolume) annotation (Line(
@@ -28393,24 +28415,24 @@ annotation (Placement(transformation(extent={{-42,64},{-24,82}})));*/
         extent={{-6,3},{-6,3}}));
     connect(Protein.solute, AbsorptionSaturation2.u)
       annotation (Line(
-        points={{10,-28},{10,-34},{26,-34},{26,-8}},
+        points={{16,-28},{16,-34},{26,-34},{26,-8}},
         color={0,0,127},
         smooth=Smooth.None));
     connect(Fat.solute, AbsorptionSaturation1.u)
       annotation (Line(
-        points={{10,-92},{10,-98},{26,-98},{26,-72}},
+        points={{16,-92},{16,-98},{26,-98},{26,-72}},
         color={0,0,127},
         smooth=Smooth.None));
     connect(LeptinEffect2.y, Diet.soluteFlow) annotation (Line(
-        points={{-16,76},{-16,36},{-4,36},{-4,44}},
+        points={{-16,76},{-16,36},{-8,36},{-8,44}},
         color={0,0,127},
         smooth=Smooth.None));
     connect(LeptinEffect1.y, Diet2.soluteFlow) annotation (Line(
-        points={{-30,8},{-30,-30},{-4,-30},{-4,-22}},
+        points={{-30,8},{-30,-30},{-10,-30},{-10,-24}},
         color={0,0,127},
         smooth=Smooth.None));
     connect(LeptinEffect.y, Diet1.soluteFlow) annotation (Line(
-        points={{-34,-52},{-34,-96},{-4,-96},{-4,-86}},
+        points={{-34,-52},{-34,-96},{-8,-96},{-8,-86}},
         color={0,0,127},
         smooth=Smooth.None));
     connect(AbsorptionSaturation.y, busConnector.Glucose_GILumenAbsorption)
@@ -51137,7 +51159,7 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
        index=1,
        extent={{6,3},{6,3}}));
         connect(glomerulusSudiumRate.q_in, glomerulus.q_out) annotation (Line(
-            points={{-16,24},{-20,24}},
+            points={{-16,24},{-24,24},{-24,14},{-30,14}},
             color={200,0,0},
             thickness=1,
             smooth=Smooth.None));
@@ -54801,14 +54823,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
               extent={{-20,-20},{20,20}},
               rotation=90,
               origin={60,-100})));
-        annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
-                Rectangle(extent={{-60,100},{100,-100}}, lineColor={28,108,200}),
-                Text(
-                extent={{-60,100},{100,-100}},
-                lineColor={28,108,200},
-                textString="K+, H+
-exchange")}),                                                          Diagram(
-              coordinateSystem(preserveAspectRatio=false)));
 
 
         parameter Physiolibrary.Types.AmountOfSubstance CZKI(displayUnit="mmol") = 1.7 "Base amount of free intracellular potassium (45% of base total intracellular potassium)";
@@ -54820,6 +54834,14 @@ exchange")}),                                                          Diagram(
         interstitium.q = CKEI * ( CZKI * F41 - ZKI);
 
         F41 = 1 + 0.5*log10(interstitium.conc/(56.744-7.06*pH));
+        annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
+                Rectangle(extent={{-60,100},{100,-100}}, lineColor={28,108,200}),
+                Text(
+                extent={{-60,100},{100,-100}},
+                lineColor={28,108,200},
+                textString="K+, H+
+exchange")}),                                                          Diagram(
+              coordinateSystem(preserveAspectRatio=false)));
       end K_H_exchange;
     end Potassium;
 
@@ -60478,8 +60500,7 @@ exchange")}),                                                          Diagram(
 
       redeclare model extends Variables
 
-      AcidBase.AcidBase_variables acidBase_variables(T(redeclare block Variable
-            =                                                                     T.Variable))
+      AcidBase.AcidBase_variables acidBase_variables(T(redeclare block Variable = T.Variable))
           annotation (Placement(transformation(extent={{4,-88},{24,-68}})));
 
       T.VolumeDensityOfCharge BloodCations(varName="BloodIons.Cations")
