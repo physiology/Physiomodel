@@ -3371,11 +3371,6 @@ SYSTOLE
             points={{86.75,23},{70,23},{70,22},{46,22},{46,50}},
             color={0,0,127},
             smooth=Smooth.None));
-        connect(q_out, q_out) annotation (Line(
-            points={{-100,0},{-100,0}},
-            color={0,0,0},
-            thickness=1,
-            smooth=Smooth.None));
       connect(q_in, systemicArtys.q_in) annotation (Line(
           points={{100,0},{99.75,0},{99.75,0.5},{75.5,0.5}},
           color={0,0,0},
@@ -5005,12 +5000,7 @@ Blood resistance in peripheral organs except hepatic artery, gastro interstition
             points={{71.3,-10},{72,-10},{72,-28},{46,-28},{46,50}},
             color={0,0,127},
             smooth=Smooth.None));
-          connect(q_out, q_out) annotation (Line(
-              points={{-100,0},{-100,0}},
-              color={0,0,0},
-              thickness=1,
-              smooth=Smooth.None));
-        connect(q_in, systemicArtys.q_in) annotation (Line(
+          connect(q_in, systemicArtys.q_in) annotation (Line(
             points={{100,0},{99.75,0},{99.75,0.5},{75.5,0.5}},
             color={0,0,0},
             thickness=1,
@@ -5383,12 +5373,7 @@ Blood resistance in peripheral organs except hepatic artery, gastro interstition
             points={{71.3,-10},{72,-10},{72,-28},{46,-28},{46,50}},
             color={0,0,127},
             smooth=Smooth.None));
-          connect(q_out, q_out) annotation (Line(
-              points={{-100,0},{-100,0}},
-              color={0,0,0},
-              thickness=1,
-              smooth=Smooth.None));
-        connect(q_in, systemicArtys.q_in) annotation (Line(
+          connect(q_in, systemicArtys.q_in) annotation (Line(
             points={{100,0},{99.75,0},{99.75,0.5},{75.5,0.5}},
             color={0,0,0},
             thickness=1,
@@ -5941,12 +5926,7 @@ Blood resistance in peripheral organs except hepatic artery, gastro interstition
             points={{71.3,-10},{72,-10},{72,-28},{46,-28},{46,50}},
             color={0,0,127},
             smooth=Smooth.None));
-          connect(q_out, q_out) annotation (Line(
-              points={{-100,0},{-100,0}},
-              color={0,0,0},
-              thickness=1,
-              smooth=Smooth.None));
-        connect(q_in, systemicArtys.q_in) annotation (Line(
+          connect(q_in, systemicArtys.q_in) annotation (Line(
             points={{100,0},{99.75,0},{99.75,0.5},{75.5,0.5}},
             color={0,0,0},
             thickness=1,
@@ -15645,10 +15625,6 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
             annotation (Placement(transformation(extent={{34,36},{42,44}})));
         equation
 
-          connect(arty, arty) annotation (Line(
-              points={{86,-56},{86,-56}},
-              color={200,0,0},
-              smooth=Smooth.None));
           connect(arty, tissueFlow.q_in) annotation (Line(
               points={{86,-56},{52,-56}},
               color={200,0,0},
@@ -26606,11 +26582,6 @@ annotation (Placement(transformation(extent={{-42,64},{-24,82}})));*/
         points={{80,46},{80,26},{26,26},{26,78},{22,78}},
         color={0,0,127},
         smooth=Smooth.None));
-    connect(AminoAcids, AminoAcids) annotation (Line(
-        points={{86,-24},{81,-24},{81,-24},{86,-24}},
-        color={107,45,134},
-        thickness=1,
-        smooth=Smooth.None));
     connect(concentrationMeasure1.concentration, AminoAcidEffect.u)
       annotation (Line(
         points={{96,-20},{96,2},{90,2}},
@@ -29831,10 +29802,6 @@ annotation (Placement(transformation(extent={{-42,64},{-24,82}})));*/
             points={{-92,-34},{-72,-34}},
             color={200,0,0},
             thickness=1,
-            smooth=Smooth.None));
-        connect(Fuel_FractUseDelay, Fuel_FractUseDelay) annotation (Line(
-            points={{-40,0},{-44,0},{-44,0},{-40,0}},
-            color={0,0,127},
             smooth=Smooth.None));
         connect(glucoseDelivery.FuelFractUseDelay, min.u[2]) annotation (Line(
             points={{-68,-41},{-68,-44},{-58,-44},{-58,0.4},{-52.8,0.4}},
@@ -35942,11 +35909,6 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
     connect(Glycogen.solute, MassEffect_Glycogenesis.u) annotation (Line(
         points={{80,46},{80,26},{26,26},{26,78},{22,78}},
         color={0,0,127},
-        smooth=Smooth.None));
-    connect(AminoAcids, AminoAcids) annotation (Line(
-        points={{86,-24},{81,-24},{81,-24},{86,-24}},
-        color={107,45,134},
-        thickness=1,
         smooth=Smooth.None));
     connect(concentrationMeasure1.concentration, AminoAcidEffect.u)
       annotation (Line(
