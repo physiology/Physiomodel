@@ -33,6 +33,10 @@ model Physiomodel_Main "Main model"
   Physiolibrary.Types.BusConnector busConnector
     annotation (Placement(transformation(extent={{-20,70},{20,110}}),
         iconTransformation(extent={{-20,70},{20,110}})));
+  Physiomodel.Setup.ConstantSetup constantSetup
+    annotation (Placement(transformation(extent={{-280,-76},{-260,-56}})));
+  Physiomodel.Setup.ConstantSetup constant_Setup
+    annotation (Placement(transformation(extent={{-16,-84},{4,-64}})));
 equation
 
   connect(status.busConnector, busConnector) annotation (Line(
@@ -88,6 +92,10 @@ equation
       color={0,0,255},
       thickness=0.5,
       smooth=Smooth.None));
+  connect(constant_Setup.busConnector, gases.busConnector) annotation (Line(
+      points={{-3.4,-71.8},{-3.4,-48},{8,-48},{8,-42},{-58,-42}},
+      color={0,0,255},
+      thickness=0.5));
   annotation ( Documentation(info="<html>
 <p><h4><font color=\"#008000\">QHP Golem Edition</font></h4></p>
 <p>Signal bus connect all submodels with their signal inputs/outputs variables.</p>

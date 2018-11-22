@@ -646,6 +646,8 @@ DialyzerActivity.K+Flux
 0
 DialyzerActivity.Na+Flux
 0
+DialyzerActivity.UreaFlux
+0
 DietGoalH2O.DegK
 310.15
 DietIntakeElectrolytes.Cl-_mEq/Min
