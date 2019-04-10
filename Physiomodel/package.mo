@@ -3356,7 +3356,7 @@ SYSTOLE
           smooth=Smooth.None));
         connect(systemicVeinsElacticBloodCompartment.Pressure, busConnector.SystemicVeins_Pressure)
           annotation (Line(
-            points={{-40,-10},{-40,-28},{46,-28},{46,50}},
+            points={{-54,-4},{-54,-28},{46,-28},{46,50}},
             color={0,0,127},
             smooth=Smooth.None), Text(
             string="%second",
@@ -3372,13 +3372,13 @@ SYSTOLE
             color={0,0,127},
             smooth=Smooth.None));
       connect(q_in, systemicArtys.q_in) annotation (Line(
-          points={{100,0},{99.75,0},{99.75,0.5},{75.5,0.5}},
+          points={{0,-100},{99.75,-100},{99.75,0.5},{75.5,0.5}},
           color={0,0,0},
           thickness=1,
           smooth=Smooth.None));
         connect(collapsedVeins.q_out, q_out) annotation (Line(
-            points={{-94.5,-1.22465e-015},{-96.25,-1.22465e-015},{-96.25,0},{
-              -100,0}},
+            points={{-94.5,-1.22465e-15},{-96.25,-1.22465e-15},{-96.25,-100},{0,
+              -100}},
             color={0,0,0},
             thickness=1,
             smooth=Smooth.None));
@@ -3397,13 +3397,13 @@ SYSTOLE
         connect(rightCororaryCirculation.busConnector, busConnector)
                                                                 annotation (
             Line(
-            points={{-25.1,73.9},{46,73.9},{46,50}},
+            points={{-37.5,78.7},{46,78.7},{46,50}},
             color={0,0,255},
             thickness=0.5,
             smooth=Smooth.None));
         connect(leftCororaryCirculation.busConnector, busConnector)
                                                                annotation (Line(
-            points={{6.9,87.9},{46,87.9},{46,50}},
+            points={{-5.5,92.7},{46,92.7},{46,50}},
             color={0,0,255},
             thickness=0.5,
             smooth=Smooth.None));
@@ -3442,28 +3442,28 @@ SYSTOLE
           thickness=1,
           smooth=Smooth.None));
       connect(peripheral.q_in, systemicArtys.q_in) annotation (Line(
-          points={{26,14},{52,14},{52,0.5},{75.5,0.5}},
+          points={{34.4,14},{52,14},{52,0.5},{75.5,0.5}},
           color={0,0,0},
           thickness=1,
           smooth=Smooth.None));
         connect(peripheral.q_out, systemicVeinsElacticBloodCompartment.referencePoint)
           annotation (Line(
-            points={{-2,14},{-24,14},{-24,0},{-44,0}},
+            points={{-10.12,14},{-24,14},{-24,0},{-44,0}},
             color={0,0,0},
             thickness=1,
             smooth=Smooth.None));
         connect(rightCororaryCirculation.q_out, q_out) annotation (Line(
-            points={{-42,72},{-60,72},{-60,86},{-100,86},{-100,0}},
+            points={{-47.8,72},{-60,72},{-60,86},{0,86},{0,-100}},
             color={0,0,0},
             thickness=1,
             smooth=Smooth.None));
         connect(leftCororaryCirculation.q_out, q_out) annotation (Line(
-            points={{-10,86},{-100,86},{-100,0}},
+            points={{-15.8,86},{0,86},{0,-100}},
             color={0,0,0},
             thickness=1,
             smooth=Smooth.None));
         connect(leftCororaryCirculation.q_in, q_in) annotation (Line(
-            points={{10,86},{100,86},{100,0}},
+            points={{16,86},{0,86},{0,-100}},
             color={0,0,0},
             thickness=1,
             smooth=Smooth.None));
@@ -3481,7 +3481,7 @@ SYSTOLE
             smooth=Smooth.None));
 
         connect(rightCororaryCirculation.q_in, q_in) annotation (Line(
-            points={{-22,72},{36,72},{36,86},{100,86},{100,0}},
+            points={{-16,72},{36,72},{36,86},{0,86},{0,-100}},
             color={0,0,0},
             thickness=1,
             smooth=Smooth.None));
@@ -3549,12 +3549,12 @@ SYSTOLE
             smooth=Smooth.None));
         connect(sequesteredBlood1.Vol, busConnector.LegVeins_DeoxygenatedBloodVolume)
           annotation (Line(
-            points={{-56.6,-82},{-58,-82},{-58,-90},{46,-90},{46,50}},
+            points={{-62,-69.4},{-58,-69.4},{-58,-90},{46,-90},{46,50}},
             color={0,0,127},
             smooth=Smooth.None));
         connect(sequesteredBlood.Vol, busConnector.LegArtys_OxygenatedBloodVolume)
           annotation (Line(
-            points={{86,-88},{86,-90},{46,-90},{46,50}},
+            points={{80,-74},{80,-90},{46,-90},{46,50}},
             color={0,0,127},
             smooth=Smooth.None));
         connect(G.y,hydrostaticDifference1. G) annotation (Line(
@@ -3683,8 +3683,6 @@ SYSTOLE
                                                         fat(Cond=
             3.3752770913055e-10)
           annotation (Placement(transformation(extent={{-38,26},{-12,52}})));
-        Physiomodel.CardioVascular.Microcirculation.Kidney kidney
-          annotation (Placement(transformation(extent={{18,8},{44,34}})));
         Physiomodel.CardioVascular.Microcirculation.Skin skin
           annotation (Placement(transformation(extent={{22,-34},{46,-10}})));
         QHP.CardioVascular.Microcirculation.TissueBloodFlow     otherTissue(Cond=
@@ -3702,6 +3700,8 @@ SYSTOLE
         "signals of organ bood flow resistence" annotation (Placement(
             transformation(extent={{-100,80},{-80,100}}), iconTransformation(
               extent={{60,10},{78,28}})));
+      QHP.CardioVascular.Microcirculation.Kidney kidney
+        annotation (Placement(transformation(extent={{16,12},{36,32}})));
       equation
 
         connect(bone.q_in, flowMeasure.q_out) annotation (Line(
@@ -3720,7 +3720,7 @@ SYSTOLE
             smooth=Smooth.None,
             thickness=1));
         connect(skin.q_in, flowMeasure.q_out) annotation (Line(
-            points={{46,-22},{68,-22},{68,0},{78,0}},
+            points={{53.2,-22},{68,-22},{68,0},{78,0}},
             color={0,0,0},
             smooth=Smooth.None,
             thickness=1));
@@ -3740,37 +3740,37 @@ SYSTOLE
             smooth=Smooth.None,
             thickness=1));
         connect(respiratoryMuscle.q_out,q_out) annotation (Line(
-            points={{20,-65},{-84,-65},{-84,0},{-100,0}},
+            points={{20,-65},{-84,-65},{-84,-80},{114,-80}},
             color={0,0,0},
             smooth=Smooth.None,
             thickness=1));
         connect(skeletalMuscle.q_out,q_out)  annotation (Line(
-            points={{-34,-41},{-84,-41},{-84,0},{-100,0}},
+            points={{-34,-41},{-84,-41},{-84,-80},{114,-80}},
             color={0,0,0},
             smooth=Smooth.None,
             thickness=1));
         connect(otherTissue.q_out,q_out)  annotation (Line(
-            points={{-36,-85},{-84,-85},{-84,0},{-100,0}},
+            points={{-36,-85},{-84,-85},{-84,-80},{114,-80}},
             color={0,0,0},
             smooth=Smooth.None,
             thickness=1));
         connect(skin.q_out,q_out) annotation (Line(
-            points={{22,-22},{-84,-22},{-84,0},{-100,0}},
+            points={{15.04,-22},{-84,-22},{-84,-80},{114,-80}},
             color={0,0,0},
             smooth=Smooth.None,
             thickness=1));
         connect(fat.q_out,q_out) annotation (Line(
-            points={{-38,39},{-84,39},{-84,0},{-100,0}},
+            points={{-38,39},{-84,39},{-84,-80},{114,-80}},
             color={0,0,0},
             smooth=Smooth.None,
             thickness=1));
         connect(brain.q_out,q_out) annotation (Line(
-            points={{12,57},{-84,57},{-84,0},{-100,0}},
+            points={{12,57},{-84,57},{-84,-80},{114,-80}},
             color={0,0,0},
             smooth=Smooth.None,
             thickness=1));
         connect(bone.q_out,q_out) annotation (Line(
-            points={{-38,75},{-84,75},{-84,0},{-100,0}},
+            points={{-38,75},{-84,75},{-84,-80},{114,-80}},
             color={0,0,0},
             smooth=Smooth.None,
             thickness=1));
@@ -3780,12 +3780,12 @@ SYSTOLE
             thickness=0.5,
             smooth=Smooth.None));
         connect(busConnector, skin.busConnector) annotation (Line(
-            points={{-90,90},{52,90},{52,-19.72},{42.28,-19.72}},
+            points={{-90,90},{52,90},{52,-13.96},{27.4,-13.96}},
             color={0,0,255},
             thickness=0.5,
             smooth=Smooth.None));
         connect(busConnector, kidney.busConnector) annotation (Line(
-            points={{-90,90},{52,90},{52,23.47},{39.97,23.47}},
+            points={{-90,90},{52,90},{52,28.7},{20.5,28.7}},
             color={0,0,255},
             thickness=0.5,
             smooth=Smooth.None));
@@ -3832,7 +3832,7 @@ SYSTOLE
             smooth=Smooth.None));
         connect(kidney.BloodFlow, busConnector.kidney_BloodFlow)
           annotation (Line(
-            points={{40.1,14.5},{52,14.5},{52,90},{-90,90}},
+            points={{33,17},{52,17},{52,90},{-90,90}},
             color={0,0,127},
             smooth=Smooth.None));
         connect(skin.BloodFlow, busConnector.skin_BloodFlow)
@@ -3873,7 +3873,7 @@ SYSTOLE
             smooth=Smooth.None));
         connect(kidney.BloodFlow, busConnector.Kidney_BloodFlow)
           annotation (Line(
-            points={{40.1,14.5},{52,14.5},{52,90},{-90,90}},
+            points={{33,17},{52,17},{52,90},{-90,90}},
             color={0,0,127},
             smooth=Smooth.None));
         connect(skin.BloodFlow, busConnector.Skin_BloodFlow)
@@ -3898,12 +3898,12 @@ SYSTOLE
             smooth=Smooth.None));
 
         connect(kidney.q_out,q_out) annotation (Line(
-            points={{18,21},{-84,21},{-84,0},{-100,0}},
+            points={{10.2,22},{-84,22},{-84,-80},{114,-80}},
             color={0,0,0},
             thickness=1,
             smooth=Smooth.None));
         connect(kidney.q_in, flowMeasure.q_out) annotation (Line(
-            points={{44,21},{68,21},{68,0},{78,0}},
+            points={{42,22},{68,22},{68,0},{78,0}},
             color={0,0,0},
             smooth=Smooth.None,
             thickness=1));
@@ -7124,7 +7124,7 @@ Blood resistance in gastro interstitial tract.
         UsePositiveLog10=true)
         annotation (Placement(transformation(extent={{-56,18},{-36,38}})));
       Physiolibrary.Types.Constants.HydraulicConductanceConst
-        Efferent_BasicConductance(k=2.87523604074162e-009)
+        Efferent_BasicConductance(k=3.1377575922877e-9)
         annotation (Placement(transformation(extent={{-60,48},{-48,60}})));
       Physiolibrary.Blocks.Factors.Normalization
         NephronCountEffect_KidneyEfferentArtery
@@ -7147,7 +7147,7 @@ Blood resistance in gastro interstitial tract.
       Physiolibrary.Hydraulic.Sensors.PressureMeasure pressureMeasure
         annotation (Placement(transformation(
             extent={{-10,-10},{10,10}},
-            origin={-20,8})));
+            origin={-22,12})));
         Modelica.Blocks.Math.Product KidneyPlasmaFlow annotation (Placement(
               transformation(
               extent={{-5,-5},{5,5}},
@@ -7156,9 +7156,9 @@ Blood resistance in gastro interstitial tract.
       Physiolibrary.Hydraulic.Sensors.PressureMeasure pressureMeasure1
         annotation (Placement(transformation(
             extent={{10,-10},{-10,10}},
-            origin={52,-20})));
+            origin={52,-10})));
         Modelica.Blocks.Math.Gain IFP(k=0.042)
-          annotation (Placement(transformation(extent={{42,-84},{34,-76}})));
+          annotation (Placement(transformation(extent={{-36,-26},{-44,-18}})));
         Physiolibrary.Blocks.Factors.LagSpline     TGFEffect(
                                                    data={{0.0,1.2,0.0},{1.3,1.0,
               -0.4},{3.0,0.6,0.0}},
@@ -7166,29 +7166,64 @@ Blood resistance in gastro interstitial tract.
           HalfTime=60*Modelica.Math.log(2),
         integrator(stateName="TGF-Vascular.Signal"))
         "Macula Densa TGF vascular signal delay and effect to afferent arteriole"
-          annotation (Placement(transformation(extent={{20,26},{40,46}})));
+          annotation (Placement(transformation(extent={{40,26},{20,46}})));
       Physiolibrary.Blocks.Factors.Spline FurosemideEffect(data={{0.0,1.0,0.0},
             {1.3,0.2,0.0}}, Xscale=1e-3/Substances.Furosemide.mw)
         "furosemide outflow on Macula Densa Na sensibility"
-        annotation (Placement(transformation(extent={{-10,-52},{10,-32}})));
+        annotation (Placement(transformation(extent={{42,60},{62,80}})));
       Physiolibrary.Blocks.Factors.Spline NaEffect_MaculaDensa(data={{0,0.0,0.0},
             {48,1.0,0.03},{100,3.0,0.0}})
-        annotation (Placement(transformation(extent={{-10,-48},{10,-28}})));
+        annotation (Placement(transformation(extent={{42,64},{62,84}})));
       Physiolibrary.Blocks.Factors.Spline ANP_Effect(data={{0.0,1.2,0.0},{1.3,
             1.0,-0.3},{2.7,0.8,0.0}},
         UsePositiveLog10=true,
         Xscale=1e-9)
-        annotation (Placement(transformation(extent={{-10,-56},{10,-36}})));
+        annotation (Placement(transformation(extent={{42,56},{62,76}})));
       Physiolibrary.Blocks.Factors.Spline A2Effect3(
         data={{0.0,0.0,0.0},{0.2,0.6,0.05},{1.3,1.0,0.1},{3.0,8.0,0.0}},
         Xscale=1e-9/Substances.AngiotensinII.mw,
         UsePositiveLog10=true)
-        annotation (Placement(transformation(extent={{-10,-60},{10,-40}})));
+        annotation (Placement(transformation(extent={{42,52},{62,72}})));
       Physiolibrary.Types.Constants.FractionConst
         MedulaDensa_BaseTGFSignal(k=1)
-        annotation (Placement(transformation(extent={{-10,-34},{-2,-26}})));
-        VasaRecta vasaRecta
-          annotation (Placement(transformation(extent={{70,-90},{90,-70}})));
+        annotation (Placement(transformation(extent={{42,78},{50,86}})));
+      Physiolibrary.Hydraulic.Components.Conductor resistorWithCond(
+          useConductanceInput=true)
+        annotation (Placement(transformation(extent={{-18,-90},{2,-70}})));
+      Physiolibrary.Blocks.Factors.Spline OsmOnConductance(data={{600,1.4,0},{
+            1100,1.0,-0.0006},{2000,0.8,0}})
+        annotation (Placement(transformation(extent={{-18,-60},{2,-40}})));
+      Physiolibrary.Blocks.Factors.Spline A2OnConductance(
+        data={{0.0,1.3,0},{1.3,1.0,-0.6},{2.0,0.5,0}},
+        Xscale=1e-9/Substances.AngiotensinII.mw,
+        UsePositiveLog10=true)
+        annotation (Placement(transformation(extent={{-18,-72},{2,-52}})));
+      Physiolibrary.Blocks.Factors.Spline SympsOnConductance(data={{0.0,1.1,0},
+            {1.0,1.0,-0.13},{1.4,0.6,0}})
+        annotation (Placement(transformation(extent={{-18,-80},{2,-60}})));
+      Physiolibrary.Types.Constants.HydraulicConductanceConst condConstant(k(
+            displayUnit="ml/(mmHg.min)") = 2.5002052528189e-8)
+        annotation (Placement(transformation(extent={{-24,-36},{-12,-24}})));
+      Physiolibrary.Hydraulic.Sensors.FlowMeasure flowMeasure1
+        annotation (Placement(transformation(extent={{48,-70},{68,-90}})));
+      Physiolibrary.Hydraulic.Sources.UnlimitedPump inputPump(
+          useSolutionFlowInput=true)
+        annotation (Placement(transformation(extent={{-10,-10},{10,10}},
+            rotation=90,
+            origin={24,-98})));
+        Modelica.Blocks.Math.Add Osm
+          annotation (Placement(transformation(extent={{-34,-54},{-26,-46}})));
+      Physiolibrary.Blocks.Factors.LagSpline
+                                          NephroneADHOnConductance(
+        data={{0.0,1.4,0},{0.3,1.0,-0.4},{1.0,0.9,0}},
+        Xscale=1e-9/Substances.Vasopressin.mw,
+        HalfTime=Modelica.Math.log(2)*20*60,
+        initialValue=2e-9/Substances.Vasopressin.mw)
+        "initial 2pg/ml = 2e-9 kg/m3, NephronADH.Tau = 20 min"
+        annotation (Placement(transformation(extent={{-18,-52},{2,-32}})));
+      Physiolibrary.Hydraulic.Sources.UnlimitedOutflowPump unlimitedOutflowPump(
+          useSolutionFlowInput=true)
+        annotation (Placement(transformation(extent={{22,-46},{42,-26}})));
       equation
         connect(Afferent_BasicConductance.y, NephronCountEffect_AfferentArtery.yBase)
                                                                    annotation (Line(
@@ -7309,14 +7344,9 @@ Blood resistance in gastro interstitial tract.
             points={{30,17},{30,4.8},{32,4.8}},
             color={0,0,127},
             smooth=Smooth.None));
-        connect(pressureMeasure.q_in, AfferentArtery.q_out) annotation (Line(
-            points={{-24,2},{-24,0},{20,0}},
-            color={0,0,0},
-            thickness=1,
-            smooth=Smooth.None));
       connect(pressureMeasure.pressure, busConnector.GlomerulusBloodPressure)
         annotation (Line(
-          points={{-14,4},{-14,-16},{-90,-16},{-90,90}},
+          points={{-16,8},{-16,-12},{-90,-12},{-90,90}},
           color={0,0,127},
           smooth=Smooth.None), Text(
           string="%second",
@@ -7344,45 +7374,35 @@ Blood resistance in gastro interstitial tract.
             color={0,0,0},
             thickness=1,
             smooth=Smooth.None));
-        connect(EfferentArtery.q_in, AfferentArtery.q_out) annotation (Line(
-            points={{-34,0},{20,0}},
-            color={0,0,0},
-            thickness=1,
-            smooth=Smooth.None));
-        connect(EfferentArtery.q_out, q_out) annotation (Line(
-            points={{-58,0},{-100,0}},
-            color={0,0,0},
-            thickness=1,
-            smooth=Smooth.None));
         connect(AfferentArtery.q_in, pressureMeasure1.q_in) annotation (Line(
-            points={{44,0},{58,0},{58,-26},{56,-26}},
+            points={{44,0},{58,0},{58,-16},{56,-16}},
             color={0,0,0},
             thickness=1,
             smooth=Smooth.None));
       connect(IFP.u, pressureMeasure1.pressure) annotation (Line(
-          points={{42.8,-80},{46,-80},{46,-24}},
+          points={{-35.2,-22},{6,-22},{6,-14},{46,-14}},
           color={0,0,127},
           smooth=Smooth.None));
         connect(ANP_Effect.y,A2Effect3. yBase) annotation (Line(
-            points={{0,-50},{0,-48}},
+            points={{52,62},{52,64}},
             color={0,0,127},
             smooth=Smooth.None));
         connect(FurosemideEffect.y,ANP_Effect. yBase) annotation (Line(
-            points={{0,-46},{0,-44}},
+            points={{52,66},{52,68}},
             color={0,0,127},
             smooth=Smooth.None));
         connect(NaEffect_MaculaDensa.y,FurosemideEffect. yBase) annotation (
             Line(
-            points={{0,-42},{0,-40}},
+            points={{52,70},{52,72}},
             color={0,0,127},
             smooth=Smooth.None));
         connect(MedulaDensa_BaseTGFSignal.y,NaEffect_MaculaDensa. yBase)
           annotation (Line(
-            points={{-1,-30},{0,-30},{0,-36}},
+            points={{51,82},{52,82},{52,76}},
             color={0,0,127},
             smooth=Smooth.None));
         connect(A2Effect3.y,TGFEffect. u) annotation (Line(
-            points={{0,-54},{-26,-54},{-26,36},{22,36}},
+            points={{52,58},{52,36},{38,36}},
             color={0,0,127},
             smooth=Smooth.None));
         connect(NephronCountEffect_AfferentArtery.y, TGFEffect.yBase) annotation (
@@ -7397,7 +7417,7 @@ Blood resistance in gastro interstitial tract.
             smooth=Smooth.None));
         connect(busConnector.FurosemidePool_Loss, FurosemideEffect.u)
           annotation (Line(
-            points={{-90,90},{-90,-42},{-8,-42}},
+            points={{-90,90},{-90,70},{44,70}},
             color={0,0,255},
             thickness=0.5,
             smooth=Smooth.None), Text(
@@ -7413,28 +7433,9 @@ Blood resistance in gastro interstitial tract.
             color={0,0,0},
             thickness=1,
             smooth=Smooth.None));
-        connect(busConnector, vasaRecta.busConnector) annotation (Line(
-            points={{-90,90},{-90,-72},{72,-72}},
-            color={0,0,255},
-            thickness=0.5,
-            smooth=Smooth.None));
-      connect(pressureMeasure1.pressure, vasaRecta.ArcuateArtery_Pressure)
-        annotation (Line(
-          points={{46,-24},{46,-80},{72,-80}},
-          color={0,0,127},
-          smooth=Smooth.None));
         connect(busConnector.NephronIFP_Pressure, IFP.y) annotation (
             Line(
-            points={{-90,90},{-90,-80},{33.6,-80}},
-            color={0,0,255},
-            thickness=0.5,
-            smooth=Smooth.None), Text(
-            string="%first",
-            index=-1,
-            extent={{-6,3},{-6,3}}));
-        connect(busConnector.MD_Na, NaEffect_MaculaDensa.u)
-          annotation (Line(
-            points={{-90,90},{-90,-38},{-8,-38}},
+            points={{-90,90},{-90,-22},{-44.4,-22}},
             color={0,0,255},
             thickness=0.5,
             smooth=Smooth.None), Text(
@@ -7450,7 +7451,7 @@ Blood resistance in gastro interstitial tract.
           index=-1,
           extent={{-6,3},{-6,3}}));
       connect(busConnector.Angiotensin2, A2Effect3.u) annotation (Line(
-          points={{-90,90},{-90,-50},{-8,-50}},
+          points={{-90,90},{-90,62},{44,62}},
           color={0,0,255},
           thickness=0.5,
           smooth=Smooth.None), Text(
@@ -7458,13 +7459,144 @@ Blood resistance in gastro interstitial tract.
           index=-1,
           extent={{-6,3},{-6,3}}));
       connect(busConnector.ANP, ANP_Effect.u) annotation (Line(
-          points={{-90,90},{-90,-46},{-8,-46}},
+          points={{-90,90},{-90,66},{44,66}},
           color={0,0,255},
           thickness=0.5,
           smooth=Smooth.None), Text(
           string="%first",
           index=-1,
           extent={{-6,3},{-6,3}}));
+        connect(SympsOnConductance.y,resistorWithCond. cond) annotation (Line(
+            points={{-8,-74},{-8,-74}},
+            color={0,0,127},
+            smooth=Smooth.None));
+        connect(A2OnConductance.y,SympsOnConductance. yBase) annotation (Line(
+            points={{-8,-66},{-8,-68}},
+            color={0,0,127},
+            smooth=Smooth.None));
+        connect(OsmOnConductance.y,A2OnConductance. yBase) annotation (Line(
+            points={{-8,-54},{-8,-62},{-10,-62},{-10,-60},{-8,-60}},
+            color={0,0,127},
+            smooth=Smooth.None));
+        connect(busConnector.Kidney_Alpha_NA,SympsOnConductance. u) annotation (Line(
+            points={{-90,90},{-80,90},{-80,-70},{-16,-70}},
+            color={0,0,255},
+            thickness=0.5,
+            smooth=Smooth.None), Text(
+            string="%first",
+            index=-1,
+            extent={{-6,3},{-6,3}}));
+      connect(resistorWithCond.q_out, flowMeasure1.q_in) annotation (Line(
+          points={{2,-80},{48,-80}},
+          color={0,0,0},
+          thickness=1,
+          smooth=Smooth.None));
+      connect(flowMeasure1.volumeFlow, busConnector.VasaRecta_Outflow)
+        annotation (Line(
+          points={{58,-92},{-94,-92},{-94,90},{-90,90}},
+          color={0,0,127},
+          smooth=Smooth.None), Text(
+          string="%second",
+          index=1,
+          extent={{6,-12},{6,-12}}));
+      connect(inputPump.q_out, flowMeasure1.q_in) annotation (Line(
+          points={{24,-88},{24,-80},{48,-80}},
+          color={0,0,0},
+          thickness=1,
+          smooth=Smooth.None));
+        connect(Osm.y,OsmOnConductance. u) annotation (Line(
+            points={{-25.6,-50},{-16,-50}},
+            color={0,0,127},
+            smooth=Smooth.None));
+        connect(busConnector.MedullaNa_Osmolarity,Osm. u1) annotation (Line(
+            points={{-90,90},{-62,90},{-62,-47.6},{-34.8,-47.6}},
+            color={0,0,255},
+            thickness=0.5,
+            smooth=Smooth.None), Text(
+            string="%first",
+            index=-1,
+            extent={{-6,3},{-6,3}}));
+        connect(busConnector.MedullaUrea_Osmolarity,Osm. u2) annotation (Line(
+            points={{-90,90},{-62,90},{-62,-52.4},{-34.8,-52.4}},
+            color={0,0,255},
+            thickness=0.5,
+            smooth=Smooth.None), Text(
+            string="%first",
+            index=-1,
+            extent={{-6,3},{-6,3}}));
+        connect(NephroneADHOnConductance.y,OsmOnConductance. yBase) annotation (
+           Line(
+            points={{-8,-46},{-6,-46},{-6,-48},{-8,-48}},
+            color={0,0,127},
+            smooth=Smooth.None));
+        connect(condConstant.y,NephroneADHOnConductance. yBase) annotation (
+            Line(
+            points={{-10.5,-30},{-8,-30},{-8,-40}},
+            color={0,0,127},
+            smooth=Smooth.None));
+      connect(busConnector.Angiotensin2,A2OnConductance. u) annotation (Line(
+          points={{-90,90},{-80,90},{-80,-62},{-16,-62}},
+          color={0,0,255},
+          thickness=0.5,
+          smooth=Smooth.None), Text(
+          string="%first",
+          index=-1,
+          extent={{-6,3},{-6,3}}));
+      connect(busConnector.Vasopressin,NephroneADHOnConductance. u) annotation (
+         Line(
+          points={{-90,90},{-80,90},{-80,-42},{-16,-42}},
+          color={0,0,255},
+          thickness=0.5,
+          smooth=Smooth.None), Text(
+          string="%first",
+          index=-1,
+          extent={{-6,3},{-6,3}}));
+      connect(busConnector.CD_H2O_Reab,inputPump. solutionFlow) annotation (
+          Line(
+          points={{-90,90},{-80,90},{-80,-98},{17,-98}},
+          color={0,0,255},
+          thickness=0.5,
+          smooth=Smooth.None), Text(
+          string="%first",
+          index=-1,
+          extent={{-6,3},{-6,3}}));
+      connect(EfferentArtery.q_out, resistorWithCond.q_in) annotation (Line(
+          points={{-58,0},{-92,0},{-92,-80},{-18,-80}},
+          color={0,0,0},
+          thickness=1));
+      connect(flowMeasure1.q_out, q_out) annotation (Line(
+          points={{68,-80},{114,-80}},
+          color={0,0,0},
+          thickness=1));
+      connect(EfferentArtery.q_in, pressureMeasure.q_in) annotation (Line(
+          points={{-34,0},{-30,0},{-30,6},{-26,6}},
+          color={0,0,0},
+          thickness=1));
+      connect(busConnector.MD_Na, NaEffect_MaculaDensa.u) annotation (Line(
+          points={{-90,90},{-24,90},{-24,74},{44,74}},
+          color={0,0,255},
+          thickness=0.5), Text(
+          string="%first",
+          index=-1,
+          extent={{-6,3},{-6,3}},
+          horizontalAlignment=TextAlignment.Right));
+      connect(AfferentArtery.q_out, EfferentArtery.q_in) annotation (Line(
+          points={{20,0},{-34,0}},
+          color={0,0,0},
+          thickness=1));
+      connect(unlimitedOutflowPump.q_in, EfferentArtery.q_in) annotation (Line(
+          points={{22,-36},{10,-36},{10,0},{-34,0}},
+          color={0,0,0},
+          thickness=1));
+      connect(busConnector.Glomerulus_GFR, unlimitedOutflowPump.solutionFlow)
+        annotation (Line(
+          points={{-90,90},{-30,90},{-30,-29},{32,-29}},
+          color={0,0,255},
+          thickness=0.5), Text(
+          string="%first",
+          index=-1,
+          extent={{-6,3},{-6,3}},
+          horizontalAlignment=TextAlignment.Right));
         annotation (
           Documentation(info="<HTML>
 <PRE>
@@ -7501,9 +7633,9 @@ QHP 2008 / Kidney-Flow
 <br/><p>Copyright &copy; 2014 Marek Matejak, Charles University in Prague.</p><br/>
 
 </html>"),Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,-100},
-                {100,100}}),   graphics={Rectangle(extent={{-18,-24},{18,-62}},
+                {100,100}}),   graphics={Rectangle(extent={{34,88},{70,50}},
                   lineColor={127,0,0}), Text(
-                extent={{-18,-62},{18,-56}},
+                extent={{34,50},{70,56}},
                 lineColor={0,0,255},
                 textString="Macula Densa")}),         Icon(coordinateSystem(
                 preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
@@ -7890,200 +8022,6 @@ QHP 2008 / Skin-Flow
             smooth=Smooth.None));
       end MetabolicVasodilation;
 
-      model VasaRecta
-
-      Physiolibrary.Hydraulic.Components.Conductor resistorWithCond(
-          useConductanceInput=true)
-        annotation (Placement(transformation(extent={{2,0},{22,20}})));
-      Physiolibrary.Blocks.Factors.Spline OsmOnConductance(data={{600,1.4,0},{
-            1100,1.0,-0.0006},{2000,0.8,0}})
-        annotation (Placement(transformation(extent={{2,38},{22,58}})));
-      Physiolibrary.Blocks.Factors.Spline A2OnConductance(
-        data={{0.0,1.3,0},{1.3,1.0,-0.6},{2.0,0.5,0}},
-        Xscale=1e-9/Substances.AngiotensinII.mw,
-        UsePositiveLog10=true)
-        annotation (Placement(transformation(extent={{2,26},{22,46}})));
-      Physiolibrary.Blocks.Factors.Spline SympsOnConductance(data={{0.0,1.1,0},
-            {1.0,1.0,-0.13},{1.4,0.6,0}})
-        annotation (Placement(transformation(extent={{2,18},{22,38}})));
-      Physiolibrary.Types.Constants.HydraulicConductanceConst condConstant(k(displayUnit="ml/(mmHg.min)")=
-          3.3752770913055e-11)
-        annotation (Placement(transformation(extent={{-4,62},{8,74}})));
-      Physiolibrary.Types.BusConnector busConnector
-        "signals of organ bood flow resistence" annotation (Placement(
-            transformation(extent={{-96,64},{-74,86}}), iconTransformation(
-              extent={{-100,60},{-60,100}})));
-      Physiolibrary.Hydraulic.Sensors.FlowMeasure flowMeasure
-        annotation (Placement(transformation(extent={{32,20},{52,0}})));
-      Physiolibrary.Hydraulic.Sources.UnlimitedPump inputPump(
-          useSolutionFlowInput=true)
-        annotation (Placement(transformation(extent={{-54,-48},{-34,-28}})));
-        Modelica.Blocks.Math.Add Osm
-          annotation (Placement(transformation(extent={{-14,44},{-6,52}})));
-        Modelica.Blocks.Interfaces.RealInput ArcuateArtery_Pressure
-                                                             annotation (
-            Placement(transformation(extent={{-80,20},{-68,32}}),
-              iconTransformation(extent={{-100,-20},{-60,20}})));
-      Physiolibrary.Blocks.Factors.LagSpline
-                                          NephroneADHOnConductance(data={{0.0,
-            1.4,0},{0.3,1.0,-0.4},{1.0,0.9,0}}, Xscale=1e-9/Substances.Vasopressin.mw,
-        HalfTime=Modelica.Math.log(2)*20*60,
-        initialValue=2e-9/Substances.Vasopressin.mw)
-        "initial 2pg/ml = 2e-9 kg/m3, NephronADH.Tau = 20 min"
-        annotation (Placement(transformation(extent={{2,46},{22,66}})));
-      Physiolibrary.Hydraulic.Sources.UnlimitedVolume arcuateArtery(
-          usePressureInput=true)
-        annotation (Placement(transformation(extent={{-62,0},{-42,20}})));
-      Physiolibrary.Hydraulic.Sources.UnlimitedVolume veins(usePressureInput=
-            true)
-        annotation (Placement(transformation(extent={{96,0},{76,20}})));
-      equation
-        connect(SympsOnConductance.y, resistorWithCond.cond) annotation (Line(
-            points={{12,24},{12,16}},
-            color={0,0,127},
-            smooth=Smooth.None));
-        connect(A2OnConductance.y, SympsOnConductance.yBase) annotation (Line(
-            points={{12,32},{12,30}},
-            color={0,0,127},
-            smooth=Smooth.None));
-        connect(OsmOnConductance.y, A2OnConductance.yBase) annotation (Line(
-            points={{12,44},{12,38}},
-            color={0,0,127},
-            smooth=Smooth.None));
-        connect(busConnector.Kidney_Alpha_NA, SympsOnConductance.u) annotation (Line(
-            points={{-85,75},{-60,75},{-60,28},{4,28}},
-            color={0,0,255},
-            thickness=0.5,
-            smooth=Smooth.None), Text(
-            string="%first",
-            index=-1,
-            extent={{-6,3},{-6,3}}));
-        connect(resistorWithCond.q_out, flowMeasure.q_in) annotation (Line(
-            points={{22,10},{32,10}},
-            color={0,0,0},
-            thickness=1,
-            smooth=Smooth.None));
-        connect(flowMeasure.volumeFlow, busConnector.VasaRecta_Outflow) annotation (
-            Line(
-            points={{42,-2},{42,75},{-85,75}},
-            color={0,0,127},
-            smooth=Smooth.None), Text(
-            string="%second",
-            index=1,
-            extent={{6,-12},{6,-12}}));
-        connect(inputPump.q_out, flowMeasure.q_in) annotation (Line(
-            points={{-34,-38},{26,-38},{26,10},{32,10}},
-            color={0,0,0},
-            thickness=1,
-            smooth=Smooth.None));
-        connect(Osm.y, OsmOnConductance.u) annotation (Line(
-            points={{-5.6,48},{4,48}},
-            color={0,0,127},
-            smooth=Smooth.None));
-        connect(busConnector.MedullaNa_Osmolarity, Osm.u1) annotation (Line(
-            points={{-85,75},{-60,75},{-60,50.4},{-14.8,50.4}},
-            color={0,0,255},
-            thickness=0.5,
-            smooth=Smooth.None), Text(
-            string="%first",
-            index=-1,
-            extent={{-6,3},{-6,3}}));
-        connect(busConnector.MedullaUrea_Osmolarity, Osm.u2) annotation (Line(
-            points={{-85,75},{-60,75},{-60,45.6},{-14.8,45.6}},
-            color={0,0,255},
-            thickness=0.5,
-            smooth=Smooth.None), Text(
-            string="%first",
-            index=-1,
-            extent={{-6,3},{-6,3}}));
-      connect(busConnector.CD_H2O_Reab, inputPump.solutionFlow) annotation (
-          Line(
-          points={{-85,75},{-76,75},{-76,-22},{-44,-22},{-44,-31}},
-          color={0,0,255},
-          thickness=0.5,
-          smooth=Smooth.None), Text(
-          string="%first",
-          index=-1,
-          extent={{-6,3},{-6,3}}));
-        connect(NephroneADHOnConductance.y, OsmOnConductance.yBase) annotation (
-           Line(
-            points={{12,52},{12,50}},
-            color={0,0,127},
-            smooth=Smooth.None));
-        connect(condConstant.y, NephroneADHOnConductance.yBase) annotation (
-            Line(
-            points={{9.5,68},{12,68},{12,58}},
-            color={0,0,127},
-            smooth=Smooth.None));
-      connect(ArcuateArtery_Pressure, arcuateArtery.pressure) annotation (Line(
-          points={{-74,26},{-68,26},{-68,10},{-62,10}},
-          color={0,0,127},
-          smooth=Smooth.None));
-      connect(arcuateArtery.y, resistorWithCond.q_in) annotation (Line(
-          points={{-42,10},{2,10}},
-          color={0,0,0},
-          thickness=1,
-          smooth=Smooth.None));
-      connect(busConnector.SystemicVeins_Pressure, veins.pressure) annotation (
-          Line(
-          points={{-85,75},{96,75},{96,10}},
-          color={0,0,255},
-          thickness=0.5,
-          smooth=Smooth.None), Text(
-          string="%first",
-          index=-1,
-          extent={{-6,3},{-6,3}}));
-      connect(flowMeasure.q_out, veins.y) annotation (Line(
-          points={{52,10},{76,10}},
-          color={0,0,0},
-          thickness=1,
-          smooth=Smooth.None));
-      connect(busConnector.Angiotensin2, A2OnConductance.u) annotation (Line(
-          points={{-85,75},{-60,75},{-60,36},{4,36}},
-          color={0,0,255},
-          thickness=0.5,
-          smooth=Smooth.None), Text(
-          string="%first",
-          index=-1,
-          extent={{-6,3},{-6,3}}));
-      connect(busConnector.Vasopressin, NephroneADHOnConductance.u) annotation (
-         Line(
-          points={{-85,75},{-60,75},{-60,56},{4,56}},
-          color={0,0,255},
-          thickness=0.5,
-          smooth=Smooth.None), Text(
-          string="%first",
-          index=-1,
-          extent={{-6,3},{-6,3}}));
-        annotation (          Documentation(revisions="<html>
-
-<table>
-<tr>
-<td>Author:</td>
-<td>Marek Matejak</td>
-</tr>
-<tr>
-<td>License:</td>
-<td><a href=\"http://www.physiomodel.org/license.html\">Physiomodel License 1.0</a> </td>
-</tr>
-<tr>
-<td>By:</td>
-<td>Charles University, Prague</td>
-</tr>
-<tr>
-<td>Date of:</td>
-<td>2010</td>
-</tr>
-<tr>
-<td>References:</td>
-<td>Tom Coleman: QHP 2008 beta 3, University of Mississippi Medical Center</td>
-</tr>
-</table>
-<br/><p>Copyright &copy; 2014 Marek Matejak, Charles University in Prague.</p><br/>
-
-</html>"));
-      end VasaRecta;
-
     model VariableResistorWithMyogenicResponse
       extends Physiolibrary.Icons.Resistor;
 
@@ -8100,7 +8038,7 @@ QHP 2008 / Skin-Flow
 
       //(q_in(pressure(start=95.5)),q_out(pressure(start=61.5)));
       extends Physiolibrary.SteadyStates.Interfaces.SteadyState(
-                                                    stateName="Kidney-MyogenicDelay.PressureChange", state_start=InitialPressureChange);
+                                                    stateName="Kidney-MyogenicDelay.PressureChange", state_start=InitialPressureChange, state(nominal=133));
 
       Physiolibrary.Types.RealIO.HydraulicConductanceInput cond(displayUnit="ml/(min.mmHg)")
           annotation (Placement(transformation(extent={{-100,92},             {-80,112}}), iconTransformation(
@@ -8265,25 +8203,25 @@ Blood flow variable resistor abstract model.
         extends Physiolibrary.Icons.PerfusionDO;
 
         Physiolibrary.Hydraulic.Interfaces.HydraulicPort_a q_in "Blood inflow"
-          annotation (extent=[-10,-110; 10,-90], Placement(transformation(extent={{-10,
-                  -110},{10,-90}}, rotation=0),
-                                        iconTransformation(extent={{90,-10},{110,
-                  10}})));
+          annotation (extent=[-10,-110; 10,-90], Placement(transformation(extent={{100,-10},
+                  {120,10}},       rotation=0),
+                                        iconTransformation(extent={{150,-10},{
+                  170,10}})));
         Physiolibrary.Hydraulic.Interfaces.HydraulicPort_b q_out
           "Blood outflow"
-          annotation (extent=[-10,-110; 10,-90], Placement(transformation(extent={{-10,
-                  -110},{10,-90}}, rotation=0),
-                                          iconTransformation(extent={{-110,-10},{
-                  -90,10}})));
+          annotation (extent=[-10,-110; 10,-90], Placement(transformation(extent={{104,-90},
+                  {124,-70}},      rotation=0),
+                                          iconTransformation(extent={{-168,-10},
+                  {-148,10}})));
 
         Physiolibrary.Types.BusConnector busConnector
           "signals of organ bood flow resistence" annotation (Placement(
               transformation(extent={{-100,80},{-80,100}}), iconTransformation(
-                extent={{60,10},{78,28}})));
+                extent={{-64,58},{-46,76}})));
 
           Modelica.Blocks.Interfaces.RealOutput BloodFlow
                                                    annotation (Placement(transformation(
-                  extent={{90,-22},{102,-10}}),iconTransformation(extent={{60,-60},{80,
+                  extent={{92,14},{104,26}}),  iconTransformation(extent={{60,-60},{80,
                     -40}})));
         Physiolibrary.Hydraulic.Sensors.FlowMeasure flowMeasure annotation (
             Placement(transformation(
@@ -8292,11 +8230,11 @@ Blood flow variable resistor abstract model.
         equation
 
           connect(flowMeasure.volumeFlow, BloodFlow) annotation (Line(
-              points={{88,12},{88,-16},{96,-16}},
+              points={{88,12},{88,20},{98,20}},
               color={0,0,127},
               smooth=Smooth.None));
           connect(flowMeasure.q_in, q_in) annotation (Line(
-              points={{98,0},{100,0}},
+              points={{98,0},{110,0}},
               color={0,0,0},
               thickness=1,
               smooth=Smooth.None));
@@ -8527,6 +8465,7 @@ QHP 2008 / LeftHeart-Flow
                   textString="%name")}));
         end Heart;
       end Interfaces;
+
     end Microcirculation;
 
     package Blood "Red Cells and Blood Properties"
@@ -10034,6 +9973,269 @@ QHP 2008 / LeftHeart-Flow
         annotation (        experiment(StopTime=864000));
       end CardioVascular_test_SI;
     end IO_Bus;
+
+    package IO_Bus_Kidney
+      extends Physiolibrary.Types.IO_Bus;
+
+      redeclare model extends Variables
+
+      T.Fraction BloodVol_PVCrit(varName="BloodVol.PVCrit")
+        "Plasma volume fraction = plasma / blood."
+      annotation (Placement(transformation(extent={{-36,30},{-30,36}})));
+      //Variable LeftAtrium_TMP(varName="LeftAtrium.TMP")
+      //    "Left atrium pressure gradient between inside and pericardium."
+      //annotation (Placement(transformation(extent={{-36,180},{-30,186}})));
+      //Variable RightAtrium_TMP(varName="RightAtrium.TMP")
+      //    "Right atrium pressure gradient between inside and pericardium."
+      //annotation (Placement(transformation(extent={{-36,320},{-30,326}})));
+      T.Concentration ANPPool_ANP(varName="ANPPool.[ANP]", storeUnit="pmol/l",
+        y(nominal=1e-8)) "Atrial natriuretic peptide concentration."
+          annotation (Placement(transformation(extent={{-82,-78},{-76,-72}})));
+      Physiolibrary.Types.RealTypes.VolumeFlowRate
+                       Liver_BloodFlow(varName="Liver-O2.BloodFlow")
+                                    "Liver blood flow."
+      annotation (Placement(transformation(extent={{-30,-26},{-24,-20}})));
+      equation
+
+      connect(BloodVol_PVCrit.y, busConnector.BloodVol_PVCrit) annotation (Line(
+       points={{-29.7,33},{90,33},{90,-2}},
+            color={0,0,127},
+            smooth=Smooth.None), Text(
+            string="%second",
+            index=1,
+            extent={{6,3},{6,3}}));
+
+        connect(ANPPool_ANP.y, busConnector.ANP) annotation (Line(
+            points={{-75.7,-75},{90,-75},{90,-2}},
+            color={0,0,127},
+            smooth=Smooth.None), Text(
+            string="%second",
+            index=1,
+            extent={{6,3},{6,3}}));
+        connect(Liver_BloodFlow.y, busConnector.Liver_BloodFlow) annotation (Line(
+            points={{-23.7,-23},{90,-23},{90,-2}},
+            color={0,0,127},
+            smooth=Smooth.None), Text(
+            string="%second",
+            index=1,
+            extent={{6,3},{6,3}}));
+        annotation (Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,
+                  -100},{100,100}},
+                lineColor={0,0,0},
+                textString="const"), graphics={Text(
+                extent={{6,126},{100,90}},
+                lineColor={0,0,0},
+                textString="vars"), Text(
+                extent={{-126,-98},{116,-132}},
+                lineColor={0,0,255},
+                textString="%name")}));
+      end Variables;
+
+      model dsu
+        import Physiomodel;
+        Physiomodel.Metabolism.IO_Bus.InputFromFile_SI
+                                                nutrientsAndMetabolism
+          annotation (Placement(transformation(extent={{-88,60},{-68,80}})));
+        Physiomodel.Electrolytes.IO_Bus.InputFromFile_SI electrolytes
+          annotation (Placement(transformation(extent={{74,-34},{94,-14}})));
+        Physiomodel.Hormones.IO_Bus.InputFromFile_SI hormones
+          annotation (Placement(transformation(extent={{40,6},{60,26}})));
+        Physiomodel.Nerves.IO_Bus.InputFromFile_SI nerves
+          annotation (Placement(transformation(extent={{74,38},{94,58}})));
+        Physiomodel.Setup.IO_Bus.InputFromFile_SI     setup
+          annotation (Placement(transformation(extent={{-14,-96},{6,-76}})));
+        Physiomodel.Water.IO_Bus.InputFromFile_SI water
+          annotation (Placement(transformation(extent={{-86,-6},{-66,14}})));
+        Physiomodel.Proteins.IO_Bus.InputFromFile_SI proteins
+          annotation (Placement(transformation(extent={{-48,-30},{-28,-10}})));
+        Physiomodel.Status.IO_Bus.InputFromFile_SI status
+          annotation (Placement(transformation(extent={{42,-80},{62,-60}})));
+        Physiomodel.Gases.IO_Bus.InputFromFile_SI gases
+          annotation (Placement(transformation(extent={{-76,-64},{-56,-44}})));
+        Physiomodel.Heat.IO_Bus.InputFromFile_SI heat
+          annotation (Placement(transformation(extent={{-28,30},{-48,50}})));
+      Physiomodel.CardioVascular.IO_Bus.InputFromFile_SI cardiovascular
+        annotation (Placement(transformation(extent={{42,72},{62,92}})));
+      Physiolibrary.Types.BusConnector busConnector
+        "signals of organ bood flow resistence" annotation (Placement(
+            transformation(extent={{-42,74},{-22,94}}),   iconTransformation(
+              extent={{-64,58},{-46,76}})));
+      equation
+        connect(setup.busConnector,hormones. busConnector) annotation (Line(
+            points={{-4,-86},{-4,16},{50,16}},
+            color={0,0,255},
+            thickness=0.5,
+            smooth=Smooth.None));
+        connect(setup.busConnector,proteins. busConnector) annotation (Line(
+            points={{-4,-86},{-4,-20},{-38,-20}},
+            color={0,0,255},
+            thickness=0.5,
+            smooth=Smooth.None));
+        connect(setup.busConnector,nutrientsAndMetabolism. busConnector)
+          annotation (Line(
+            points={{-4,-86},{-4,70},{-78,70}},
+            color={0,0,255},
+            thickness=0.5,
+            smooth=Smooth.None));
+        connect(setup.busConnector,water. busConnector) annotation (Line(
+            points={{-4,-86},{-4,4},{-76,4}},
+            color={0,0,255},
+            thickness=0.5,
+            smooth=Smooth.None));
+        connect(setup.busConnector,nerves. busConnector) annotation (Line(
+            points={{-4,-86},{-4,48},{84,48}},
+            color={0,0,255},
+            thickness=0.5,
+            smooth=Smooth.None));
+        connect(status.busConnector,setup. busConnector)         annotation (Line(
+            points={{52,-70},{-4,-70},{-4,-86}},
+            color={0,0,255},
+            thickness=0.5,
+            smooth=Smooth.None));
+        connect(electrolytes.busConnector,setup. busConnector) annotation (Line(
+            points={{84,-24},{-4,-24},{-4,-86}},
+            color={0,0,255},
+            thickness=0.5,
+            smooth=Smooth.None));
+        connect(gases.busConnector,setup. busConnector) annotation (Line(
+            points={{-66,-54},{-4,-54},{-4,-86}},
+            color={0,0,255},
+            thickness=0.5,
+            smooth=Smooth.None));
+        connect(heat.busConnector,setup. busConnector) annotation (Line(
+            points={{-38,40},{-4,40},{-4,-86}},
+            color={0,0,255},
+            thickness=0.5,
+            smooth=Smooth.None));
+      connect(cardiovascular.busConnector, nutrientsAndMetabolism.busConnector)
+        annotation (Line(
+          points={{52,82},{-2,82},{-2,70},{-78,70}},
+          color={0,0,255},
+          thickness=0.5));
+      connect(busConnector, nutrientsAndMetabolism.busConnector) annotation (
+          Line(
+          points={{-32,84},{-34,84},{-34,70},{-78,70}},
+          color={0,0,255},
+          thickness=0.5));
+        annotation (        experiment(StopTime=100));
+      end dsu;
+
+      model Kidney_GFR_regulation
+      Microcirculation.Kidney kidney
+        annotation (Placement(transformation(extent={{12,-16},{-8,4}})));
+      Physiolibrary.Types.BusConnector busConnector
+        "signals of organ bood flow resistence" annotation (Placement(
+            transformation(extent={{-58,54},{-38,74}}),   iconTransformation(
+              extent={{-64,58},{-46,76}})));
+        Physiolibrary.Hydraulic.Sources.UnlimitedVolume arteries(
+          usePressureInput=true, P=3999.67162245)
+          annotation (Placement(transformation(extent={{-70,-16},{-50,4}})));
+        Physiolibrary.Hydraulic.Sources.UnlimitedVolume veins
+          annotation (Placement(transformation(extent={{72,-16},{52,4}})));
+        Modelica.Blocks.Sources.Clock MAP(offset=40*1e9)
+          annotation (Placement(transformation(extent={{-98,24},{-78,44}})));
+        Modelica.Blocks.Math.Gain torr_to_Pa(k=133*1e-9)
+          annotation (Placement(transformation(extent={{-60,24},{-40,44}})));
+        Hormones.Aldosterone
+                    aldosterone
+          annotation (Placement(transformation(extent={{72,74},{92,94}})));
+        Hormones.Angiotensine2
+                      angiotensine2
+          annotation (Placement(transformation(extent={{24,74},{44,94}})));
+        Hormones.Renin
+              renin
+          annotation (Placement(transformation(extent={{-28,74},{-8,94}})));
+        Electrolytes.Sodium.KidneyNa kidneyNa(Medulla(NominalSolute=0.001))
+          annotation (Placement(transformation(extent={{-40,-58},{-20,-38}})));
+        Physiolibrary.Chemical.Sources.UnlimitedSolutionStorage NaPool(Conc=145)
+          annotation (Placement(transformation(extent={{-46,-90},{-26,-70}})));
+      Water.WaterCompartments.Kidney.Kidney kidney3_1
+        annotation (Placement(transformation(extent={{22,-58},{42,-38}})));
+        Physiolibrary.Osmotic.Sources.UnlimitedSolution PlasmaColloid(
+            useOsmolarityInput=true)
+          annotation (Placement(transformation(extent={{38,-92},{58,-72}})));
+        Physiolibrary.Types.Constants.OsmolarityConst osmolarity(k=1.4)
+          annotation (Placement(transformation(extent={{12,-86},{20,-78}})));
+
+      equation
+        connect(kidney.busConnector, busConnector) annotation (Line(
+            points={{7.5,0.7},{7.5,64},{-48,64}},
+            color={0,0,255},
+            thickness=0.5), Text(
+            string="%second",
+            index=1,
+            extent={{-3,6},{-3,6}},
+            horizontalAlignment=TextAlignment.Right));
+        connect(arteries.y, kidney.q_in) annotation (Line(
+            points={{-50,-6},{-14,-6}},
+            color={0,0,0},
+            thickness=1));
+        connect(kidney.q_out, veins.y) annotation (Line(
+            points={{17.8,-6},{52,-6}},
+            color={0,0,0},
+            thickness=1));
+        connect(MAP.y, torr_to_Pa.u)
+          annotation (Line(points={{-77,34},{-62,34}}, color={0,0,127}));
+        connect(busConnector,aldosterone. busConnector) annotation (Line(
+            points={{-48,64},{68,64},{68,78},{74,78}},
+            color={0,0,255},
+            thickness=0.5,
+            smooth=Smooth.None));
+        connect(busConnector,angiotensine2. busConnector)   annotation (Line(
+            points={{-48,64},{18,64},{18,78},{26,78}},
+            color={0,0,255},
+            thickness=0.5,
+            smooth=Smooth.None));
+        connect(busConnector,renin. busConnector) annotation (Line(
+            points={{-48,64},{-32,64},{-32,78},{-26,78}},
+            color={0,0,255},
+            thickness=0.5,
+            smooth=Smooth.None));
+        connect(renin.Renin, angiotensine2.Renin) annotation (Line(points={{-8,84},{10,
+                84},{10,88},{26,88}}, color={0,0,127}));
+        connect(angiotensine2.Angiotensine2, aldosterone.AngiotensinII) annotation (
+            Line(points={{44,84},{60,84},{60,90},{74,90}}, color={0,0,127}));
+        connect(angiotensine2.Angiotensine2, renin.Angiotensin2) annotation (Line(
+              points={{44,84},{52,84},{52,100},{-48,100},{-48,88},{-26,88}}, color={0,
+                0,127}));
+        connect(busConnector, kidneyNa.busConnector) annotation (Line(
+            points={{-48,64},{-22,64},{-22,-40}},
+            color={0,0,255},
+            thickness=0.5), Text(
+            string="%first",
+            index=-1,
+            extent={{-3,6},{-3,6}},
+            horizontalAlignment=TextAlignment.Right));
+        connect(NaPool.q_out, kidneyNa.q_in) annotation (Line(
+            points={{-26,-80},{-14,-80},{-14,-48},{-28,-48}},
+            color={107,45,134},
+            thickness=1));
+        connect(kidneyNa.q_out, kidneyNa.q_in) annotation (Line(
+            points={{-28,-56},{-24,-56},{-24,-48},{-28,-48}},
+            color={107,45,134},
+            thickness=1));
+        connect(kidney3_1.busConnector, kidneyNa.busConnector) annotation (Line(
+            points={{26,-40.4},{-22,-26},{-22,-40}},
+            color={0,0,255},
+            thickness=0.5));
+        connect(PlasmaColloid.port,kidney3_1. plasma) annotation (Line(
+            points={{58,-82},{68,-82},{68,-46},{36,-46},{36,-48}},
+            color={127,127,0},
+            thickness=1));
+        connect(kidney3_1.urine,kidney3_1. plasma) annotation (Line(
+            points={{32,-58},{64,-58},{64,-82},{68,-82},{68,-46},{36,-46},{36,-48}},
+            color={127,127,0},
+            thickness=1));
+        connect(osmolarity.y, PlasmaColloid.osmolarity)
+          annotation (Line(points={{21,-82},{38,-82}}, color={0,0,127}));
+      connect(torr_to_Pa.y, arteries.pressure) annotation (Line(points={{-39,34},
+              {-32,34},{-32,14},{-90,14},{-90,-6},{-70,-6}}, color={0,0,127}));
+        annotation (
+          Icon(coordinateSystem(preserveAspectRatio=false)),
+          Diagram(coordinateSystem(preserveAspectRatio=false)),
+          experiment(StopTime=160000000000));
+      end Kidney_GFR_regulation;
+    end IO_Bus_Kidney;
   annotation (Documentation(revisions="<html>
 <table cellspacing=\"2\" cellpadding=\"0\" border=\"0\"><tr>
 <td><p>Author:</p></td>
@@ -18679,6 +18881,180 @@ Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPU
       //end if;
         annotation (          experiment(StopTime=1e+006, Tolerance=1e-005));
       end GasesAndElectrolytes_test_SI;
+
+      model Gases
+        import Physiomodel;
+
+        import Modelica.Utilities.*;
+       // constant String OUTPUT_FILE = "setup/output_startValues.txt"; //"setup/output.txt"; //"setup/v2.txt";
+
+        Physiomodel.Gases.Gases gases
+          annotation (Placement(transformation(extent={{-78,-64},{-58,-44}})));
+      Physiolibrary.Types.BusConnector busConnector
+        "signals of organ bood flow resistence" annotation (Placement(
+            transformation(extent={{-10,68},{12,90}}),  iconTransformation(extent=
+               {{-100,60},{-60,100}})));
+      equation
+      if terminal() then
+
+      /*   Streams.print("cardioVascularSystem.busConnector.Bone_PCO2\n"+String(cardioVascularSystem.busConnector.Bone_PCO2),OUTPUT_FILE);
+
+Streams.print("cardioVascularSystem.busConnector.Brain_PCO2\n"+String(cardioVascularSystem.busConnector.Brain_PCO2),OUTPUT_FILE);
+Streams.print("cardioVascularSystem.busConnector.Fat_PCO2\n"+String(cardioVascularSystem.busConnector.Fat_PCO2),OUTPUT_FILE);
+Streams.print("cardioVascularSystem.busConnector.GITract_PCO2\n"+String(cardioVascularSystem.busConnector.GITract_PCO2),OUTPUT_FILE);
+Streams.print("cardioVascularSystem.busConnector.Kidney_PCO2\n"+String(cardioVascularSystem.busConnector.Kidney_PCO2),OUTPUT_FILE);
+Streams.print("cardioVascularSystem.busConnector.LeftHeart_PCO2\n"+String(cardioVascularSystem.busConnector.LeftHeart_PCO2),OUTPUT_FILE);
+Streams.print("cardioVascularSystem.busConnector.Liver_PCO2\n"+String(cardioVascularSystem.busConnector.Liver_PCO2),OUTPUT_FILE);
+Streams.print("cardioVascularSystem.busConnector.OtherTissue_PCO2\n"+String(cardioVascularSystem.busConnector.OtherTissue_PCO2),OUTPUT_FILE);
+Streams.print("cardioVascularSystem.busConnector.RespiratoryMuscle_PCO2\n"+String(cardioVascularSystem.busConnector.RespiratoryMuscle_PCO2),OUTPUT_FILE);
+Streams.print("cardioVascularSystem.busConnector.RightHeart_PCO2\n"+String(cardioVascularSystem.busConnector.RightHeart_PCO2),OUTPUT_FILE);
+Streams.print("cardioVascularSystem.busConnector.SkeletalMuscle_PCO2\n"+String(cardioVascularSystem.busConnector.SkeletalMuscle_PCO2),OUTPUT_FILE);
+Streams.print("cardioVascularSystem.busConnector.Skin_PCO2\n"+String(cardioVascularSystem.busConnector.Skin_PCO2),OUTPUT_FILE);
+Streams.print("cardioVascularSystem.busConnector.Urine_pH\n"+String(cardioVascularSystem.busConnector.Urine_pH),OUTPUT_FILE);
+
+Streams.print("gases.carbonDioxyd.alveolarVentilation.solventFlowPump.q_out.conc|"+String(gases.carbonDioxyd.alveolarVentilation.solventFlowPump.q_out.conc),OUTPUT_FILE);
+Streams.print("gases.carbonDioxyd.artysCO2.pCO2|"+String(gases.carbonDioxyd.artysCO2.pCO2),OUTPUT_FILE);
+Streams.print("gases.carbonDioxyd.veinsCO2.pCO2|"+String(gases.carbonDioxyd.veinsCO2.pCO2),OUTPUT_FILE);
+Streams.print("gases.oxygen.alveolarVentilation.solventFlowPump.q_out.conc|"+String(gases.oxygen.alveolarVentilation.solventFlowPump.q_out.conc),OUTPUT_FILE);
+Streams.print("gases.oxygen.artysO2.a|"+String(gases.oxygen.artysO2.a),OUTPUT_FILE);
+Streams.print("gases.oxygen.artysO2.FCOHb|"+String(gases.oxygen.artysO2.FCOHb),OUTPUT_FILE);
+Streams.print("gases.oxygen.artysO2.pO2|"+String(gases.oxygen.artysO2.pO2),OUTPUT_FILE);
+Streams.print("gases.oxygen.O2Lung.a|"+String(gases.oxygen.O2Lung.a),OUTPUT_FILE);
+Streams.print("gases.oxygen.O2Lung.FCOHb|"+String(gases.oxygen.O2Lung.FCOHb),OUTPUT_FILE);
+Streams.print("gases.oxygen.O2Lung.tO2|"+String(gases.oxygen.O2Lung.tO2),OUTPUT_FILE);
+Streams.print("gases.oxygen.tissuesO2.boneO2.O2Tissue.a|"+String(gases.oxygen.tissuesO2.boneO2.O2Tissue.a),OUTPUT_FILE);
+Streams.print("gases.oxygen.tissuesO2.boneO2.O2Tissue.FCOHb|"+String(gases.oxygen.tissuesO2.boneO2.O2Tissue.FCOHb),OUTPUT_FILE);
+Streams.print("gases.oxygen.tissuesO2.boneO2.O2Tissue.pO2|"+String(gases.oxygen.tissuesO2.boneO2.O2Tissue.pO2),OUTPUT_FILE);
+Streams.print("gases.oxygen.tissuesO2.brainO2.O2Tissue.a|"+String(gases.oxygen.tissuesO2.brainO2.O2Tissue.a),OUTPUT_FILE);
+Streams.print("gases.oxygen.tissuesO2.brainO2.O2Tissue.FCOHb|"+String(gases.oxygen.tissuesO2.brainO2.O2Tissue.FCOHb),OUTPUT_FILE);
+Streams.print("gases.oxygen.tissuesO2.brainO2.O2Tissue.pO2|"+String(gases.oxygen.tissuesO2.brainO2.O2Tissue.pO2),OUTPUT_FILE);
+Streams.print("gases.oxygen.tissuesO2.fatO2.O2Tissue.a|"+String(gases.oxygen.tissuesO2.fatO2.O2Tissue.a),OUTPUT_FILE);
+Streams.print("gases.oxygen.tissuesO2.fatO2.O2Tissue.FCOHb|"+String(gases.oxygen.tissuesO2.fatO2.O2Tissue.FCOHb),OUTPUT_FILE);
+Streams.print("gases.oxygen.tissuesO2.fatO2.O2Tissue.pO2|"+String(gases.oxygen.tissuesO2.fatO2.O2Tissue.pO2),OUTPUT_FILE);
+Streams.print("gases.oxygen.tissuesO2.GITractO2.O2Tissue.a|"+String(gases.oxygen.tissuesO2.GITractO2.O2Tissue.a),OUTPUT_FILE);
+Streams.print("gases.oxygen.tissuesO2.GITractO2.O2Tissue.FCOHb|"+String(gases.oxygen.tissuesO2.GITractO2.O2Tissue.FCOHb),OUTPUT_FILE);
+Streams.print("gases.oxygen.tissuesO2.GITractO2.O2Tissue.pO2|"+String(gases.oxygen.tissuesO2.GITractO2.O2Tissue.pO2),OUTPUT_FILE);
+Streams.print("gases.oxygen.tissuesO2.kidneyO2.O2Tissue.a|"+String(gases.oxygen.tissuesO2.kidneyO2.O2Tissue.a),OUTPUT_FILE);
+Streams.print("gases.oxygen.tissuesO2.kidneyO2.O2Tissue.FCOHb|"+String(gases.oxygen.tissuesO2.kidneyO2.O2Tissue.FCOHb),OUTPUT_FILE);
+Streams.print("gases.oxygen.tissuesO2.kidneyO2.O2Tissue.pO2|"+String(gases.oxygen.tissuesO2.kidneyO2.O2Tissue.pO2),OUTPUT_FILE);
+Streams.print("gases.oxygen.tissuesO2.leftHeartO2.O2Tissue.a|"+String(gases.oxygen.tissuesO2.leftHeartO2.O2Tissue.a),OUTPUT_FILE);
+Streams.print("gases.oxygen.tissuesO2.leftHeartO2.O2Tissue.FCOHb|"+String(gases.oxygen.tissuesO2.leftHeartO2.O2Tissue.FCOHb),OUTPUT_FILE);
+Streams.print("gases.oxygen.tissuesO2.leftHeartO2.O2Tissue.pO2|"+String(gases.oxygen.tissuesO2.leftHeartO2.O2Tissue.pO2),OUTPUT_FILE);
+Streams.print("gases.oxygen.tissuesO2.liverO2.O2Tissue.a|"+String(gases.oxygen.tissuesO2.liverO2.O2Tissue.a),OUTPUT_FILE);
+Streams.print("gases.oxygen.tissuesO2.liverO2.O2Tissue.FCOHb|"+String(gases.oxygen.tissuesO2.liverO2.O2Tissue.FCOHb),OUTPUT_FILE);
+Streams.print("gases.oxygen.tissuesO2.liverO2.O2Tissue.pO2|"+String(gases.oxygen.tissuesO2.liverO2.O2Tissue.pO2),OUTPUT_FILE);
+Streams.print("gases.oxygen.tissuesO2.otherTissueO2.O2Tissue.a|"+String(gases.oxygen.tissuesO2.otherTissueO2.O2Tissue.a),OUTPUT_FILE);
+Streams.print("gases.oxygen.tissuesO2.otherTissueO2.O2Tissue.FCOHb|"+String(gases.oxygen.tissuesO2.otherTissueO2.O2Tissue.FCOHb),OUTPUT_FILE);
+Streams.print("gases.oxygen.tissuesO2.otherTissueO2.O2Tissue.pO2|"+String(gases.oxygen.tissuesO2.otherTissueO2.O2Tissue.pO2),OUTPUT_FILE);
+Streams.print("gases.oxygen.tissuesO2.respiratoryMuscleO2.O2Tissue.a|"+String(gases.oxygen.tissuesO2.respiratoryMuscleO2.O2Tissue.a),OUTPUT_FILE);
+Streams.print("gases.oxygen.tissuesO2.respiratoryMuscleO2.O2Tissue.FCOHb|"+String(gases.oxygen.tissuesO2.respiratoryMuscleO2.O2Tissue.FCOHb),OUTPUT_FILE);
+Streams.print("gases.oxygen.tissuesO2.respiratoryMuscleO2.O2Tissue.pO2|"+String(gases.oxygen.tissuesO2.respiratoryMuscleO2.O2Tissue.pO2),OUTPUT_FILE);
+Streams.print("gases.oxygen.tissuesO2.rightHeartO2.O2Tissue.a|"+String(gases.oxygen.tissuesO2.rightHeartO2.O2Tissue.a),OUTPUT_FILE);
+Streams.print("gases.oxygen.tissuesO2.rightHeartO2.O2Tissue.FCOHb|"+String(gases.oxygen.tissuesO2.rightHeartO2.O2Tissue.FCOHb),OUTPUT_FILE);
+Streams.print("gases.oxygen.tissuesO2.rightHeartO2.O2Tissue.pO2|"+String(gases.oxygen.tissuesO2.rightHeartO2.O2Tissue.pO2),OUTPUT_FILE);
+Streams.print("gases.oxygen.tissuesO2.skeletalMuscleO2.O2Tissue.a|"+String(gases.oxygen.tissuesO2.skeletalMuscleO2.O2Tissue.a),OUTPUT_FILE);
+Streams.print("gases.oxygen.tissuesO2.skeletalMuscleO2.O2Tissue.FCOHb|"+String(gases.oxygen.tissuesO2.skeletalMuscleO2.O2Tissue.FCOHb),OUTPUT_FILE);
+Streams.print("gases.oxygen.tissuesO2.skeletalMuscleO2.O2Tissue.pO2|"+String(gases.oxygen.tissuesO2.skeletalMuscleO2.O2Tissue.pO2),OUTPUT_FILE);
+Streams.print("gases.oxygen.tissuesO2.skinO2.O2Tissue.a|"+String(gases.oxygen.tissuesO2.skinO2.O2Tissue.a),OUTPUT_FILE);
+Streams.print("gases.oxygen.tissuesO2.skinO2.O2Tissue.FCOHb|"+String(gases.oxygen.tissuesO2.skinO2.O2Tissue.FCOHb),OUTPUT_FILE);
+Streams.print("gases.oxygen.tissuesO2.skinO2.O2Tissue.pO2|"+String(gases.oxygen.tissuesO2.skinO2.O2Tissue.pO2),OUTPUT_FILE);
+Streams.print("gases.oxygen.veinsO2.a|"+String(gases.oxygen.veinsO2.a),OUTPUT_FILE);
+Streams.print("gases.oxygen.veinsO2.FCOHb|"+String(gases.oxygen.veinsO2.FCOHb),OUTPUT_FILE);
+Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPUT_FILE);*/
+      end if;
+      connect(gases.busConnector, busConnector) annotation (Line(
+          points={{-60,-46},{1,-46},{1,79}},
+          color={0,0,255},
+          thickness=0.5));
+        annotation (          experiment(StopTime=3600, Tolerance=1e-005));
+      end Gases;
+
+      model dsu_test
+        import Physiomodel;
+
+        import Modelica.Utilities.*;
+       // constant String OUTPUT_FILE = "setup/output_startValues.txt"; //"setup/output.txt"; //"setup/v2.txt";
+
+      Physiolibrary.Types.BusConnector busConnector
+        "signals of organ bood flow resistence" annotation (Placement(
+            transformation(extent={{-10,68},{12,90}}),  iconTransformation(extent=
+               {{-100,60},{-60,100}})));
+      Physiolibrary.Types.RealIO.VolumeFlowRateOutput volumeflowrate
+        annotation (Placement(transformation(extent={{48,20},{68,40}})));
+      equation
+      if terminal() then
+
+      /*   Streams.print("cardioVascularSystem.busConnector.Bone_PCO2\n"+String(cardioVascularSystem.busConnector.Bone_PCO2),OUTPUT_FILE);
+
+Streams.print("cardioVascularSystem.busConnector.Brain_PCO2\n"+String(cardioVascularSystem.busConnector.Brain_PCO2),OUTPUT_FILE);
+Streams.print("cardioVascularSystem.busConnector.Fat_PCO2\n"+String(cardioVascularSystem.busConnector.Fat_PCO2),OUTPUT_FILE);
+Streams.print("cardioVascularSystem.busConnector.GITract_PCO2\n"+String(cardioVascularSystem.busConnector.GITract_PCO2),OUTPUT_FILE);
+Streams.print("cardioVascularSystem.busConnector.Kidney_PCO2\n"+String(cardioVascularSystem.busConnector.Kidney_PCO2),OUTPUT_FILE);
+Streams.print("cardioVascularSystem.busConnector.LeftHeart_PCO2\n"+String(cardioVascularSystem.busConnector.LeftHeart_PCO2),OUTPUT_FILE);
+Streams.print("cardioVascularSystem.busConnector.Liver_PCO2\n"+String(cardioVascularSystem.busConnector.Liver_PCO2),OUTPUT_FILE);
+Streams.print("cardioVascularSystem.busConnector.OtherTissue_PCO2\n"+String(cardioVascularSystem.busConnector.OtherTissue_PCO2),OUTPUT_FILE);
+Streams.print("cardioVascularSystem.busConnector.RespiratoryMuscle_PCO2\n"+String(cardioVascularSystem.busConnector.RespiratoryMuscle_PCO2),OUTPUT_FILE);
+Streams.print("cardioVascularSystem.busConnector.RightHeart_PCO2\n"+String(cardioVascularSystem.busConnector.RightHeart_PCO2),OUTPUT_FILE);
+Streams.print("cardioVascularSystem.busConnector.SkeletalMuscle_PCO2\n"+String(cardioVascularSystem.busConnector.SkeletalMuscle_PCO2),OUTPUT_FILE);
+Streams.print("cardioVascularSystem.busConnector.Skin_PCO2\n"+String(cardioVascularSystem.busConnector.Skin_PCO2),OUTPUT_FILE);
+Streams.print("cardioVascularSystem.busConnector.Urine_pH\n"+String(cardioVascularSystem.busConnector.Urine_pH),OUTPUT_FILE);
+
+Streams.print("gases.carbonDioxyd.alveolarVentilation.solventFlowPump.q_out.conc|"+String(gases.carbonDioxyd.alveolarVentilation.solventFlowPump.q_out.conc),OUTPUT_FILE);
+Streams.print("gases.carbonDioxyd.artysCO2.pCO2|"+String(gases.carbonDioxyd.artysCO2.pCO2),OUTPUT_FILE);
+Streams.print("gases.carbonDioxyd.veinsCO2.pCO2|"+String(gases.carbonDioxyd.veinsCO2.pCO2),OUTPUT_FILE);
+Streams.print("gases.oxygen.alveolarVentilation.solventFlowPump.q_out.conc|"+String(gases.oxygen.alveolarVentilation.solventFlowPump.q_out.conc),OUTPUT_FILE);
+Streams.print("gases.oxygen.artysO2.a|"+String(gases.oxygen.artysO2.a),OUTPUT_FILE);
+Streams.print("gases.oxygen.artysO2.FCOHb|"+String(gases.oxygen.artysO2.FCOHb),OUTPUT_FILE);
+Streams.print("gases.oxygen.artysO2.pO2|"+String(gases.oxygen.artysO2.pO2),OUTPUT_FILE);
+Streams.print("gases.oxygen.O2Lung.a|"+String(gases.oxygen.O2Lung.a),OUTPUT_FILE);
+Streams.print("gases.oxygen.O2Lung.FCOHb|"+String(gases.oxygen.O2Lung.FCOHb),OUTPUT_FILE);
+Streams.print("gases.oxygen.O2Lung.tO2|"+String(gases.oxygen.O2Lung.tO2),OUTPUT_FILE);
+Streams.print("gases.oxygen.tissuesO2.boneO2.O2Tissue.a|"+String(gases.oxygen.tissuesO2.boneO2.O2Tissue.a),OUTPUT_FILE);
+Streams.print("gases.oxygen.tissuesO2.boneO2.O2Tissue.FCOHb|"+String(gases.oxygen.tissuesO2.boneO2.O2Tissue.FCOHb),OUTPUT_FILE);
+Streams.print("gases.oxygen.tissuesO2.boneO2.O2Tissue.pO2|"+String(gases.oxygen.tissuesO2.boneO2.O2Tissue.pO2),OUTPUT_FILE);
+Streams.print("gases.oxygen.tissuesO2.brainO2.O2Tissue.a|"+String(gases.oxygen.tissuesO2.brainO2.O2Tissue.a),OUTPUT_FILE);
+Streams.print("gases.oxygen.tissuesO2.brainO2.O2Tissue.FCOHb|"+String(gases.oxygen.tissuesO2.brainO2.O2Tissue.FCOHb),OUTPUT_FILE);
+Streams.print("gases.oxygen.tissuesO2.brainO2.O2Tissue.pO2|"+String(gases.oxygen.tissuesO2.brainO2.O2Tissue.pO2),OUTPUT_FILE);
+Streams.print("gases.oxygen.tissuesO2.fatO2.O2Tissue.a|"+String(gases.oxygen.tissuesO2.fatO2.O2Tissue.a),OUTPUT_FILE);
+Streams.print("gases.oxygen.tissuesO2.fatO2.O2Tissue.FCOHb|"+String(gases.oxygen.tissuesO2.fatO2.O2Tissue.FCOHb),OUTPUT_FILE);
+Streams.print("gases.oxygen.tissuesO2.fatO2.O2Tissue.pO2|"+String(gases.oxygen.tissuesO2.fatO2.O2Tissue.pO2),OUTPUT_FILE);
+Streams.print("gases.oxygen.tissuesO2.GITractO2.O2Tissue.a|"+String(gases.oxygen.tissuesO2.GITractO2.O2Tissue.a),OUTPUT_FILE);
+Streams.print("gases.oxygen.tissuesO2.GITractO2.O2Tissue.FCOHb|"+String(gases.oxygen.tissuesO2.GITractO2.O2Tissue.FCOHb),OUTPUT_FILE);
+Streams.print("gases.oxygen.tissuesO2.GITractO2.O2Tissue.pO2|"+String(gases.oxygen.tissuesO2.GITractO2.O2Tissue.pO2),OUTPUT_FILE);
+Streams.print("gases.oxygen.tissuesO2.kidneyO2.O2Tissue.a|"+String(gases.oxygen.tissuesO2.kidneyO2.O2Tissue.a),OUTPUT_FILE);
+Streams.print("gases.oxygen.tissuesO2.kidneyO2.O2Tissue.FCOHb|"+String(gases.oxygen.tissuesO2.kidneyO2.O2Tissue.FCOHb),OUTPUT_FILE);
+Streams.print("gases.oxygen.tissuesO2.kidneyO2.O2Tissue.pO2|"+String(gases.oxygen.tissuesO2.kidneyO2.O2Tissue.pO2),OUTPUT_FILE);
+Streams.print("gases.oxygen.tissuesO2.leftHeartO2.O2Tissue.a|"+String(gases.oxygen.tissuesO2.leftHeartO2.O2Tissue.a),OUTPUT_FILE);
+Streams.print("gases.oxygen.tissuesO2.leftHeartO2.O2Tissue.FCOHb|"+String(gases.oxygen.tissuesO2.leftHeartO2.O2Tissue.FCOHb),OUTPUT_FILE);
+Streams.print("gases.oxygen.tissuesO2.leftHeartO2.O2Tissue.pO2|"+String(gases.oxygen.tissuesO2.leftHeartO2.O2Tissue.pO2),OUTPUT_FILE);
+Streams.print("gases.oxygen.tissuesO2.liverO2.O2Tissue.a|"+String(gases.oxygen.tissuesO2.liverO2.O2Tissue.a),OUTPUT_FILE);
+Streams.print("gases.oxygen.tissuesO2.liverO2.O2Tissue.FCOHb|"+String(gases.oxygen.tissuesO2.liverO2.O2Tissue.FCOHb),OUTPUT_FILE);
+Streams.print("gases.oxygen.tissuesO2.liverO2.O2Tissue.pO2|"+String(gases.oxygen.tissuesO2.liverO2.O2Tissue.pO2),OUTPUT_FILE);
+Streams.print("gases.oxygen.tissuesO2.otherTissueO2.O2Tissue.a|"+String(gases.oxygen.tissuesO2.otherTissueO2.O2Tissue.a),OUTPUT_FILE);
+Streams.print("gases.oxygen.tissuesO2.otherTissueO2.O2Tissue.FCOHb|"+String(gases.oxygen.tissuesO2.otherTissueO2.O2Tissue.FCOHb),OUTPUT_FILE);
+Streams.print("gases.oxygen.tissuesO2.otherTissueO2.O2Tissue.pO2|"+String(gases.oxygen.tissuesO2.otherTissueO2.O2Tissue.pO2),OUTPUT_FILE);
+Streams.print("gases.oxygen.tissuesO2.respiratoryMuscleO2.O2Tissue.a|"+String(gases.oxygen.tissuesO2.respiratoryMuscleO2.O2Tissue.a),OUTPUT_FILE);
+Streams.print("gases.oxygen.tissuesO2.respiratoryMuscleO2.O2Tissue.FCOHb|"+String(gases.oxygen.tissuesO2.respiratoryMuscleO2.O2Tissue.FCOHb),OUTPUT_FILE);
+Streams.print("gases.oxygen.tissuesO2.respiratoryMuscleO2.O2Tissue.pO2|"+String(gases.oxygen.tissuesO2.respiratoryMuscleO2.O2Tissue.pO2),OUTPUT_FILE);
+Streams.print("gases.oxygen.tissuesO2.rightHeartO2.O2Tissue.a|"+String(gases.oxygen.tissuesO2.rightHeartO2.O2Tissue.a),OUTPUT_FILE);
+Streams.print("gases.oxygen.tissuesO2.rightHeartO2.O2Tissue.FCOHb|"+String(gases.oxygen.tissuesO2.rightHeartO2.O2Tissue.FCOHb),OUTPUT_FILE);
+Streams.print("gases.oxygen.tissuesO2.rightHeartO2.O2Tissue.pO2|"+String(gases.oxygen.tissuesO2.rightHeartO2.O2Tissue.pO2),OUTPUT_FILE);
+Streams.print("gases.oxygen.tissuesO2.skeletalMuscleO2.O2Tissue.a|"+String(gases.oxygen.tissuesO2.skeletalMuscleO2.O2Tissue.a),OUTPUT_FILE);
+Streams.print("gases.oxygen.tissuesO2.skeletalMuscleO2.O2Tissue.FCOHb|"+String(gases.oxygen.tissuesO2.skeletalMuscleO2.O2Tissue.FCOHb),OUTPUT_FILE);
+Streams.print("gases.oxygen.tissuesO2.skeletalMuscleO2.O2Tissue.pO2|"+String(gases.oxygen.tissuesO2.skeletalMuscleO2.O2Tissue.pO2),OUTPUT_FILE);
+Streams.print("gases.oxygen.tissuesO2.skinO2.O2Tissue.a|"+String(gases.oxygen.tissuesO2.skinO2.O2Tissue.a),OUTPUT_FILE);
+Streams.print("gases.oxygen.tissuesO2.skinO2.O2Tissue.FCOHb|"+String(gases.oxygen.tissuesO2.skinO2.O2Tissue.FCOHb),OUTPUT_FILE);
+Streams.print("gases.oxygen.tissuesO2.skinO2.O2Tissue.pO2|"+String(gases.oxygen.tissuesO2.skinO2.O2Tissue.pO2),OUTPUT_FILE);
+Streams.print("gases.oxygen.veinsO2.a|"+String(gases.oxygen.veinsO2.a),OUTPUT_FILE);
+Streams.print("gases.oxygen.veinsO2.FCOHb|"+String(gases.oxygen.veinsO2.FCOHb),OUTPUT_FILE);
+Streams.print("gases.oxygen.veinsO2.pO2|"+String(gases.oxygen.veinsO2.pO2),OUTPUT_FILE);*/
+      end if;
+      connect(busConnector.GITract_BloodFlow, volumeflowrate) annotation (Line(
+          points={{1,79},{1,30},{58,30}},
+          color={0,0,255},
+          thickness=0.5));
+        annotation (          experiment(StopTime=3600, Tolerance=1e-005));
+      end dsu_test;
     end IO_Bus;
     annotation (Documentation(revisions="<html>
 <table cellspacing=\"2\" cellpadding=\"0\" border=\"0\"><tr>
@@ -20787,7 +21163,7 @@ QHP 2008 / Peritoneum
           annotation (Placement(transformation(extent={{-20,80},{20,120}}),
               iconTransformation(extent={{-20,80},{20,120}})));
 
-          Physiolibrary.Types.Fraction Inactive( start = 2-initialActive, final displayUnit="1");
+          Physiolibrary.Types.Fraction Inactive( start = 2-initialActive, final displayUnit="1", nominal = 1);
           Physiolibrary.Types.RealIO.FractionOutput Active(final displayUnit="1")
                                      annotation (Placement(transformation(extent={{96,46},
                     {136,86}}), iconTransformation(extent={{96,46},{136,86}})));
@@ -20801,7 +21177,7 @@ QHP 2008 / Peritoneum
         //  der(Inactive) = ((1/InactivateKinv) * CD_H2O_Reab.q - ReactivateK * Inactive) / Library.SecPerMin;
           Active = 2 - Inactive;
 
-        state = Inactive;
+          state = Inactive;
           change = ((1/InactivateKinv) * CD_H2O_Reab.q - ReactivateK * Inactive);
           annotation (Icon(coordinateSystem(preserveAspectRatio=false,extent={{-100,-100},
                     {100,100}}),       graphics={Rectangle(
@@ -20813,6 +21189,35 @@ QHP 2008 / Peritoneum
                   lineColor={0,0,255},
                   textString="(initial %initialActive)")}));
         end CD_H2OChannels;
+
+        model ZeroOsmol "Prescripted zero osmolarity"
+          extends Physiolibrary.Osmotic.Interfaces.OnePort;
+
+        equation
+          q_in.o = 0;
+
+         annotation (
+            Icon(coordinateSystem(preserveAspectRatio=false,extent={{-100,
+                    -100},{100,100}}),
+                                graphics={
+                Text(
+                  extent={{-100,-80},{100,-54}},
+                  textString="%name",
+                  lineColor={0,0,255}),
+                Rectangle(
+                  extent={{-100,-50},{100,50}},
+                  lineColor={127,127,0},
+                  fillColor={255,255,255},
+                  fillPattern=FillPattern.Solid),
+                Text(
+                  extent={{-100,50},{14,12}},
+                  lineColor={0,0,255},
+                  textString="0 Osm")}),
+            Documentation(revisions="<html>
+<p><i>2009-2010</i></p>
+<p>Marek Matejak, Charles University, Prague, Czech Republic </p>
+</html>"));
+        end ZeroOsmol;
 
         model Kidney
            extends Physiolibrary.Icons.Kidney;
@@ -20898,17 +21303,13 @@ QHP 2008 / Peritoneum
         Physiolibrary.Types.BusConnector busConnector annotation (Placement(
               transformation(extent={{-102,76},{-82,96}}), iconTransformation(
                 extent={{-70,66},{-50,86}})));
-          Physiolibrary.Osmotic.Components.Membrane glomerulus(
-              useHydraulicPressureInputs=true,
-          useConductanceInput=true)
-            annotation (Placement(transformation(extent={{-66,48},{-46,68}})));
           Physiolibrary.Osmotic.Sensors.FlowMeasure flowMeasure4 annotation (Placement(
                 transformation(
                 extent={{-10,-10},{10,10}},
                 rotation=270,
-                origin={-44,24})));
+                origin={-64,18})));
           Physiolibrary.Types.Constants.PressureConst PelvisPressure(k=0)
-          annotation (Placement(transformation(extent={{-34,70},{-42,78}})));
+          annotation (Placement(transformation(extent={{-94,48},{-86,56}})));
           Physiolibrary.Osmotic.Components.Reabsorption ProximalTubule
             annotation (Placement(transformation(extent={{10,-10},{-10,10}},
               rotation=90,
@@ -20918,15 +21319,9 @@ QHP 2008 / Peritoneum
         Physiolibrary.Types.Constants.OsmoticPermeabilityConst Perm(k(displayUnit="ml/(mmHg.min)")=
                  6.500533657329e-10)
           "glomerular Kf and PT conductance (permeability"
-          annotation (Placement(transformation(extent={{-68,90},{-60,98}})));
+          annotation (Placement(transformation(extent={{-78,78},{-70,86}})));
         Physiolibrary.Blocks.Factors.Normalization NephronCountEffect
-          annotation (Placement(transformation(extent={{-66,68},{-46,88}})));
-          Physiolibrary.Osmotic.Components.IdealOverflowFiltration
-                                                               glomerulusFlow(
-              useSolutionFlowInput=true) annotation (Placement(transformation(
-                extent={{-10,-10},{10,10}},
-                rotation=90,
-                origin={-78,44})));
+          annotation (Placement(transformation(extent={{-74,62},{-54,82}})));
         Physiolibrary.Osmotic.Components.SolventFlux distalTubule(
             useSolutionFlowInput=true) annotation (Placement(transformation(
               extent={{-10,-10},{10,10}},
@@ -20936,6 +21331,8 @@ QHP 2008 / Peritoneum
               extent={{-10,-10},{10,10}},
               rotation=90,
               origin={-4,70})));
+        QHP.Water.WaterCompartments.Kidney.Glomerulus glomerulus2_1
+          annotation (Placement(transformation(extent={{-74,40},{-54,60}})));
         equation
 
           connect(gain1.y, sum1.u[1]) annotation (Line(
@@ -21036,28 +21433,9 @@ QHP 2008 / Peritoneum
             string="%second",
             index=1,
             extent={{6,3},{6,3}}));
-          connect(busConnector.GlomerulusBloodPressure, glomerulus.hydraulicPressureIn)
-            annotation (Line(
-              points={{-92,86},{-92,66},{-64,66}},
-              color={0,0,255},
-              thickness=0.5,
-              smooth=Smooth.None), Text(
-              string="%first",
-              index=-1,
-              extent={{-6,3},{-6,3}}));
-          connect(glomerulus.q_out, flowMeasure4.q_in) annotation (Line(
-              points={{-46,58},{-44,58},{-44,34}},
-              color={127,127,0},
-              thickness=1,
-              smooth=Smooth.None));
-        connect(PelvisPressure.y, glomerulus.hydraulicPressureOut) annotation (
-            Line(
-            points={{-43,74},{-48,74},{-48,66}},
-            color={0,0,127},
-            smooth=Smooth.None));
           connect(busConnector.GlomerulusFiltrate_GFR, flowMeasure4.volumeFlowRate)
             annotation (Line(
-              points={{-92,86},{-92,24},{-52,24}},
+              points={{-92,86},{-92,18},{-72,18}},
               color={0,0,255},
               thickness=0.5,
               smooth=Smooth.None), Text(
@@ -21065,7 +21443,7 @@ QHP 2008 / Peritoneum
               index=-1,
               extent={{-6,3},{-6,3}}));
           connect(flowMeasure4.q_out, ProximalTubule.Inflow) annotation (Line(
-              points={{-44,14},{-44,12},{-34,12},{-34,58},{-22,58},{-22,54}},
+              points={{-64,8},{-64,4},{-32,4},{-32,62},{-22,62},{-22,54}},
               color={127,127,0},
               thickness=1,
               smooth=Smooth.None));
@@ -21139,7 +21517,7 @@ QHP 2008 / Peritoneum
             extent={{6,3},{6,3}}));
         connect(busConnector.Glomerulus_GFR, flowMeasure4.volumeFlowRate)
           annotation (Line(
-            points={{-92,86},{-92,24},{-52,24}},
+            points={{-92,86},{-92,18},{-72,18}},
             color={0,0,255},
             thickness=0.5,
             smooth=Smooth.None));
@@ -21154,41 +21532,18 @@ QHP 2008 / Peritoneum
             thickness=1,
             smooth=Smooth.None));
         connect(Perm.y, NephronCountEffect.yBase) annotation (Line(
-            points={{-59,94},{-56,94},{-56,80}},
-            color={0,0,127},
-            smooth=Smooth.None));
-        connect(NephronCountEffect.y, glomerulus.conduction) annotation (Line(
-            points={{-56,74},{-56,66}},
+            points={{-69,82},{-64,82},{-64,74}},
             color={0,0,127},
             smooth=Smooth.None));
         connect(busConnector.Kidney_NephronCount_Total_xNormal,
           NephronCountEffect.u) annotation (Line(
-            points={{-92,86},{-92,78},{-64,78}},
+            points={{-92,86},{-92,72},{-72,72}},
             color={0,0,255},
             thickness=0.5,
             smooth=Smooth.None), Text(
             string="%first",
             index=-1,
             extent={{-6,3},{-6,3}}));
-          connect(plasma, glomerulusFlow.port_a) annotation (Line(
-              points={{-98,30},{-82,30},{-82,34.4}},
-              color={127,127,0},
-              thickness=1,
-              smooth=Smooth.None));
-          connect(glomerulus.q_in, glomerulusFlow.filtrate) annotation (Line(
-              points={{-66,58},{-66,44},{-67.8,44}},
-              color={127,127,0},
-              thickness=1,
-              smooth=Smooth.None));
-          connect(busConnector.KidneyPlasmaFlow, glomerulusFlow.solutionFlow)
-            annotation (Line(
-              points={{-92,86},{-92,44},{-85,44}},
-              color={0,0,255},
-              thickness=0.5,
-              smooth=Smooth.None), Text(
-              string="%first",
-              index=-1,
-              extent={{-6,3},{-6,3}}));
         connect(ADHEffect.y, distalTubule.solutionFlow) annotation (Line(
             points={{24,56},{24,53}},
             color={0,0,127},
@@ -21218,36 +21573,94 @@ QHP 2008 / Peritoneum
             color={127,127,0},
             thickness=1,
             smooth=Smooth.None));
+        connect(busConnector.GlomerulusBloodPressure, glomerulus2_1.GlomerularBloodPressure)
+          annotation (Line(
+            points={{-92,86},{-92,56},{-74,56}},
+            color={0,0,255},
+            thickness=0.5), Text(
+            string="%first",
+            index=-1,
+            extent={{-6,3},{-6,3}},
+            horizontalAlignment=TextAlignment.Right));
+        connect(PelvisPressure.y, glomerulus2_1.PelvisPressure)
+          annotation (Line(points={{-85,52},{-74,52}}, color={0,0,127}));
+        connect(busConnector.KidneyPlasmaFlow, glomerulus2_1.KidneyPlasmaInflow)
+          annotation (Line(
+            points={{-92,86},{-92,48},{-74,48}},
+            color={0,0,255},
+            thickness=0.5), Text(
+            string="%first",
+            index=-1,
+            extent={{-6,3},{-6,3}},
+            horizontalAlignment=TextAlignment.Right));
+        connect(NephronCountEffect.y, glomerulus2_1.NephroneConduction)
+          annotation (Line(points={{-64,68},{-64,60}}, color={0,0,127}));
+        connect(plasma, plasma) annotation (Line(
+            points={{-98,30},{-98,30}},
+            color={127,127,0},
+            thickness=1));
+        connect(glomerulus2_1.plasma, plasma) annotation (Line(
+            points={{-54,50},{-46,50},{-46,98},{-98,98},{-98,30}},
+            color={127,127,0},
+            thickness=1));
+        connect(glomerulus2_1.filtrate, flowMeasure4.q_in) annotation (Line(
+            points={{-64,40},{-64,28}},
+            color={127,127,0},
+            thickness=1));
         end Kidney;
 
-        model ZeroOsmol "Prescripted zero osmolarity"
-          extends Physiolibrary.Osmotic.Interfaces.OnePort;
+        model Glomerulus
 
+          Physiolibrary.Types.Pressure COP1 "afferent arteriole colloid osmotic pressure",
+                   COP2 "efferent arteriole osmotic pressure";
+
+          Physiolibrary.Types.Concentration c1 "afferent arteriole protein molar concentration",
+                        c2 "efferent arteriole protein molar concentration";
+
+          Physiolibrary.Types.VolumeFlowRate q1,q2;
+
+          Physiolibrary.Osmotic.Interfaces.OsmoticPort_a     plasma
+            annotation (Placement(transformation(extent={{90,-10},{110,10}})));
+          Physiolibrary.Osmotic.Interfaces.OsmoticPort_b     filtrate
+            annotation (Placement(transformation(extent={{-10,-110},{10,-90}})));
+
+            Physiolibrary.Types.Pressure filtrate_pressure;
+
+          Physiolibrary.Types.RealIO.PressureInput GlomerularBloodPressure
+            annotation (Placement(transformation(extent={{-120,40},{-80,80}})));
+          Physiolibrary.Types.RealIO.PressureInput PelvisPressure
+            annotation (Placement(transformation(extent={{-120,0},{-80,40}})));
+          Physiolibrary.Types.RealIO.VolumeFlowRateInput KidneyPlasmaInflow
+            annotation (Placement(transformation(extent={{-120,-40},{-80,0}})));
+          //Physiolibrary.Types.RealIO.HydraulicConductanceInput
+         Modelica.Blocks.Interfaces.RealInput NephroneConduction annotation (
+             Placement(transformation(
+                extent={{-20,-20},{20,20}},
+                rotation=270,
+                origin={0,100})));
         equation
-          q_in.o = 0;
 
-         annotation (
-            Icon(coordinateSystem(preserveAspectRatio=false,extent={{-100,
-                    -100},{100,100}}),
-                                graphics={
-                Text(
-                  extent={{-100,-80},{100,-54}},
-                  textString="%name",
-                  lineColor={0,0,255}),
-                Rectangle(
-                  extent={{-100,-50},{100,50}},
-                  lineColor={127,127,0},
-                  fillColor={255,255,255},
-                  fillPattern=FillPattern.Solid),
-                Text(
-                  extent={{-100,50},{14,12}},
-                  lineColor={0,0,255},
-                  textString="0 Osm")}),
-            Documentation(revisions="<html>
-<p><i>2009-2010</i></p>
-<p>Marek Matejak, Charles University, Prague, Czech Republic </p>
-</html>"));
-        end ZeroOsmol;
+          c1 = 1.4 "afferent protein concentration";
+
+          plasma.q + filtrate.q = 0 "glomerulus Fick law";
+
+          q1 = KidneyPlasmaInflow "plasma inflow";
+          q2 =(KidneyPlasmaInflow+filtrate.q) "plasma outflow (as positive number)";
+
+          q1*c1 = c2*q2 "protein flow";
+
+        //  COP1/c1 = 28*133/1.4 "afferent colloid pressure";
+        //  COP2/c2 = 28*133/1.4 "efferent colloid pressure";
+           COP1 = c1*Modelica.Constants.R*310.15;
+           COP2 = c2*Modelica.Constants.R*310.15;
+
+          filtrate_pressure = if
+                                (GlomerularBloodPressure-COP2<=0) then 0 else
+             (GlomerularBloodPressure-COP2);
+
+          filtrate.q = -NephroneConduction*(filtrate_pressure-PelvisPressure);
+
+        end Glomerulus;
       end Kidney;
 
     model Peritoneum_const
@@ -24017,7 +24430,7 @@ skeletalMuscle.FractOrganH2O <> 1, "Water.TissuesVolume.Tissues: Sum of FractOrg
       NumberOfMembraneTypes=2,
       volume_start=0.00302)
       "Plasma water with two membrane types: capillary (index 1) and cell membrane (index 2)"
-      annotation (Placement(transformation(extent={{-27,-5},{-7,15}})));
+      annotation (Placement(transformation(extent={{-27,-21},{-7,-1}})));
     QHP.Water.WaterCompartments.Torso MiddleTorso(
       InterstitialPressureVolumeData={{1200.0,-30.0,0.01},{4800.0,-4.8,0.0004},
           {12000.0,0.0,0.0004},{24000.0,50.0,0.01}},
@@ -24107,23 +24520,23 @@ skeletalMuscle.FractOrganH2O <> 1, "Water.TissuesVolume.Tissues: Sum of FractOrg
           thickness=0.5,
           smooth=Smooth.None));
     connect(plasma.q_in[1], Hemorrhage.q_in) annotation (Line(
-        points={{-17,4.5},{-17,42},{8,42},{8,55},{19.2,55}},
+        points={{-17,-11.5},{-17,42},{8,42},{8,55},{19.2,55}},
         color={127,127,0},
         thickness=1,
         smooth=Smooth.None));
     connect(plasma.q_in[1], Transfusion.q_out) annotation (Line(
-        points={{-17,4.5},{-17,42},{19.2,42}},
+        points={{-17,-11.5},{-17,42},{19.2,42}},
         color={127,127,0},
         thickness=1,
         smooth=Smooth.None));
     connect(plasma.q_in[1], IVDrip.q_out) annotation (Line(
-        points={{-17,4.5},{-17,42},{8,42},{8,29},{19.2,29}},
+        points={{-17,-11.5},{-17,42},{8,42},{8,29},{19.2,29}},
         color={127,127,0},
         thickness=1,
         smooth=Smooth.None));
     connect(busConnector.PlasmaProtein_Mass, plasma.impermeableSolutes[1])
       annotation (Line(
-        points={{-89,90},{-89,10},{-25,10}},
+        points={{-89,90},{-89,-6},{-25,-6}},
         color={0,0,255},
         thickness=0.5,
         smooth=Smooth.None), Text(
@@ -24131,11 +24544,11 @@ skeletalMuscle.FractOrganH2O <> 1, "Water.TissuesVolume.Tissues: Sum of FractOrg
         index=-1,
         extent={{-6,3},{-6,3}}));
     connect(plasma.volume, busConnector.PlasmaVol) annotation (Line(
-        points={{-11,-5},{-89,-5},{-89,90}},
+        points={{-11,-21},{-89,-21},{-89,90}},
         color={0,0,127},
         smooth=Smooth.None));
     connect(plasma.volume, busConnector.PlasmaVol_Vol) annotation (Line(
-        points={{-11,-5},{-89,-5},{-89,90}},
+        points={{-11,-21},{-89,-21},{-89,90}},
         color={0,0,127},
         smooth=Smooth.None));
       connect(busConnector, waterProperties.busConnector) annotation (Line(
@@ -24188,32 +24601,32 @@ skeletalMuscle.FractOrganH2O <> 1, "Water.TissuesVolume.Tissues: Sum of FractOrg
         thickness=0.5,
         smooth=Smooth.None));
     connect(plasma.q_in[2], GILumen.vascularH2O) annotation (Line(
-        points={{-17,5.5},{-17,5},{-20,5},{-20,64},{-36,64}},
+        points={{-17,-10.5},{-17,5},{-20,5},{-20,64},{-36,64}},
         color={127,127,0},
         thickness=1,
         smooth=Smooth.None));
     connect(UpperTorso.vascularH2O, plasma.q_in[1]) annotation (Line(
-        points={{25,-21},{4,-21},{4,4.5},{-17,4.5}},
+        points={{25,-21},{4,-21},{4,-11.5},{-17,-11.5}},
         color={127,127,0},
         thickness=1,
         smooth=Smooth.None));
     connect(MiddleTorso.vascularH2O, plasma.q_in[1]) annotation (Line(
-        points={{26,-52},{4,-52},{4,4.5},{-17,4.5}},
+        points={{26,-52},{4,-52},{4,-11.5},{-17,-11.5}},
         color={127,127,0},
         thickness=1,
         smooth=Smooth.None));
     connect(LowerTorso.vascularH2O, plasma.q_in[1]) annotation (Line(
-        points={{25,-80},{4,-80},{4,4.5},{-17,4.5}},
+        points={{25,-80},{4,-80},{4,-11.5},{-17,-11.5}},
         color={127,127,0},
         thickness=1,
         smooth=Smooth.None));
     connect(peritoneum_const.flux, plasma.q_in[1]) annotation (Line(
-        points={{83,-2},{68,-2},{68,4.5},{-17,4.5}},
+        points={{83,-2},{68,-2},{68,-11.5},{-17,-11.5}},
         color={127,127,0},
         thickness=1,
         smooth=Smooth.None));
     connect(Kidney.plasma, plasma.q_in[1]) annotation (Line(
-        points={{-37,-57},{-27,-57},{-27,4.5},{-17,4.5}},
+        points={{-37,-57},{-27,-57},{-27,-11.5},{-17,-11.5}},
         color={127,127,0},
         thickness=1,
         smooth=Smooth.None));
@@ -24229,7 +24642,7 @@ skeletalMuscle.FractOrganH2O <> 1, "Water.TissuesVolume.Tissues: Sum of FractOrg
         smooth=Smooth.None));
     connect(busConnector.PlasmaActiveOsmoles, plasma.impermeableSolutes[2])
       annotation (Line(
-        points={{-89,90},{-89,12},{-25,12}},
+        points={{-89,90},{-89,-4},{-25,-4}},
         color={0,0,255},
         thickness=0.5,
         smooth=Smooth.None));
@@ -24253,7 +24666,7 @@ skeletalMuscle.FractOrganH2O <> 1, "Water.TissuesVolume.Tissues: Sum of FractOrg
         thickness=1,
         smooth=Smooth.None));
     connect(plasma.q_in[1], lungEdema_const.q_in) annotation (Line(
-        points={{-17,4.5},{68,4.5},{68,25},{82,25},{82,28}},
+        points={{-17,-11.5},{68,-11.5},{68,25},{82,25},{82,28}},
         color={127,127,0},
         thickness=1,
         smooth=Smooth.None));
@@ -36963,7 +37376,7 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
           thickness=1,
           smooth=Smooth.None));
       connect(concentrationMeasure.q_in, AldoPool.q_out)    annotation (Line(
-          points={{-44,-4},{-39.2,-4},{-39.2,-16},{-40,-16}},
+          points={{-44,-2},{-39.2,-2},{-39.2,-16},{-40,-16}},
           color={200,0,0},
           smooth=Smooth.None));
       connect(AldoPool.q_out, Degradation.q_in) annotation (Line(
@@ -37016,11 +37429,11 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
         color={0,0,127},
         smooth=Smooth.None));
     connect(concentrationMeasure.concentration, Aldo) annotation (Line(
-        points={{-44,2},{-44,44},{-26,44}},
+        points={{-44,-10},{-44,44},{-26,44}},
         color={0,0,127},
         smooth=Smooth.None));
     connect(busConnector.Aldosterone, concentrationMeasure.concentration) annotation (Line(
-        points={{-90,90},{-90,2},{-44,2}},
+        points={{-90,90},{-90,-10},{-44,-10}},
         color={0,0,255},
         thickness=0.5,
         smooth=Smooth.None), Text(
@@ -38014,7 +38427,7 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
           index=1,
           extent={{6,3},{6,3}}));
     connect(Angiotensin2, A2Effect.u) annotation (Line(
-        points={{80,78},{98,78},{98,56},{80,56}},
+        points={{80,78},{96,78},{96,56},{80,56}},
         color={0,0,127},
         smooth=Smooth.None));
       annotation ( Icon(coordinateSystem(
@@ -50708,11 +51121,8 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
         useNormalizedVolume=false,
         solute_start=(13)/1000)
         annotation (Placement(transformation(extent={{28,-102},{48,-82}})));
-      Physiolibrary.Chemical.Components.Stream VasaRectaOutflow(
-          useSolutionFlowInput=true)
-        annotation (Placement(transformation(extent={{-4,-100},{-20,-84}})));
-        Modelica.Blocks.Math.Gain gain(k=0.03)
-          annotation (Placement(transformation(extent={{-28,-88},{-20,-80}})));
+        Modelica.Blocks.Math.Gain gain(k=0.046)
+          annotation (Placement(transformation(extent={{-70,-90},{-62,-82}})));
       Physiolibrary.Chemical.Sensors.MolarFlowMeasure flowMeasure4
         annotation (Placement(transformation(extent={{64,-68},{44,-88}})));
       Physiolibrary.Chemical.Sensors.MolarFlowMeasure flowMeasure5
@@ -50734,8 +51144,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
         Xscale=1e-8/Physiomodel.Substances.Aldosterone.mw,
         initialValue=12) "12 ng/dl = 12e-8 kg/m3"
         annotation (Placement(transformation(extent={{54,-38},{74,-18}})));
-        Modelica.Blocks.Math.Division division(y(unit="mol/m3"))
-          annotation (Placement(transformation(extent={{80,-16},{86,-10}})));
 
         Physiolibrary.Chemical.Sensors.ConcentrationMeasure concentrationMeasure2 annotation (Placement(
               transformation(
@@ -50759,6 +51167,11 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
             origin={35,-73})));
       Modelica.Blocks.Math.Gain gain1(k=Modelica.Constants.F)
         annotation (Placement(transformation(extent={{-62,48},{-52,58}})));
+      SafeDiv safeDiv
+        annotation (Placement(transformation(extent={{-30,-44},{-10,-24}})));
+      Physiolibrary.Chemical.Components.Diffusion VasaRecta(useConductanceInput
+          =true)
+        annotation (Placement(transformation(extent={{-24,-102},{-4,-82}})));
       equation
 
       connect(glomerulusSudiumRate.solutionFlow, busConnector.GlomerulusFiltrate_GFR)
@@ -50959,17 +51372,8 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
             color={200,0,0},
             smooth=Smooth.None,
             thickness=1));
-        connect(Medulla.q_out, VasaRectaOutflow.q_in) annotation (Line(
-            points={{38,-92},{-4,-92}},
-            color={200,0,0},
-            smooth=Smooth.None,
-            thickness=1));
-      connect(gain.y, VasaRectaOutflow.solutionFlow) annotation (Line(
-          points={{-19.6,-84},{-12,-84},{-12,-86.4}},
-          color={0,0,127},
-          smooth=Smooth.None));
         connect(busConnector.VasaRecta_Outflow, gain.u) annotation (Line(
-            points={{-92,92},{-98.4,92},{-98.4,-84},{-28.8,-84}},
+            points={{-92,92},{-98.4,92},{-98.4,-86},{-70.8,-86}},
             color={0,0,127},
             smooth=Smooth.None), Text(
        string="%first",
@@ -51088,18 +51492,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
           string="%second",
           index=1,
           extent={{6,3},{6,3}}));
-      connect(flowMeasure1.molarFlowRate, division.u1) annotation (Line(
-          points={{88,-72},{88,-24},{74,-24},{74,-11.2},{79.4,-11.2}},
-          color={0,0,127},
-          smooth=Smooth.None));
-        connect(busConnector.LH_H2O_Outflow, division.u2) annotation (Line(
-            points={{-92,92},{-98,92},{-98,-6},{56,-6},{56,-14.8},{79.4,-14.8}},
-            color={0,0,255},
-            thickness=0.5,
-            smooth=Smooth.None), Text(
-            string="%first",
-            index=-1,
-            extent={{-6,3},{-6,3}}));
 
         connect(Medulla.q_out, concentrationMeasure2.q_in) annotation (Line(
             points={{38,-92},{52,-92},{52,-95},{57,-95}},
@@ -51148,11 +51540,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
             color={200,0,0},
             thickness=1,
             smooth=Smooth.None));
-        connect(VasaRectaOutflow.q_out, q_in) annotation (Line(
-            points={{-20,-92},{-55,-92},{-55,5}},
-            color={200,0,0},
-            thickness=1,
-            smooth=Smooth.None));
         connect(flowMeasure3.q_out, q_out) annotation (Line(
             points={{-10,-64},{-16,-64},{-16,-63}},
             color={200,0,0},
@@ -51170,13 +51557,6 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
             points={{28,-70},{28,-73},{31.25,-73}},
             color={0,0,127},
             smooth=Smooth.None));
-        connect(division.y, busConnector.MD_Na) annotation (Line(
-            points={{86.3,-13},{100,-13},{100,92},{-92,92}},
-            color={0,0,127},
-            smooth=Smooth.None), Text(
-            string="%second",
-            index=1,
-            extent={{6,3},{6,3}}));
       connect(concentrationMeasure2.concentration, Osm.u) annotation (Line(
           points={{49.8,-95},{64.3,-95},{64.3,-101},{67.4,-101}},
           color={0,0,127},
@@ -51236,6 +51616,34 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
           string="%first",
           index=-1,
           extent={{-6,3},{-6,3}}));
+      connect(flowMeasure1.molarFlowRate, safeDiv.molarFlowRate) annotation (
+          Line(points={{88,-72},{-78,-72},{-78,-30},{-30,-30}}, color={0,0,127}));
+      connect(busConnector.LH_H2O_Outflow, safeDiv.volumeFlowRate) annotation (
+          Line(
+          points={{-92,92},{-98,92},{-98,-38},{-30,-38}},
+          color={0,0,255},
+          thickness=0.5), Text(
+          string="%first",
+          index=-1,
+          extent={{-3,-6},{-3,-6}},
+          horizontalAlignment=TextAlignment.Right));
+      connect(safeDiv.concentration, busConnector.MD_Na) annotation (Line(
+            points={{-9,-34},{62,-34},{62,-28},{118,-28},{118,92},{-92,92}},
+            color={0,0,127}), Text(
+          string="%second",
+          index=1,
+          extent={{6,3},{6,3}},
+          horizontalAlignment=TextAlignment.Left));
+      connect(VasaRecta.q_out, Medulla.q_out) annotation (Line(
+          points={{-4,-92},{38,-92}},
+          color={107,45,134},
+          thickness=1));
+      connect(VasaRecta.q_in, q_in) annotation (Line(
+          points={{-24,-92},{-40,-92},{-40,5},{-55,5}},
+          color={107,45,134},
+          thickness=1));
+      connect(VasaRecta.conductance, gain.y) annotation (Line(points={{-14,-88},
+              {-14,-86},{-61.6,-86}}, color={0,0,127}));
         annotation ( Icon(coordinateSystem(
                 preserveAspectRatio=true, extent={{-100,-100},{100,100}}),
               graphics={Text(
@@ -51270,6 +51678,22 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
 
 </html>"));
       end KidneyNa;
+
+      model SafeDiv
+
+        Physiolibrary.Types.RealIO.MolarFlowRateInput molarFlowRate
+          annotation (Placement(transformation(extent={{-120,20},{-80,60}})));
+        Physiolibrary.Types.RealIO.VolumeFlowRateInput volumeFlowRate
+          annotation (Placement(transformation(extent={{-120,-60},{-80,-20}})));
+        Physiolibrary.Types.RealIO.ConcentrationOutput concentration
+          annotation (Placement(transformation(extent={{100,-10},{120,10}})));
+
+      equation
+        concentration =smooth(2,noEvent( if (molarFlowRate <= Modelica.Constants.eps) then Modelica.Constants.eps else molarFlowRate/volumeFlowRate));
+                          // molarFlowRate/volumeFlowRate;
+                        //smooth(2,noEvent(
+        annotation ();
+      end SafeDiv;
     end Sodium;
 
     package Potassium "Body Potassium Distribution"
@@ -66161,6 +66585,9 @@ exchange")}),                                                          Diagram(
       Physiolibrary.Types.RealTypes.MolarFlowRate
                       DialyzerActivity_UreaFlux(varName="DialyzerActivity.UreaFlux")
       annotation (Placement(transformation(extent={{-84,-92},{-78,-86}})));
+      Physiolibrary.Types.RealTypes.Fraction
+                 LegMusclePump_Effect1(varName="Exercise-MusclePump.Effect")
+      annotation (Placement(transformation(extent={{-140,16},{-134,22}})));
       equation
         connect( Gravity_Gz.y,busConnector.Gravity_Gz)          annotation (Line(
             points={{-73.7,89},{90,89},{90,-2}},
@@ -66607,6 +67034,13 @@ exchange")}),                                                          Diagram(
             index=1,
             extent={{6,3},{6,3}},
             horizontalAlignment=TextAlignment.Left));
+      connect(LegMusclePump_Effect1.y, busConnector.Exercise_MusclePump_Effect)
+        annotation (Line(points={{-133.7,19},{-46,19},{-46,-10},{86,-10},{86,-6},
+              {90,-6},{90,-2}}, color={0,0,127}), Text(
+          string="%second",
+          index=1,
+          extent={{6,3},{6,3}},
+          horizontalAlignment=TextAlignment.Left));
         annotation (Icon(coordinateSystem(preserveAspectRatio=true,  extent={{-100,
                   -100},{100,100}}), graphics={Text(
                 extent={{-120,-42},{122,-76}},
