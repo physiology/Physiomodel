@@ -37,6 +37,12 @@ model Physiomodel_Main "Main model"
     annotation (Placement(transformation(extent={{-280,-76},{-260,-56}})));
   Physiomodel.Setup.ConstantSetup constant_Setup
     annotation (Placement(transformation(extent={{-16,-84},{4,-64}})));
+  Physiolibrary.Types.Constants.VolumeFlowRateConst ECMO_BloodFlow(k=
+        8.3333333333333e-5)
+    annotation (Placement(transformation(extent={{-42,74},{-34,82}})));
+  Physiolibrary.Types.Constants.VolumeFlowRateConst ECMO_Ventilation(k=
+        8.3333333333333e-5)
+    annotation (Placement(transformation(extent={{-42,60},{-34,68}})));
 equation
 
   connect(status.busConnector, busConnector) annotation (Line(
@@ -96,6 +102,18 @@ equation
       points={{-3.4,-71.8},{-3.4,-48},{8,-48},{8,-42},{-58,-42}},
       color={0,0,255},
       thickness=0.5));
+  connect(ECMO_BloodFlow.y, busConnector.ECMO_BloodFlow) annotation (Line(
+        points={{-33,78},{-16,78},{-16,90},{0,90}}, color={0,0,127}), Text(
+      string="%second",
+      index=1,
+      extent={{6,3},{6,3}},
+      horizontalAlignment=TextAlignment.Left));
+  connect(ECMO_Ventilation.y, busConnector.ECMO_Ventilation) annotation (Line(
+        points={{-33,64},{-14,64},{-14,90},{0,90}}, color={0,0,127}), Text(
+      string="%second",
+      index=1,
+      extent={{6,3},{6,3}},
+      horizontalAlignment=TextAlignment.Left));
   annotation ( Documentation(info="<html>
 <p><h4><font color=\"#008000\">QHP Golem Edition</font></h4></p>
 <p>Signal bus connect all submodels with their signal inputs/outputs variables.</p>

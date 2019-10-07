@@ -9178,10 +9178,10 @@ QHP 2008 / LeftHeart-Flow
     Circulation.PulmonaryCirculation pulmonaryCirculation
       annotation (Placement(transformation(extent={{2,50},{30,78}})));
     Circulation.SystemicCirculationFullDynamic systemicCirculation
-      annotation (Placement(transformation(extent={{-2,-68},{32,-34}})));
+      annotation (Placement(transformation(extent={{-2,-92},{32,-58}})));
     Physiolibrary.Types.BusConnector busConnector
       "signals of organ bood flow resistence" annotation (Placement(
-          transformation(extent={{-38,-8},{-16,14}}), iconTransformation(extent=
+          transformation(extent={{-38,-18},{-16,4}}), iconTransformation(extent=
              {{-100,60},{-60,100}})));
     Blood.RedCells2 redCells(RBCBaseSecretionRate(k(displayUnit="m3/s")))
       annotation (Placement(transformation(extent={{-34,26},{-54,46}})));
@@ -9194,42 +9194,44 @@ QHP 2008 / LeftHeart-Flow
   end if;
 */
 
+    Physiolibrary.Hydraulic.Components.Pump ECMO(useSolutionFlowInput=true)
+      annotation (Placement(transformation(extent={{6,-36},{26,-16}})));
     equation
       connect(busConnector, pulmonaryCirculation.busConnector) annotation (
           Line(
-          points={{-27,3},{-26,3},{-26,71},{2,71}},
+          points={{-27,-7},{-26,-7},{-26,71},{2,71}},
           color={0,0,255},
           thickness=0.5,
           smooth=Smooth.None));
       connect(busConnector, systemicCirculation.busConnector) annotation (
           Line(
-          points={{-27,3},{-26,3},{-26,-44.2},{-2.34,-44.2}},
+          points={{-27,-7},{-26,-7},{-26,-68.2},{-2.34,-68.2}},
           color={0,0,255},
           thickness=0.5,
           smooth=Smooth.None));
       connect(busConnector, redCells.busConnector)    annotation (Line(
-          points={{-27,3},{-26,3},{-26,42.8},{-36.2,42.8}},
+          points={{-27,-7},{-26,-7},{-26,42.8},{-36.2,42.8}},
           color={0,0,255},
           thickness=0.5,
           smooth=Smooth.None));
       connect(busConnector, bloodProperties.busConnector) annotation (Line(
-          points={{-27,3},{-26,3},{-26,-17.2},{-36.6,-17.2}},
+          points={{-27,-7},{-26,-7},{-26,-17.2},{-36.6,-17.2}},
           color={0,0,255},
           thickness=0.5,
           smooth=Smooth.None));
       connect(busConnector, heart.busConnector) annotation (Line(
-          points={{-27,3},{-25.5,3},{-25.5,3.1},{0,3.1}},
+          points={{-27,-7},{-25.5,-7},{-25.5,3.1},{0,3.1}},
           color={0,0,255},
           thickness=0.5,
           smooth=Smooth.None));
       connect(heart.fromLeftVentricle, systemicCirculation.q_in) annotation (
           Line(
-          points={{16.12,3.36},{16.12,18},{32,18},{32,-51}},
+          points={{16.12,3.36},{16.12,18},{32,18},{32,-75}},
           color={0,0,0},
           thickness=1,
           smooth=Smooth.None));
       connect(systemicCirculation.q_out, heart.rightAtrium) annotation (Line(
-          points={{-2,-51},{-4,-51},{-4,12.2},{5.72,12.2}},
+          points={{-2,-75},{-4,-75},{-4,12.2},{5.72,12.2}},
           color={0,0,0},
           thickness=1,
           smooth=Smooth.None));
@@ -9247,6 +9249,22 @@ QHP 2008 / LeftHeart-Flow
 
     //  stateValue = bloodProperties.BloodVolume1.y;
 
+    connect(busConnector.ECMO_BloodFlow, ECMO.solutionFlow) annotation (Line(
+        points={{-27,-7},{16,-7},{16,-19}},
+        color={0,0,255},
+        thickness=0.5), Text(
+        string="%first",
+        index=-1,
+        extent={{-3,6},{-3,6}},
+        horizontalAlignment=TextAlignment.Right));
+    connect(heart.rightAtrium, ECMO.q_in) annotation (Line(
+        points={{5.72,12.2},{-4.14,12.2},{-4.14,-26},{6,-26}},
+        color={0,0,0},
+        thickness=1));
+    connect(heart.fromLeftVentricle, ECMO.q_out) annotation (Line(
+        points={{16.12,3.36},{16,3.36},{16,18},{32,18},{32,-26},{26,-26}},
+        color={0,0,0},
+        thickness=1));
       annotation ( Documentation(info="<html>
 <p><h4><font color=\"#008000\">Cardiovascular system</font></h4></p>
 <p><font style=\"color: #008000; \">Connect heart with pulmonary and systemic part. This connection contains pressures and blood flows before and after heart.</font></p>
