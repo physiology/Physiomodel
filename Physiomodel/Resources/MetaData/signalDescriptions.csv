@@ -85,11 +85,11 @@ ECFV.Vol;Extracellular fluid volume.
 EpiPool.[Epi(pG/mL)];Epinephrine extracelular concentration.
 EPOPool.Log10Conc;Dacimal logarithm of erythropoetin concentration.
 ExcessLungWater.Volume;Pulmonary edema water.
-Exercise-Metabolism.ContractionRate;Rate of muscle contraction through excercise.
+Exercise-Metabolism.ContractionRate;Rate of muscle contraction through exercise.
 Exercise-Metabolism.MotionCals;Calories consumed with exercise.
-Exercise-Metabolism.MotionWatts;Mechanical performance of excercise.
-Exercise-Metabolism.TotalWatts;Termodynamical performance of excercise.
-Exercise-MusclePump.Effect;Excercise effect to blood flow through veins with valves.
+Exercise-Metabolism.MotionWatts;Mechanical performance of exercise.
+Exercise-Metabolism.TotalWatts;Termodynamical performance of exercise.
+Exercise-MusclePump.Effect;Exercise effect to blood flow through veins with valves.
 Fat-CO2.OutflowBase;Fat carbondioxyde outflow from cells metabolism.
 Fat-Flow.BloodFlow;Fat blood flow.
 Fat-Flow.O2Use;Fat oxygen consumption.
@@ -112,7 +112,7 @@ GILumenDiarrhea.K+Loss;Outflow of potassium by diarrhea.
 GILumenDiarrhea.Na+Loss;Outflow of sodium by diarrhea.
 GILumenPotassium.Mass;Potasium mass in intestines.
 GILumenSodium.Mass;Sodium mass in intestines.
-GILumenVolume.Absorption;Water absorbtion through intestines.
+GILumenVolume.Absorption;Water absorption through intestines.
 GILumenVolume.Intake;Water intake to intestines.
 GILumenVolume.Mass;Water in intestines.
 GILumenVomitus.Cl-Loss;Chloride outflow by vomitus.
