@@ -70978,7 +70978,7 @@ exchange")}),                                                          Diagram(
 </html>"));
   end Status;
 
-  annotation (uses(Modelica(version="3.2.2"), Physiolibrary(version="2.3.2")),                           Documentation(revisions="<html>
+  annotation (uses(Modelica(version="3.2.2"), Physiolibrary(version="3.0.0")),                           Documentation(revisions="<html>
 <table cellspacing=\"2\" cellpadding=\"0\" border=\"0\"><tr>
 <td><p>Author:</p></td>
 <td><p>Marek Matejak</p></td>
