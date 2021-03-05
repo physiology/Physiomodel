@@ -10132,8 +10132,8 @@ QHP 2008 / LeftHeart-Flow
           annotation (Placement(transformation(extent={{-70,-16},{-50,4}})));
         Physiolibrary.Hydraulic.Sources.UnlimitedVolume veins
           annotation (Placement(transformation(extent={{72,-16},{52,4}})));
-        Modelica.Blocks.Sources.Clock MAP(offset=40*1e9)
-          annotation (Placement(transformation(extent={{-98,24},{-78,44}})));
+      Modelica.Blocks.Sources.ContinuousClock MAP(offset=40*1e9)
+        annotation (Placement(transformation(extent={{-98,24},{-78,44}})));
         Modelica.Blocks.Math.Gain torr_to_Pa(k=133*1e-9)
           annotation (Placement(transformation(extent={{-60,24},{-40,44}})));
         Hormones.Aldosterone
@@ -19220,29 +19220,29 @@ The Real output y is a constant signal:
 
          parameter Real TiltTable_Degrees( final quantity="Angle", final displayUnit="Deg")= 0;
 
-        TorsoHydrostatics UpperTorsoHydrostatics(
-          artyFractGz={0,1,1,sin(Modelica.SIunits.Conversions.from_deg(
-              TiltTable_Degrees)),1.76947},
-          veinFractGz={0,1,1,sin(Modelica.SIunits.Conversions.from_deg(
-              TiltTable_Degrees)),1.76947},
-          TorsoHeight=-0.1)
-          annotation (Placement(transformation(extent={{-12,34},{16,62}})));
+      TorsoHydrostatics UpperTorsoHydrostatics(
+        artyFractGz={0,1,1,sin(Modelica.Units.Conversions.from_deg(TiltTable_Degrees)),
+            1.76947},
+        veinFractGz={0,1,1,sin(Modelica.Units.Conversions.from_deg(TiltTable_Degrees)),
+            1.76947},
+        TorsoHeight=-0.1)
+        annotation (Placement(transformation(extent={{-12,34},{16,62}})));
 
-        TorsoHydrostatics LowerTorsoHydrostatics(
-          artyFractGz={0,0.7,1,sin(Modelica.SIunits.Conversions.from_deg(
-              TiltTable_Degrees)),0.0190301},
-          veinFractGz={0.2,0.7,1,0.2 + sin(Modelica.SIunits.Conversions.from_deg(
-              TiltTable_Degrees)),0.0190301},
-          TorsoHeight=0.5)
-          annotation (Placement(transformation(extent={{-12,-42},{16,-14}})));
+      TorsoHydrostatics LowerTorsoHydrostatics(
+        artyFractGz={0,0.7,1,sin(Modelica.Units.Conversions.from_deg(TiltTable_Degrees)),
+            0.0190301},
+        veinFractGz={0.2,0.7,1,0.2 + sin(Modelica.Units.Conversions.from_deg(
+            TiltTable_Degrees)),0.0190301},
+        TorsoHeight=0.5)
+        annotation (Placement(transformation(extent={{-12,-42},{16,-14}})));
 
-        TorsoHydrostatics MiddleTorsoHydrostatics(
-          artyFractGz={0,1,1,sin(Modelica.SIunits.Conversions.from_deg(
-              TiltTable_Degrees)),-0.00024891},
-          veinFractGz={0,1,1,sin(Modelica.SIunits.Conversions.from_deg(
-              TiltTable_Degrees)),-0.00024891},
-          TorsoHeight=0.04)
-          annotation (Placement(transformation(extent={{-12,-4},{16,24}})));
+      TorsoHydrostatics MiddleTorsoHydrostatics(
+        artyFractGz={0,1,1,sin(Modelica.Units.Conversions.from_deg(TiltTable_Degrees)),
+            -0.00024891},
+        veinFractGz={0,1,1,sin(Modelica.Units.Conversions.from_deg(TiltTable_Degrees)),
+            -0.00024891},
+        TorsoHeight=0.04)
+        annotation (Placement(transformation(extent={{-12,-4},{16,24}})));
 
       Physiolibrary.Types.Constants.FractionConst             PumpEffect(k=1)
         annotation (Placement(transformation(extent={{-40,32},{-36,36}})));
@@ -28443,8 +28443,17 @@ annotation (Placement(transformation(extent={{-42,64},{-24,82}})));*/
       annotation (Placement(transformation(extent={{67,-40},{87,-20}}),
           iconTransformation(extent={{-38,90},{-18,110}})));  //(q(final displayUnit="mg/min"), conc(final displayUnit="mg/ml")) "in mg/ml"
 
-     Modelica.SIunits.Power gluW=glucose.q*glucoseEnergy, gluO2W=O2UseByGlu*oxygenEnergy, lacW=lactate.q*lactateEnergy, lacO2W=LacFraction.val * CalsUse, anaerobicGluW=glucoseAnaerobicEnergy *(glucose.q - (O2UseByGlu*oxygenEnergy)/glucoseEnergy), anaerobicGlyW=glycogenAnaerobicEnergy*glycogen.q;
-      Modelica.SIunits.MolarFlowRate anaerobicGluGly=((glucose.q - (O2UseByGlu*oxygenEnergy)/glucoseEnergy) + glycogen.q), anaerobicProducedLac=(lactate.q - LacFraction.val * CalsUse/lactateEnergy);
+    Modelica.Units.SI.Power gluW=glucose.q*glucoseEnergy;
+    Modelica.Units.SI.Power gluO2W=O2UseByGlu*oxygenEnergy;
+    Modelica.Units.SI.Power lacW=lactate.q*lactateEnergy;
+    Modelica.Units.SI.Power lacO2W=LacFraction.val*CalsUse;
+    Modelica.Units.SI.Power anaerobicGluW=glucoseAnaerobicEnergy*(glucose.q - (
+        O2UseByGlu*oxygenEnergy)/glucoseEnergy);
+    Modelica.Units.SI.Power anaerobicGlyW=glycogenAnaerobicEnergy*glycogen.q;
+    Modelica.Units.SI.MolarFlowRate anaerobicGluGly=((glucose.q - (O2UseByGlu*
+        oxygenEnergy)/glucoseEnergy) + glycogen.q);
+    Modelica.Units.SI.MolarFlowRate anaerobicProducedLac=(lactate.q - LacFraction.val*
+        CalsUse/lactateEnergy);
     equation
      AerobicFraction.u = pO2;
      LacFraction.u = lactate.conc; // * lacDensity * 100.0; //  [mg/dl]
@@ -36495,9 +36504,9 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
                 -110},{10,-90}}, rotation=0),
                              iconTransformation(extent={{90,20},{110,40}})));
 
-        parameter Modelica.SIunits.StoichiometricNumber a=1
+      parameter Modelica.Units.SI.StoichiometricNumber a=1
         "Stoichiometric number of solute A";
-        parameter Modelica.SIunits.StoichiometricNumber b=1
+      parameter Modelica.Units.SI.StoichiometricNumber b=1
         "Stoichiometric number of solute B";
 
       equation
@@ -39947,19 +39956,19 @@ annotation (Placement(transformation(extent={{-36,-46},{-30,-40}})));*/
       model OvarianCycle
 
         Modelica.StateGraph.InitialStepWithSignal FOLLICULAR(
-                                                   nIn=3)
+                                                   nIn=3, nOut=1)
           annotation (Placement(transformation(extent={{-94,18},{-74,38}})));
         Modelica.StateGraph.TransitionWithSignal Follicle
           annotation (Placement(transformation(extent={{-68,38},{-48,18}})));
         Modelica.StateGraph.StepWithSignal OVULATORY(
-                                           nOut=2)
+                                           nOut=2, nIn=1)
           annotation (Placement(transformation(extent={{-42,18},{-22,38}})));
         Modelica.StateGraph.TransitionWithSignal Ovulation
           annotation (Placement(transformation(extent={{-10,38},{10,18}})));
         Modelica.StateGraph.StepWithSignal LUTEAL(
-                                        nOut=2)
+                                        nOut=2, nIn=1)
           annotation (Placement(transformation(extent={{16,18},{36,38}})));
-        Modelica.StateGraph.StepWithSignal IDLE
+        Modelica.StateGraph.StepWithSignal IDLE(nIn=1, nOut=1)
           annotation (Placement(transformation(extent={{74,18},{94,38}})));
         Modelica.StateGraph.TransitionWithSignal CorpusLuteum
           annotation (Placement(transformation(extent={{48,38},{68,18}})));
@@ -51169,8 +51178,8 @@ annotation (Placement(transformation(extent={{-108,-106},{-102,-100}})));
         annotation (Placement(transformation(extent={{-62,48},{-52,58}})));
       SafeDiv safeDiv
         annotation (Placement(transformation(extent={{-30,-44},{-10,-24}})));
-      Physiolibrary.Chemical.Components.Diffusion VasaRecta(useConductanceInput
-          =true)
+      Physiolibrary.Chemical.Components.Diffusion VasaRecta(useConductanceInput=
+           true)
         annotation (Placement(transformation(extent={{-24,-102},{-4,-82}})));
       equation
 
@@ -69772,7 +69781,7 @@ exchange")}),                                                          Diagram(
 
     model PatientStatus
       extends Physiolibrary.Icons.StatusNormal;
-      Normal normal
+      Normal normal(nIn=1, nOut=1)
         annotation (Placement(transformation(extent={{-66,34},{-46,54}})));
       Confused confused(                          nOut=2, nIn=2)
         annotation (Placement(transformation(extent={{-24,34},{-4,54}})));
@@ -69786,9 +69795,9 @@ exchange")}),                                                          Diagram(
         annotation (Placement(transformation(extent={{88,-52},{68,-32}})));
       NotBreathing notBreathing(                      nOut=2, nIn=3)
         annotation (Placement(transformation(extent={{44,-52},{24,-32}})));
-      MayBeDead mayBeDead(                         nOut=2)
+      MayBeDead mayBeDead(                         nOut=2, nIn=1)
         annotation (Placement(transformation(extent={{-12,-52},{-32,-32}})));
-      IsReallyDead isReallyDead
+      IsReallyDead isReallyDead(nIn=1, nOut=1)
         annotation (Placement(transformation(extent={{-64,-52},{-84,-32}})));
       Modelica.Blocks.Interfaces.RealInput BrainFunctionEffect
                                                    annotation (Placement(
@@ -70141,38 +70150,38 @@ exchange")}),                                                          Diagram(
     end PatientStatus;
 
     block Normal
-      extends Modelica.StateGraph.InitialStepWithSignal;
-      extends Physiolibrary.Icons.StatusNormal;
+      extends Modelica.StateGraph.InitialStepWithSignal(nIn=1, nOut=1);
+      extends Physiolibrary.Icons.StatusNormal(nIn=1, nOut=1);
     end Normal;
 
     block Confused
-      extends Modelica.StateGraph.StepWithSignal;
-      extends Physiolibrary.Icons.StatusConfused;
+      extends Modelica.StateGraph.StepWithSignal(nIn=1, nOut=1);
+      extends Physiolibrary.Icons.StatusConfused(nIn=1, nOut=1);
     end Confused;
 
     block Impaired
-      extends Modelica.StateGraph.StepWithSignal;
-      extends Physiolibrary.Icons.StatusImpaired;
+      extends Modelica.StateGraph.StepWithSignal(nIn=1, nOut=1);
+      extends Physiolibrary.Icons.StatusImpaired(nIn=1, nOut=1);
     end Impaired;
 
     block Comatose
-      extends Modelica.StateGraph.StepWithSignal;
-      extends Physiolibrary.Icons.StatusComatose;
+      extends Modelica.StateGraph.StepWithSignal(nIn=1, nOut=1);
+      extends Physiolibrary.Icons.StatusComatose(nIn=1, nOut=1);
     end Comatose;
 
     block NotBreathing
-      extends Modelica.StateGraph.StepWithSignal;
-      extends Physiolibrary.Icons.StatusNotBreathing;
+      extends Modelica.StateGraph.StepWithSignal(nIn=1, nOut=1);
+      extends Physiolibrary.Icons.StatusNotBreathing(nIn=1, nOut=1);
     end NotBreathing;
 
     block MayBeDead
-      extends Modelica.StateGraph.StepWithSignal;
-      extends Physiolibrary.Icons.StatusMayBeDead;
+      extends Modelica.StateGraph.StepWithSignal(nIn=1, nOut=1);
+      extends Physiolibrary.Icons.StatusMayBeDead(nIn=1, nOut=1);
     end MayBeDead;
 
     block IsReallyDead
-      extends Modelica.StateGraph.StepWithSignal;
-      extends Physiolibrary.Icons.StatusIsReallyDead;
+      extends Modelica.StateGraph.StepWithSignal(nIn=1, nOut=1);
+      extends Physiolibrary.Icons.StatusIsReallyDead(nIn=1, nOut=1);
     end IsReallyDead;
 
     package Tissues
@@ -70978,7 +70987,7 @@ exchange")}),                                                          Diagram(
 </html>"));
   end Status;
 
-  annotation (uses(Modelica(version="3.2.2"), Physiolibrary(version="3.0.0")),                           Documentation(revisions="<html>
+  annotation (uses(Modelica(version="4.0.0"), Physiolibrary(version="2.3.3")),                           Documentation(revisions="<html>
 <table cellspacing=\"2\" cellpadding=\"0\" border=\"0\"><tr>
 <td><p>Author:</p></td>
 <td><p>Marek Matejak</p></td>
@@ -70990,6 +70999,6 @@ exchange")}),                                                          Diagram(
 </table>
 <p><br>Copyright &copy; 2008-2015 Marek Matejak. All rights reserved.</p>
 </html>"),
-  version="1.0.1-beta",
-  conversion(noneFromVersion="1.0.0"));
+  version="1.1.0",
+  conversion(noneFromVersion="1.0.0", noneFromVersion="1.0.1-beta"));
 end Physiomodel;
