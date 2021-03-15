@@ -33,8 +33,6 @@ model Physiomodel_Main "Main model"
   Physiolibrary.Types.BusConnector busConnector
     annotation (Placement(transformation(extent={{-20,70},{20,110}}),
         iconTransformation(extent={{-20,70},{20,110}})));
-  Physiomodel.Setup.ConstantSetup constantSetup
-    annotation (Placement(transformation(extent={{-280,-76},{-260,-56}})));
   Physiomodel.Setup.ConstantSetup constant_Setup
     annotation (Placement(transformation(extent={{-16,-84},{4,-64}})));
 equation
